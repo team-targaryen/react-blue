@@ -22,6 +22,7 @@ const mainReducer = (state=initialState, action) => {
             let componentList = Object.assign(state.componentList);
 
             componentList[id].name = name;
+            console.log('componentList[id].name: ', componentList[id].name);
 
             return {
                 ...state,

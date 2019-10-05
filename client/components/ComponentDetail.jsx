@@ -6,9 +6,10 @@
 //
 import React from 'react';
 
-const ComponentDetail = ({ renameComponent, changeType, deleteComponent, currentComponentId }) => (
+
+const ComponentDetail = ({ renameComponent, changeType, deleteComponent, currentComponentId, isComponent }) => (
     <div className='componentDetail'>
-        <input className='componentName' type='text' onChange={() => renameComponent(event, currentComponentId)} />
+        <input className='componentName' type='text' onChange={() => renameComponent(event, currentComponentId)} />    
     </div>
 );
 

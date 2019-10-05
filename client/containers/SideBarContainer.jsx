@@ -28,6 +28,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators(
     dispatch);
 
 const SideBarContainer = (props) => {
+    
     return ( 
     <div className="SideBarContainer">
         <ComponentDetail 
@@ -35,6 +36,7 @@ const SideBarContainer = (props) => {
             changeType={props.changeType}
             deleteComponent={props.deleteComponent}
             currentComponentId={props.currentComponentId}
+            isComponent={props.componentList[props.currentComponentId].isComponent}
         />
         {/* <ChildrenList 
             updateChildrenList={props.updateChildrenList}
