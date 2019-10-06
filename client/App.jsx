@@ -7,6 +7,7 @@ import TopNavBarContainer from './containers/TopNavBarContainer.jsx';
 const App = () => (
   <div>
     <h1>React Blue</h1>
+    <MainDisplayContainer/>
   </div>
 );
 
