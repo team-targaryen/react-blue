@@ -10,12 +10,13 @@ import { bindActionCreators } from 'redux';
 
 // import child components
 import ComponentDetail from '../components/ComponentDetail.jsx';
-// import ChildrenList from '../components/ChildrenList.jsx';
+import ChildrenList from '../components/ChildrenList.jsx';
 // import FileStructure from '../components/FileStructure.jsx';
 
 const mapStateToProps = (store) => ({
     componentList: store.main.componentList,
-    currentComponentId: store.main.currentComponentId
+    currentComponent: store.main.currentComponent,
+    lastId: store.main.lastId
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(
@@ -28,20 +29,19 @@ const mapDispatchToProps = (dispatch) => bindActionCreators(
     dispatch);
 
 const SideBarContainer = (props) => {
-    
     return ( 
     <div className="SideBarContainer">
         <ComponentDetail 
             renameComponent={props.renameComponent}
             changeType={props.changeType}
             deleteComponent={props.deleteComponent}
-            currentComponentId={props.currentComponentId}
-            isComponent={props.componentList[props.currentComponentId].isComponent}
+            currentComponent={props.currentComponent}
         />
-        {/* <ChildrenList 
+        <ChildrenList 
             updateChildrenList={props.updateChildrenList}
-            componentList={props.componentList} 
-        /> */}
+            currentComponent={props.currentComponent}
+            lastId={props.lastId}
+        />
     </div> 
     );
 }

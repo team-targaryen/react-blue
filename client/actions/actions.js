@@ -1,24 +1,21 @@
 import * as types from "../constants/actionTypes";
 
-export const renameComponent = (event, currentComponentId) => (dispatch) => {
+export const renameComponent = (event, currentComponent) => (dispatch) => {
+    event.preventDefault();
     const inputName = event.target.value;
-
-    const component = {
-        id: currentComponentId,
-        name: inputName || 'DEFAULT NAME'
-    }
+    console.log(inputName);
 
     dispatch({
         type: types.RENAME_COMPONENT,
-        payload: component
+        payload: inputName
     });
 };
 
-export const changeType = (isComponent) => (dispatch) => {
-
+export const changeType = (checked) => (dispatch) => {
+    const isContainer = checked;
     dispatch({
         type: types.CHANGE_TYPE,
-        payload: isComponent
+        payload: isContainer
     });
 };
 

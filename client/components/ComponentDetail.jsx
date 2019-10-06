@@ -7,10 +7,18 @@
 import React from 'react';
 
 
-const ComponentDetail = ({ renameComponent, changeType, deleteComponent, currentComponentId, isComponent }) => (
+const ComponentDetail = ({ renameComponent, changeType, deleteComponent, currentComponent }) => {
+    console.log("In componentDetail");
+    return (
     <div className='componentDetail'>
-        <input className='componentName' type='text' onChange={() => renameComponent(event, currentComponentId)} />    
+        <div className='renameField'>
+            <input className='componentName' type='text' onChange={() => renameComponent(event)} /> 
+        </div>
+        <div className='isContainer'>
+            <input className="containerCheckbox" type="checkbox" checked={currentComponent.isContainer} onChange={() => changeType(!currentComponent.isContainer)}/><span className="containerLabel">Container</span>
+        </div>
     </div>
-);
+    )
+}
 
 export default ComponentDetail;
