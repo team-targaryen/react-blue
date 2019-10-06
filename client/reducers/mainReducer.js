@@ -3,7 +3,6 @@ import * as types from '../constants/actionTypes';
 const app = {
     name: "App",
     id: 0,
-    index: 0,
     isContainer: true,
     children: [login, button],
 }
@@ -11,8 +10,6 @@ const app = {
 const login = {
     name: "login",
     id: 1,
-    index: 0,
-    level: 1,
     isContainer: false,
     children: [],
 }
@@ -20,8 +17,6 @@ const login = {
 const button = {
     name: "button",
     id: 2,
-    index: 1,
-    level: 1,
     isContainer: false,
     children: [],
 }
@@ -33,8 +28,6 @@ const initialState = {
         name: "App",
         id: 0,
         isContainer: true,
-        level: 0,
-        index: 0,
         children: [login, button]
     }
 }
@@ -51,9 +44,8 @@ const mainReducer = (state=initialState, action) => {
             }
 
         case types.CHANGE_TYPE:
-                console.log(action.payload);       
-
             const isContainer = action.payload; 
+            document.getElementById("componentDetailContainerCheckbox").checked = isContainer;
             currentComponent = Object.assign(state.currentComponent, {isContainer});  
             return {
                 ...state,

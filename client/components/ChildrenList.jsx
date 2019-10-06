@@ -4,7 +4,6 @@
 import React, {Component} from 'react';
 
 import EachChild from './EachChild.jsx';
-import { renameComponent } from '../actions/actions.js';
 
 class ChildrenList extends Component {
     constructor(props) {
@@ -17,14 +16,14 @@ class ChildrenList extends Component {
         this.renameChild = this.renameChild.bind(this);
         this.changeType = this.changeType.bind(this);
         this.deleteChild = this.deleteChild.bind(this);
-
+        this.addChild = this.addChild.bind(this);
     }
 
     renameChild(event, childId) {
         let childrenList = this.state.childrenList.slice();
         for(let child of childrenList) {
             if(child.id === childId) {
-                child.name = event.target.value || "DEFAULT NAME"
+                child.name = event.target.value 
             }
         }
         this.setState({childrenList});
@@ -36,17 +35,26 @@ class ChildrenList extends Component {
 
     addChild(event) {
         event.preventDefault();
-        console.log(event.target.checkbox.value);
-        // const name = event.target.childName.value;
+        const name = event.target.childName.value || "DEFAULT NAME";
         document.getElementById("addChildName").value = '';
-        // const id = lastId;
-        // const lastId = this.state.lastId + 1;
-        // const newChild = {
-        //     name,
-        //     id,
-        //     isContainer: event.target
-        // }
+        const lastId = this.state.lastId + 1;
 
+        const id = lastId;
+        const isContainer = event.target.checkbox.checked;
+        document.getElementById("addChildContainerCheckbox").checked = false;
+        const newChild = {
+            name,
+            id,
+            isContainer,
+            children: []
+        }
+        console.log(newChild);
+        let childrenList = this.state.childrenList.slice();
+        childrenList.push(newChild);
+        this.setState({
+            childrenList,
+            lastId
+        });
     }
     
     deleteChild(childId) {
@@ -66,7 +74,7 @@ class ChildrenList extends Component {
                {this.state.childrenList.map((child, idx) => childMaker(child, idx, this.renameChild, this.changeType, this.deleteChild))}
                <form onSubmit={this.addChild}>
                     <input type="text" id="addChildName" name="childName" placeholder="Enter Child's Name"/>
-                    <input className="containerCheckbox" name="checkbox" type="checkbox" />
+                    <input id="addChildContainerCheckbox" name="checkbox" type="checkbox" />
                     <span className="containerLabel">Container</span>
                     <button type="submit">+</button>
                </form>

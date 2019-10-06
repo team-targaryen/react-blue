@@ -1,10 +1,8 @@
 import * as types from "../constants/actionTypes";
 
-export const renameComponent = (event, currentComponent) => (dispatch) => {
+export const renameComponent = (event) => (dispatch) => {
     event.preventDefault();
     const inputName = event.target.value;
-    console.log(inputName);
-
     dispatch({
         type: types.RENAME_COMPONENT,
         payload: inputName
