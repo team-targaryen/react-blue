@@ -29,8 +29,14 @@ class ChildrenList extends Component {
         this.setState({childrenList});
     }
 
-    changeType(isContainer) {
-        console.log(isContainer);
+    changeType(event, childId) {
+        let childrenList = this.state.childrenList.slice();
+        for(let child of childrenList) {
+            if(child.id === childId) {
+                child.isContainer = event.target.checked; 
+            }
+        }
+        this.setState({childrenList});    
     };
 
     addChild(event) {
@@ -48,7 +54,9 @@ class ChildrenList extends Component {
             isContainer,
             children: []
         }
-        console.log(newChild);
+
+        console.log("newChild: ", newChild);
+
         let childrenList = this.state.childrenList.slice();
         childrenList.push(newChild);
         this.setState({
@@ -78,7 +86,7 @@ class ChildrenList extends Component {
                     <span className="containerLabel">Container</span>
                     <button type="submit">+</button>
                </form>
-               <button onClick={()=>this.props.updateChildrenList(this.state.childrenList, this.state.lastId)}>Update State</button>
+               <button onClick={()=>this.props.updateChildrenList(this.state.childrenList, this.state.lastId)}>Update Children</button>
            </div>
         );
     } 

@@ -10,7 +10,7 @@ const app = {
 const login = {
     name: "login",
     id: 1,
-    isContainer: false,
+    isContainer: true,
     children: [],
 }
 
@@ -22,12 +22,11 @@ const button = {
 }
 
 const initialState = {
-    componentList: { 0: app, 1: login, 2: button},
     lastId: 3,
     currentComponent: {
         name: "App",
         id: 0,
-        isContainer: true,
+        isContainer: false,
         children: [login, button]
     }
 }
@@ -38,6 +37,7 @@ const mainReducer = (state=initialState, action) => {
         case types.RENAME_COMPONENT: 
             const inputName = action.payload;
             currentComponent = Object.assign(state.currentComponent, {name: inputName})
+            console.log('rename currentComponent: ', currentComponent);
             return {
                 ...state,
                 currentComponent
@@ -45,8 +45,9 @@ const mainReducer = (state=initialState, action) => {
 
         case types.CHANGE_TYPE:
             const isContainer = action.payload; 
-            document.getElementById("componentDetailContainerCheckbox").checked = isContainer;
+            // document.getElementById("componentDetailContainerCheckbox").checked = isContainer;
             currentComponent = Object.assign(state.currentComponent, {isContainer});  
+            console.log('change type currentComponent: ', currentComponent);
             return {
                 ...state,
                 currentComponent
@@ -55,7 +56,16 @@ const mainReducer = (state=initialState, action) => {
         case types.DELETE_COMPONENT:
 
         case types.UPDATE_CHILDRENLIST:
-            
+            const children = action.payload.children;
+            const lastId = action.payload.lastId;
+
+            currentComponent = Object.assign(state.currentComponent, {children});
+            console.log('update children currentComponent: ', currentComponent);
+            return {
+                ...state,
+                lastId,
+                currentComponent
+            }
 
         default:
             return state;

@@ -14,6 +14,7 @@ import ChildrenList from '../components/ChildrenList.jsx';
 // import FileStructure from '../components/FileStructure.jsx';
 
 const mapStateToProps = (store) => ({
+    state: store.main,
     componentList: store.main.componentList,
     currentComponent: store.main.currentComponent,
     lastId: store.main.lastId
@@ -28,8 +29,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators(
     }, 
     dispatch);
 
-const SideBarContainer = (props) => {
-    return ( 
+const SideBarContainer = (props) => ( 
     <div className="SideBarContainer">
         <ComponentDetail 
             renameComponent={props.renameComponent}
@@ -43,8 +43,7 @@ const SideBarContainer = (props) => {
             lastId={props.lastId}
         />
     </div> 
-    );
-}
+);
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideBarContainer);
 
