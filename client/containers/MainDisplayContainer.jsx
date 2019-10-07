@@ -105,7 +105,9 @@ class CenteredTree extends React.PureComponent {
     };
     //binding references of 'this' also when creating functions within the scope of a bound function they  be an ES6 arrow function or else they will not have reference to the lexical context in which they were created within
     this.addChildNode = this.addChildNode.bind(this);
-    this.updateTreeWithDummydatav2 = this.updateTreeWithDummydatav2.bind(this);
+    this.reRenderTreeWithDummydatav2 = this.reRenderTreeWithDummydatav2.bind(
+      this
+    );
     this.deleteAnyNode = this.deleteAnyNode.bind(this);
     this.changeNameOfNode = this.changeNameOfNode.bind(this);
     this.createLinkedNodeForBackAndForwardFeature = this.createLinkedNodeForBackAndForwardFeature.bind(
@@ -144,7 +146,7 @@ class CenteredTree extends React.PureComponent {
       : createNode(this.state.data);
   }
   //updates the state of the the data to trigger a re-render
-  updateTreeWithDummydatav2() {
+  reRenderTreeWithDummydatav2() {
     this.setState({ data: this.state.datav2 });
   }
   // going either next/prev based off of the user input, it doesnt do anything if they try to go into a .next/.prev of NULL
@@ -266,7 +268,7 @@ class CenteredTree extends React.PureComponent {
             height: "45px",
             backgroundColor: "cornSilk"
           }}
-          onClick={this.updateTreeWithDummydatav2}
+          onClick={this.reRenderTreeWithDummydatav2}
         >
           <h1>Update</h1>
         </button>
@@ -341,7 +343,9 @@ class CenteredTree extends React.PureComponent {
               shapeProps: { r: "30" }
             }}
             textLayout={{
-              textAnchor: "start"
+              textAnchor: "start",
+              x: -30,
+              y: -45
             }}
             onClick={nodeData => this.addChildNode(nodeData)}
             transitionDuration={0}
