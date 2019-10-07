@@ -9,6 +9,7 @@ const App = () => (
   <div>
     <TopNavBarContainer />
     <h1>React Blue</h1>
+    <SideBarContainer />
     <MainDisplayContainer/>
   </div>
 );
