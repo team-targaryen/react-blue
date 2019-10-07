@@ -17,12 +17,10 @@ const containerStyles = {
 };
 
 //constuctor function for creating a new node, we will primarily be focusing on the this.nodeID as this is the property we will be recursively looking for when we try to find the given node and mutate some data.
-function NewComponentNode(level, index, id, name = "Component", children = []) {
-  this.level = level;
-  this.index = index;
-  this.nodeID = id;
-  this.name = `${name} ${index},lev: ${level}`;
-  this.children = children;
+function NewComponentNode(id, name = "Component") {
+  this.nodeID = id; /*IMPORTANT*/
+  this.name = `${name}, id: ${id}`;
+  this.children = [];
 }
 
 //constuctor function for creating a history of back and forwards feature, the double linked list will have a prev and next so that we will theoretically never have to loop through the list as long as we insert nodes at the 'head' and make sure we cache the entire node (prev and next values as well) in order to traverse backwards or forwards in time
@@ -36,25 +34,19 @@ class CenteredTree extends React.PureComponent {
   constructor(props) {
     super(props);
     // data -state is what is actually rendered as the tree
-    //the datav2 -state is the dummy data for 'queueing' up the adding of MULTIPLE children to a parent node so that on the 'UPDATE' onClick it will update the this.state.data with the this.state.datav2 (seen in a function below)
+    //the dummyData -state is the dummy data for 'queueing' up the adding of MULTIPLE children to a parent node so that on the 'UPDATE' onClick it will update the this.state.data with the this.state.dummyData (seen in a function below)
     this.state = {
       data: {
-        // dummy data so that the tree renders 4 nodes, 2 levels deep
+        // actual rendered data so that the tree renders 4 nodes, 2 levels deep
         name: "Parent Node",
-        level: 0,
-        index: 0,
         nodeID: 0,
         children: [
           {
             name: "child level 1",
-            level: 1,
-            index: 0,
             nodeID: 1,
             children: [
               {
                 name: "child level 2",
-                level: 2,
-                index: 0,
                 nodeID: 3,
                 children: []
               }
@@ -62,29 +54,23 @@ class CenteredTree extends React.PureComponent {
           },
           {
             name: "child level 1",
-            level: 1,
-            index: 1,
+
             nodeID: 2,
             children: []
           }
         ]
       },
-      datav2: {
+      //dummy data : 4 nodes, 2 levels deep
+      dummyData: {
         name: "Parent Node",
-        level: 0,
-        index: 0,
         nodeID: 0,
         children: [
           {
             name: "child level 1",
-            level: 1,
-            index: 0,
             nodeID: 1,
             children: [
               {
                 name: "child level 2",
-                level: 2,
-                index: 0,
                 nodeID: 3,
                 children: []
               }
@@ -92,22 +78,18 @@ class CenteredTree extends React.PureComponent {
           },
           {
             name: "child level 1",
-            level: 1,
-            index: 1,
             nodeID: 2,
             children: []
           }
         ]
       },
       history: null,
-      totalNodes: 4
+      uniqueID: 4
       // currentNode: null
     };
     //binding references of 'this' also when creating functions within the scope of a bound function they  be an ES6 arrow function or else they will not have reference to the lexical context in which they were created within
     this.addChildNode = this.addChildNode.bind(this);
-    this.reRenderTreeWithDummydatav2 = this.reRenderTreeWithDummydatav2.bind(
-      this
-    );
+    this.reRenderTreeWithDummyData = this.reRenderTreeWithDummyData.bind(this);
     this.deleteAnyNode = this.deleteAnyNode.bind(this);
     this.changeNameOfNode = this.changeNameOfNode.bind(this);
     this.createLinkedNodeForBackAndForwardFeature = this.createLinkedNodeForBackAndForwardFeature.bind(
@@ -130,38 +112,38 @@ class CenteredTree extends React.PureComponent {
       history: initialStateOf_Data_BeforeClientInteration
     });
   }
-  //everyTime a user interact and changes state of either data or datav2 we will create a clone of the state and cache it as this.val inside of the node and point the pointers correctly.
+  //everyTime a user interact and changes state of either data or dummyData we will create a clone of the state and cache it as this.val inside of the node and point the pointers correctly.
   // we want the most current state to  be at the front of the linked list and to go back we would go next.
   createLinkedNodeForBackAndForwardFeature(boolean) {
     //using ES6 arrow func to bind the context of 'this' so that the function createNode can call this.setState
     const createNode = data => {
       const newNode = new DoublyLinkedList(JSON.stringify(data));
-      const copyOfHistory = Object.assign({}, this.state.history);
+      const copyOfHistory = clone(this.state.history);
       newNode.next = copyOfHistory;
       copyOfHistory.prev = newNode;
       this.setState({ history: newNode });
     };
     return boolean
-      ? createNode(this.state.datav2)
+      ? createNode(this.state.dummyData)
       : createNode(this.state.data);
   }
   //updates the state of the the data to trigger a re-render
-  reRenderTreeWithDummydatav2() {
-    this.setState({ data: this.state.datav2 });
+  reRenderTreeWithDummyData() {
+    this.setState({ data: this.state.dummyData });
   }
   // going either next/prev based off of the user input, it doesnt do anything if they try to go into a .next/.prev of NULL
   goBackOrForward(string) {
-    const clonedHistory = Object.assign({}, this.state.history);
+    const clonedHistory = clone(this.state.history);
     if (string === "goBackward") {
       if (clonedHistory.next) {
-        const temp = clonedHistory.next;
-        temp.prev = clonedHistory;
+        // const temp = clonedHistory.next;
+        // temp.prev = clonedHistory;
         this.setState({
           data: JSON.parse(clonedHistory.next.val),
-          history: temp
+          history: clonedHistory.next
         });
       } else {
-        return console.log("haha dumbass");
+        alert("haha dumbass");
       }
     } else if (string === "goForward") {
       if (clonedHistory.prev) {
@@ -169,22 +151,18 @@ class CenteredTree extends React.PureComponent {
           data: JSON.parse(clonedHistory.prev.val),
           history: clonedHistory.prev
         });
+      } else {
+        alert("haha dumbass");
       }
     }
   }
 
-  //traverses the tree and looks for the exact nodeID, once found, we will push a new Node with new values to its children array. (exit and set the state of datav2) so that it can 'queue' up all the adding of children nodes
+  //traverses the tree and looks for the exact nodeID, once found, we will push a new Node with new values to its children array. (exit and set the state of dummyData) so that it can 'queue' up all the adding of children nodes
   addChildNode(node) {
-    const clonedTree = clone(this.state.datav2);
+    const clonedTree = clone(this.state.dummyData);
     const currentNodeID = node.nodeID;
     const addChildren = tree => {
-      const newLevel = tree.level + 1;
-      const newLength = tree.children.length;
-      const tempNewNode = new NewComponentNode(
-        newLevel,
-        newLength,
-        this.state.totalNodes
-      );
+      const tempNewNode = new NewComponentNode(this.state.uniqueID);
       tree.children.push(tempNewNode);
     };
     const findNodeByNodeID = (tree, target) => {
@@ -199,11 +177,11 @@ class CenteredTree extends React.PureComponent {
     };
     findNodeByNodeID(clonedTree, currentNodeID);
     //this is how we create the unique ID of the nodes, (very similar to postgresQL where the SERIAL PRIMARY KEY column auto increments even if the row is deleted)
-    const increaseTotalNodesByOne = this.state.totalNodes + 1;
+    const increaseuniqueIDByOne = this.state.uniqueID + 1;
 
     //linked list for back and prev buttons
     this.createLinkedNodeForBackAndForwardFeature(true);
-    this.setState({ datav2: clonedTree, totalNodes: increaseTotalNodesByOne });
+    this.setState({ dummyData: clonedTree, uniqueID: increaseuniqueIDByOne });
   }
 
   //using the same traversal algorithm to find the node and now SPLICE out the node (we encountered an issue when deleting the node and it was in the beginning of an array)=>
@@ -229,7 +207,7 @@ class CenteredTree extends React.PureComponent {
       this.setState({ data: clonedTree });
       this.createLinkedNodeForBackAndForwardFeature(false);
     } else {
-      console.log("hasnt been found");
+      console.log("haha dumbass");
     }
   }
 
@@ -241,7 +219,7 @@ class CenteredTree extends React.PureComponent {
         tree.name = inputName;
         return true;
       }
-      return [...tree.children].find((node, i) => {
+      return [...tree.children].find(node => {
         if (node.nodeID === target) {
           node.name = inputName;
           return true;
@@ -255,7 +233,7 @@ class CenteredTree extends React.PureComponent {
       this.setState({ data: clonedTree });
       this.createLinkedNodeForBackAndForwardFeature(false);
     } else {
-      console.log("hasnt been found");
+      console.log("haha dumbass");
     }
   }
 
@@ -268,7 +246,7 @@ class CenteredTree extends React.PureComponent {
             height: "45px",
             backgroundColor: "cornSilk"
           }}
-          onClick={this.reRenderTreeWithDummydatav2}
+          onClick={this.reRenderTreeWithDummyData}
         >
           <h1>Update</h1>
         </button>
@@ -332,14 +310,6 @@ class CenteredTree extends React.PureComponent {
             collapsible={false}
             nodeSvgShape={{
               shape: "circle",
-              //this will log this error to chrome dev tools: Warning: Received NaN for the `y` attribute. If this is expected, cast the value to a string.
-              // in text (created by t)
-              // in g (created by t)
-              // in t (created by t)
-              // in g (created by t)
-              // in t (created by t)
-              // in g (created by l)
-              // in l (created by t)
               shapeProps: { r: "30" }
             }}
             textLayout={{
@@ -348,7 +318,7 @@ class CenteredTree extends React.PureComponent {
               y: -45
             }}
             onClick={nodeData => this.addChildNode(nodeData)}
-            transitionDuration={0}
+            transitionDuration={500}
           />
         </div>
       </React.Fragment>
