@@ -1,6 +1,6 @@
-import React, { Component, useState, useEffect } from "react";
-import Tree from "react-d3-tree";
-import clone from "clone";
+import React, { Component, useState, useEffect } from 'react';
+import Tree from 'react-d3-tree';
+import clone from 'clone';
 
 class MainDisplayContainer extends Component {
   constructor(props) {
@@ -11,13 +11,13 @@ class MainDisplayContainer extends Component {
   }
 }
 const containerStyles = {
-  width: "100%",
-  height: "100vh",
-  backgroundColor: "lightBlue"
+  width: '100%',
+  height: '100vh',
+  backgroundColor: 'lightBlue'
 };
 
 //constuctor function for creating a new node, we will primarily be focusing on the this.nodeID as this is the property we will be recursively looking for when we try to find the given node and mutate some data.
-function NewComponentNode(id, name = "Component") {
+function NewComponentNode(id, name = 'Component') {
   this.nodeID = id; /*IMPORTANT*/
   this.name = `${name}, id: ${id}`;
   this.children = [];
@@ -38,22 +38,22 @@ class CenteredTree extends React.PureComponent {
     this.state = {
       data: {
         // actual rendered data so that the tree renders 4 nodes, 2 levels deep
-        name: "Parent Node",
+        name: 'Parent Node',
         nodeID: 0,
         children: [
           {
-            name: "child level 1",
+            name: 'child level 1',
             nodeID: 1,
             children: [
               {
-                name: "child level 2",
+                name: 'child level 2',
                 nodeID: 3,
                 children: []
               }
             ]
           },
           {
-            name: "child level 1",
+            name: 'child level 1',
 
             nodeID: 2,
             children: []
@@ -62,22 +62,22 @@ class CenteredTree extends React.PureComponent {
       },
       //dummy data : 4 nodes, 2 levels deep
       dummyData: {
-        name: "Parent Node",
+        name: 'Parent Node',
         nodeID: 0,
         children: [
           {
-            name: "child level 1",
+            name: 'child level 1',
             nodeID: 1,
             children: [
               {
-                name: "child level 2",
+                name: 'child level 2',
                 nodeID: 3,
                 children: []
               }
             ]
           },
           {
-            name: "child level 1",
+            name: 'child level 1',
             nodeID: 2,
             children: []
           }
@@ -134,7 +134,7 @@ class CenteredTree extends React.PureComponent {
   // going either next/prev based off of the user input, it doesnt do anything if they try to go into a .next/.prev of NULL
   goBackOrForward(string) {
     const clonedHistory = clone(this.state.history);
-    if (string === "goBackward") {
+    if (string === 'goBackward') {
       if (clonedHistory.next) {
         // const temp = clonedHistory.next;
         // temp.prev = clonedHistory;
@@ -143,16 +143,16 @@ class CenteredTree extends React.PureComponent {
           history: clonedHistory.next
         });
       } else {
-        alert("haha dumbass");
+        alert('haha dumbass');
       }
-    } else if (string === "goForward") {
+    } else if (string === 'goForward') {
       if (clonedHistory.prev) {
         this.setState({
           data: JSON.parse(clonedHistory.prev.val),
           history: clonedHistory.prev
         });
       } else {
-        alert("haha dumbass");
+        alert('haha dumbass');
       }
     }
   }
@@ -191,7 +191,7 @@ class CenteredTree extends React.PureComponent {
 
     const findNodeByNodeID = (tree, target) => {
       if (tree.nodeID === target) {
-        alert("cant delete root node dumbass");
+        alert('cant delete root node dumbass');
         return true;
       }
       return [...tree.children].find((node, i) => {
@@ -207,7 +207,7 @@ class CenteredTree extends React.PureComponent {
       this.setState({ data: clonedTree });
       this.createLinkedNodeForBackAndForwardFeature(false);
     } else {
-      console.log("haha dumbass");
+      console.log('haha dumbass');
     }
   }
 
@@ -233,18 +233,18 @@ class CenteredTree extends React.PureComponent {
       this.setState({ data: clonedTree });
       this.createLinkedNodeForBackAndForwardFeature(false);
     } else {
-      console.log("haha dumbass");
+      console.log('haha dumbass');
     }
   }
 
   render() {
     return (
-      <React.Fragment>
+      <div id='main-display-container'>
         <button
           style={{
-            width: "100px",
-            height: "45px",
-            backgroundColor: "cornSilk"
+            width: '100px',
+            height: '45px',
+            backgroundColor: 'cornSilk'
           }}
           onClick={this.reRenderTreeWithDummyData}
         >
@@ -254,24 +254,24 @@ class CenteredTree extends React.PureComponent {
         <div>
           <button
             style={{
-              width: "100px",
-              height: "45px",
-              backgroundColor: "pink"
+              width: '100px',
+              height: '45px',
+              backgroundColor: 'pink'
             }}
             onClick={() => {
-              this.goBackOrForward("goBackward");
+              this.goBackOrForward('goBackward');
             }}
           >
             Back
           </button>
           <button
             style={{
-              width: "100px",
-              height: "45px",
-              backgroundColor: "pink"
+              width: '100px',
+              height: '45px',
+              backgroundColor: 'pink'
             }}
             onClick={() => {
-              this.goBackOrForward("goForward");
+              this.goBackOrForward('goForward');
             }}
           >
             Forward
@@ -280,40 +280,40 @@ class CenteredTree extends React.PureComponent {
 
         <h1>Delete Component by Id</h1>
         <form
-          id="deleteForm"
+          id='deleteForm'
           onSubmit={e => {
             e.preventDefault();
-            const id = document.getElementById("delete-node");
+            const id = document.getElementById('delete-node');
             this.deleteAnyNode(id.value);
-            id.value = "";
+            id.value = '';
           }}
         >
           <input
             style={{
-              width: "200px",
-              height: "40px",
-              backgroundColor: "pink",
-              color: "black"
+              width: '200px',
+              height: '40px',
+              backgroundColor: 'pink',
+              color: 'black'
             }}
-            id="delete-node"
-            type="text"
-            placeholder="delete a node by inputting an ID"
+            id='delete-node'
+            type='text'
+            placeholder='delete a node by inputting an ID'
           />
-          <input type="submit" value="deleteForm"></input>
+          <input type='submit' value='deleteForm'></input>
         </form>
         <ChangeName changeNameOfNode={this.changeNameOfNode} />
         <div style={containerStyles} ref={tc => (this.treeContainer = tc)}>
           <Tree
             data={this.state.data}
             translate={this.state.translate}
-            orientation={"vertical"}
+            orientation={'vertical'}
             collapsible={false}
             nodeSvgShape={{
-              shape: "circle",
-              shapeProps: { r: "30" }
+              shape: 'circle',
+              shapeProps: { r: '30' }
             }}
             textLayout={{
-              textAnchor: "start",
+              textAnchor: 'start',
               x: -30,
               y: -45
             }}
@@ -321,40 +321,40 @@ class CenteredTree extends React.PureComponent {
             transitionDuration={500}
           />
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }
 const ChangeName = ({ changeNameOfNode }) => {
   return (
-    <React.Fragment>
+    <div>
       <h1>Edit name of component</h1>
       <form
-        id="editName"
+        id='editName'
         onSubmit={e => {
           e.preventDefault();
-          const id = document.getElementById("id");
-          const input = document.getElementById("input-name");
+          const id = document.getElementById('id');
+          const input = document.getElementById('input-name');
           changeNameOfNode(id.value, input.value);
-          id.value = "";
-          input.value = "";
+          id.value = '';
+          input.value = '';
         }}
       >
         <input
-          style={{ width: "200px", height: "40px" }}
-          id="id"
-          type="text"
-          placeholder="id of the node"
+          style={{ width: '200px', height: '40px' }}
+          id='id'
+          type='text'
+          placeholder='id of the node'
         />
         <input
-          style={{ width: "300px", height: "40px" }}
-          id="input-name"
-          type="text"
-          placeholder="whats the name of the node, dumbass"
+          style={{ width: '300px', height: '40px' }}
+          id='input-name'
+          type='text'
+          placeholder='whats the name of the node, dumbass'
         />
-        <input type="submit" value="editName"></input>
+        <input type='submit' value='editName'></input>
       </form>
-    </React.Fragment>
+    </div>
   );
 };
 
