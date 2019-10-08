@@ -1,20 +1,20 @@
-import React, { Component, useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import Tree from 'react-d3-tree';
-import clone from 'clone';
-import { bindActionCreators } from 'redux';
-import { 
-    setCurrentComponent,
-    setTransAndHistory,
-    // createLinkedNodeForBackAndForward,
-    // reRenderWithDummydata,
-    goBackOrForward
-} from '../actions/actions';
+import React, { Component, useState, useEffect } from "react";
+import { connect } from "react-redux";
+import Tree from "react-d3-tree";
+import clone from "clone";
+import { bindActionCreators } from "redux";
+import {
+  setCurrentComponent,
+  setTranslateAndHistory,
+  // createLinkedNodeForBackAndForward,
+  // reRenderWithDummydata,
+  goBackOrForward
+} from "../actions/actions";
 
 const containerStyles = {
-  width: '100%',
-  height: '100vh',
-  backgroundColor: 'lightBlue'
+  width: "100%",
+  height: "100vh",
+  backgroundColor: "lightBlue"
 };
 
 //constuctor function for creating a history of back and forwards feature, the double linked list will have a prev and next so that we will theoretically never have to loop through the list as long as we insert nodes at the 'head' and make sure we cache the entire node (prev and next values as well) in order to traverse backwards or forwards in time
@@ -25,23 +25,22 @@ function DoublyLinkedList(val) {
 }
 
 const mapStateToProps = store => ({
-    state: store.main,
-    data: store.main.data,
-    dummyData: store.main.dummyData,
-    currentComponent: store.main.currentComponent,
-    translate: store.main.translate
-})
+  state: store.main,
+  data: store.main.data,
+  dummyData: store.main.dummyData,
+  currentComponent: store.main.currentComponent,
+  translate: store.main.translate
+});
 
-const mapDispatchToProps = dispatch => bindActionCreators(
-    { 
-        setCurrentComponent,
-        setTransAndHistory,
-        // createLinkedNodeForBackAndForward,
-        // reRenderWithDummydata,
-        goBackOrForward
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setCurrentComponent,
+      setTranslateAndHistory,
+      goBackOrForward
     },
     dispatch
-);
+  );
 
 class MainDisplayContainer extends React.PureComponent {
   constructor(props) {
@@ -56,11 +55,12 @@ class MainDisplayContainer extends React.PureComponent {
     );
     // translate sets the state of centering the tree on mount
     const dimensions = this.treeContainer.getBoundingClientRect();
-    this.props.setTransAndHistory({
-            x: dimensions.width / 2,
-            y: dimensions.height / 6
-        },
-        initialStateOf_Data_BeforeClientInteration
+    this.props.setTranslateAndHistory(
+      {
+        x: dimensions.width / 2,
+        y: dimensions.height / 6
+      },
+      initialStateOf_Data_BeforeClientInteration
     );
   }
   //everyTime a user interact and changes state of either data or dummyData we will create a clone of the state and cache it as this.val inside of the node and point the pointers correctly.
@@ -84,31 +84,125 @@ class MainDisplayContainer extends React.PureComponent {
   // }
   // going either next/prev based off of the user input, it doesnt do anything if they try to go into a .next/.prev of NULL
   goBackOrForward(string) {
-    console.log('string', string)
     const clonedHistory = clone(this.props.history);
-    if (string === 'goBackward') {
+    if (string === "goBackward") {
       if (clonedHistory.next) {
-        // const temp = clonedHistory.next;
-        // temp.prev = clonedHistory;
-        this.goBackOrForward(JSON.parse(clonedHistory.next.val), clonedHistory.next)
+        props.goBackOrForward(
+          JSON.parse(clonedHistory.next.val),
+          clonedHistory.next
+        );
+      } else {
+        alert("haha dumbass");
+      }
+    } else if (string === "goForward") {
+      if (clonedHistory.prev) {
+        props.goBackOrForward(
+          JSON.parse(clonedHistory.prev.val),
+          clonedHistory.prev
+        );
         // this.setState({
-        //   data: JSON.parse(clonedHistory.next.val),
-        //   history: clonedHistory.next
+        //   data: JSON.parse(clonedHistory.prev.val),
+        //   history: clonedHistory.prev
         // });
       } else {
-        alert('haha dumbass');
-      }
-    } else if (string === 'goForward') {
-      if (clonedHistory.prev) {
-        this.setState({
-          data: JSON.parse(clonedHistory.prev.val),
-          history: clonedHistory.prev
-        });
-      } else {
-        alert('haha dumbass');
+        alert("haha dumbass");
       }
     }
   }
+
+  render() {
+    return (
+      <div id="main-display-container">
+        <div>
+          <button
+            style={{
+              width: "100px",
+              height: "45px",
+              backgroundColor: "pink"
+            }}
+            onClick={() => {
+              this.goBackOrForward("goBackward");
+            }}
+          >
+            Back
+          </button>
+          <button
+            style={{
+              width: "100px",
+              height: "45px",
+              backgroundColor: "pink"
+            }}
+            onClick={() => {
+              this.goBackOrForward("goForward");
+            }}
+          >
+            Forward
+          </button>
+        </div>
+
+        <div style={containerStyles} ref={tc => (this.treeContainer = tc)}>
+          <Tree
+            data={this.props.data}
+            translate={this.props.translate}
+            orientation={"vertical"}
+            collapsible={false}
+            nodeSvgShape={{
+              shape: "circle",
+              shapeProps: { r: "30" }
+            }}
+            textLayout={{
+              textAnchor: "start",
+              x: -30,
+              y: -45
+            }}
+            onClick={currentComponent => {
+              this.props.setCurrentComponent(currentComponent);
+            }}
+            transitionDuration={500}
+          />
+        </div>
+      </div>
+    );
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MainDisplayContainer);
+
+// const ChangeName = ({ changeNameOfNode }) => {
+//   return (
+//     <div>
+//       <h1>Edit name of component</h1>
+//       <form
+//         id='editName'
+//         onSubmit={e => {
+//           e.preventDefault();
+//           const id = document.getElementById('id');
+//           const input = document.getElementById('input-name');
+//           changeNameOfNode(id.value, input.value);
+//           id.value = '';
+//           input.value = '';
+//         }}
+//       >
+//         <input
+//           style={{ width: '200px', height: '40px' }}
+//           id='id'
+//           type='text'
+//           placeholder='id of the node'
+//         />
+//         <input
+//           style={{ width: '300px', height: '40px' }}
+//           id='input-name'
+//           type='text'
+//           placeholder='whats the name of the node, dumbass'
+//         />
+//         <input type='submit' value='editName'></input>
+//       </form>
+//     </div>
+//   );
+// };
 
 //   //traverses the tree and looks for the exact nodeID, once found, we will push a new Node with new values to its children array. (exit and set the state of dummyData) so that it can 'queue' up all the adding of children nodes
 //   addChildNode(node) {
@@ -190,48 +284,7 @@ class MainDisplayContainer extends React.PureComponent {
 //     }
 //   }
 
-  render() {
-    return (
-      <div id='main-display-container'>
-        {/* <button
-          style={{
-            width: '100px',
-            height: '45px',
-            backgroundColor: 'cornSilk'
-          }}
-          onClick={this.reRenderTreeWithDummyData}
-        >
-          <h1>Update</h1>
-        </button>
-        <br /> */}
-        <div>
-          <button
-            style={{
-              width: '100px',
-              height: '45px',
-              backgroundColor: 'pink'
-            }}
-            onClick={() => {
-              this.goBackOrForward('goBackward');
-            }}
-          >
-            Back
-          </button>
-          <button
-            style={{
-              width: '100px',
-              height: '45px',
-              backgroundColor: 'pink'
-            }}
-            onClick={() => {
-              this.goBackOrForward('goForward');
-            }}
-          >
-            Forward
-          </button>
-        </div>
-
-        {/* <h1>Delete Component by Id</h1>
+/* <h1>Delete Component by Id</h1>
         <form
           id='deleteForm'
           onSubmit={e => {
@@ -253,66 +306,5 @@ class MainDisplayContainer extends React.PureComponent {
             placeholder='delete a node by inputting an ID'
           />
           <input type='submit' value='deleteForm'></input>
-        </form> */}
-        {/* <ChangeName changeNameOfNode={this.changeNameOfNode} /> */}
-        <div style={containerStyles} ref={tc => (this.treeContainer = tc)}>
-          <Tree
-            data={this.props.data}
-            translate={this.props.translate}
-            orientation={'vertical'}
-            collapsible={false}
-            nodeSvgShape={{
-              shape: 'circle',
-              shapeProps: { r: '30' }
-            }}
-            textLayout={{
-              textAnchor: 'start',
-              x: -30,
-              y: -45
-            }}
-            onClick={currentComponent => {
-              this.props.setCurrentComponent(currentComponent)}}
-            transitionDuration={500}
-          />
-        </div>
-      </div>
-    );
-  }
-}
-// const ChangeName = ({ changeNameOfNode }) => {
-//   return (
-//     <div>
-//       <h1>Edit name of component</h1>
-//       <form
-//         id='editName'
-//         onSubmit={e => {
-//           e.preventDefault();
-//           const id = document.getElementById('id');
-//           const input = document.getElementById('input-name');
-//           changeNameOfNode(id.value, input.value);
-//           id.value = '';
-//           input.value = '';
-//         }}
-//       >
-//         <input
-//           style={{ width: '200px', height: '40px' }}
-//           id='id'
-//           type='text'
-//           placeholder='id of the node'
-//         />
-//         <input
-//           style={{ width: '300px', height: '40px' }}
-//           id='input-name'
-//           type='text'
-//           placeholder='whats the name of the node, dumbass'
-//         />
-//         <input type='submit' value='editName'></input>
-//       </form>
-//     </div>
-//   );
-// };
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(MainDisplayContainer);
+        </form> */
+/* <ChangeName changeNameOfNode={this.changeNameOfNode} /> */
