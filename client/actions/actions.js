@@ -41,6 +41,7 @@ export const updateChildrenList = (children, lastId) => (dispatch) => {
     })
 }
 
+// for main container
 export const setCurrentComponent = (currentComponent) => (dispatch) => {
     dispatch({
         type: types.SET_CURRENT_COMPONENT,
@@ -72,12 +73,24 @@ export const setTransAndHistory = (translate, history) => (dispatch) => {
 //     })
 // }
 
-export const goBackOrForward = (data, backOrForward) => (dispatch) => {
+// export const goBackOrForward = (data, backOrForward) => (dispatch) => {
+//     dispatch({
+//         type: types.GO_BACK_OR_FORWARD,
+//         payload: {
+//             data,
+//             backOrForward
+//         }
+//     })
+// }
+
+// for children list
+export const renameChild = (event, childId) => (dispatch) => {
+    const inputName = event.target.value;
     dispatch({
-        type: types.GO_BACK_OR_FORWARD,
+        type: types.RENAME_CHILD,
         payload: {
-            data,
-            backOrForward
+            inputName,
+            childId
         }
     })
 }

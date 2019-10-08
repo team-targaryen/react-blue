@@ -2,9 +2,15 @@ export const RENAME_COMPONENT = 'RENAME_COMPONENT';
 export const CHANGE_TYPE = 'CHANGE_TYPE';
 export const DELETE_COMPONENT = 'DELETE_COMPONENT';
 export const UPDATE_CHILDRENLIST = 'UPDATE_CHILDRENLIST';
-//starting here for main display container
+// starting here for main display container
 export const SET_CURRENT_COMPONENT = 'SET_CURRENT_COMPONENT';
 export const SET_TRANS_AND_HISTORY = 'SET_TRANS_AND_HISTORY';
 // export const CREATE_LINKED_NODE_FOR_BACK_AND_FORWARD = 'CREATE_LINKED_NODE_FOR_BACK_AND_FORWARD';
 // export const RE_RENDER_WITH_DUMMYDATA = 'RERENDER_WITH_DUMMYDATA';
 export const GO_BACK_OR_FORWARD = 'GO_BACK_OR_FORWARD';
+
+// children list actions
+export const RENAME_CHILD = 'RENAME_CHILD';
+export const CHANGE_CHILD_TYPE = 'CHANGE_CHILD_TYPE';
+export const ADD_CHILD = 'ADD_CHILD';
+export const DELETE_CHILD = 'DELETE_CHILD';
