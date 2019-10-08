@@ -18,7 +18,7 @@ export const changeType = (event) => (dispatch) => {
     });
 };
 
-export const deleteComponent = componentId => (dispatch) => {
+export const deleteComponent = (componentId) => (dispatch) => {
     dispatch({
         type: types.DELETE_COMPONENT,
         payload: componentId
@@ -31,12 +31,53 @@ export const updateChildrenList = (children, lastId) => (dispatch) => {
             child.name = "DEFAULT NAME";
         }
     }
-    
+
     dispatch({
         type: types.UPDATE_CHILDRENLIST,
         payload: {
             children,
             lastId
+        }
+    })
+}
+
+export const setCurrentComponent = (currentComponent) => (dispatch) => {
+    dispatch({
+        type: types.SET_CURRENT_COMPONENT,
+        payload: currentComponent
+    })
+}
+
+export const setTransAndHistory = (translate, history) => (dispatch) => {
+    dispatch({
+        type: types.SET_TRANS_AND_HISTORY,
+        payload: {
+            translate,
+            history,
+        }
+    })
+}
+
+// export const createLinkedNodeForBackAndForward = (isDummy) => (dispatch) => {
+//     dispatch({
+//         type: types.CREATE_LINKED_NODE_FOR_BACK_AND_FORWARD,
+//         payload: isDummy
+//     })
+// }
+
+// export const reRenderWithDummydata = () => (dispatch) => {
+//     dispatch({
+//         type: types.RE_RENDER_WITH_DUMMYDATA,
+//         payload: null
+//     })
+// }
+
+export const goBackOrForward = (data, backOrForward) => (dispatch) => {
+    dispatch({
+        type: types.GO_BACK_OR_FORWARD,
+        payload: {
+            data,
+            backOrForward
         }
     })
 }

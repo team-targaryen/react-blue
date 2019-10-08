@@ -15,7 +15,6 @@ import ChildrenList from '../components/ChildrenList.jsx';
 
 const mapStateToProps = store => ({
   state: store.main,
-  componentList: store.main.componentList,
   currentComponent: store.main.currentComponent,
   lastId: store.main.lastId
 });
@@ -31,7 +30,9 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 
-const SideBarContainer = props => (
+const SideBarContainer = props => {
+  // console.log("currentComponent: ", props.currentComponent)
+  return(
   <div className='SideBarContainer' id='sidebar-container'>
     <ComponentDetail
       renameComponent={props.renameComponent}
@@ -45,7 +46,7 @@ const SideBarContainer = props => (
       lastId={props.lastId}
     />
   </div>
-);
+)};
 
 export default connect(
   mapStateToProps,
