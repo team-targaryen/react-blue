@@ -10,7 +10,7 @@ import { bindActionCreators } from 'redux';
 
 // import child components
 import ComponentDetail from '../components/ComponentDetail.jsx';
-import ChildrenList from '../components/ChildrenList.jsx';
+import ChildrenList from './ChildrenListContainer.jsx/index.js.js';
 // import FileStructure from '../components/FileStructure.jsx';
 
 const mapStateToProps = store => ({

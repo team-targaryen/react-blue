@@ -4,7 +4,7 @@
 import React, {Component} from 'react';
 import clone from 'clone';
 
-import EachChild from './EachChild.jsx';
+import EachChild from '../components/EachChild.jsx';
 
 class ChildrenList extends Component {
     constructor(props) {
@@ -19,14 +19,6 @@ class ChildrenList extends Component {
         this.deleteChild = this.deleteChild.bind(this);
         this.addChild = this.addChild.bind(this);
     }
-
-    // componentDidMount() {
-    //     console.log('here in component did mount')
-    //         this.setState({
-    //             childrenList: clone(this.props.childrenList),
-    //             lastId: this.props.lastId
-    //         })
-    // }
 
     renameChild(event, childId) {
         let childrenList = clone(this.state.childrenList);

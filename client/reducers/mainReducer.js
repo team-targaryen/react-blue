@@ -94,7 +94,7 @@ const mainReducer = (state=initialState, action) => {
     let currentComponent;
     switch(action.type) {
         case types.RENAME_COMPONENT: 
-            const inputName = action.payload;
+            const inputName = action.payload.inputName;
             currentComponent = Object.assign(state.currentComponent, {name: inputName})
             // console.log('rename currentComponent: ', currentComponent);
             return {
@@ -103,7 +103,7 @@ const mainReducer = (state=initialState, action) => {
             }
 
         case types.CHANGE_TYPE:
-            const isContainer = action.payload; 
+            const isContainer = action.payload.isContainer; 
             // document.getElementById("componentDetailContainerCheckbox").checked = isContainer;
             currentComponent = Object.assign(state.currentComponent, {isContainer});  
             // console.log('change type currentComponent: ', currentComponent);
@@ -127,7 +127,7 @@ const mainReducer = (state=initialState, action) => {
             }
 
         case types.SET_CURRENT_COMPONENT:
-            currentComponent = action.payload;
+            currentComponent = action.payload.currentComponent;
             // console.log('currentComponent: ', currentComponent);
             return {
                 ...state,

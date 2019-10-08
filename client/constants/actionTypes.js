@@ -10,6 +10,7 @@ export const SET_TRANS_AND_HISTORY = 'SET_TRANS_AND_HISTORY';
 export const GO_BACK_OR_FORWARD = 'GO_BACK_OR_FORWARD';
 
 // children list actions
+export const SET_CHILDREN = 'SET_CHILDREN';
 export const RENAME_CHILD = 'RENAME_CHILD';
 export const CHANGE_CHILD_TYPE = 'CHANGE_CHILD_TYPE';
 export const ADD_CHILD = 'ADD_CHILD';
