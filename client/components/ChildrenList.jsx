@@ -2,6 +2,7 @@
 // Renders each child
 
 import React, {Component} from 'react';
+import clone from 'clone';
 
 import EachChild from './EachChild.jsx';
 
@@ -9,8 +10,8 @@ class ChildrenList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            childrenList: this.props.currentComponent.children,
-            lastId: this.props.lastId
+            childrenList: clone(this.props.currentComponent.children),
+            lastId: this.props.lastId,
         }
 
         this.renameChild = this.renameChild.bind(this);
@@ -19,8 +20,16 @@ class ChildrenList extends Component {
         this.addChild = this.addChild.bind(this);
     }
 
+    // componentDidMount() {
+    //     console.log('here in component did mount')
+    //         this.setState({
+    //             childrenList: clone(this.props.childrenList),
+    //             lastId: this.props.lastId
+    //         })
+    // }
+
     renameChild(event, childId) {
-        let childrenList = this.state.childrenList.slice();
+        let childrenList = clone(this.state.childrenList);
         for(let child of childrenList) {
             if(child.id === childId) {
                 child.name = event.target.value 
@@ -30,7 +39,7 @@ class ChildrenList extends Component {
     }
 
     changeType(event, childId) {
-        let childrenList = this.state.childrenList.slice();
+        let childrenList = clone(this.state.childrenList);
         for(let child of childrenList) {
             if(child.id === childId) {
                 child.isContainer = event.target.checked; 
@@ -55,9 +64,9 @@ class ChildrenList extends Component {
             children: []
         }
 
-        console.log("newChild: ", newChild);
+        // console.log("newChild: ", newChild);
 
-        let childrenList = this.state.childrenList.slice();
+        let childrenList = clone(this.state.childrenList);
         childrenList.push(newChild);
         this.setState({
             childrenList,
@@ -66,7 +75,7 @@ class ChildrenList extends Component {
     }
     
     deleteChild(childId) {
-       let childrenList = this.state.childrenList.slice();
+       let childrenList = clone(this.state.childrenList);
        for (let x = 0; x < childrenList.length; x++){
            if (childrenList[x].id === childId){
                childrenList.splice(x, 1);
@@ -76,25 +85,33 @@ class ChildrenList extends Component {
     };
 
     render() {
+        console.log('this.props.currentComponent.children: ', this.props.currentComponent.children);
+        console.log('children list: ', this.state.childrenList);
+        let displayChildrenInDropDown = this.props.currentComponent.children.map((child, idx) => ChildMaker(child, idx, this.renameChild, this.changeType, this.deleteChild))
+
+        // console.log('childrenList: ', this.state.childrenList);
         return (
            <div className="childrenList">
                <h3>Children List</h3>
-               {this.state.childrenList.map((child, idx) => childMaker(child, idx, this.renameChild, this.changeType, this.deleteChild))}
                <form onSubmit={this.addChild}>
                     <input type="text" id="addChildName" name="childName" placeholder="Enter Child's Name"/>
                     <input id="addChildContainerCheckbox" name="checkbox" type="checkbox" />
                     <span className="containerLabel">Container</span>
                     <button type="submit">+</button>
                </form>
+               {console.log('here in render line 97', this.props.currentComponent)}
+               {displayChildrenInDropDown}
                <button onClick={()=>this.props.updateChildrenList(this.state.childrenList, this.state.lastId)}>Update Children</button>
            </div>
         );
     } 
 }
 
-const childMaker = (child, idx, renameChild, changeType, deleteChild) => (
+const ChildMaker = (child, idx, renameChild, changeType, deleteChild) => {
+    console.log('in childMaker');
+    return(
     <EachChild 
-        key={idx}
+        key={`${idx}`}
         name={child.name}
         childId={child.id}
         isContainer={child.isContainer}
@@ -102,6 +119,6 @@ const childMaker = (child, idx, renameChild, changeType, deleteChild) => (
         changeType={changeType}
         deleteChild={deleteChild}
     />
-)
+)}
 
 export default ChildrenList;

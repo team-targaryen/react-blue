@@ -1,33 +1,92 @@
 import * as types from '../constants/actionTypes';
 
-const app = {
-    name: "App",
-    id: 0,
-    isContainer: true,
-    children: [login, button],
-}
-
-const login = {
-    name: "login",
-    id: 1,
-    isContainer: true,
-    children: [],
-}
-
-const button = {
-    name: "button",
-    id: 2,
-    isContainer: false,
-    children: [],
-}
-
 const initialState = {
-    lastId: 3,
-    currentComponent: {
-        name: "App",
+    // data -state is what is actually rendered as the tree
+    //the dummyData -state is the dummy data for 'queueing' up the adding of MULTIPLE children to a parent node so that on the 'UPDATE' onClick it will update the this.state.data with the this.state.dummyData (seen in a function below)
+    data: {
+        // actual rendered data so that the tree renders 4 nodes, 2 levels deep
+        name: 'Parent Node',
         id: 0,
-        isContainer: false,
-        children: [login, button]
+        isContainer: true,
+
+        children: [
+          {
+            name: 'login',
+            id: 1,
+            isContainer: true,
+            children: [
+              {
+                name: 'button',
+                id: 3,
+                isContainer: false,
+                children: []
+              }
+            ]
+          },
+          {
+            name: 'sign up',
+            id: 2,
+            isContainer: false,
+            children: []
+          }
+        ]
+      },
+    //dummy data : 4 nodes, 2 levels deep
+    dummyData: {
+        name: 'Parent Node',
+        id: 0,
+        isContainer: true,
+
+        children: [
+          {
+            name: 'login',
+            id: 1,
+            isContainer: true,
+            children: [
+              {
+                name: 'button',
+                id: 3,
+                isContainer: false,
+                children: []
+              }
+            ]
+          },
+          {
+            name: 'sign up',
+            id: 2,
+            isContainer: false,
+            children: []
+          }
+        ]
+    },
+    translate: {x: null, y: null},
+    history: null,
+    lastId: 4,
+    currentComponent: {name: 'Parent Node',
+        id: 0,
+        isContainer: true,
+
+        children: [
+        {
+            name: 'login',
+            id: 1,
+            isContainer: true,
+            children: [
+            {
+                name: 'button',
+                id: 3,
+                isContainer: false,
+                children: []
+            }
+            ]
+        },
+        {
+            name: 'sign up',
+            id: 2,
+            isContainer: false,
+            children: [{name:'here in signUP', children: []}]
+        }
+        ]
     }
 }
 
@@ -37,7 +96,7 @@ const mainReducer = (state=initialState, action) => {
         case types.RENAME_COMPONENT: 
             const inputName = action.payload;
             currentComponent = Object.assign(state.currentComponent, {name: inputName})
-            console.log('rename currentComponent: ', currentComponent);
+            // console.log('rename currentComponent: ', currentComponent);
             return {
                 ...state,
                 currentComponent
@@ -47,7 +106,7 @@ const mainReducer = (state=initialState, action) => {
             const isContainer = action.payload; 
             // document.getElementById("componentDetailContainerCheckbox").checked = isContainer;
             currentComponent = Object.assign(state.currentComponent, {isContainer});  
-            console.log('change type currentComponent: ', currentComponent);
+            // console.log('change type currentComponent: ', currentComponent);
             return {
                 ...state,
                 currentComponent
@@ -60,12 +119,53 @@ const mainReducer = (state=initialState, action) => {
             const lastId = action.payload.lastId;
 
             currentComponent = Object.assign(state.currentComponent, {children});
-            console.log('update children currentComponent: ', currentComponent);
+            // console.log('update children currentComponent: ', currentComponent);
             return {
                 ...state,
                 lastId,
                 currentComponent
             }
+
+        case types.SET_CURRENT_COMPONENT:
+            currentComponent = action.payload;
+            // console.log('currentComponent: ', currentComponent);
+            return {
+                ...state,
+                currentComponent
+            }
+
+        case types.SET_TRANS_AND_HISTORY:
+            const translate = action.payload.translate;
+            // console.log('here in switch for set trans', translate)
+            return {
+                ...state,
+                translate,
+                history: action.payload.history
+            }
+        case types.GO_BACK_OR_FORWARD:
+            return {
+                ...state,
+                data: action.payload.data,
+                history: action.payload.backOrForward
+            }
+        // case types.CREATE_LINKED_NODE_FOR_BACK_AND_FORWARD:
+        //     const isDummy = action.payload;
+        //     //using ES6 arrow func to bind the context of 'this' so that the function createNode can call this.setState
+        //     isDummy
+        //         ? createNode(state.dummyData)
+        //         : createNode(state.data);
+
+        //     const createNode = data => {
+        //         console.log("in create linked node for back")
+        //         const newNode = new DoublyLinkedList(JSON.stringify(data));
+        //         const copyOfHistory = clone(state.history);
+        //         newNode.next = copyOfHistory;
+        //         copyOfHistory.prev = newNode;
+        //         return {
+        //             ...state,
+        //             history: newNode
+        //         }
+        //     };
 
         default:
             return state;
