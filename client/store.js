@@ -3,6 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import reducers from './reducers/index';
 
+
 // add redux devtools to track the store
 const store = createStore(
     reducers, 

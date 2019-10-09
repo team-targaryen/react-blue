@@ -30,7 +30,7 @@ export const deleteComponent = (componentId) => (dispatch) => {
     });
 };
 
-export const updateChildrenList = (children, lastId) => (dispatch) => {
+export const updateTree = (children, lastId) => (dispatch) => {
     for(let child of children) {
         if(!child.name) {
             child.name = "DEFAULT NAME";
@@ -38,7 +38,7 @@ export const updateChildrenList = (children, lastId) => (dispatch) => {
     }
 
     dispatch({
-        type: types.UPDATE_CHILDRENLIST,
+        type: types.UPDATE_TREE,
         payload: {
             children,
             lastId
@@ -90,16 +90,7 @@ export const setTransAndHistory = (translate, history) => (dispatch) => {
 //     })
 // }
 
-// for children list
-export const setChildren = (children, lastId) => (dispatch) => {
-    dispatch({
-        type: types.SET_CHILDREN,
-        payload: {
-            children,
-            lastId
-        }
-    })
-}
+// for current component children list
 
 export const renameChild = (event, childId) => (dispatch) => {
     const inputName = event.target.value;
