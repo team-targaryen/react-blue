@@ -44,8 +44,7 @@ class MainDisplayContainer extends React.PureComponent {
   }
 
   componentDidMount() {
-    const initialHistory = new DoublyLinkedList(JSON.stringify(this.props.data));
-    console.log('initialHistory: ', initialHistory);
+    const initialHistory = new DoublyLinkedList(clone(this.props.state));
     // translate sets the state of centering the tree on mount
     const dimensions = this.treeContainer.getBoundingClientRect();
     this.props.setTransAndHistory({
