@@ -193,17 +193,6 @@ class MainDisplayContainer extends React.PureComponent {
   render() {
     return (
       <div id='main-display-container'>
-        {/* <button
-          style={{
-            width: '100px',
-            height: '45px',
-            backgroundColor: 'cornSilk'
-          }}
-          onClick={this.reRenderTreeWithDummyData}
-        >
-          <h1>Update</h1>
-        </button>
-        <br /> */}
         <div>
           <button
             style={{

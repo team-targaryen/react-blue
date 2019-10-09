@@ -39,7 +39,7 @@ const ChildrenList = (props) => (
         </form>
         {props.currentComponent.children &&
              props.currentComponent.children.map((child, idx) => childMaker(child, idx, props.renameChild, props.changeChildType, props.deleteChild))}
-        <button onClick={updateTree}>Update Children</button>
+        <button onClick={props.updateTree}>Update Tree</button>
     </div>
 );
 

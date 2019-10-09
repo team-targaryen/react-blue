@@ -70,23 +70,23 @@ const initialState = {
 
       children: [
         {
-            name: 'login',
-            id: 1,
-            isContainer: true,
-            children: [
-              {
-                  name: 'button',
-                  id: 3,
-                  isContainer: false,
-                  children: []
-              }
-            ]
+          name: 'login',
+          id: 1,
+          isContainer: true,
+          children: [
+            {
+              name: 'button',
+              id: 3,
+              isContainer: false,
+              children: []
+            }
+          ]
         },
         {
-            name: 'sign up',
-            id: 2,
-            isContainer: false,
-            children: [{name:'here in signUP', children: []}]
+          name: 'sign up',
+          id: 2,
+          isContainer: false,
+          children: []
         }
       ]
     }
@@ -129,9 +129,34 @@ const mainReducer = (state=initialState, action) => {
                     child.name = 'DEFAULT_NAME'
                 }
             }
-                   
+
+            let data = clone(state.data);
+            const findComponentAndUpdate = (tree, currentComponent) => {
+              if (tree.id === currentComponent.id) {
+                tree.name = currentComponent.name;
+                tree.isContainer = currentComponent.isContainer;
+                tree.children = clone(currentComponent.children);
+                console.log(tree);
+                console.log("here in update");
+                return;
+              }
+              return [...tree.children].find((child) => {
+                if (child.id === currentComponent.id) {
+                  child.name = currentComponent.name;
+                  child.isContainer = currentComponent.isContainer;
+                  child.children = clone(currentComponent.children);
+                  return child;
+                } else if (child.children)
+                  return findComponentAndUpdate(child, currentComponent);
+              });
+            };
+            
+            findComponentAndUpdate(data, currentComponent);
+            console.log('data in update: ', data);
+            
             return {
                 ...state,
+                data,
                 currentComponent
             }
 
