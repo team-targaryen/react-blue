@@ -1,5 +1,7 @@
 import * as types from "../constants/actionTypes";
 
+/******************************* actions for side bar ************************************/
+
 export const renameComponent = (event) => (dispatch) => {
     const inputName = event.target.value;
 
@@ -37,7 +39,8 @@ export const updateTree = () => (dispatch) => {
     })
 }
 
-// for main container
+/******************************* actions for main container ************************************/
+
 export const setCurrentComponent = (currentComponent) => (dispatch) => {
     dispatch({
         type: types.SET_CURRENT_COMPONENT,
@@ -52,37 +55,26 @@ export const setTransAndHistory = (translate, history) => (dispatch) => {
         type: types.SET_TRANS_AND_HISTORY,
         payload: {
             translate,
-            history,
+            history
         }
     })
 }
 
-// export const createLinkedNodeForBackAndForward = (isDummy) => (dispatch) => {
-//     dispatch({
-//         type: types.CREATE_LINKED_NODE_FOR_BACK_AND_FORWARD,
-//         payload: isDummy
-//     })
-// }
+export const undo = () => (dispatch) => {
+    dispatch({
+        type: types.UN_DO,
+        payload: null
+    })
+}
 
-// export const reRenderWithDummydata = () => (dispatch) => {
-//     dispatch({
-//         type: types.RE_RENDER_WITH_DUMMYDATA,
-//         payload: null
-//     })
-// }
+export const redo = () => (dispatch) => {
+    dispatch({
+        type: types.RE_DO,
+        payload: null
+    })
+}
 
-// export const goBackOrForward = (data, backOrForward) => (dispatch) => {
-//     dispatch({
-//         type: types.GO_BACK_OR_FORWARD,
-//         payload: {
-//             data,
-//             backOrForward
-//         }
-//     })
-// }
-
-// for current component children list
-
+/*********************** actions for current component children list ****************************/
 export const renameChild = (event, childId) => (dispatch) => {
     const inputName = event.target.value;
     dispatch({

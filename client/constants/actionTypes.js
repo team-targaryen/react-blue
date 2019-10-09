@@ -5,9 +5,8 @@ export const UPDATE_TREE = 'UPDATE_TREE';
 // starting here for main display container
 export const SET_CURRENT_COMPONENT = 'SET_CURRENT_COMPONENT';
 export const SET_TRANS_AND_HISTORY = 'SET_TRANS_AND_HISTORY';
-// export const CREATE_LINKED_NODE_FOR_BACK_AND_FORWARD = 'CREATE_LINKED_NODE_FOR_BACK_AND_FORWARD';
-// export const RE_RENDER_WITH_DUMMYDATA = 'RERENDER_WITH_DUMMYDATA';
-export const GO_BACK_OR_FORWARD = 'GO_BACK_OR_FORWARD';
+export const UN_DO = 'UN_DO';
+export const RE_DO = 'RE_DO';
 
 // children list actions
 export const SET_CHILDREN = 'SET_CHILDREN';
