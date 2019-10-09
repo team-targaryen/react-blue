@@ -47,7 +47,7 @@ const ChildrenList = (props) => (
 const childMaker = (child, idx, renameChild, changeType, deleteChild) => {
     return(
     <EachChild 
-        key={`${idx}`}
+        key={idx}
         name={child.name}
         childId={child.id}
         isContainer={child.isContainer}

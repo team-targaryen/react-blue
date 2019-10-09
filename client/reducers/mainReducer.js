@@ -7,93 +7,27 @@ const initialState = {
     data: {
       // actual rendered data so that the tree renders 4 nodes, 2 levels deep
       name: 'Parent Node',
-      id: 0,
       isContainer: true,
-
-      children: [
-        {
-          name: 'login',
-          id: 1,
-          isContainer: true,
-          children: [
-            {
-              name: 'button',
-              id: 3,
-              isContainer: false,
-              children: []
-            }
-          ]
-        },
-        {
-          name: 'sign up',
-          id: 2,
-          isContainer: false,
-          children: []
-        }
-      ]
+      children: []
       },
     //dummy data : 4 nodes, 2 levels deep
     dummyData: {
       name: 'Parent Node',
-      id: 0,
       isContainer: true,
-
-      children: [
-        {
-          name: 'login',
-          id: 1,
-          isContainer: true,
-          children: [
-            {
-              name: 'button',
-              id: 3,
-              isContainer: false,
-              children: []
-            }
-          ]
-        },
-        {
-          name: 'sign up',
-          id: 2,
-          isContainer: false,
-          children: []
-        }
-      ]
+      children: []
     },
     translate: {x: null, y: null},
     history: null,
-    lastId: 4,
     currentComponent: {
       name: 'Parent Node',
-      id: 0,
       isContainer: true,
-
-      children: [
-        {
-          name: 'login',
-          id: 1,
-          isContainer: true,
-          children: [
-            {
-              name: 'button',
-              id: 3,
-              isContainer: false,
-              children: []
-            }
-          ]
-        },
-        {
-          name: 'sign up',
-          id: 2,
-          isContainer: false,
-          children: []
-        }
-      ]
-    }
+      children: []
+    },
+    lastId: 0
 }
 
 const mainReducer = (state=initialState, action) => {
-    let isContainer, currentComponent, childId, children, lastId, inputName;
+    let isContainer, currentComponent, childId, children, data, inputName;
     switch(action.type) {
         case types.RENAME_COMPONENT: 
             inputName = action.payload.inputName;
@@ -130,15 +64,17 @@ const mainReducer = (state=initialState, action) => {
                 }
             }
 
-            let data = clone(state.data);
+            console.log("state.data: ", state.data);
+            data = clone(state.data);
             const findComponentAndUpdate = (tree, currentComponent) => {
+              console.log('currentComponent in find: ', currentComponent.id);
               if (tree.id === currentComponent.id) {
                 tree.name = currentComponent.name;
                 tree.isContainer = currentComponent.isContainer;
                 tree.children = clone(currentComponent.children);
-                console.log(tree);
+                console.log("tree: ", tree);
                 console.log("here in update");
-                return;
+                return tree;
               }
               return [...tree.children].find((child) => {
                 if (child.id === currentComponent.id) {
@@ -162,9 +98,17 @@ const mainReducer = (state=initialState, action) => {
 
         case types.SET_CURRENT_COMPONENT:
             currentComponent = action.payload.currentComponent;
-            // console.log('currentComponent: ', currentComponent);
+            console.log('currentComponent in set current: ', currentComponent);
+            data = currentComponent;
+            while(data.parent) {
+              console.log("data in while: ", data);
+              data = Object.assign(data.parent);
+            }
+
+            console.log('data: ', data);
             return {
                 ...state,
+                data,
                 currentComponent
             }
 
@@ -240,10 +184,10 @@ const mainReducer = (state=initialState, action) => {
         case types.ADD_CHILD:
             const name = action.payload.name;
             isContainer = action.payload.isContainer;
-            const id = state.lastId + 1;
+            // const id = state.lastId + 1;
             const newChild = {
                 name,
-                id,
+                // id,
                 isContainer,
                 children: []
             }
@@ -255,7 +199,7 @@ const mainReducer = (state=initialState, action) => {
             console.log('currentComponent in add child: ', currentComponent);
             return {
                 ...state,
-                lastId: id,
+                // lastId: id,
                 currentComponent
             }
 
