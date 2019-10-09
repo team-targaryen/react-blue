@@ -259,7 +259,7 @@ class MainDisplayContainer extends React.PureComponent {
               x: -30,
               y: -45
             }}
-            onClick={currentComponent => {
+            onClick={(currentComponent) => {
               this.props.setCurrentComponent(currentComponent)}}
             transitionDuration={500}
           />

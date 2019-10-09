@@ -8,6 +8,7 @@ const initialState = {
       // actual rendered data so that the tree renders 4 nodes, 2 levels deep
       name: 'Parent Node',
       isContainer: true,
+      id: 0,
       children: []
       },
     //dummy data : 4 nodes, 2 levels deep
@@ -19,7 +20,8 @@ const initialState = {
     translate: {x: null, y: null},
     history: null,
     currentComponent: {
-      name: 'Parent Node',
+      name: 'Parent Node', 
+      id: 0,
       isContainer: true,
       children: []
     },
@@ -101,11 +103,10 @@ const mainReducer = (state=initialState, action) => {
             console.log('currentComponent in set current: ', currentComponent);
             data = currentComponent;
             while(data.parent) {
-              console.log("data in while: ", data);
               data = Object.assign(data.parent);
             }
 
-            console.log('data: ', data);
+            console.log('set data: ', data);
             return {
                 ...state,
                 data,
@@ -184,10 +185,10 @@ const mainReducer = (state=initialState, action) => {
         case types.ADD_CHILD:
             const name = action.payload.name;
             isContainer = action.payload.isContainer;
-            // const id = state.lastId + 1;
+            const id = state.lastId + 1;
             const newChild = {
                 name,
-                // id,
+                id,
                 isContainer,
                 children: []
             }
@@ -199,7 +200,7 @@ const mainReducer = (state=initialState, action) => {
             console.log('currentComponent in add child: ', currentComponent);
             return {
                 ...state,
-                // lastId: id,
+                lastId: id,
                 currentComponent
             }
 
