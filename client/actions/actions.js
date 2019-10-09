@@ -30,19 +30,10 @@ export const deleteComponent = (componentId) => (dispatch) => {
     });
 };
 
-export const updateTree = (children, lastId) => (dispatch) => {
-    for(let child of children) {
-        if(!child.name) {
-            child.name = "DEFAULT NAME";
-        }
-    }
-
+export const updateTree = () => (dispatch) => {
     dispatch({
         type: types.UPDATE_TREE,
-        payload: {
-            children,
-            lastId
-        }
+        payload: null
     })
 }
 
@@ -116,7 +107,7 @@ export const changeChildType = (event, childId) => (dispatch) => {
 
 export const addChild = (event) => (dispatch) => {
     event.preventDefault();
-    const name = event.target.childName.value || "DEFAULT NAME";
+    const name = event.target.childName.value || "DEFAULT_NAME";
     const isContainer = event.target.checkbox.checked;
     // reset the input fields
     document.getElementById("addChildName").value = '';
