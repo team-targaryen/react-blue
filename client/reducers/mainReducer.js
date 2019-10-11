@@ -9,16 +9,16 @@ function DoublyLinkedList(value) {
 
 const initialState = {
   data: {
-    name: 'Parent Node',
+    name: 'App',
     depth: 0,
     id: 0,
     isContainer: true,
     children: []
   },
-  translate: { x: null, y: null },
+  translate: { x: 0, y: 0 },
   history: null,
   currentComponent: {
-    name: 'Parent Node',
+    name: 'App',
     depth: 0,
     id: 0,
     isContainer: true,
