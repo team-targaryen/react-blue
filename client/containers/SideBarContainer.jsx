@@ -1,21 +1,21 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   renameComponent,
   changeType,
-  deleteComponent
-} from "../actions/actions";
-import { bindActionCreators } from "redux";
+  deleteComponent,
+  setCurrentComponent
+} from '../actions/actions';
 
 // import child components
-import ComponentDetail from "../components/ComponentDetail.jsx";
-import ChildrenListContainer from "./ChildrenListContainer.jsx";
-import TemplatingArea from "../components/TemplatingArea.jsx";
+import ComponentDetail from '../components/ComponentDetail.jsx';
+import ChildrenListContainer from './ChildrenListContainer.jsx';
+import FileTree from '../components/FileTree.jsx';
 
 const mapStateToProps = store => ({
-  state: store.main,
-  currentComponent: store.main.currentComponent,
-  lastId: store.main.lastId
+  data: store.main.data,
+  currentComponent: store.main.currentComponent
 });
 
 const mapDispatchToProps = dispatch =>
@@ -23,15 +23,15 @@ const mapDispatchToProps = dispatch =>
     {
       renameComponent,
       changeType,
-      deleteComponent
+      deleteComponent,
+      setCurrentComponent
     },
     dispatch
   );
 
 const SideBarContainer = props => {
-  // console.log("currentComponent: ", props.currentComponent)
   return (
-    <div className="SideBarContainer" id="sidebar-container">
+    <div className='SideBarContainer' id='sidebar-container'>
       <ComponentDetail
         renameComponent={props.renameComponent}
         changeType={props.changeType}
@@ -40,6 +40,10 @@ const SideBarContainer = props => {
       />
       <ChildrenListContainer />
       <TemplatingArea />
+      <FileTree
+        data={props.data}
+        setCurrentComponent={props.setCurrentComponent}
+      />
     </div>
   );
 };

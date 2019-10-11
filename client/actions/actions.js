@@ -1,4 +1,4 @@
-import * as types from "../constants/actionTypes";
+import * as types from '../constants/actionTypes';
 
 /******************************* actions for side bar ************************************/
 
@@ -41,11 +41,12 @@ export const updateTree = () => dispatch => {
 
 /******************************* actions for main container ************************************/
 
-export const setCurrentComponent = currentComponent => dispatch => {
+export const setCurrentComponent = (currentComponent, data) => dispatch => {
   dispatch({
     type: types.SET_CURRENT_COMPONENT,
     payload: {
-      currentComponent
+      currentComponent,
+      data
     }
   });
 };
@@ -99,11 +100,11 @@ export const changeChildType = (event, childId) => dispatch => {
 
 export const addChild = event => dispatch => {
   event.preventDefault();
-  const name = event.target.childName.value || "DEFAULT_NAME";
+  const name = event.target.childName.value || 'DEFAULT_NAME';
   const isContainer = event.target.checkbox.checked;
   // reset the input fields
-  document.getElementById("addChildName").value = "";
-  document.getElementById("addChildContainerCheckbox").checked = false;
+  document.getElementById('addChildName').value = '';
+  document.getElementById('addChildContainerCheckbox').checked = false;
 
   dispatch({
     type: types.ADD_CHILD,
@@ -122,6 +123,7 @@ export const deleteChild = childId => dispatch => {
     }
   });
 };
+
 // actions for taking the templates and sending it to the store
 export const useTemplates = (templates, childrenString, isHook) => dispatch => {
   console.log("here in use templates actions", templates);

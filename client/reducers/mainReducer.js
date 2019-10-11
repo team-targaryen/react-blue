@@ -11,15 +11,17 @@ const initialState = {
   data: {
 
     name: 'Parent Node',
-
+    depth: 0,
+    id: 0,
     isContainer: true,
     children: []
   },
   translate: { x: null, y: null },
   history: null,
   currentComponent: {
-
     name: 'Parent Node', 
+    depth: 0,
+    id: 0,
     isContainer: true,
     children: []
   },
@@ -50,9 +52,8 @@ const mainReducer = (state = initialState, action) => {
       };
 
     case types.CHANGE_TYPE:
-
-      isContainer = action.payload.isContainer; 
-      currentComponent = clone(state.currentComponent);  
+      isContainer = action.payload.isContainer;
+      currentComponent = clone(state.currentComponent);
       currentComponent.isContainer = isContainer;
       return {
         ...state,
@@ -64,15 +65,20 @@ const mainReducer = (state = initialState, action) => {
     case types.UPDATE_TREE:
       currentComponent = clone(state.currentComponent);
       // check if current component has a name
-      if (currentComponent.name === "") {
-        currentComponent.name = "DEFAULT_NAME";
+      if (currentComponent.name === '') {
+        currentComponent.name = 'DEFAULT_NAME';
       }
       // check if any child has empty name, then change it to 'DEFAUL NAME'
       children = clone(currentComponent.children);
-      for (let child of children) {
-        if (child.name === "") {
-          child.name = "DEFAULT_NAME";
+      if (children) {
+        for (let child of children) {
+          if (child.name === '') {
+            child.name = 'DEFAULT_NAME';
+          }
         }
+      } else {
+        children = clone(currentComponent);
+        children.name = currentComponent.name;
       }
 
       // console.log("state.data: ", state.data);
@@ -97,10 +103,12 @@ const mainReducer = (state = initialState, action) => {
 
       findComponentAndUpdate(data, currentComponent);
       preHistory = clone(state.history);
-      history = new DoublyLinkedList(clone({
-        data,
-        currentComponent
-      }));
+      history = new DoublyLinkedList(
+        clone({
+          data,
+          currentComponent
+        })
+      );
       preHistory.next = history;
       history.prev = preHistory;
 
@@ -115,16 +123,27 @@ const mainReducer = (state = initialState, action) => {
 
     case types.SET_CURRENT_COMPONENT:
       currentComponent = action.payload.currentComponent;
-      // console.log('currentComponent in set current: ', currentComponent);
-      data = currentComponent;
-      while(data.parent) {
-        data = clone(data.parent);
+      data = action.payload.data;
+
+      if (data) {
+        // console.log('currentComponent in set current: ', currentComponent);
+
+        return {
+          ...state,
+          data,
+          currentComponent
+        };
+      } else {
+        data = currentComponent;
+        while (data.parent) {
+          data = clone(data.parent);
+        }
+        return {
+          ...state,
+          data,
+          currentComponent
+        };
       }
-      return {
-        ...state,
-        data,
-        currentComponent
-      };
 
     case types.SET_TRANS_AND_HISTORY:
       const translate = action.payload.translate;
@@ -146,9 +165,9 @@ const mainReducer = (state = initialState, action) => {
           data,
           history,
           currentComponent
-        }
+        };
       } else {
-        alert("No previous action");
+        alert('No previous action');
         return {
           ...state
         };
@@ -164,9 +183,9 @@ const mainReducer = (state = initialState, action) => {
           data,
           history,
           currentComponent
-        }  
+        };
       } else {
-        alert("No next action");
+        alert('No next action');
         return {
           ...state
         };
@@ -218,39 +237,40 @@ const mainReducer = (state = initialState, action) => {
         name,
         id,
         isContainer,
-        children: []
+        parent: state.currentComponent
       };
 
       children = clone(state.currentComponent.children) || [];
       children.push(newChild);
-      
+
       currentComponent = clone(state.currentComponent);
       currentComponent.children = clone(children);
-      // console.log('currentComponent in add child: ', currentComponent);
+      
       return {
         ...state,
         lastId: id,
         currentComponent
       };
 
+    // possible issue
     case types.DELETE_CHILD:
       childId = action.payload.childId;
       children = clone(state.currentComponent.children);
-      currentComponent = clone(state.currentComponent);
-      currentComponent.children = clone(children);
-      // console.log('currentComponent in delete child: ', currentComponent);
+
       for (let i = 0; i < children.length; i++) {
         if (children[i].id === childId) {
           children.splice(i, 1);
         }
       }
 
-      currentComponent = Object.assign(state.currentComponent, { children });
-      console.log("currentComponent in delete child: ", currentComponent);
+      currentComponent = clone(state.currentComponent);
+      currentComponent.children = clone(children);
+      
       return {
         ...state,
         currentComponent
       };
+
     case types.USE_TEMPLATES:
 
       return {
