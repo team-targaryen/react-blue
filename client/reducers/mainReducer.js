@@ -1,5 +1,5 @@
-import * as types from "../constants/actionTypes";
-import clone from "clone";
+import * as types from '../constants/actionTypes';
+import clone from 'clone';
 
 function DoublyLinkedList(value) {
   this.value = value;
@@ -9,7 +9,6 @@ function DoublyLinkedList(value) {
 
 const initialState = {
   data: {
-
     name: 'Parent Node',
     depth: 0,
     id: 0,
@@ -19,7 +18,7 @@ const initialState = {
   translate: { x: null, y: null },
   history: null,
   currentComponent: {
-    name: 'Parent Node', 
+    name: 'Parent Node',
     depth: 0,
     id: 0,
     isContainer: true,
@@ -81,7 +80,6 @@ const mainReducer = (state = initialState, action) => {
         children.name = currentComponent.name;
       }
 
-      // console.log("state.data: ", state.data);
       data = clone(state.data);
       const findComponentAndUpdate = (tree, currentComponent) => {
         if (tree.id === currentComponent.id) {
@@ -126,8 +124,6 @@ const mainReducer = (state = initialState, action) => {
       data = action.payload.data;
 
       if (data) {
-        // console.log('currentComponent in set current: ', currentComponent);
-
         return {
           ...state,
           data,
@@ -203,10 +199,9 @@ const mainReducer = (state = initialState, action) => {
         }
       }
 
-
       currentComponent = clone(state.currentComponent);
       currentComponent.children = clone(children);
-      // console.log('currentComponent in rename child: ', currentComponent);
+
       return {
         ...state,
         currentComponent
@@ -223,7 +218,7 @@ const mainReducer = (state = initialState, action) => {
       }
       currentComponent = clone(state.currentComponent);
       currentComponent.children = clone(children);
-      // console.log('currentComponent in change child type: ', currentComponent);
+
       return {
         ...state,
         currentComponent
@@ -245,14 +240,13 @@ const mainReducer = (state = initialState, action) => {
 
       currentComponent = clone(state.currentComponent);
       currentComponent.children = clone(children);
-      
+
       return {
         ...state,
         lastId: id,
         currentComponent
       };
 
-    // possible issue
     case types.DELETE_CHILD:
       childId = action.payload.childId;
       children = clone(state.currentComponent.children);
@@ -265,14 +259,13 @@ const mainReducer = (state = initialState, action) => {
 
       currentComponent = clone(state.currentComponent);
       currentComponent.children = clone(children);
-      
+
       return {
         ...state,
         currentComponent
       };
 
     case types.USE_TEMPLATES:
-
       return {
         ...state,
         template: action.payload.templates
