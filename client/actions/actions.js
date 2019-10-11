@@ -123,3 +123,11 @@ export const deleteChild = childId => dispatch => {
     }
   });
 };
+
+// actions for taking the templates and sending it to the store
+export const useTemplates = (templates, childrenString, isHook) => dispatch => {
+  dispatch({
+    type: types.USE_TEMPLATES,
+    payload: { templates }
+  });
+};

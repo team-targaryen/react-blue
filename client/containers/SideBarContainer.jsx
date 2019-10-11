@@ -11,6 +11,7 @@ import {
 // import child components
 import ComponentDetail from '../components/ComponentDetail.jsx';
 import ChildrenListContainer from './ChildrenListContainer.jsx';
+import TemplatingArea from '../components/TemplatingArea.jsx';
 import FileTree from '../components/FileTree.jsx';
 
 const mapStateToProps = store => ({
@@ -30,7 +31,6 @@ const mapDispatchToProps = dispatch =>
   );
 
 const SideBarContainer = props => {
-  // console.log('currentComponent: ', props.currentComponent);
   return (
     <div className='SideBarContainer' id='sidebar-container'>
       <ComponentDetail
@@ -40,6 +40,7 @@ const SideBarContainer = props => {
         currentComponent={props.currentComponent}
       />
       <ChildrenListContainer />
+      <TemplatingArea />
       <FileTree
         data={props.data}
         setCurrentComponent={props.setCurrentComponent}
