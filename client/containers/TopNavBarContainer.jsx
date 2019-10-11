@@ -14,7 +14,6 @@ const exportZip = data => {
   const fileCounter = {};
 
   const connectFiles = currentComponent => {
-    console.log('currentComponent.children: ', currentComponent.children);
     let imports;
     let childComponents;
 
