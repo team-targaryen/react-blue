@@ -5,22 +5,22 @@
 //          delete current component (if this component is a parent component, show warning message)
 //
 import React from "react";
-// import DropdownTemplates from "./DropdownTemplates.jsx";
+
 const ComponentDetail = ({
   renameComponent,
   changeType,
   deleteComponent,
   currentComponent
-  //   templates
 }) => {
+  //   console.log("here in component detail", currentComponent);
   return (
     <div className="componentDetail">
       <div className="renameField">
         <input
-          className="componentName"
+          id="componentNameInput"
           type="text"
-          value={currentComponent.name}
-          onChange={renameComponent}
+          defaultValue={currentComponent.name}
+          onBlur={renameComponent}
         />
       </div>
       <div className="isContainer">
@@ -31,7 +31,6 @@ const ComponentDetail = ({
           onChange={changeType}
         />
         <span className="containerLabel">Container</span>
-        {/*<DropdownTemplates templates={templates} />*/}
       </div>
     </div>
   );

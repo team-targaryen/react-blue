@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import {
   renameChild,
   changeChildType,
   addChild,
   deleteChild,
-  updateTree,
   setTemplatesForComponent
 } from "../actions/actions";
 import { bindActionCreators } from "redux";
@@ -28,7 +27,6 @@ const mapDispatchToProps = dispatch =>
       changeChildType,
       addChild,
       deleteChild,
-      updateTree,
       setTemplatesForComponent
     },
     dispatch
@@ -38,7 +36,11 @@ const ChildrenListContainer = props => {
   return (
     <div className="childrenList">
       <h3>Children List</h3>
-      <form onSubmit={props.addChild}>
+      <form
+        onSubmit={e => {
+          props.addChild(e);
+        }}
+      >
         <input
           type="text"
           id="addChildName"
@@ -52,34 +54,26 @@ const ChildrenListContainer = props => {
       <DropdownTemplates
         templates={props.templates}
         setTemplatesForComponent={props.setTemplatesForComponent}
+        currentComponent={props.currentComponent}
       />
       {props.currentComponent.children &&
-        props.currentComponent.children.map((child, idx) =>
-          childMaker(
-            child,
-            idx,
-            props.renameChild,
-            props.changeChildType,
-            props.deleteChild
-          )
-        )}
-
-      <button onClick={props.updateTree}>Update Tree</button>
+        props.currentComponent.children.map((child, idx) => {
+          return (
+            <EachChild
+              key={idx}
+              name={child.name}
+              childId={child.componentId}
+              isContainer={child.isContainer}
+              renameChild={props.renameChild}
+              changeType={props.changeType}
+              deleteChild={props.deleteChild}
+              templates={props.templates}
+              setTemplatesForComponent={props.setTemplatesForComponent}
+              currentComponent={props.currentComponent}
+            />
+          );
+        })}
     </div>
-  );
-};
-
-const childMaker = (child, idx, renameChild, changeType, deleteChild) => {
-  return (
-    <EachChild
-      key={idx}
-      name={child.name}
-      childId={child.id}
-      isContainer={child.isContainer}
-      renameChild={renameChild}
-      changeType={changeType}
-      deleteChild={deleteChild}
-    />
   );
 };
 

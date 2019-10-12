@@ -1,20 +1,32 @@
-import React, { Component, useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import Tree from 'react-d3-tree';
-import clone from 'clone';
-import { bindActionCreators } from 'redux';
+import React, { Component, useState, useEffect } from "react";
+import { connect } from "react-redux";
+import Tree from "react-d3-tree";
+import clone from "clone";
+import { bindActionCreators } from "redux";
 import {
   setCurrentComponent,
   setTransAndHistory,
   undo,
   redo
-} from '../actions/actions';
+} from "../actions/actions";
 
 const containerStyles = {
-  width: '100%',
-  height: '100vh',
-  backgroundColor: 'lightBlue'
+  width: "100%",
+  height: "100vh",
+  backgroundColor: "lightBlue"
 };
+function getRidOfStupidChildren(data) {
+  if (!data.children) {
+    return;
+  }
+  if (data.children && !data.children.length) {
+    data._children = null;
+    return;
+  }
+  data.children.forEach(node => {
+    getRidOfStupidChildren(node);
+  });
+}
 
 function DoublyLinkedList(value) {
   this.value = value;
@@ -48,6 +60,7 @@ class MainDisplayContainer extends React.PureComponent {
     const initialHistory = new DoublyLinkedList(clone(this.props.state));
     // translate sets the state of centering the tree on mount
     const dimensions = this.treeContainer.getBoundingClientRect();
+    // this.props.setParentData();
     this.props.setTransAndHistory(
       {
         x: dimensions.width / 2,
@@ -58,14 +71,18 @@ class MainDisplayContainer extends React.PureComponent {
   }
 
   render() {
+    {
+      console.log("rendering tree");
+    }
+    getRidOfStupidChildren(this.props.data);
     return (
-      <div id='main-display-container'>
+      <div id="main-display-container">
         <div>
           <button
             style={{
-              width: '100px',
-              height: '45px',
-              backgroundColor: 'pink'
+              width: "100px",
+              height: "45px",
+              backgroundColor: "pink"
             }}
             onClick={this.props.undo}
           >
@@ -73,36 +90,36 @@ class MainDisplayContainer extends React.PureComponent {
           </button>
           <button
             style={{
-              width: '100px',
-              height: '45px',
-              backgroundColor: 'pink'
+              width: "100px",
+              height: "45px",
+              backgroundColor: "pink"
             }}
             onClick={this.props.redo}
           >
             Redo
           </button>
         </div>
-
         <div style={containerStyles} ref={tc => (this.treeContainer = tc)}>
           <Tree
             data={this.props.data}
             translate={this.props.translate}
-            orientation={'vertical'}
+            orientation={"vertical"}
             collapsible={false}
             nodeSvgShape={{
-              shape: 'circle',
-              shapeProps: { r: '30' }
+              shape: "circle",
+              shapeProps: { r: "30" }
             }}
             textLayout={{
-              textAnchor: 'start',
+              textAnchor: "start",
               x: -30,
               y: -45
             }}
-            onClick={currentComponent => {
-              console.log('currentComponent: ', currentComponent);
+            onClick={(currentComponent, event) => {
+              console.log(event);
+              event.defaultPrevented = false;
               this.props.setCurrentComponent(currentComponent);
             }}
-            transitionDuration={500}
+            transitionDuration={0}
           />
         </div>
       </div>

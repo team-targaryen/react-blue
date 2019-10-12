@@ -16,8 +16,7 @@ import FileTree from "../components/FileTree.jsx";
 
 const mapStateToProps = store => ({
   data: store.main.data,
-  currentComponent: store.main.currentComponent,
-  templates: store.main.templates
+  currentComponent: store.main.currentComponent
 });
 
 const mapDispatchToProps = dispatch =>
@@ -35,12 +34,10 @@ const SideBarContainer = props => {
   return (
     <div className="SideBarContainer" id="sidebar-container">
       <ComponentDetail
-        template={props.template}
         renameComponent={props.renameComponent}
         changeType={props.changeType}
         deleteComponent={props.deleteComponent}
         currentComponent={props.currentComponent}
-        templates={props.templates}
       />
       <ChildrenListContainer />
       <TemplatingArea />
