@@ -11,6 +11,7 @@ import {
 // import child components
 import ComponentDetail from '../components/ComponentDetail.jsx';
 import ChildrenListContainer from './ChildrenListContainer.jsx';
+import TemplatingArea from '../components/TemplatingArea.jsx';
 import FileTree from '../components/FileTree.jsx';
 import TemplatingArea from '../components/TemplatingArea.jsx';
 

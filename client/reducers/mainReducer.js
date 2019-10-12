@@ -1,5 +1,5 @@
-import * as types from "../constants/actionTypes";
-import clone from "clone";
+import * as types from '../constants/actionTypes';
+import clone from 'clone';
 
 function DoublyLinkedList(value) {
   this.value = value;
@@ -247,7 +247,6 @@ const mainReducer = (state = initialState, action) => {
         lastId: componentId
       };
 
-    // possible issue
     case types.DELETE_CHILD:
       childId = action.payload.childId;
       currentComponent = clone(state.currentComponent);

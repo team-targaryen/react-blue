@@ -119,7 +119,6 @@ export const deleteChild = childId => dispatch => {
 
 // actions for taking the templates and sending it to the store
 export const useTemplates = (templates, childrenString, isHook) => dispatch => {
-  console.log("here in use templates actions", templates);
   dispatch({
     type: types.USE_TEMPLATES,
     payload: { templates }
