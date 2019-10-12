@@ -3,14 +3,13 @@ import * as types from '../constants/actionTypes';
 /******************************* actions for side bar ************************************/
 
 export const renameComponent = event => dispatch => {
-  const inputName = event.target.value;
-
-  dispatch({
-    type: types.RENAME_COMPONENT,
-    payload: {
-      inputName
-    }
-  });
+    const inputName = event.target.value;
+    dispatch({
+        type: types.RENAME_COMPONENT,
+        payload: {
+        inputName
+        }
+    });
 };
 
 export const changeType = event => dispatch => {
@@ -32,16 +31,21 @@ export const deleteComponent = componentId => dispatch => {
   });
 };
 
-export const updateTree = () => dispatch => {
-  dispatch({
-    type: types.UPDATE_TREE,
-    payload: null
-  });
-};
-
 /******************************* actions for main container ************************************/
+// export const setParentData = () => dispatch => {
+//     const parentId =document.getElementsByTagName('g')[0].firstChild.id;
+//     dispatch({
+//         type: types.SET_PARENT_DATA,
+//         payload: {
+//             parentId
+//         }
+//     })
+// }
 
 export const setCurrentComponent = (currentComponent, data) => dispatch => {
+  console.log('currentComponent: ', currentComponent);
+  // document.getElementById('componentNameInput')
+  document.getElementById('componentNameInput').value = currentComponent.name;
   dispatch({
     type: types.SET_CURRENT_COMPONENT,
     payload: {

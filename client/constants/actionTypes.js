@@ -1,8 +1,9 @@
 export const RENAME_COMPONENT = "RENAME_COMPONENT";
 export const CHANGE_TYPE = "CHANGE_TYPE";
 export const DELETE_COMPONENT = "DELETE_COMPONENT";
-export const UPDATE_TREE = "UPDATE_TREE";
+
 // starting here for main display container
+// export const SET_PARENT_DATA = "SET_PARENT_DATA";
 export const SET_CURRENT_COMPONENT = "SET_CURRENT_COMPONENT";
 export const SET_TRANS_AND_HISTORY = "SET_TRANS_AND_HISTORY";
 export const UN_DO = "UN_DO";

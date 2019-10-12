@@ -4,6 +4,7 @@ import Tree from 'react-d3-tree';
 import clone from 'clone';
 import { bindActionCreators } from 'redux';
 import {
+  // setParentData,
   setCurrentComponent,
   setTransAndHistory,
   undo,
@@ -31,6 +32,7 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
+      // setParentData,
       setCurrentComponent,
       setTransAndHistory,
       undo,
@@ -48,6 +50,7 @@ class MainDisplayContainer extends React.PureComponent {
     const initialHistory = new DoublyLinkedList(clone(this.props.state));
     // translate sets the state of centering the tree on mount
     const dimensions = this.treeContainer.getBoundingClientRect();
+    // this.props.setParentData();
     this.props.setTransAndHistory(
       {
         x: dimensions.width / 2,
@@ -99,7 +102,6 @@ class MainDisplayContainer extends React.PureComponent {
               y: -45
             }}
             onClick={currentComponent => {
-              console.log('currentComponent: ', currentComponent);
               this.props.setCurrentComponent(currentComponent);
             }}
             transitionDuration={500}
