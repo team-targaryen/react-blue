@@ -9,7 +9,6 @@ import {
   undo,
   redo,
 } from '../actions/actions';
-import hotkeys from 'hotkeys-js';
 
 const containerStyles = {
   width: '100%',
@@ -112,7 +111,6 @@ class MainDisplayContainer extends React.PureComponent {
           >
             Redo
           </button>
-
         </div>
         <div style={containerStyles} ref={tc => (this.treeContainer = tc)}>
           <Tree
