@@ -20,10 +20,10 @@ const ComponentDetail = ({
     <div className='componentDetail'>
       <div className='renameField'>
         <input
-          className='componentName'
+          id='componentNameInput'
           type='text'
-          value={currentComponent.name}
-          onChange={renameComponent}
+          defaultValue={currentComponent.name}
+          onBlur={renameComponent}
           disabled={disabled()}
         />
       </div>

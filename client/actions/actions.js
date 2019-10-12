@@ -36,16 +36,10 @@ export const deleteComponent = componentId => dispatch => {
   });
 };
 
-export const updateTree = () => dispatch => {
-  dispatch({
-    type: types.UPDATE_TREE,
-    payload: null
-  });
-};
-
 /******************************* actions for main container ************************************/
 
 export const setCurrentComponent = (currentComponent, data) => dispatch => {
+  document.getElementById('componentNameInput').value = currentComponent.name;
   dispatch({
     type: types.SET_CURRENT_COMPONENT,
     payload: {
@@ -66,6 +60,7 @@ export const setTransAndHistory = (translate, history) => dispatch => {
 };
 
 export const undo = () => dispatch => {
+  console.log('inside of undo');
   dispatch({
     type: types.UN_DO,
     payload: null

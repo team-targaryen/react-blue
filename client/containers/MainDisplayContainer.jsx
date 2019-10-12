@@ -7,14 +7,27 @@ import {
   setCurrentComponent,
   setTransAndHistory,
   undo,
-  redo
+  redo,
 } from '../actions/actions';
+import hotkeys from 'hotkeys-js';
 
 const containerStyles = {
   width: '100%',
   height: '100vh',
   backgroundColor: 'lightBlue'
 };
+function getRidOfStupidChildren(data) {
+  if (!data.children) {
+    return;
+  }
+  if (data.children && !data.children.length) {
+    data._children = null;
+    return;
+  }
+  data.children.forEach(node => {
+    getRidOfStupidChildren(node);
+  })
+}
 
 function DoublyLinkedList(value) {
   this.value = value;
@@ -48,6 +61,7 @@ class MainDisplayContainer extends React.PureComponent {
     const initialHistory = new DoublyLinkedList(clone(this.props.state));
     // translate sets the state of centering the tree on mount
     const dimensions = this.treeContainer.getBoundingClientRect();
+    // this.props.setParentData();
     this.props.setTransAndHistory(
       {
         x: dimensions.width / 2,
@@ -58,8 +72,25 @@ class MainDisplayContainer extends React.PureComponent {
   }
 
   render() {
+    const undoFunc = this.props.undo;
+    const redoFunc = this.props.redo;
+    hotkeys('ctrl+z, ctrl+shift+z', function (event, handler) {
+      event.preventDefault();
+      switch (handler.key) {
+        case "ctrl+z":
+          undoFunc();
+          return;
+
+        case "ctrl+shift+z":
+          redoFunc();
+          break;
+      }
+    })
+
+
+    getRidOfStupidChildren(this.props.data);
     return (
-      <div id='main-display-container'>
+      < div id='main-display-container' >
         <div>
           <button
             style={{
@@ -81,8 +112,8 @@ class MainDisplayContainer extends React.PureComponent {
           >
             Redo
           </button>
-        </div>
 
+        </div>
         <div style={containerStyles} ref={tc => (this.treeContainer = tc)}>
           <Tree
             data={this.props.data}
@@ -104,7 +135,7 @@ class MainDisplayContainer extends React.PureComponent {
             transitionDuration={500}
           />
         </div>
-      </div>
+      </div >
     );
   }
 }
