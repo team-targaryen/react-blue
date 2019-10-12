@@ -1,14 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { MemoryRouter, Link, Switch, Route } from 'react-router-dom';
+import { MemoryRouter, Switch, Route } from 'react-router-dom';
 import {
   renameComponent,
   changeType,
   deleteComponent,
   setCurrentComponent
 } from '../actions/actions';
-// import child components
 import ComponentDetail from '../components/ComponentDetail.jsx';
 import ChildrenListContainer from './ChildrenListContainer.jsx';
 import TemplatingArea from '../components/TemplatingArea.jsx';
