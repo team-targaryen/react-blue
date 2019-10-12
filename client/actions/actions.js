@@ -55,6 +55,7 @@ export const setTransAndHistory = (translate, history) => dispatch => {
 };
 
 export const undo = () => dispatch => {
+  console.log('inside of undo')
   dispatch({
     type: types.UN_DO,
     payload: null
@@ -124,3 +125,5 @@ export const useTemplates = (templates, childrenString, isHook) => dispatch => {
     payload: { templates }
   });
 };
+
+
