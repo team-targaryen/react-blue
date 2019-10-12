@@ -7,25 +7,20 @@ function DoublyLinkedList(value) {
   this.next = null;
 }
 
+const appComponent = {
+  name: 'App',
+  depth: 0,
+  id: 0,
+  componentId: 0,
+  isContainer: true,
+  children: []
+}
+
 const initialState = {
-  data: {
-    name: 'App',
-    depth: 0,
-    id: 0,
-    componentId: 0,
-    isContainer: true,
-    children: []
-  },
+  data: appComponent,
   translate: { x: 0, y: 0 },
   history: null,
-  currentComponent: {
-    name: 'App',
-    depth: 0,
-    id: 0,
-    componentId: 0,
-    isContainer: true,
-    children: []
-  },
+  currentComponent: appComponent,
   lastId: 0,
   template: []
 };
@@ -65,6 +60,8 @@ const updateTree = (state, currentComponent) => {
 
   let data = clone(state.data);
   findComponentAndUpdate(data, currentComponent);
+
+  // cache into the history
   let preHistory = clone(state.history);
   let history = new DoublyLinkedList(
     clone({
@@ -160,13 +157,8 @@ const mainReducer = (state = initialState, action) => {
           currentComponent
         };
       } else {
-        data = clone(currentComponent);
-        while (data.parent) {
-          data = clone(data.parent);
-        }
         return {
           ...state,
-          data,
           currentComponent
         };
       }
@@ -230,10 +222,10 @@ const mainReducer = (state = initialState, action) => {
       }
       currentComponent = clone(state.currentComponent);
       currentComponent.children = clone(children);
-      updatedState = updateTree(state, currentComponent);
+
       return {
         ...state,
-        ...updatedState
+        currentComponent
       };
 
     case types.CHANGE_CHILD_TYPE:
@@ -248,10 +240,10 @@ const mainReducer = (state = initialState, action) => {
       currentComponent = clone(state.currentComponent);
       currentComponent.children = clone(children);
       // console.log('currentComponent in change child type: ', currentComponent);
-      updatedState = updateTree(state, currentComponent);
+  
       return {
         ...state,
-        ...updatedState
+        currentComponent
       };
 
     case types.ADD_CHILD:
@@ -264,14 +256,14 @@ const mainReducer = (state = initialState, action) => {
         isContainer,
         parent: state.currentComponent
       };
-      children = clone(state.currentComponent.children) || [];
+      children = state.currentComponent.children.slice() || [];
       children.push(newChild);
       currentComponent = clone(state.currentComponent);
       currentComponent.children = clone(children);
-      updatedState = updateTree(state, currentComponent);
+
       return {
         ...state,
-        ...updatedState,
+        currentComponent,
         lastId: componentId
       };
 
@@ -283,11 +275,19 @@ const mainReducer = (state = initialState, action) => {
           currentComponent.children.splice(i, 1);
         }
       }
+
+      return {
+        ...state,
+        currentComponent
+      };
+
+    case types.UPDATE_CHILDREN:
+      currentComponent = clone(state.currentComponent);
       updatedState = updateTree(state, currentComponent);
       return {
         ...state,
         ...updatedState
-      };
+      }
 
     case types.USE_TEMPLATES:
       return {
