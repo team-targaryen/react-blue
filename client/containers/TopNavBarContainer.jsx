@@ -134,14 +134,10 @@ const TopNavBarContainer = props => {
           </NavDropdown>
 
           <NavDropdown title="Help" id="collasible-nav-dropdown">
-            <NavDropdown.Item href="https://www.urbandictionary.com/define.php?term=Darren">Ask Darren 😊</NavDropdown.Item>
-            <NavDropdown.Item href="https://thehouseofdrew.com/">Ask Drew 😎</NavDropdown.Item>
-            <NavDropdown.Item href="https://twitter.com/KendallJenner?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">Ask Kendall 🤪</NavDropdown.Item>
-            <NavDropdown.Item href="https://krystal.com">Ask Krystal 😅</NavDropdown.Item>
-            <NavDropdown.Item href="http://randysdonuts.com/">Ask Randy 🤩</NavDropdown.Item>
-
+            <NavDropdown.Item href="##">About</NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item href="https://www.google.com">Ask Google 😢</NavDropdown.Item>
+            <NavDropdown.Item href="https://github.com/team-targaryan/react-blue" target="_blank"> GitHub </NavDropdown.Item>
+
           </NavDropdown>
         </Nav>
         <Nav>

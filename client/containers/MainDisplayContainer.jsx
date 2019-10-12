@@ -8,8 +8,6 @@ import {
   setTransAndHistory,
   undo,
   redo,
-  undoHotKey,
-  redoHotKey
 } from '../actions/actions';
 import hotkeys from 'hotkeys-js';
 
@@ -18,6 +16,18 @@ const containerStyles = {
   height: '100vh',
   backgroundColor: 'lightBlue'
 };
+function getRidOfStupidChildren(data) {
+  if (!data.children) {
+    return;
+  }
+  if (data.children && !data.children.length) {
+    data._children = null;
+    return;
+  }
+  data.children.forEach(node => {
+    getRidOfStupidChildren(node);
+  })
+}
 
 function DoublyLinkedList(value) {
   this.value = value;
@@ -51,6 +61,7 @@ class MainDisplayContainer extends React.PureComponent {
     const initialHistory = new DoublyLinkedList(clone(this.props.state));
     // translate sets the state of centering the tree on mount
     const dimensions = this.treeContainer.getBoundingClientRect();
+    // this.props.setParentData();
     this.props.setTransAndHistory(
       {
         x: dimensions.width / 2,
@@ -76,11 +87,10 @@ class MainDisplayContainer extends React.PureComponent {
       }
     })
 
+
+    getRidOfStupidChildren(this.props.data);
     return (
       < div id='main-display-container' >
-
-
-
         <div>
           <button
             style={{
@@ -104,7 +114,6 @@ class MainDisplayContainer extends React.PureComponent {
           </button>
 
         </div>
-
         <div style={containerStyles} ref={tc => (this.treeContainer = tc)}>
           <Tree
             data={this.props.data}
@@ -121,7 +130,6 @@ class MainDisplayContainer extends React.PureComponent {
               y: -45
             }}
             onClick={currentComponent => {
-              console.log('currentComponent: ', currentComponent);
               this.props.setCurrentComponent(currentComponent);
             }}
             transitionDuration={500}
