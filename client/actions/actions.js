@@ -128,13 +128,6 @@ export const deleteChild = childId => dispatch => {
   });
 };
 
-export const updateChildren = () => dispatch => {
-  dispatch({
-    type: types.UPDATE_CHILDREN,
-    payload: null
-  })
-}
-
 // actions for taking the templates and sending it to the store
 export const useTemplates = (templates, childrenString, isHook) => dispatch => {
   dispatch({

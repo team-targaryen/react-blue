@@ -223,9 +223,11 @@ const mainReducer = (state = initialState, action) => {
       currentComponent = clone(state.currentComponent);
       currentComponent.children = clone(children);
 
+      updatedState = updateTree(state, currentComponent);
+
       return {
         ...state,
-        currentComponent
+        ...updatedState
       };
 
     case types.CHANGE_CHILD_TYPE:
@@ -241,9 +243,11 @@ const mainReducer = (state = initialState, action) => {
       currentComponent.children = clone(children);
       // console.log('currentComponent in change child type: ', currentComponent);
   
+      updatedState = updateTree(state, currentComponent);
+
       return {
         ...state,
-        currentComponent
+        ...updatedState
       };
 
     case types.ADD_CHILD:
@@ -256,14 +260,19 @@ const mainReducer = (state = initialState, action) => {
         isContainer,
         parent: state.currentComponent
       };
-      children = state.currentComponent.children.slice() || [];
+
+      children = state.currentComponent.children 
+        ? state.currentComponent.children.slice() 
+        : [];
       children.push(newChild);
       currentComponent = clone(state.currentComponent);
-      currentComponent.children = clone(children);
+      currentComponent.children = children.slice();
+
+      updatedState = updateTree(state, currentComponent);
 
       return {
         ...state,
-        currentComponent,
+        ...updatedState,
         lastId: componentId
       };
 
@@ -276,18 +285,11 @@ const mainReducer = (state = initialState, action) => {
         }
       }
 
-      return {
-        ...state,
-        currentComponent
-      };
-
-    case types.UPDATE_CHILDREN:
-      currentComponent = clone(state.currentComponent);
       updatedState = updateTree(state, currentComponent);
       return {
         ...state,
         ...updatedState
-      }
+      };
 
     case types.USE_TEMPLATES:
       return {

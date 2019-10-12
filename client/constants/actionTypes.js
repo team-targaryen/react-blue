@@ -16,6 +16,5 @@ export const RENAME_CHILD = "RENAME_CHILD";
 export const CHANGE_CHILD_TYPE = "CHANGE_CHILD_TYPE";
 export const ADD_CHILD = "ADD_CHILD";
 export const DELETE_CHILD = "DELETE_CHILD";
-export const UPDATE_CHILDREN = "UPDATE_CHILDREN";
 export const USE_TEMPLATES = "USE_TEMPLATES";
 
