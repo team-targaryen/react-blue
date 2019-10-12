@@ -47,7 +47,6 @@ const updateTree = (state, currentComponent) => {
     children = clone(currentComponent);
     children.name = currentComponent.name;
   }
-
   // console.log("state.data: ", state.data);
   const findComponentAndUpdate = (tree, currentComponent) => {
     if (tree.componentId === currentComponent.componentId) {
@@ -121,16 +120,6 @@ const mainReducer = (state = initialState, action) => {
     case types.DELETE_COMPONENT:
 
     /******************************* actions for main container ************************************/
-    // case types.SET_PARENT_DATA:
-    //   data = clone(state.data);
-    //   data.id = action.payload.parentId;
-    //   currentComponent = clone(data);
-    //   console.log('currentComponent: ', currentComponent);
-    //   return {
-    //     ...state,
-    //     data,
-    //     currentComponent
-    //   };
     
     case types.SET_CURRENT_COMPONENT:
       currentComponent = action.payload.currentComponent;
@@ -261,17 +250,13 @@ const mainReducer = (state = initialState, action) => {
     // possible issue
     case types.DELETE_CHILD:
       childId = action.payload.childId;
-      children = clone(state.currentComponent.children);
-
-      for (let i = 0; i < children.length; i++) {
-        if (children[i].componentId === childId) {
-          children.splice(i, 1);
-        }
-      }
       currentComponent = clone(state.currentComponent);
-      currentComponent.children = clone(children);     
-      updatedState = updateTree(state, currentComponent);    
-      console.log('updatedState: ', updatedState);
+      for (let i = 0; i < currentComponent.children.length; i++) {
+        if (currentComponent.children[i].componentId === childId) {
+            currentComponent.children.splice(i, 1);
+        }
+      }    
+      updatedState = updateTree(state, currentComponent);
       return {
         ...state,
         ...updatedState,

@@ -32,19 +32,8 @@ export const deleteComponent = componentId => dispatch => {
 };
 
 /******************************* actions for main container ************************************/
-// export const setParentData = () => dispatch => {
-//     const parentId =document.getElementsByTagName('g')[0].firstChild.id;
-//     dispatch({
-//         type: types.SET_PARENT_DATA,
-//         payload: {
-//             parentId
-//         }
-//     })
-// }
 
 export const setCurrentComponent = (currentComponent, data) => dispatch => {
-  console.log('currentComponent: ', currentComponent);
-  // document.getElementById('componentNameInput')
   document.getElementById('componentNameInput').value = currentComponent.name;
   dispatch({
     type: types.SET_CURRENT_COMPONENT,

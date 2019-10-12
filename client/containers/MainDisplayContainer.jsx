@@ -4,7 +4,6 @@ import Tree from 'react-d3-tree';
 import clone from 'clone';
 import { bindActionCreators } from 'redux';
 import {
-  // setParentData,
   setCurrentComponent,
   setTransAndHistory,
   undo,
@@ -16,6 +15,18 @@ const containerStyles = {
   height: '100vh',
   backgroundColor: 'lightBlue'
 };
+function getRidOfStupidChildren(data){
+  if (!data.children){
+    return;
+  }
+  if(data.children && !data.children.length){
+    data._children = null;
+    return;
+  }
+  data.children.forEach(node=>{
+    getRidOfStupidChildren(node);
+  })
+}
 
 function DoublyLinkedList(value) {
   this.value = value;
@@ -32,7 +43,6 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      // setParentData,
       setCurrentComponent,
       setTransAndHistory,
       undo,
@@ -61,6 +71,8 @@ class MainDisplayContainer extends React.PureComponent {
   }
 
   render() {
+
+    getRidOfStupidChildren(this.props.data);
     return (
       <div id='main-display-container'>
         <div>
@@ -85,7 +97,6 @@ class MainDisplayContainer extends React.PureComponent {
             Redo
           </button>
         </div>
-
         <div style={containerStyles} ref={tc => (this.treeContainer = tc)}>
           <Tree
             data={this.props.data}
