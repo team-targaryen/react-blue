@@ -19,7 +19,7 @@ const initialState = {
   translate: { x: 0, y: 0 },
   history: null,
   currentComponent: {
-    name: 'App', 
+    name: 'App',
     depth: 0,
     id: 0,
     componentId: 0,
@@ -27,7 +27,7 @@ const initialState = {
     children: []
   },
   lastId: 0,
-  template: [],
+  template: []
   // undoHotKey: 'undo',
   // redoHotKey: 'redo'
 };
@@ -84,7 +84,7 @@ const updateTree = (state, currentComponent) => {
     currentComponent,
     history
   };
-}
+};
 
 const mainReducer = (state = initialState, action) => {
   let isContainer,
@@ -122,7 +122,7 @@ const mainReducer = (state = initialState, action) => {
     case types.DELETE_COMPONENT:
 
     /******************************* actions for main container ************************************/
-    
+
     case types.SET_CURRENT_COMPONENT:
       currentComponent = action.payload.currentComponent;
       data = action.payload.data;
@@ -203,7 +203,7 @@ const mainReducer = (state = initialState, action) => {
         }
       }
       currentComponent = clone(state.currentComponent);
-      currentComponent.children = clone(children);    
+      currentComponent.children = clone(children);
       updatedState = updateTree(state, currentComponent);
       return {
         ...state,
@@ -254,13 +254,13 @@ const mainReducer = (state = initialState, action) => {
       currentComponent = clone(state.currentComponent);
       for (let i = 0; i < currentComponent.children.length; i++) {
         if (currentComponent.children[i].componentId === childId) {
-            currentComponent.children.splice(i, 1);
+          currentComponent.children.splice(i, 1);
         }
-      }    
+      }
       updatedState = updateTree(state, currentComponent);
       return {
         ...state,
-        ...updatedState,
+        ...updatedState
       };
 
     case types.USE_TEMPLATES:
@@ -268,7 +268,6 @@ const mainReducer = (state = initialState, action) => {
         ...state,
         template: action.payload.templates
       };
-
 
     default:
       return state;
