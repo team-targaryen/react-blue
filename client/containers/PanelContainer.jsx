@@ -38,19 +38,18 @@ const SideBarContainer = props => {
         <SideNavContainer />
         <Switch>
           <Route
-            path='/component-detail'
+            path='/current-component'
             render={() => (
-              <ComponentDetail
-                renameComponent={props.renameComponent}
-                changeType={props.changeType}
-                deleteComponent={props.deleteComponent}
-                currentComponent={props.currentComponent}
-              />
+              <div className='current-component'>
+                <ComponentDetail
+                  renameComponent={props.renameComponent}
+                  changeType={props.changeType}
+                  deleteComponent={props.deleteComponent}
+                  currentComponent={props.currentComponent}
+                />
+                <ChildrenListContainer />
+              </div>
             )}
-          />
-          <Route
-            path='/children-list'
-            render={() => <ChildrenListContainer />}
           />
           <Route path='/templates' render={() => <TemplatingArea />} />
           <Route

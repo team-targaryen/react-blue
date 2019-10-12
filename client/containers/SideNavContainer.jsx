@@ -4,11 +4,8 @@ import { Link } from 'react-router-dom';
 const SideNavContainer = () => {
   return (
     <nav className='side-nav'>
-      <Link to='/component-detail'>
-        <p>component-detail</p>
-      </Link>
-      <Link to='/children-list'>
-        <p>children-list</p>
+      <Link to='/current-component'>
+        <p>current component</p>
       </Link>
       <Link to='/templates'>
         <p>templates</p>
