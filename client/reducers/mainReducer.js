@@ -1,5 +1,5 @@
-import * as types from '../constants/actionTypes';
-import clone from 'clone';
+import * as types from "../constants/actionTypes";
+import clone from "clone";
 
 function DoublyLinkedList(value) {
   this.value = value;
@@ -9,23 +9,25 @@ function DoublyLinkedList(value) {
 
 const initialState = {
   data: {
-    name: 'Parent Node',
+    name: "Parent Node",
     depth: 0,
     id: 0,
+    templateOption: "",
     isContainer: true,
     children: []
   },
   translate: { x: null, y: null },
   history: null,
   currentComponent: {
-    name: 'Parent Node',
+    name: "Parent Node",
     depth: 0,
     id: 0,
+    templateOption: "",
     isContainer: true,
     children: []
   },
   lastId: 0,
-  template: []
+  templates: []
 };
 
 const mainReducer = (state = initialState, action) => {
@@ -36,7 +38,10 @@ const mainReducer = (state = initialState, action) => {
     data,
     inputName,
     preHistory,
-    history;
+    history,
+    currentTemplate,
+    index;
+  console.log("reRendered", state.currentComponent, state.data);
   switch (action.type) {
     /******************************* actions for side bar ************************************/
 
@@ -64,15 +69,15 @@ const mainReducer = (state = initialState, action) => {
     case types.UPDATE_TREE:
       currentComponent = clone(state.currentComponent);
       // check if current component has a name
-      if (currentComponent.name === '') {
-        currentComponent.name = 'DEFAULT_NAME';
+      if (currentComponent.name === "") {
+        currentComponent.name = "DEFAULT_NAME";
       }
       // check if any child has empty name, then change it to 'DEFAUL NAME'
       children = clone(currentComponent.children);
       if (children) {
         for (let child of children) {
-          if (child.name === '') {
-            child.name = 'DEFAULT_NAME';
+          if (child.name === "") {
+            child.name = "DEFAULT_NAME";
           }
         }
       } else {
@@ -163,7 +168,7 @@ const mainReducer = (state = initialState, action) => {
           currentComponent
         };
       } else {
-        alert('No previous action');
+        alert("No previous action");
         return {
           ...state
         };
@@ -181,7 +186,7 @@ const mainReducer = (state = initialState, action) => {
           currentComponent
         };
       } else {
-        alert('No next action');
+        alert("No next action");
         return {
           ...state
         };
@@ -232,6 +237,7 @@ const mainReducer = (state = initialState, action) => {
         name,
         id,
         isContainer,
+        templateOption: state.templates[0],
         parent: state.currentComponent
       };
 
@@ -268,7 +274,15 @@ const mainReducer = (state = initialState, action) => {
     case types.USE_TEMPLATES:
       return {
         ...state,
-        template: action.payload.templates
+        templates: action.payload.templates
+      };
+    case types.SET_TEMPLATES_FOR_COMPONENT:
+      currentComponent = clone(state.currentComponent);
+      currentComponent.templateOption = state.templates[action.payload];
+      // console.log("here in set templates", action.payload.currentComponent);
+      return {
+        ...state,
+        currentComponent
       };
 
     default:

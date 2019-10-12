@@ -6,7 +6,7 @@ import clone from "clone";
 import {
   InitialHookSyntax,
   InitialClassSyntax
-} from "../../templates/templates";
+} from "../templates-code/templates";
 import CreateCodeEditor from "./CreateCodeEditor.jsx";
 import { useTemplates } from "../actions/actions";
 const mapDispatchToProps = dispatch =>
@@ -62,8 +62,10 @@ const TemplatingArea = ({ useTemplates }) => {
       const data = localStorage.getObj("storage");
       if (data) {
         setIsInitialSyntax(data);
+        useTemplates(data);
       } else {
         setIsInitialSyntax(resetData);
+        useTemplates(resetData);
       }
     } else {
       setIsInitialSyntax(resetData);

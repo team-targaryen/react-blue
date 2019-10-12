@@ -1,4 +1,4 @@
-import * as types from '../constants/actionTypes';
+import * as types from "../constants/actionTypes";
 
 /******************************* actions for side bar ************************************/
 
@@ -100,11 +100,11 @@ export const changeChildType = (event, childId) => dispatch => {
 
 export const addChild = event => dispatch => {
   event.preventDefault();
-  const name = event.target.childName.value || 'DEFAULT_NAME';
+  const name = event.target.childName.value || "DEFAULT_NAME";
   const isContainer = event.target.checkbox.checked;
   // reset the input fields
-  document.getElementById('addChildName').value = '';
-  document.getElementById('addChildContainerCheckbox').checked = false;
+  document.getElementById("addChildName").value = "";
+  document.getElementById("addChildContainerCheckbox").checked = false;
 
   dispatch({
     type: types.ADD_CHILD,
@@ -129,5 +129,12 @@ export const useTemplates = (templates, childrenString, isHook) => dispatch => {
   dispatch({
     type: types.USE_TEMPLATES,
     payload: { templates }
+  });
+};
+
+export const setTemplatesForComponent = index => dispatch => {
+  dispatch({
+    type: types.SET_TEMPLATES_FOR_COMPONENT,
+    payload: { index }
   });
 };
