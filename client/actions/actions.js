@@ -3,13 +3,18 @@ import * as types from '../constants/actionTypes';
 /******************************* actions for side bar ************************************/
 
 export const renameComponent = event => dispatch => {
-    const inputName = event.target.value;
-    dispatch({
-        type: types.RENAME_COMPONENT,
-        payload: {
-        inputName
-        }
-    });
+  let inputName = event.target.value;
+  inputName = inputName.replace(/(\w)(\w*)/g, (g0, g1, g2) => {
+    return g1.toUpperCase() + g2.toLowerCase();
+  });
+  inputName = inputName.replace(/\s/g, '');
+
+  dispatch({
+    type: types.RENAME_COMPONENT,
+    payload: {
+      inputName
+    }
+  });
 };
 
 export const changeType = event => dispatch => {
@@ -22,19 +27,20 @@ export const changeType = event => dispatch => {
   });
 };
 
-export const deleteComponent = componentId => dispatch => {
+export const deleteComponent = () => dispatch => {
   dispatch({
     type: types.DELETE_COMPONENT,
-    payload: {
-      componentId
-    }
+    payload: null
   });
 };
 
 /******************************* actions for main container ************************************/
 
 export const setCurrentComponent = (currentComponent, data) => dispatch => {
-  document.getElementById('componentNameInput').value = currentComponent.name;
+  if(document.getElementById('componentNameInput')) {
+    document.getElementById('componentNameInput').value = currentComponent.name;
+  }
+  console.log("currentComponent: ", currentComponent);
   dispatch({
     type: types.SET_CURRENT_COMPONENT,
     payload: {
@@ -55,6 +61,7 @@ export const setTransAndHistory = (translate, history) => dispatch => {
 };
 
 export const undo = () => dispatch => {
+  console.log('inside of undo');
   dispatch({
     type: types.UN_DO,
     payload: null
@@ -70,7 +77,7 @@ export const redo = () => dispatch => {
 
 /*********************** actions for current component children list ****************************/
 export const renameChild = (event, childId) => dispatch => {
-  const inputName = event.target.value;
+  const inputName = event.target.value.replace(/\s/g, '');
   dispatch({
     type: types.RENAME_CHILD,
     payload: {
@@ -93,7 +100,11 @@ export const changeChildType = (event, childId) => dispatch => {
 
 export const addChild = event => dispatch => {
   event.preventDefault();
-  const name = event.target.childName.value || 'DEFAULT_NAME';
+  let name = event.target.childName.value || 'Component';
+  name = name.replace(/(\w)(\w*)/g, (g0, g1, g2) => {
+    return g1.toUpperCase() + g2.toLowerCase();
+  });
+  name = name.replace(/\s/g, '');
   const isContainer = event.target.checkbox.checked;
   // reset the input fields
   document.getElementById('addChildName').value = '';

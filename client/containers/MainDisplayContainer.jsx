@@ -7,23 +7,24 @@ import {
   setCurrentComponent,
   setTransAndHistory,
   undo,
-  redo
+  redo,
 } from '../actions/actions';
+import hotkeys from 'hotkeys-js';
 
 const containerStyles = {
   width: '100%',
   height: '100vh',
   backgroundColor: 'lightBlue'
 };
-function getRidOfStupidChildren(data){
-  if (!data.children){
+function getRidOfStupidChildren(data) {
+  if (!data.children) {
     return;
   }
-  if(data.children && !data.children.length){
+  if (data.children && !data.children.length) {
     data._children = null;
     return;
   }
-  data.children.forEach(node=>{
+  data.children.forEach(node => {
     getRidOfStupidChildren(node);
   })
 }
@@ -71,10 +72,23 @@ class MainDisplayContainer extends React.PureComponent {
   }
 
   render() {
+    const undoFunc = this.props.undo;
+    const redoFunc = this.props.redo;
+    hotkeys('ctrl+z, ctrl+shift+z', function (event, handler) {
+      event.preventDefault();
+      switch (handler.key) {
+        case "ctrl+z":
+          undoFunc();
+          return;
 
+        case "ctrl+shift+z":
+          redoFunc();
+          break;
+      }
+    })
     getRidOfStupidChildren(this.props.data);
     return (
-      <div id='main-display-container'>
+      < div id='main-display-container' >
         <div>
           <button
             style={{
@@ -96,6 +110,7 @@ class MainDisplayContainer extends React.PureComponent {
           >
             Redo
           </button>
+
         </div>
         <div style={containerStyles} ref={tc => (this.treeContainer = tc)}>
           <Tree
@@ -118,7 +133,7 @@ class MainDisplayContainer extends React.PureComponent {
             transitionDuration={500}
           />
         </div>
-      </div>
+      </div >
     );
   }
 }
