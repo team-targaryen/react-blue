@@ -36,6 +36,11 @@ const ComponentDetail = ({
         />
         <span className='containerLabel'>Container</span>
       </div>
+        <div className='DeleteComponent'>
+            <button onClick={deleteComponent}>
+                Delete Component
+            </button>
+        </div>
     </div>
   );
 };

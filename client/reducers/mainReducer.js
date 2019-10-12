@@ -28,8 +28,6 @@ const initialState = {
   },
   lastId: 0,
   template: []
-  // undoHotKey: 'undo',
-  // redoHotKey: 'redo'
 };
 
 const updateTree = (state, currentComponent) => {
@@ -55,18 +53,16 @@ const updateTree = (state, currentComponent) => {
       tree.name = currentComponent.name;
       tree.isContainer = currentComponent.isContainer;
       tree.children = clone(currentComponent.children);
-      return tree;
+      return;
     }
-    return [...tree.children].find(child => {
-      if (child.componentId === currentComponent.componentId) {
-        child.name = currentComponent.name;
-        child.isContainer = currentComponent.isContainer;
-        child.children = clone(currentComponent.children);
-        return child;
-      } else if (child.children)
-        return findComponentAndUpdate(child, currentComponent);
-    });
+    if(tree.children) {
+      tree.children.forEach(child => {
+          findComponentAndUpdate(child, currentComponent);
+      });
+    }
+    return;
   };
+
   let data = clone(state.data);
   findComponentAndUpdate(data, currentComponent);
   let preHistory = clone(state.history);
@@ -120,6 +116,36 @@ const mainReducer = (state = initialState, action) => {
       };
 
     case types.DELETE_COMPONENT:
+      if(state.currentComponent.depth === 0){
+        alert("Error: can't delete root component.");
+        return {
+          ...state
+        }
+      }
+
+      const findAndDelete = (tree, currentComponent) => {
+        if (tree.componentId === currentComponent.componentId) {
+          console.log('tree: ', tree);
+          tree = undefined;
+          console.log('state: ', state.data);
+          return;
+        }
+        if(tree.children) {
+          tree.children.forEach(child => {
+              findAndDelete(child, currentComponent);
+          });
+        }
+        return;
+      }
+
+      data = clone(state.data);
+      findAndDelete(data, state.currentComponent);
+
+      return {
+        ...state,
+        data,
+        currentComponent: data
+      }
 
     /******************************* actions for main container ************************************/
 
@@ -134,7 +160,7 @@ const mainReducer = (state = initialState, action) => {
           currentComponent
         };
       } else {
-        data = currentComponent;
+        data = clone(currentComponent);
         while (data.parent) {
           data = clone(data.parent);
         }

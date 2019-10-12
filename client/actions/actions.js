@@ -27,19 +27,20 @@ export const changeType = event => dispatch => {
   });
 };
 
-export const deleteComponent = componentId => dispatch => {
+export const deleteComponent = () => dispatch => {
   dispatch({
     type: types.DELETE_COMPONENT,
-    payload: {
-      componentId
-    }
+    payload: null
   });
 };
 
 /******************************* actions for main container ************************************/
 
 export const setCurrentComponent = (currentComponent, data) => dispatch => {
-  document.getElementById('componentNameInput').value = currentComponent.name;
+  if(document.getElementById('componentNameInput')) {
+    document.getElementById('componentNameInput').value = currentComponent.name;
+  }
+  console.log("currentComponent: ", currentComponent);
   dispatch({
     type: types.SET_CURRENT_COMPONENT,
     payload: {
