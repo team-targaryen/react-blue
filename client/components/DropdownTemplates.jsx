@@ -2,14 +2,23 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Dropdown from "react-bootstrap/Dropdown";
 
-const DropdownTemplates = ({ templates, setTemplatesForComponent }) => {
+const DropdownTemplates = ({
+  templates,
+  setTemplatesForComponent,
+  currentComponent,
+  childId
+}) => {
   const [isDefault, setIsDefault] = useState("React Class Syntax - DEFAULT");
   const displayTemplates = templates.map((el, index) => {
     return (
       <Dropdown.Item
         onClick={() => {
-          setTemplatesForComponent(index);
           setIsDefault(el.name);
+          setTemplatesForComponent(
+            currentComponent,
+            index,
+            !childId ? 0 : childId
+          );
         }}
       >
         {el.name}

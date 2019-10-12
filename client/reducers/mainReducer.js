@@ -9,25 +9,86 @@ function DoublyLinkedList(value) {
 
 const initialState = {
   data: {
-    name: "Parent Node",
+    name: "App",
     depth: 0,
     id: 0,
+    componentId: 0,
     templateOption: "",
     isContainer: true,
     children: []
   },
-  translate: { x: null, y: null },
+  translate: { x: 0, y: 0 },
   history: null,
   currentComponent: {
-    name: "Parent Node",
+    name: "App",
     depth: 0,
     id: 0,
+    componentId: 0,
     templateOption: "",
     isContainer: true,
     children: []
   },
   lastId: 0,
   templates: []
+};
+
+const updateTree = (state, currentComponent, templateOption) => {
+  // check if current component has a name
+  if (currentComponent.name === "") {
+    currentComponent.name = "DEFAULT_NAME";
+  }
+  // check if any child has empty name, then change it to 'DEFAUL NAME'
+  let children = clone(currentComponent.children);
+  if (children) {
+    for (let child of children) {
+      if (child.name === "") {
+        child.name = "DEFAULT_NAME";
+      }
+    }
+  } else {
+    children = clone(currentComponent);
+    children.name = currentComponent.name;
+  }
+  // console.log("state.data: ", state.data);
+  const findComponentAndUpdate = (tree, currentComponent, templateOption) => {
+    if (tree.componentId === currentComponent.componentId) {
+      tree.name = currentComponent.name;
+      // console.log("here inside of recursive", tree, templateOption);
+      tree.templateOption = templateOption;
+      // console.log(tree.templateOption);
+      tree.isContainer = currentComponent.isContainer;
+      tree.children = clone(currentComponent.children);
+      return tree;
+    }
+    return [...tree.children].find(child => {
+      if (child.componentId === currentComponent.componentId) {
+        child.name = currentComponent.name;
+        child.isContainer = currentComponent.isContainer;
+        child.templateOption = templateOption;
+        child.children = clone(currentComponent.children);
+        return child;
+      } else if (child.children)
+        return findComponentAndUpdate(child, currentComponent);
+    });
+  };
+  let data = clone(state.data);
+  findComponentAndUpdate(data, currentComponent, templateOption);
+  console.log("here inside of updatestate", currentComponent);
+  let preHistory = clone(state.history);
+  let history = new DoublyLinkedList(
+    clone({
+      data,
+      currentComponent
+    })
+  );
+  preHistory.next = history;
+  history.prev = preHistory;
+
+  return {
+    data,
+    currentComponent,
+    history
+  };
 };
 
 const mainReducer = (state = initialState, action) => {
@@ -37,90 +98,36 @@ const mainReducer = (state = initialState, action) => {
     children,
     data,
     inputName,
-    preHistory,
+    updatedState,
     history,
     currentTemplate,
+    templateOption,
     index;
-  console.log("reRendered", state.currentComponent, state.data);
   switch (action.type) {
     /******************************* actions for side bar ************************************/
 
     case types.RENAME_COMPONENT:
       inputName = action.payload.inputName;
-
       currentComponent = clone(state.currentComponent);
       currentComponent.name = inputName;
+      updatedState = updateTree(state, currentComponent);
+
       return {
         ...state,
-        currentComponent
+        ...updatedState
       };
 
     case types.CHANGE_TYPE:
       isContainer = action.payload.isContainer;
       currentComponent = clone(state.currentComponent);
       currentComponent.isContainer = isContainer;
+      updatedState = updateTree(state, currentComponent);
       return {
         ...state,
-        currentComponent
+        ...updatedState
       };
 
     case types.DELETE_COMPONENT:
-
-    case types.UPDATE_TREE:
-      currentComponent = clone(state.currentComponent);
-      // check if current component has a name
-      if (currentComponent.name === "") {
-        currentComponent.name = "DEFAULT_NAME";
-      }
-      // check if any child has empty name, then change it to 'DEFAUL NAME'
-      children = clone(currentComponent.children);
-      if (children) {
-        for (let child of children) {
-          if (child.name === "") {
-            child.name = "DEFAULT_NAME";
-          }
-        }
-      } else {
-        children = clone(currentComponent);
-        children.name = currentComponent.name;
-      }
-
-      data = clone(state.data);
-      const findComponentAndUpdate = (tree, currentComponent) => {
-        if (tree.id === currentComponent.id) {
-          tree.name = currentComponent.name;
-          tree.isContainer = currentComponent.isContainer;
-          tree.children = clone(currentComponent.children);
-          return tree;
-        }
-        return [...tree.children].find(child => {
-          if (child.id === currentComponent.id) {
-            child.name = currentComponent.name;
-            child.isContainer = currentComponent.isContainer;
-            child.children = clone(currentComponent.children);
-            return child;
-          } else if (child.children)
-            return findComponentAndUpdate(child, currentComponent);
-        });
-      };
-
-      findComponentAndUpdate(data, currentComponent);
-      preHistory = clone(state.history);
-      history = new DoublyLinkedList(
-        clone({
-          data,
-          currentComponent
-        })
-      );
-      preHistory.next = history;
-      history.prev = preHistory;
-
-      return {
-        ...state,
-        data,
-        currentComponent,
-        history
-      };
 
     /******************************* actions for main container ************************************/
 
@@ -199,17 +206,16 @@ const mainReducer = (state = initialState, action) => {
       childId = action.payload.childId;
       children = clone(state.currentComponent.children);
       for (let child of children) {
-        if (child.id === childId) {
+        if (child.componentId === childId) {
           child.name = inputName;
         }
       }
-
       currentComponent = clone(state.currentComponent);
       currentComponent.children = clone(children);
-
+      updatedState = updateTree(state, currentComponent);
       return {
         ...state,
-        currentComponent
+        ...updatedState
       };
 
     case types.CHANGE_CHILD_TYPE:
@@ -217,58 +223,53 @@ const mainReducer = (state = initialState, action) => {
       childId = action.payload.childId;
       children = clone(state.currentComponent.children);
       for (let child of children) {
-        if (child.id === childId) {
+        if (child.componentId === childId) {
           child.isContainer = isContainer;
         }
       }
       currentComponent = clone(state.currentComponent);
       currentComponent.children = clone(children);
-
+      // console.log('currentComponent in change child type: ', currentComponent);
+      updatedState = updateTree(state, currentComponent);
       return {
         ...state,
-        currentComponent
+        ...updatedState
       };
 
     case types.ADD_CHILD:
       const name = action.payload.name;
       isContainer = action.payload.isContainer;
-      const id = state.lastId + 1;
+      const componentId = state.lastId + 1;
       const newChild = {
         name,
-        id,
+        componentId,
         isContainer,
         templateOption: state.templates[0],
         parent: state.currentComponent
       };
-
       children = clone(state.currentComponent.children) || [];
       children.push(newChild);
-
       currentComponent = clone(state.currentComponent);
       currentComponent.children = clone(children);
-
+      updatedState = updateTree(state, currentComponent);
       return {
         ...state,
-        lastId: id,
-        currentComponent
+        ...updatedState,
+        lastId: componentId
       };
 
     case types.DELETE_CHILD:
       childId = action.payload.childId;
-      children = clone(state.currentComponent.children);
-
-      for (let i = 0; i < children.length; i++) {
-        if (children[i].id === childId) {
-          children.splice(i, 1);
+      currentComponent = clone(state.currentComponent);
+      for (let i = 0; i < currentComponent.children.length; i++) {
+        if (currentComponent.children[i].componentId === childId) {
+          currentComponent.children.splice(i, 1);
         }
       }
-
-      currentComponent = clone(state.currentComponent);
-      currentComponent.children = clone(children);
-
+      updatedState = updateTree(state, currentComponent);
       return {
         ...state,
-        currentComponent
+        ...updatedState
       };
 
     case types.USE_TEMPLATES:
@@ -277,12 +278,18 @@ const mainReducer = (state = initialState, action) => {
         templates: action.payload.templates
       };
     case types.SET_TEMPLATES_FOR_COMPONENT:
-      currentComponent = clone(state.currentComponent);
-      currentComponent.templateOption = state.templates[action.payload];
-      // console.log("here in set templates", action.payload.currentComponent);
+      templateOption = state.templates[action.payload.index].code;
+      currentComponent = clone(action.payload.currentComponent);
+      state = clone(state);
+      childId = action.payload.childId;
+      currentComponent.childId = childId;
+      updatedState = updateTree(state, currentComponent, templateOption);
+      if (!childId) {
+        updatedState.currentComponent.templateOption = templateOption;
+      }
       return {
         ...state,
-        currentComponent
+        ...updatedState
       };
 
     default:

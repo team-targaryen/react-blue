@@ -4,7 +4,6 @@ import * as types from "../constants/actionTypes";
 
 export const renameComponent = event => dispatch => {
   const inputName = event.target.value;
-
   dispatch({
     type: types.RENAME_COMPONENT,
     payload: {
@@ -32,16 +31,10 @@ export const deleteComponent = componentId => dispatch => {
   });
 };
 
-export const updateTree = () => dispatch => {
-  dispatch({
-    type: types.UPDATE_TREE,
-    payload: null
-  });
-};
-
 /******************************* actions for main container ************************************/
 
 export const setCurrentComponent = (currentComponent, data) => dispatch => {
+  document.getElementById("componentNameInput").value = currentComponent.name;
   dispatch({
     type: types.SET_CURRENT_COMPONENT,
     payload: {
@@ -99,10 +92,10 @@ export const changeChildType = (event, childId) => dispatch => {
 };
 
 export const addChild = event => dispatch => {
+  // console.log(event);
   event.preventDefault();
   const name = event.target.childName.value || "DEFAULT_NAME";
   const isContainer = event.target.checkbox.checked;
-  // reset the input fields
   document.getElementById("addChildName").value = "";
   document.getElementById("addChildContainerCheckbox").checked = false;
 
@@ -132,9 +125,13 @@ export const useTemplates = (templates, childrenString, isHook) => dispatch => {
   });
 };
 
-export const setTemplatesForComponent = index => dispatch => {
+export const setTemplatesForComponent = (
+  currentComponent,
+  index,
+  childId
+) => dispatch => {
   dispatch({
     type: types.SET_TEMPLATES_FOR_COMPONENT,
-    payload: { index }
+    payload: { currentComponent, index, childId }
   });
 };
