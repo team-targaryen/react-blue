@@ -86,8 +86,6 @@ class MainDisplayContainer extends React.PureComponent {
           break;
       }
     })
-
-
     getRidOfStupidChildren(this.props.data);
     return (
       < div id='main-display-container' >
