@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import Tree from 'react-d3-tree';
 import clone from 'clone';
 import { bindActionCreators } from 'redux';
-import { 
-    setCurrentComponent,
-    setTransAndHistory,
-    undo,
-    redo,
+import {
+  setCurrentComponent,
+  setTransAndHistory,
+  undo,
+  redo
 } from '../actions/actions';
 
 const containerStyles = {
@@ -15,6 +15,18 @@ const containerStyles = {
   height: '100vh',
   backgroundColor: 'lightBlue'
 };
+function getRidOfStupidChildren(data){
+  if (!data.children){
+    return;
+  }
+  if(data.children && !data.children.length){
+    data._children = null;
+    return;
+  }
+  data.children.forEach(node=>{
+    getRidOfStupidChildren(node);
+  })
+}
 
 function DoublyLinkedList(value) {
   this.value = value;
@@ -23,20 +35,21 @@ function DoublyLinkedList(value) {
 }
 
 const mapStateToProps = store => ({
-    state: store.main,
-    data: store.main.data,
-    translate: store.main.translate
-})
+  state: store.main,
+  data: store.main.data,
+  translate: store.main.translate
+});
 
-const mapDispatchToProps = dispatch => bindActionCreators(
-    { 
-        setCurrentComponent,
-        setTransAndHistory,
-        undo,
-        redo,
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setCurrentComponent,
+      setTransAndHistory,
+      undo,
+      redo
     },
     dispatch
-);
+  );
 
 class MainDisplayContainer extends React.PureComponent {
   constructor(props) {
@@ -47,15 +60,19 @@ class MainDisplayContainer extends React.PureComponent {
     const initialHistory = new DoublyLinkedList(clone(this.props.state));
     // translate sets the state of centering the tree on mount
     const dimensions = this.treeContainer.getBoundingClientRect();
-    this.props.setTransAndHistory({
-            x: dimensions.width / 2,
-            y: dimensions.height / 6
-        }
-        , initialHistory
+    // this.props.setParentData();
+    this.props.setTransAndHistory(
+      {
+        x: dimensions.width / 2,
+        y: dimensions.height / 6
+      },
+      initialHistory
     );
   }
 
   render() {
+
+    getRidOfStupidChildren(this.props.data);
     return (
       <div id='main-display-container'>
         <div>
@@ -80,7 +97,6 @@ class MainDisplayContainer extends React.PureComponent {
             Redo
           </button>
         </div>
-
         <div style={containerStyles} ref={tc => (this.treeContainer = tc)}>
           <Tree
             data={this.props.data}
@@ -96,8 +112,9 @@ class MainDisplayContainer extends React.PureComponent {
               x: -30,
               y: -45
             }}
-            onClick={(currentComponent) => {
-              this.props.setCurrentComponent(currentComponent)}}
+            onClick={currentComponent => {
+              this.props.setCurrentComponent(currentComponent);
+            }}
             transitionDuration={500}
           />
         </div>
@@ -107,6 +124,6 @@ class MainDisplayContainer extends React.PureComponent {
 }
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(MainDisplayContainer);

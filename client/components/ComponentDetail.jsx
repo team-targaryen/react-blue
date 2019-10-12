@@ -10,7 +10,7 @@ const ComponentDetail = ({ renameComponent, changeType, deleteComponent, current
     return (
     <div className='componentDetail'>
         <div className='renameField'>
-            <input className='componentName' type='text' value={currentComponent.name} onChange={renameComponent} />
+            <input id='componentNameInput' type='text' defaultValue={currentComponent.name} onBlur={renameComponent} />
         </div>
         <div className='isContainer'>
             <input id="componentDetailContainerCheckbox" type="checkbox" checked={currentComponent.isContainer} onChange={changeType}/><span className="containerLabel">Container</span>

@@ -105,4 +105,9 @@
   -webkit-transition: opacity 0.2s;
   transition: opacity 0.2s;
 }
+
+#code-editor {
+  width: 50%;
+  background: cornsilk;
+}
 /*# sourceMappingURL=styles.css.map */
