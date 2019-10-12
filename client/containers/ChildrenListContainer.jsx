@@ -5,8 +5,7 @@ import {
     renameChild,
     changeChildType,
     addChild,
-    deleteChild,
-    updateTree 
+    deleteChild
 } from '../actions/actions';
 import { bindActionCreators } from 'redux';
 
@@ -22,8 +21,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators(
         renameChild,
         changeChildType,
         addChild,
-        deleteChild,
-        updateTree
+        deleteChild
     },
     dispatch
 );
@@ -39,7 +37,6 @@ const ChildrenList = (props) => (
         </form>
         {props.currentComponent.children &&
              props.currentComponent.children.map((child, idx) => childMaker(child, idx, props.renameChild, props.changeChildType, props.deleteChild))}
-        <button onClick={props.updateTree}>Update Tree</button>
     </div>
 );
 
@@ -49,7 +46,7 @@ const childMaker = (child, idx, renameChild, changeType, deleteChild) => {
     <EachChild 
         key={idx}
         name={child.name}
-        childId={child.id}
+        childId={child.componentId}
         isContainer={child.isContainer}
         renameChild={renameChild}
         changeType={changeType}
