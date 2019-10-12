@@ -25,7 +25,9 @@ const initialState = {
     children: []
   },
   lastId: 0,
-  template: []
+  template: [],
+  // undoHotKey: 'undo',
+  // redoHotKey: 'redo'
 };
 
 const mainReducer = (state = initialState, action) => {
@@ -270,6 +272,7 @@ const mainReducer = (state = initialState, action) => {
         ...state,
         template: action.payload.templates
       };
+
 
     default:
       return state;

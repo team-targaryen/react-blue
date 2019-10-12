@@ -4,10 +4,21 @@ import JSZip from 'jszip';
 import FileSave from 'file-saver';
 import indexHTML from '../templates-exports/indexHTML.js';
 import indexJS from '../templates-exports/indexJS.js';
+import { bindActionCreators } from 'redux';
+import { undo, redo } from '../actions/actions';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 const mapStateToProps = store => ({
   data: store.main.data
 });
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ undo, redo },
+    dispatch
+  );
 
 const exportZip = data => {
   const zip = new JSZip();
@@ -61,7 +72,7 @@ export default ${currentComponent.name};
         } else {
           zip.file(
             `containers/${currentComponent.name} (${fileCounter[
-              currentComponent.name
+            currentComponent.name
             ] - 1}).jsx`,
             `${template}`
           );
@@ -72,7 +83,7 @@ export default ${currentComponent.name};
         } else {
           zip.file(
             `components/${currentComponent.name} (${fileCounter[
-              currentComponent.name
+            currentComponent.name
             ] - 1}).jsx`,
             `${template}`
           );
@@ -93,17 +104,58 @@ export default ${currentComponent.name};
   zip.file('assets/styles/styles.css', '');
   zip.file('index.js', indexJS);
 
-  zip.generateAsync({ type: 'blob' }).then(function(content) {
+  zip.generateAsync({ type: 'blob' }).then(function (content) {
     saveAs(content, 'react-blue.zip');
   });
 };
 
+
+
 const TopNavBarContainer = props => {
+
   return (
-    <div>
-      <button onClick={() => exportZip(props.data)}>Export</button>
-    </div>
+
+    <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
+      <Navbar.Brand href="#home">React-Blue</Navbar.Brand>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Collapse id="responsive-navbar-nav">
+        <Nav className="mr-auto">
+
+
+          <NavDropdown title="Edit" id="collasible-nav-dropdown">
+            <NavDropdown.Item onClick={props.undo}>Undo &nbsp;&nbsp;&nbsp;<span style={{ fontSize: '11.6px' }}> Ctrl+Z</span></NavDropdown.Item>
+            <NavDropdown.Item onClick={props.redo}>Redo &nbsp;&nbsp;&nbsp;<span style={{ fontSize: '11.6px' }}> Ctrl+Shift+Z</span></NavDropdown.Item>
+            <NavDropdown.Divider />
+          </NavDropdown>
+
+          <NavDropdown title="View" id="collasible-nav-dropdown">
+            <NavDropdown.Item href="#action/3.1">Horizontal</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.2">Vertical</NavDropdown.Item>
+          </NavDropdown>
+
+          <NavDropdown title="Help" id="collasible-nav-dropdown">
+            <NavDropdown.Item href="https://www.urbandictionary.com/define.php?term=Darren">Ask Darren 😊</NavDropdown.Item>
+            <NavDropdown.Item href="https://thehouseofdrew.com/">Ask Drew 😎</NavDropdown.Item>
+            <NavDropdown.Item href="https://twitter.com/KendallJenner?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">Ask Kendall 🤪</NavDropdown.Item>
+            <NavDropdown.Item href="https://krystal.com">Ask Krystal 😅</NavDropdown.Item>
+            <NavDropdown.Item href="http://randysdonuts.com/">Ask Randy 🤩</NavDropdown.Item>
+
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="https://www.google.com">Ask Google 😢</NavDropdown.Item>
+          </NavDropdown>
+        </Nav>
+        <Nav>
+          <Nav.Link onClick={() => exportZip(props.data)}>Export
+          </Nav.Link>
+          <Nav.Link eventKey={2} href="#memes">
+            ExSomthing
+      </Nav.Link>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
+
+
   );
 };
 
-export default connect(mapStateToProps)(TopNavBarContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(TopNavBarContainer);

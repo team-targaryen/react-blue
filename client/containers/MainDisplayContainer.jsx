@@ -7,8 +7,11 @@ import {
   setCurrentComponent,
   setTransAndHistory,
   undo,
-  redo
+  redo,
+  undoHotKey,
+  redoHotKey
 } from '../actions/actions';
+import hotkeys from 'hotkeys-js';
 
 const containerStyles = {
   width: '100%',
@@ -58,8 +61,26 @@ class MainDisplayContainer extends React.PureComponent {
   }
 
   render() {
+    const undoFunc = this.props.undo;
+    const redoFunc = this.props.redo;
+    hotkeys('ctrl+z, ctrl+shift+z', function (event, handler) {
+      event.preventDefault();
+      switch (handler.key) {
+        case "ctrl+z":
+          undoFunc();
+          return;
+
+        case "ctrl+shift+z":
+          redoFunc();
+          break;
+      }
+    })
+
     return (
-      <div id='main-display-container'>
+      < div id='main-display-container' >
+
+
+
         <div>
           <button
             style={{
@@ -81,6 +102,7 @@ class MainDisplayContainer extends React.PureComponent {
           >
             Redo
           </button>
+
         </div>
 
         <div style={containerStyles} ref={tc => (this.treeContainer = tc)}>
@@ -105,7 +127,7 @@ class MainDisplayContainer extends React.PureComponent {
             transitionDuration={500}
           />
         </div>
-      </div>
+      </div >
     );
   }
 }
