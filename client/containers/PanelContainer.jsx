@@ -12,7 +12,7 @@ import ComponentDetail from '../components/ComponentDetail.jsx';
 import ChildrenListContainer from './ChildrenListContainer.jsx';
 import TemplatingArea from '../components/TemplatingArea.jsx';
 import FileTree from '../components/FileTree.jsx';
-import SideNavContainer from './SideNavContainer.jsx';
+import SideNavIcons from '../components/SideNavIcons.jsx';
 
 const mapStateToProps = store => ({
   data: store.main.data,
@@ -30,42 +30,37 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 
-const SideBarContainer = props => {
+const SideNavContainer = props => {
   return (
-    <MemoryRouter>
-      <div className='SideBarContainer' id='sidebar-container'>
-        <SideNavContainer />
-        <Switch>
-          <Route
-            path='/current-component'
-            render={() => (
-              <div className='current-component'>
-                <ComponentDetail
-                  renameComponent={props.renameComponent}
-                  changeType={props.changeType}
-                  deleteComponent={props.deleteComponent}
-                  currentComponent={props.currentComponent}
+    <div id='panel-container'>
+      <ComponentDetail
+        renameComponent={props.renameComponent}
+        changeType={props.changeType}
+        deleteComponent={props.deleteComponent}
+        currentComponent={props.currentComponent}
+      />
+      <ChildrenListContainer />
+      <div id='panel-bottom'>
+        <MemoryRouter>
+          <SideNavIcons />
+          <Switch>
+            <Route path='/templates' render={() => <TemplatingArea />} />
+            <Route
+              path='/file-tree'
+              render={() => (
+                <FileTree
+                  data={props.data}
+                  setCurrentComponent={props.setCurrentComponent}
                 />
-                <ChildrenListContainer />
-              </div>
-            )}
-          />
-          <Route path='/templates' render={() => <TemplatingArea />} />
-          <Route
-            path='/file-tree'
-            render={() => (
-              <FileTree
-                data={props.data}
-                setCurrentComponent={props.setCurrentComponent}
-              />
-            )}
-          />
-        </Switch>
+              )}
+            />
+          </Switch>
+        </MemoryRouter>
       </div>
-    </MemoryRouter>
+    </div>
   );
 };
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SideBarContainer);
+)(SideNavContainer);

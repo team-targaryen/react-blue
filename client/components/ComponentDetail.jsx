@@ -17,8 +17,9 @@ const ComponentDetail = ({
   };
 
   return (
-    <div className='componentDetail'>
-      <div className='renameField'>
+    <div id='component-detail'>
+      <h3>Current Component</h3>
+      <div id='rename-field'>
         <input
           id='componentNameInput'
           type='text'
@@ -27,20 +28,18 @@ const ComponentDetail = ({
           disabled={disabled()}
         />
       </div>
-      <div className='isContainer'>
+      <div id='is-container'>
         <input
           id='componentDetailContainerCheckbox'
           type='checkbox'
           checked={currentComponent.isContainer}
           onChange={changeType}
         />
-        <span className='containerLabel'>Container</span>
+        <span id='container-label'>Container</span>
       </div>
-        <div className='DeleteComponent'>
-            <button onClick={deleteComponent}>
-                Delete Component
-            </button>
-        </div>
+      <div id='delete-component'>
+        <button onClick={deleteComponent}>Delete Component</button>
+      </div>
     </div>
   );
 };

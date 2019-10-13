@@ -6,7 +6,6 @@ import indexHTML from '../templates-exports/indexHTML.js';
 import indexJS from '../templates-exports/indexJS.js';
 import { bindActionCreators } from 'redux';
 import { undo, redo } from '../actions/actions';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
