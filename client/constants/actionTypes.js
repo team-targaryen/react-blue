@@ -1,4 +1,3 @@
-
 // sidebar actions
 export const RENAME_COMPONENT = "RENAME_COMPONENT";
 export const CHANGE_TYPE = "CHANGE_TYPE";
@@ -17,4 +16,3 @@ export const CHANGE_CHILD_TYPE = "CHANGE_CHILD_TYPE";
 export const ADD_CHILD = "ADD_CHILD";
 export const DELETE_CHILD = "DELETE_CHILD";
 export const USE_TEMPLATES = "USE_TEMPLATES";
-

@@ -1,4 +1,4 @@
-import * as types from '../constants/actionTypes';
+import * as types from "../constants/actionTypes";
 
 /******************************* actions for side bar ************************************/
 
@@ -7,7 +7,7 @@ export const renameComponent = event => dispatch => {
   inputName = inputName.replace(/(\w)(\w*)/g, (g0, g1, g2) => {
     return g1.toUpperCase() + g2.toLowerCase();
   });
-  inputName = inputName.replace(/\s/g, '');
+  inputName = inputName.replace(/\s/g, "");
 
   dispatch({
     type: types.RENAME_COMPONENT,
@@ -37,8 +37,8 @@ export const deleteComponent = () => dispatch => {
 /******************************* actions for main container ************************************/
 
 export const setCurrentComponent = (currentComponent, data) => dispatch => {
-  if(document.getElementById('componentNameInput')) {
-    document.getElementById('componentNameInput').value = currentComponent.name;
+  if (document.getElementById("componentNameInput")) {
+    document.getElementById("componentNameInput").value = currentComponent.name;
   }
   console.log("currentComponent: ", currentComponent);
   dispatch({
@@ -61,7 +61,7 @@ export const setTransAndHistory = (translate, history) => dispatch => {
 };
 
 export const undo = () => dispatch => {
-  console.log('inside of undo');
+  console.log("inside of undo");
   dispatch({
     type: types.UN_DO,
     payload: null
@@ -77,7 +77,7 @@ export const redo = () => dispatch => {
 
 /*********************** actions for current component children list ****************************/
 export const renameChild = (event, childId) => dispatch => {
-  const inputName = event.target.value.replace(/\s/g, '');
+  const inputName = event.target.value.replace(/\s/g, "");
   dispatch({
     type: types.RENAME_CHILD,
     payload: {
@@ -99,16 +99,16 @@ export const changeChildType = (event, childId) => dispatch => {
 };
 
 export const addChild = event => dispatch => {
+  // console.log(event);
   event.preventDefault();
-  let name = event.target.childName.value || 'Component';
+  let name = event.target.childName.value || "Component";
   name = name.replace(/(\w)(\w*)/g, (g0, g1, g2) => {
     return g1.toUpperCase() + g2.toLowerCase();
   });
-  name = name.replace(/\s/g, '');
+  name = name.replace(/\s/g, "");
   const isContainer = event.target.checkbox.checked;
-  // reset the input fields
-  document.getElementById('addChildName').value = '';
-  document.getElementById('addChildContainerCheckbox').checked = false;
+  document.getElementById("addChildName").value = "";
+  document.getElementById("addChildContainerCheckbox").checked = false;
 
   dispatch({
     type: types.ADD_CHILD,
@@ -133,5 +133,16 @@ export const useTemplates = (templates, childrenString, isHook) => dispatch => {
   dispatch({
     type: types.USE_TEMPLATES,
     payload: { templates }
+  });
+};
+
+export const setTemplatesForComponent = (
+  currentComponent,
+  index,
+  childId
+) => dispatch => {
+  dispatch({
+    type: types.SET_TEMPLATES_FOR_COMPONENT,
+    payload: { currentComponent, index, childId }
   });
 };
