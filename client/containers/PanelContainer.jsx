@@ -33,13 +33,15 @@ const mapDispatchToProps = dispatch =>
 const SideNavContainer = props => {
   return (
     <div id='panel-container'>
-      <ComponentDetail
-        renameComponent={props.renameComponent}
-        changeType={props.changeType}
-        deleteComponent={props.deleteComponent}
-        currentComponent={props.currentComponent}
-      />
-      <ChildrenListContainer />
+      <div id='panel-top'>
+        <ComponentDetail
+          renameComponent={props.renameComponent}
+          changeType={props.changeType}
+          deleteComponent={props.deleteComponent}
+          currentComponent={props.currentComponent}
+        />
+        <ChildrenListContainer />
+      </div>
       <div id='panel-bottom'>
         <MemoryRouter>
           <SideNavIcons />

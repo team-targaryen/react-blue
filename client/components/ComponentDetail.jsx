@@ -19,27 +19,25 @@ const ComponentDetail = ({
   return (
     <div id='component-detail'>
       <h3>Current Component</h3>
-      <div id='rename-field'>
+      <input
+        id='component-name-input'
+        type='text'
+        defaultValue={currentComponent.name}
+        onBlur={renameComponent}
+        disabled={disabled()}
+      />
+      <div className='is-container'>
         <input
-          id='componentNameInput'
-          type='text'
-          defaultValue={currentComponent.name}
-          onBlur={renameComponent}
-          disabled={disabled()}
-        />
-      </div>
-      <div id='is-container'>
-        <input
-          id='componentDetailContainerCheckbox'
+          id='is-container-curr'
           type='checkbox'
           checked={currentComponent.isContainer}
           onChange={changeType}
         />
-        <span id='container-label'>Container</span>
+        <label id='container-label' for='is-container-curr'>
+          Container
+        </label>
       </div>
-      <div id='delete-component'>
-        <button onClick={deleteComponent}>Delete Component</button>
-      </div>
+      <button onClick={deleteComponent}>Delete Component</button>
     </div>
   );
 };

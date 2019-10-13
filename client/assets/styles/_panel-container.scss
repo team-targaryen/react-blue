@@ -1,4 +1,38 @@
 #panel-container {
-  width: 20%;
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  background: rgba(255, 255, 255, 0.5);
   padding: 20px;
+  margin: 20px;
+}
+
+#panel-top,
+#panel-bottom {
+  height: 50%;
+}
+
+#panel-top {
+  overflow: auto;
+  text-align: center;
+}
+
+#component-detail {
+  > * {
+    display: block;
+    margin: 0 auto 10px;
+  }
+
+  #is-container-curr {
+    margin-right: 5px;
+  }
+
+  #container-label {
+    margin-bottom: 0;
+  }
+}
+
+#sidenav-icons {
+  display: flex;
+  flex-direction: column;
 }

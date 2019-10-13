@@ -1,3 +1,27 @@
+// variables
+$background-app: lightblue;
+
+// general
+html,
+body,
+#app {
+  height: 100%;
+}
+
+body {
+  background: $background-app;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+}
+
 #panel-main-container {
+  display: flex;
+  height: 100%;
+}
+
+.is-container {
   display: flex;
 }

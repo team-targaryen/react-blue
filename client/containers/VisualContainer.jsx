@@ -11,12 +11,6 @@ import {
 } from '../actions/actions';
 import hotkeys from 'hotkeys-js';
 
-const containerStyles = {
-  width: '100%',
-  height: '100vh',
-  backgroundColor: 'lightBlue'
-};
-
 function getRidOfStupidChildren(data) {
   if (!data.children) {
     return;
@@ -90,11 +84,7 @@ class VisualContainer extends React.PureComponent {
 
     getRidOfStupidChildren(this.props.data);
     return (
-      <div
-        id='visual-container'
-        style={containerStyles}
-        ref={tc => (this.treeContainer = tc)}
-      >
+      <div id='visual-container' ref={tc => (this.treeContainer = tc)}>
         <Tree
           data={this.props.data}
           translate={this.props.translate}
