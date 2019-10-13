@@ -1,15 +1,17 @@
 import React from 'react';
-import TopNavBarContainer from './containers/TopNavBarContainer.jsx';
-import SideBarContainer from './containers/SideBarContainer.jsx';
-import MainDisplayContainer from './containers/MainDisplayContainer.jsx';
+import TopNavContainer from './containers/TopNavContainer.jsx';
+import PanelContainer from './containers/PanelContainer.jsx';
+import VisualContainer from './containers/VisualContainer.jsx';
 
 // App is just outter wrapper to get connnection with main container
 const App = () => (
-  <div>
-    <TopNavBarContainer />
-    <SideBarContainer />
-    <MainDisplayContainer />
-  </div>
+  <React.Fragment>
+    <TopNavContainer />
+    <div id='panel-main-container'>
+      <PanelContainer />
+      <VisualContainer />
+    </div>
+  </React.Fragment>
 );
 
 export default App;

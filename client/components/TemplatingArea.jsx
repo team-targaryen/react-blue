@@ -44,7 +44,7 @@ const TemplatingArea = ({ useTemplates }) => {
     initialHookSyntax
   ]);
 
-  const [showTemplates, setShowTemplates] = useState(false);
+  // const [showTemplates, setShowTemplates] = useState(false);
 
   useEffect(() => {
     getItemFromLocalStorage();
@@ -98,16 +98,8 @@ const TemplatingArea = ({ useTemplates }) => {
     return;
   };
 
-  return showTemplates ? (
+  return (
     <div id="code-editor">
-      <button
-        style={{ width: 400, height: "auto" }}
-        onClick={() => {
-          setShowTemplates(!showTemplates);
-        }}
-      >
-        <h4>Templates</h4>
-      </button>
       {isInitialSyntax.map((syntaxObject, index) => {
         return (
           <CreateCodeEditor
@@ -155,22 +147,13 @@ const TemplatingArea = ({ useTemplates }) => {
 
       <button
         onClick={() => {
-          setShowTemplates(!showTemplates);
+          // setShowTemplates(!showTemplates);
           getItemFromLocalStorage("reset");
         }}
       >
         Reset Templates
       </button>
     </div>
-  ) : (
-    <button
-      style={{ width: 400, height: "auto" }}
-      onClick={() => {
-        setShowTemplates(!showTemplates);
-      }}
-    >
-      <h4>Templates</h4>
-    </button>
   );
 };
 

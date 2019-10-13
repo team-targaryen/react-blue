@@ -1,3 +1,7 @@
-@import "navbar";
-@import "main-display-container";
-@import "TemplateComponent";
+@import 'general';
+
+@import 'panel-container';
+@import 'visual-container';
+
+@import 'sidenav-icons';
+@import 'TemplateComponent';

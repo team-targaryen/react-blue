@@ -12,25 +12,33 @@ const ComponentDetail = ({
   deleteComponent,
   currentComponent
 }) => {
-  //   console.log("here in component detail", currentComponent);
+  const disabled = () => {
+    return currentComponent.depth === 0 ? "disabled" : "";
+  };
+
   return (
-    <div className="componentDetail">
-      <div className="renameField">
+    <div id="component-detail">
+      <h3>Current Component</h3>
+      <div id="rename-field">
         <input
           id="componentNameInput"
           type="text"
           defaultValue={currentComponent.name}
           onBlur={renameComponent}
+          disabled={disabled()}
         />
       </div>
-      <div className="isContainer">
+      <div id="is-container">
         <input
           id="componentDetailContainerCheckbox"
           type="checkbox"
           checked={currentComponent.isContainer}
           onChange={changeType}
         />
-        <span className="containerLabel">Container</span>
+        <span id="container-label">Container</span>
+      </div>
+      <div id="delete-component">
+        <button onClick={deleteComponent}>Delete Component</button>
       </div>
     </div>
   );
