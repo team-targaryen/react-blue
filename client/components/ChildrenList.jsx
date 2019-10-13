@@ -1,4 +1,5 @@
 import React from "react";
+import EachChild from "./EachChild.jsx";
 const ChildrenList = ({
   addChild,
   currentComponent,

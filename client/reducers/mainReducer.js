@@ -46,7 +46,6 @@ const updateTree = (state, currentComponent, templateOption) => {
   const findComponentAndUpdate = (tree, currentComponent, templateOption) => {
     if (tree.componentId === currentComponent.componentId) {
       tree.name = currentComponent.name;
-      // console.log("here inside of recursive", tree, templateOption);
       tree.templateOption = templateOption;
       // console.log(tree.templateOption);
       tree.isContainer = currentComponent.isContainer;
@@ -91,9 +90,7 @@ const mainReducer = (state = initialState, action) => {
     inputName,
     updatedState,
     history,
-    currentTemplate,
-    templateOption,
-    index;
+    templateOption;
   switch (action.type) {
     /******************************* actions for side bar ************************************/
 
