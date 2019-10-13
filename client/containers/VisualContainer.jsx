@@ -7,7 +7,7 @@ import {
   setCurrentComponent,
   setTransAndHistory,
   undo,
-  redo,
+  redo
 } from '../actions/actions';
 import hotkeys from 'hotkeys-js';
 
@@ -26,7 +26,7 @@ function getRidOfStupidChildren(data) {
   }
   data.children.forEach(node => {
     getRidOfStupidChildren(node);
-  })
+  });
 }
 
 function DoublyLinkedList(value) {
@@ -52,7 +52,7 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 
-class MainDisplayContainer extends React.PureComponent {
+class VisualContainer extends React.PureComponent {
   constructor(props) {
     super(props);
   }
@@ -74,68 +74,46 @@ class MainDisplayContainer extends React.PureComponent {
   render() {
     const undoFunc = this.props.undo;
     const redoFunc = this.props.redo;
-    hotkeys('ctrl+z, ctrl+shift+z', function (event, handler) {
+    hotkeys('ctrl+z, ctrl+shift+z', function(event, handler) {
       event.preventDefault();
       switch (handler.key) {
-        case "ctrl+z":
+        case 'ctrl+z':
           undoFunc();
           return;
 
-        case "ctrl+shift+z":
+        case 'ctrl+shift+z':
           redoFunc();
           break;
       }
-    })
-
+    });
 
     getRidOfStupidChildren(this.props.data);
     return (
-      < div id='main-display-container' >
-        <div>
-          <button
-            style={{
-              width: '100px',
-              height: '45px',
-              backgroundColor: 'pink'
-            }}
-            onClick={this.props.undo}
-          >
-            Undo
-          </button>
-          <button
-            style={{
-              width: '100px',
-              height: '45px',
-              backgroundColor: 'pink'
-            }}
-            onClick={this.props.redo}
-          >
-            Redo
-          </button>
-
-        </div>
-        <div style={containerStyles} ref={tc => (this.treeContainer = tc)}>
-          <Tree
-            data={this.props.data}
-            translate={this.props.translate}
-            orientation={'vertical'}
-            collapsible={false}
-            nodeSvgShape={{
-              shape: 'circle',
-              shapeProps: { r: '30' }
-            }}
-            textLayout={{
-              textAnchor: 'start',
-              x: -30,
-              y: -45
-            }}
-            onClick={currentComponent => {
-              this.props.setCurrentComponent(currentComponent);
-            }}
-            transitionDuration={500}
-          />
-        </div>
-      </div >
+      <div
+        id='visual-container'
+        style={containerStyles}
+        ref={tc => (this.treeContainer = tc)}
+      >
+        <Tree
+          data={this.props.data}
+          translate={this.props.translate}
+          orientation={'vertical'}
+          collapsible={false}
+          nodeSvgShape={{
+            shape: 'circle',
+            shapeProps: { r: '30' }
+          }}
+          textLayout={{
+            textAnchor: 'start',
+            x: -30,
+            y: -45
+          }}
+          onClick={currentComponent => {
+            this.props.setCurrentComponent(currentComponent);
+          }}
+          transitionDuration={500}
+        />
+      </div>
     );
   }
 }
@@ -143,4 +121,4 @@ class MainDisplayContainer extends React.PureComponent {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MainDisplayContainer);
+)(VisualContainer);

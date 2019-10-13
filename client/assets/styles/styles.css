@@ -1,113 +1,27 @@
-#top-nav {
-  display: block;
-  width: 100%;
-  vertical-align: middle;
-  background-color: #dddddd;
-  border-bottom: 1px solid #666;
-  -webkit-box-shadow: 0px 2px 5px #666;
-          box-shadow: 0px 2px 5px #666;
-  display: inline-block;
-  height: 30px;
-  font-weight: 400;
-  font-size: 13px;
-  white-space: nowrap;
-  font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Helvetica Neue', sans-serif;
-  /* NEED TO STYLIZE */
-  /* NEED TO STYLIZE */
+#panel-main-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
-#top-nav #edit-btn {
-  background-color: inherit;
-  color: black;
-  border: none;
-  outline: none;
-  display: inline-block;
-  padding-right: 10px;
-  padding-left: 10px;
-  height: inherit;
-  font-weight: inherit;
-  font-size: inherit;
+#visual-container {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 
-#top-nav #edit-btn:hover {
-  cursor: pointer;
-}
-
-#top-nav #export-btn {
-  background-color: #0169d4;
-  border: 1px;
-  color: whitesmoke;
-  border-radius: 10px;
-  outline: none;
-  display: inline-block;
-  padding-right: 10px;
-  padding-left: 10px;
-  height: inherit;
-  font-weight: inherit;
-  font-size: inherit;
-  left: 10px;
-}
-
-#top-nav #export-btn:hover {
-  cursor: pointer;
-}
-
-#top-nav .edit-dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #dddddd;
-  min-width: 80px;
-  min-height: 80px;
-  border-left: 1px solid #666;
-  border-right: 1px solid #666;
-  border-bottom: 1px solid #666;
-  z-index: 1;
-  margin-left: 80px;
-}
-
-#top-nav .edit-dropdown-content,
-#top-nav a {
-  float: none;
-  padding: 6px 6px;
-  text-decoration: none;
-  color: inherit;
-  display: block;
-  text-align: left;
-}
-
-#top-nav #slide-container {
-  width: 12%;
-  background-color: none;
-  border: none;
-  padding: inherit;
-  position: relative;
-  display: inline-block;
-  padding-right: 10px;
-  height: auto;
-  -webkit-box-shadow: none;
-          box-shadow: none;
-}
-
-#top-nav #slider-text {
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-#top-nav #slider {
-  -webkit-appearance: none;
-  display: inline-block;
-  position: relative;
-  width: 100%;
-  height: 5px;
-  outline: none;
-  opacity: 0.7;
-  -webkit-transition: 0.2s;
-  -webkit-transition: opacity 0.2s;
-  transition: opacity 0.2s;
+#sidenav-icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 #code-editor {
   width: 50%;
   background: cornsilk;
 }
-
+/*# sourceMappingURL=styles.css.map */
