@@ -40,7 +40,7 @@ const SideNavContainer = props => {
         currentComponent={props.currentComponent}
       />
       <ChildrenListContainer />
-      <div>
+      <div id='panel-bottom'>
         <MemoryRouter>
           <SideNavIcons />
           <Switch>

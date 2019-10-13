@@ -4,6 +4,11 @@
   display: flex;
 }
 
+#panel-container {
+  width: 20%;
+  padding: 20px;
+}
+
 #visual-container {
   -webkit-box-flex: 1;
       -ms-flex: 1;

@@ -7,29 +7,22 @@ function DoublyLinkedList(value) {
   this.next = null;
 }
 
+const appComponent = {
+  name: 'App',
+  depth: 0,
+  id: 0,
+  componentId: 0,
+  isContainer: true,
+  children: []
+}
+
 const initialState = {
-  data: {
-    name: 'App',
-    depth: 0,
-    id: 0,
-    componentId: 0,
-    isContainer: true,
-    children: []
-  },
+  data: appComponent,
   translate: { x: 0, y: 0 },
   history: null,
-  currentComponent: {
-    name: 'App',
-    depth: 0,
-    id: 0,
-    componentId: 0,
-    isContainer: true,
-    children: []
-  },
+  currentComponent: appComponent,
   lastId: 0,
   template: []
-  // undoHotKey: 'undo',
-  // redoHotKey: 'redo'
 };
 
 const updateTree = (state, currentComponent) => {
@@ -55,20 +48,20 @@ const updateTree = (state, currentComponent) => {
       tree.name = currentComponent.name;
       tree.isContainer = currentComponent.isContainer;
       tree.children = clone(currentComponent.children);
-      return tree;
+      return;
     }
-    return [...tree.children].find(child => {
-      if (child.componentId === currentComponent.componentId) {
-        child.name = currentComponent.name;
-        child.isContainer = currentComponent.isContainer;
-        child.children = clone(currentComponent.children);
-        return child;
-      } else if (child.children)
-        return findComponentAndUpdate(child, currentComponent);
-    });
+    if(tree.children) {
+      tree.children.forEach(child => {
+          findComponentAndUpdate(child, currentComponent);
+      });
+    }
+    return;
   };
+
   let data = clone(state.data);
   findComponentAndUpdate(data, currentComponent);
+
+  // cache into the history
   let preHistory = clone(state.history);
   let history = new DoublyLinkedList(
     clone({
@@ -120,6 +113,36 @@ const mainReducer = (state = initialState, action) => {
       };
 
     case types.DELETE_COMPONENT:
+      if(state.currentComponent.depth === 0){
+        alert("Error: can't delete root component.");
+        return {
+          ...state
+        }
+      }
+
+      const findAndDelete = (tree, currentComponent) => {
+        if (tree.componentId === currentComponent.componentId) {
+          console.log('tree: ', tree);
+          tree = undefined;
+          console.log('state: ', state.data);
+          return;
+        }
+        if(tree.children) {
+          tree.children.forEach(child => {
+              findAndDelete(child, currentComponent);
+          });
+        }
+        return;
+      }
+
+      data = clone(state.data);
+      findAndDelete(data, state.currentComponent);
+
+      return {
+        ...state,
+        data,
+        currentComponent: data
+      }
 
     /******************************* actions for main container ************************************/
 
@@ -134,13 +157,8 @@ const mainReducer = (state = initialState, action) => {
           currentComponent
         };
       } else {
-        data = currentComponent;
-        while (data.parent) {
-          data = clone(data.parent);
-        }
         return {
           ...state,
-          data,
           currentComponent
         };
       }
@@ -204,7 +222,9 @@ const mainReducer = (state = initialState, action) => {
       }
       currentComponent = clone(state.currentComponent);
       currentComponent.children = clone(children);
+
       updatedState = updateTree(state, currentComponent);
+
       return {
         ...state,
         ...updatedState
@@ -222,7 +242,9 @@ const mainReducer = (state = initialState, action) => {
       currentComponent = clone(state.currentComponent);
       currentComponent.children = clone(children);
       // console.log('currentComponent in change child type: ', currentComponent);
+  
       updatedState = updateTree(state, currentComponent);
+
       return {
         ...state,
         ...updatedState
@@ -238,11 +260,16 @@ const mainReducer = (state = initialState, action) => {
         isContainer,
         parent: state.currentComponent
       };
-      children = clone(state.currentComponent.children) || [];
+
+      children = state.currentComponent.children 
+        ? state.currentComponent.children.slice() 
+        : [];
       children.push(newChild);
       currentComponent = clone(state.currentComponent);
-      currentComponent.children = clone(children);
+      currentComponent.children = children.slice();
+
       updatedState = updateTree(state, currentComponent);
+
       return {
         ...state,
         ...updatedState,
@@ -257,6 +284,7 @@ const mainReducer = (state = initialState, action) => {
           currentComponent.children.splice(i, 1);
         }
       }
+
       updatedState = updateTree(state, currentComponent);
       return {
         ...state,

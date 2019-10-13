@@ -16,6 +16,7 @@ const containerStyles = {
   height: '100vh',
   backgroundColor: 'lightBlue'
 };
+
 function getRidOfStupidChildren(data) {
   if (!data.children) {
     return;
