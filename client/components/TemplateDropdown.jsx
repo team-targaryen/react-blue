@@ -38,31 +38,33 @@ const TemplateDropdown = ({
   }, []);
 
   return (
-    <Dropdown>
-      <Dropdown.Toggle id='dropdown-basic'>
-        {!isDefault ? 'Default Template - Class Syntax' : isDefault}
-      </Dropdown.Toggle>
-      <Dropdown.Menu>
-        {templates.length > 0
-          ? templates.map(template => {
-              return (
-                <Dropdown.Item
-                  key={`templateDropdown-${currentComponent.componentId}`}
-                  onClick={e => {
-                    e.preventDefault();
-                    if (template.name !== isDefault) {
-                      setTemplatesForComponent(currentComponent, template);
-                      setIsDefault(template.name);
-                    }
-                  }}
-                >
-                  {template.name}
-                </Dropdown.Item>
-              );
-            })
-          : null}
-      </Dropdown.Menu>
-    </Dropdown>
+    <div>
+      <Dropdown>
+        <Dropdown.Toggle id='dropdown-basic'>
+          {!isDefault ? 'Default Template - Class Syntax' : isDefault}
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          {templates.length > 0
+            ? templates.map((template, i) => {
+                return (
+                  <Dropdown.Item
+                    key={`templateDropdown-${currentComponent.componentId}index:${i}`}
+                    onClick={e => {
+                      e.preventDefault();
+                      if (template.name !== isDefault) {
+                        setTemplatesForComponent(currentComponent, template);
+                        setIsDefault(template.name);
+                      }
+                    }}
+                  >
+                    {template.name}
+                  </Dropdown.Item>
+                );
+              })
+            : null}
+        </Dropdown.Menu>
+      </Dropdown>
+    </div>
   );
 };
 export default TemplateDropdown;

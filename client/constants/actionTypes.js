@@ -8,7 +8,9 @@ export const SET_CURRENT_COMPONENT = "SET_CURRENT_COMPONENT";
 export const SET_TRANS_AND_HISTORY = "SET_TRANS_AND_HISTORY";
 export const UN_DO = "UN_DO";
 export const RE_DO = "RE_DO";
-
+// change display of d3 tree
+export const CHANGE_DISPLAY_HORIZONTAL_OR_VERTICAL =
+  "CHANGE_DISPLAY_HORIZONTAL_OR_VERTICAL";
 // children list actions
 export const SET_CHILDREN = "SET_CHILDREN";
 export const RENAME_CHILD = "RENAME_CHILD";
