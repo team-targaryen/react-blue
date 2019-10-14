@@ -21,11 +21,12 @@ const initialState = {
   translate: { x: 0, y: 0 },
   history: null,
   currentComponent: appComponent,
+  nameAndCodeLinkedToComponentId: new Map(),
   lastId: 0,
   templates: []
 };
 
-const updateTree = (state, currentComponent, templateOption) => {
+const updateTree = (state, currentComponent) => {
   // check if current component has a name
   if (currentComponent.name === "") {
     currentComponent.name = "DEFAULT_NAME";
@@ -43,11 +44,10 @@ const updateTree = (state, currentComponent, templateOption) => {
     children.name = currentComponent.name;
   }
   // console.log("state.data: ", state.data);
-  const findComponentAndUpdate = (tree, currentComponent, templateOption) => {
+  const findComponentAndUpdate = (tree, currentComponent) => {
     if (tree.componentId === currentComponent.componentId) {
       tree.name = currentComponent.name;
-      // console.log("here inside of recursive", tree, templateOption);
-      tree.templateOption = templateOption;
+      // console.log("inside of recursive", templateOption)
       // console.log(tree.templateOption);
       tree.isContainer = currentComponent.isContainer;
       tree.children = clone(currentComponent.children);
@@ -63,7 +63,6 @@ const updateTree = (state, currentComponent, templateOption) => {
 
   let data = clone(state.data);
   findComponentAndUpdate(data, currentComponent);
-
   // cache into the history
   let preHistory = clone(state.history);
   let history = new DoublyLinkedList(
@@ -91,9 +90,8 @@ const mainReducer = (state = initialState, action) => {
     inputName,
     updatedState,
     history,
-    currentTemplate,
-    templateOption,
-    index;
+    nameAndCodeLinkedToComponentId,
+    translate;
   switch (action.type) {
     /******************************* actions for side bar ************************************/
 
@@ -263,7 +261,6 @@ const mainReducer = (state = initialState, action) => {
         name,
         componentId,
         isContainer,
-        templateOption: state.templates[0],
         parent: state.currentComponent
       };
 
@@ -275,10 +272,14 @@ const mainReducer = (state = initialState, action) => {
       currentComponent.children = children.slice();
 
       updatedState = updateTree(state, currentComponent);
-
+      nameAndCodeLinkedToComponentId = clone(
+        state.nameAndCodeLinkedToComponentId
+      );
+      nameAndCodeLinkedToComponentId.set(componentId, state.templates[0]);
       return {
         ...state,
         ...updatedState,
+        nameAndCodeLinkedToComponentId,
         lastId: componentId
       };
 
@@ -288,34 +289,64 @@ const mainReducer = (state = initialState, action) => {
       for (let i = 0; i < currentComponent.children.length; i++) {
         if (currentComponent.children[i].componentId === childId) {
           currentComponent.children.splice(i, 1);
+          nameAndCodeLinkedToComponentId = clone(
+            state.nameAndCodeLinkedToComponentId
+          );
+          nameAndCodeLinkedToComponentId.delete(childId);
+          // delete codeLinkedToComponentId[childId];
+          // delete nameLinkedToComponentId[childId];
         }
       }
+      // console.log("deleting node", codeLinkedToComponentId);
       updatedState = updateTree(state, currentComponent);
       return {
         ...state,
-        ...updatedState
+        ...updatedState,
+        nameAndCodeLinkedToComponentId
       };
 
     case types.USE_TEMPLATES:
+      let templates = [...action.payload.templates];
+      nameAndCodeLinkedToComponentId = clone(
+        state.nameAndCodeLinkedToComponentId
+      );
+      // nameLinkedToComponentId = clone(state.nameLinkedToComponentId);
+      if (!nameAndCodeLinkedToComponentId.has(0)) {
+        nameAndCodeLinkedToComponentId.set(0, templates[0]);
+      }
+      // console.log("use templates", nameAndCodeLinkedToComponentId);
       return {
         ...state,
-        templates: action.payload.templates
+        nameAndCodeLinkedToComponentId,
+        templates
       };
     case types.SET_TEMPLATES_FOR_COMPONENT:
-      templateOption = state.templates[action.payload.index].code;
-      currentComponent = clone(action.payload.currentComponent);
-      state = clone(state);
-      childId = action.payload.childId;
-      currentComponent.childId = childId;
-      updatedState = updateTree(state, currentComponent, templateOption);
-      if (!childId) {
-        updatedState.currentComponent.templateOption = templateOption;
-      }
+      // currentComponent = clone(action.payload.currentComponent);
+      nameAndCodeLinkedToComponentId = clone(
+        state.nameAndCodeLinkedToComponentId
+      );
+      // codeLinkedToComponentId[action.payload.currentComponent.componentId] =
+      //   action.payload.templateCode;
+      // nameLinkedToComponentId[action.payload.currentComponent.componentId] =
+      //   action.payload.templateName;
+      nameAndCodeLinkedToComponentId.set(
+        action.payload.currentComponent.componentId,
+        action.payload.template
+      );
       return {
         ...state,
-        ...updatedState
+        nameAndCodeLinkedToComponentId
       };
-
+    case types.ZOOM_BY_CHANGING_X_AND_Y:
+      // console.log(action.payload);
+      translate = Object.assign({}, state.translate);
+      translate.x += action.payload.x;
+      translate.y += action.payload.y;
+      // console.log(translate);
+      return {
+        ...state,
+        translate
+      };
     default:
       return state;
   }

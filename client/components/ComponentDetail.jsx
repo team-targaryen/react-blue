@@ -5,12 +5,15 @@
 //          delete current component (if this component is a parent component, show warning message)
 //
 import React from "react";
-
+import TemplateDropdown from "./TemplateDropdown.jsx";
 const ComponentDetail = ({
   renameComponent,
   changeType,
   deleteComponent,
-  currentComponent
+  currentComponent,
+  templates,
+  setTemplatesForComponent,
+  nameLinkedToComponentId
 }) => {
   const disabled = () => {
     return currentComponent.depth === 0 ? "disabled" : "";
@@ -37,6 +40,12 @@ const ComponentDetail = ({
         />
         <span id="container-label">Container</span>
       </div>
+      <TemplateDropdown
+        templates={templates}
+        setTemplatesForComponent={setTemplatesForComponent}
+        currentComponent={currentComponent}
+        nameLinkedToComponentId={nameLinkedToComponentId}
+      />
       <div id="delete-component">
         <button onClick={deleteComponent}>Delete Component</button>
       </div>
