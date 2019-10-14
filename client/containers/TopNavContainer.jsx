@@ -38,7 +38,7 @@ const TopNavContainer = props => {
           </NavDropdown>
 
           <NavDropdown title='View' id='collasible-nav-dropdown'>
-            <NavDropdown.Item href='#action/3.1'>Horizontal</NavDropdown.Item>
+            <NavDropdown.Item variant="switchColor" href='#action/3.1'>Horizontal</NavDropdown.Item>
             <NavDropdown.Item href='#action/3.2'>Vertical</NavDropdown.Item>
           </NavDropdown>
 
