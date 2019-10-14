@@ -41,6 +41,7 @@ export const setCurrentComponent = (currentComponent, data) => dispatch => {
     document.getElementById('component-name-input').value =
       currentComponent.name;
   }
+
   dispatch({
     type: types.SET_CURRENT_COMPONENT,
     payload: {
@@ -105,6 +106,7 @@ export const addChild = event => dispatch => {
   });
   name = name.replace(/\s/g, '');
   const isContainer = event.target.checkbox.checked;
+
   // reset the input fields
   document.getElementById('add-child-name').value = '';
   document.getElementById('add-child-container-checkbox').checked = false;
@@ -128,9 +130,26 @@ export const deleteChild = childId => dispatch => {
 };
 
 // actions for taking the templates and sending it to the store
-export const useTemplates = (templates, childrenString, isHook) => dispatch => {
+export const useTemplates = templates => dispatch => {
   dispatch({
     type: types.USE_TEMPLATES,
     payload: { templates }
   });
 };
+
+export const setTemplatesForComponent = (
+  currentComponent,
+  template
+) => dispatch => {
+  dispatch({
+    type: types.SET_TEMPLATES_FOR_COMPONENT,
+    payload: { currentComponent, template }
+  });
+};
+
+// export const setZoom = (x, y) => dispatch => {
+//   dispatch({
+//     type: types.ZOOM_BY_CHANGING_X_AND_Y,
+//     payload: { x, y }
+//   });
+// };
