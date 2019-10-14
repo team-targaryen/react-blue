@@ -50,7 +50,7 @@ const ComponentDetail = ({
             currentComponent={currentComponent}
             nameLinkedToComponentId={nameLinkedToComponentId}
           />
-          <button onClick={deleteComponent}>X</button>
+          <i class='far fa-minus-square' onClick={deleteComponent}></i>
         </div>
       </div>
     </div>
