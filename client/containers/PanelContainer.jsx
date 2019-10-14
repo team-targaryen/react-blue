@@ -1,71 +1,117 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { MemoryRouter, Switch, Route } from 'react-router-dom';
+import React from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { MemoryRouter, Switch, Route } from "react-router-dom";
 import {
+  renameChild,
+  changeChildType,
+  addChild,
+  deleteChild,
   renameComponent,
   changeType,
   deleteComponent,
-  setCurrentComponent
-} from '../actions/actions';
-import ComponentDetail from '../components/ComponentDetail.jsx';
-import ChildrenListContainer from './ChildrenListContainer.jsx';
-import TemplatingArea from '../components/TemplatingArea.jsx';
-import FileTree from '../components/FileTree.jsx';
-import SideNavContainer from './SideNavContainer.jsx';
+  setCurrentComponent,
+  setTemplatesForComponent,
+  useTemplates
+} from "../actions/actions";
+import ComponentDetail from "../components/ComponentDetail.jsx";
+import TemplatingArea from "../components/TemplatingArea.jsx";
+import FileTree from "../components/FileTree.jsx";
+import SideNavIcons from "../components/SideNavIcons.jsx";
+import ChildrenList from "../components/ChildrenList.jsx";
 
 const mapStateToProps = store => ({
+  state: store.main,
   data: store.main.data,
-  currentComponent: store.main.currentComponent
+  currentComponent: store.main.currentComponent,
+  templates: store.main.templates,
+  nameAndCodeLinkedToComponentId: store.main.nameAndCodeLinkedToComponentId
 });
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
+      renameChild,
+      changeChildType,
+      addChild,
+      deleteChild,
       renameComponent,
       changeType,
       deleteComponent,
-      setCurrentComponent
+      setCurrentComponent,
+      setTemplatesForComponent,
+      useTemplates
     },
     dispatch
   );
 
-const SideBarContainer = props => {
+const SideNavContainer = ({
+  data,
+  currentComponent,
+  templates,
+  renameChild,
+  changeChildType,
+  addChild,
+  deleteChild,
+  renameComponent,
+  changeType,
+  deleteComponent,
+  setCurrentComponent,
+  setTemplatesForComponent,
+  useTemplates,
+  state,
+  nameAndCodeLinkedToComponentId
+}) => {
   return (
-    <MemoryRouter>
-      <div className='SideBarContainer' id='sidebar-container'>
-        <SideNavContainer />
-        <Switch>
-          <Route
-            path='/current-component'
-            render={() => (
-              <div className='current-component'>
-                <ComponentDetail
-                  renameComponent={props.renameComponent}
-                  changeType={props.changeType}
-                  deleteComponent={props.deleteComponent}
-                  currentComponent={props.currentComponent}
-                />
-                <ChildrenListContainer />
-              </div>
-            )}
-          />
-          <Route path='/templates' render={() => <TemplatingArea />} />
-          <Route
-            path='/file-tree'
-            render={() => (
-              <FileTree
-                data={props.data}
-                setCurrentComponent={props.setCurrentComponent}
-              />
-            )}
-          />
-        </Switch>
+    <div id="panel-container">
+      <div id="panel-top">
+        <ComponentDetail
+          renameComponent={renameComponent}
+          changeType={changeType}
+          deleteComponent={deleteComponent}
+          currentComponent={currentComponent}
+          templates={templates}
+          setTemplatesForComponent={setTemplatesForComponent}
+          nameAndCodeLinkedToComponentId={nameAndCodeLinkedToComponentId}
+        />
+        <ChildrenList
+          addChild={addChild}
+          currentComponent={currentComponent}
+          renameChild={renameChild}
+          changeChildType={changeChildType}
+          deleteChild={deleteChild}
+          templates={templates}
+          setTemplatesForComponent={setTemplatesForComponent}
+          nameAndCodeLinkedToComponentId={nameAndCodeLinkedToComponentId}
+        />
       </div>
-    </MemoryRouter>
+      <div id="divider"></div>
+      <div id="panel-bottom">
+        <MemoryRouter>
+          <SideNavIcons />
+          <Switch>
+            <Route
+              path="/"
+              exact
+              render={() => <TemplatingArea useTemplates={useTemplates} />}
+            />
+            <Route
+              path="/file-tree"
+              render={() => (
+                <FileTree
+                  data={data}
+                  setCurrentComponent={setCurrentComponent}
+                />
+              )}
+            />
+          </Switch>
+        </MemoryRouter>
+      </div>
+    </div>
   );
 };
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SideBarContainer);
+)(SideNavContainer);
