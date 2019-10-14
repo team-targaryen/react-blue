@@ -2,14 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import JSZip from 'jszip';
 import FileSave from 'file-saver';
-import indexHTML from '../templates-exports/indexHTML.js';
-import indexJS from '../templates-exports/indexJS.js';
 import { bindActionCreators } from 'redux';
 import { undo, redo } from '../actions/actions';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import exportZipFront from '../templates-exports/frontEndFiles.js';
+import exportZipFull from '../templates-exports/fullStackFiles.js'
+
 
 const mapStateToProps = store => ({
   data: store.main.data
@@ -17,95 +18,6 @@ const mapStateToProps = store => ({
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ undo, redo }, dispatch);
-
-const exportZip = data => {
-  const zip = new JSZip();
-  const fileCounter = {};
-
-  const connectFiles = currentComponent => {
-    let imports;
-    let childComponents;
-
-    if (currentComponent.children) {
-      imports = currentComponent.children
-        .map(file => {
-          if (file.isContainer) {
-            return `import ${file.name} from './containers/${file.name}.jsx';\n`;
-          } else {
-            return `import ${file.name} from './components/${file.name}.jsx';\n`;
-          }
-        })
-        .join('');
-      childComponents = currentComponent.children
-        .map(file => {
-          return `\n<${file.name} />`;
-        })
-        .join('');
-    }
-
-    const template = `import React, { Component } from 'react';
-${imports}
-class ${currentComponent.name} extends Component {
-  state = {  }
-  render() { 
-    return (
-      <div>${childComponents}
-      </div>
-    );
-  }
-}
-  
-export default ${currentComponent.name};
-`;
-
-    fileCounter[currentComponent.name] =
-      (fileCounter[currentComponent.name] || 0) + 1;
-
-    if (currentComponent.depth === 0) {
-      zip.file(`${currentComponent.name}.jsx`, `${template}`);
-    } else {
-      if (currentComponent.isContainer) {
-        if (fileCounter[currentComponent.name] === 1) {
-          zip.file(`containers/${currentComponent.name}.jsx`, `${template}`);
-        } else {
-          zip.file(
-            `containers/${currentComponent.name} (${fileCounter[
-              currentComponent.name
-            ] - 1}).jsx`,
-            `${template}`
-          );
-        }
-      } else {
-        if (fileCounter[currentComponent.name] === 1) {
-          zip.file(`components/${currentComponent.name}.jsx`, `${template}`);
-        } else {
-          zip.file(
-            `components/${currentComponent.name} (${fileCounter[
-              currentComponent.name
-            ] - 1}).jsx`,
-            `${template}`
-          );
-        }
-      }
-    }
-
-    if (currentComponent.children) {
-      return currentComponent.children.forEach(child => {
-        connectFiles(child);
-      });
-    }
-  };
-
-  connectFiles(data);
-
-  zip.file('assets/index.html', indexHTML);
-  zip.file('assets/styles/styles.css', '');
-  zip.file('index.js', indexJS);
-
-  zip.generateAsync({ type: 'blob' }).then(function(content) {
-    saveAs(content, 'react-blue.zip');
-  });
-};
 
 const TopNavContainer = props => {
   return (
@@ -143,13 +55,18 @@ const TopNavContainer = props => {
           </NavDropdown>
         </Nav>
         <Nav>
-          <Nav.Link onClick={() => exportZip(props.data)}>Export</Nav.Link>
+
+
+          <NavDropdown title='Export' id='collasible-nav-dropdown'>
+            <NavDropdown.Item onClick={() => exportZipFront(props.data)}>Export FrontEnd</NavDropdown.Item>
+            <NavDropdown.Item onClick={() => exportZipFull(props.data)}>Export FullStack</NavDropdown.Item>
+          </NavDropdown>
           <Nav.Link eventKey={2} href='#memes'>
             ExSomthing
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>
-    </Navbar>
+    </Navbar >
   );
 };
 
