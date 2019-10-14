@@ -1,11 +1,15 @@
 import React from "react";
 import EachChild from "./EachChild.jsx";
+import TemplateDropdown from "./TemplateDropdown.jsx";
 const ChildrenList = ({
   addChild,
-  currentComponent,
   renameChild,
   changeChildType,
-  deleteChild
+  deleteChild,
+  templates,
+  setTemplatesForComponent,
+  currentComponent,
+  nameAndCodeLinkedToComponentId
 }) => {
   return (
     <div id="children-list">
@@ -23,22 +27,49 @@ const ChildrenList = ({
       </form>
       {currentComponent.children &&
         currentComponent.children.map((child, idx) =>
-          childMaker(child, idx, renameChild, changeChildType, deleteChild)
+          childMaker(
+            child,
+            idx,
+            renameChild,
+            changeChildType,
+            deleteChild,
+            templates,
+            setTemplatesForComponent,
+            nameAndCodeLinkedToComponentId
+          )
         )}
     </div>
   );
 };
-const childMaker = (child, idx, renameChild, changeType, deleteChild) => {
+const childMaker = (
+  child,
+  idx,
+  renameChild,
+  changeChildType,
+  deleteChild,
+  templates,
+  setTemplatesForComponent,
+  nameAndCodeLinkedToComponentId
+) => {
+  // console.log(templates);
   return (
-    <EachChild
-      key={idx}
-      name={child.name}
-      childId={child.componentId}
-      isContainer={child.isContainer}
-      renameChild={renameChild}
-      changeType={changeType}
-      deleteChild={deleteChild}
-    />
+    <div>
+      <EachChild
+        key={idx}
+        name={child.name}
+        childId={child.componentId}
+        isContainer={child.isContainer}
+        renameChild={renameChild}
+        changeType={changeChildType}
+        deleteChild={deleteChild}
+      />
+      <TemplateDropdown
+        currentComponent={child}
+        templates={templates}
+        setTemplatesForComponent={setTemplatesForComponent}
+        nameAndCodeLinkedToComponentId={nameAndCodeLinkedToComponentId}
+      />
+    </div>
   );
 };
 export default ChildrenList;

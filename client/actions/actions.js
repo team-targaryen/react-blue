@@ -40,7 +40,7 @@ export const setCurrentComponent = (currentComponent, data) => dispatch => {
   if (document.getElementById("componentNameInput")) {
     document.getElementById("componentNameInput").value = currentComponent.name;
   }
-  console.log("currentComponent: ", currentComponent);
+  // console.log("currentComponent: ", currentComponent);
   dispatch({
     type: types.SET_CURRENT_COMPONENT,
     payload: {
@@ -61,7 +61,7 @@ export const setTransAndHistory = (translate, history) => dispatch => {
 };
 
 export const undo = () => dispatch => {
-  console.log("inside of undo");
+  // console.log("inside of undo");
   dispatch({
     type: types.UN_DO,
     payload: null
@@ -129,7 +129,7 @@ export const deleteChild = childId => dispatch => {
 };
 
 // actions for taking the templates and sending it to the store
-export const useTemplates = (templates, childrenString, isHook) => dispatch => {
+export const useTemplates = templates => dispatch => {
   dispatch({
     type: types.USE_TEMPLATES,
     payload: { templates }
@@ -138,11 +138,17 @@ export const useTemplates = (templates, childrenString, isHook) => dispatch => {
 
 export const setTemplatesForComponent = (
   currentComponent,
-  index,
-  childId
+  template
 ) => dispatch => {
   dispatch({
     type: types.SET_TEMPLATES_FOR_COMPONENT,
-    payload: { currentComponent, index, childId }
+    payload: { currentComponent, template }
+  });
+};
+
+export const setZoom = (x, y) => dispatch => {
+  dispatch({
+    type: types.ZOOM_BY_CHANGING_X_AND_Y,
+    payload: { x, y }
   });
 };

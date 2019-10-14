@@ -1,40 +1,87 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Dropdown from "react-bootstrap/Dropdown";
-const DropDownTemplatesForChildren = ({
+const TemplateDropdown = ({
   templates,
   setTemplatesForComponent,
-  child
+  currentComponent,
+  nameAndCodeLinkedToComponentId
 }) => {
   const [isDefault, setIsDefault] = useState("");
-  const [isChanged, setIsChanged] = useState(false);
-  const displayTemplates = templates.map(template => {
-    return (
-      <Dropdown.Item
-        onClick={e => {
-          e.preventDefault();
-          if (template.name !== isDefault) {
-            setIsDefault(template.name);
-            setTemplatesForComponent(child, template);
-            setIsChanged(true);
-          }
-        }}
-      >
-        {template.name}
-      </Dropdown.Item>
-    );
-  });
+  const [isCurrentId] = useState(currentComponent.componentId);
+  // const [forceRerender, setForceRerender] = useState(true);
+  if (
+    nameAndCodeLinkedToComponentId &&
+    nameAndCodeLinkedToComponentId.has(currentComponent.componentId) &&
+    isDefault !==
+      nameAndCodeLinkedToComponentId.get(currentComponent.componentId).name
+  ) {
+    let name = nameAndCodeLinkedToComponentId.get(currentComponent.componentId)
+      .name;
+    setIsDefault(name);
+  }
+  // useEffect(() => {
+  //   if (
+  //     currentComponent.componentId !== isCurrentId &&
+  //     nameAndCodeLinkedToComponentId
+  //   ) {
+  //     return setIsDefault(
+  //       nameAndCodeLinkedToComponentId.get(currentComponent.componentId).name
+  //     );
+  //   }
+  // });
+
+  useEffect(() => {
+    return () => {
+      setIsDefault("");
+    };
+  }, []);
+
   return (
-    <Dropdown>
-      <Dropdown.Toggle variant="success" id="dropdown-basic">
-        {templates.length > 0
-          ? templates[0].name
-          : !isChanged
-          ? isDefault
-          : templates[0].name}
-      </Dropdown.Toggle>
-      <Dropdown.Menu>{displayTemplates}</Dropdown.Menu>
-    </Dropdown>
+    <div>
+      <Dropdown>
+        <Dropdown.Toggle variant="success" id="dropdown-basic">
+          {!isDefault ? "Default Template - Class Syntax" : isDefault}
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          {templates.length > 0
+            ? templates.map(template => {
+                return (
+                  <Dropdown.Item
+                    key={`templateDropdown-${currentComponent.componentId}`}
+                    onClick={e => {
+                      e.preventDefault();
+                      if (template.name !== isDefault) {
+                        setTemplatesForComponent(currentComponent, template);
+                        setIsDefault(template.name);
+                      }
+                    }}
+                  >
+                    {template.name}
+                  </Dropdown.Item>
+                );
+              })
+            : null}
+        </Dropdown.Menu>
+      </Dropdown>
+    </div>
   );
 };
-export default DropDownTemplatesForChildren;
+export default TemplateDropdown;
+
+// useEffect(() => {
+//   if (
+//     nameAndCodeLinkedToComponentId &&
+//     nameAndCodeLinkedToComponentId.has(currentComponent.componentId)
+//   ) {
+//     let name = nameAndCodeLinkedToComponentId.get(
+//       currentComponent.componentId
+//     ).name;
+//     setIsDefault(name);
+//   }
+// }, []);
+// useEffect(() => {
+//   return () => {
+//     setIsDefault("");
+//   };
+// }, []);

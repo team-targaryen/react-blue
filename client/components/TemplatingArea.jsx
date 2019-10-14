@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
 
 import clone from "clone";
 import {
@@ -8,14 +6,6 @@ import {
   InitialClassSyntax
 } from "../templates-code/templates";
 import CreateCodeEditor from "./CreateCodeEditor.jsx";
-import { useTemplates } from "../actions/actions";
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      useTemplates
-    },
-    dispatch
-  );
 
 Storage.prototype.setObj = function(key, obj) {
   return this.setItem(key, JSON.stringify(obj));
@@ -47,7 +37,8 @@ const TemplatingArea = ({ useTemplates }) => {
   // const [showTemplates, setShowTemplates] = useState(false);
 
   useEffect(() => {
-    getItemFromLocalStorage();
+    let data = getItemFromLocalStorage();
+    setItemForLocalStorage(data);
   }, []);
 
   const setItemForLocalStorage = data => {
@@ -67,6 +58,7 @@ const TemplatingArea = ({ useTemplates }) => {
         setIsInitialSyntax(resetData);
         useTemplates(resetData);
       }
+      return data;
     } else {
       setIsInitialSyntax(resetData);
       setItemForLocalStorage(resetData);
@@ -103,6 +95,7 @@ const TemplatingArea = ({ useTemplates }) => {
       {isInitialSyntax.map((syntaxObject, index) => {
         return (
           <CreateCodeEditor
+            key={`createCodeEditor-${index}`}
             syntaxObject={syntaxObject}
             index={index}
             deleteTemplate={deleteTemplate}
@@ -147,7 +140,6 @@ const TemplatingArea = ({ useTemplates }) => {
 
       <button
         onClick={() => {
-          // setShowTemplates(!showTemplates);
           getItemFromLocalStorage("reset");
         }}
       >
@@ -157,7 +149,4 @@ const TemplatingArea = ({ useTemplates }) => {
   );
 };
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(TemplatingArea);
+export default TemplatingArea;
