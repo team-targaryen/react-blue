@@ -1,58 +1,45 @@
-const jsonPackage = `{
-  "name": "react-blue",
+const packageJSON = `{
+  "name": "my-react-blue-app",
   "version": "1.0.0",
-  "description": "React prototyping tool for creating file structure",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production nodemon server/server.js",
-    "build": "NODE_ENV=production webpack",
-    "dev": "NODE_ENV=development nodemon server/server.js & webpack-dev-server --open"
+    "start": "node server/server.js",
+    "build": "cross-env NODE_ENV=production webpack",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open"
   },
+  "nodemonConfig": {
+    "ignore": [
+      "build"
+    ]
+  },
+  "keywords": [],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.19.0",
-    "bootstrap": "^4.3.1",
-    "clone": "^2.1.2",
-    "codemirror": "^5.49.0",
-    "d3-zoom": "^1.8.3",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
-    "file-saver": "^2.0.2",
-    "hotkeys-js": "^3.7.2",
-    "jszip": "^3.2.2",
-    "path": "^0.12.7",
     "react": "^16.10.2",
-    "react-bootstrap": "^1.0.0-beta.14",
-    "react-codemirror": "^1.0.0",
-    "react-d3-tree": "^1.15.3",
     "react-dom": "^16.10.2",
-    "react-redux": "^7.1.1",
-    "react-router": "^5.1.2",
-    "react-router-dom": "^5.1.2",
-    "redux": "^4.0.4",
-    "redux-devtools-extension": "^2.13.8",
-    "redux-thunk": "^2.3.0"
+    "webpack": "^4.40.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.1.2",
-    "@babel/preset-env": "^7.1.0",
+    "@babel/core": "^7.6.0",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/preset-env": "^7.6.0",
     "@babel/preset-react": "^7.0.0",
-    "babel-loader": "^8.0.4",
-    "concurrently": "^4.1.2",
-    "cross-env": "^6.0.0",
-    "css-loader": "^1.0.1",
-    "file-loader": "^4.0.0",
-    "morgan": "^1.9.1",
+    "babel-loader": "^8.0.6",
+    "cross-env": "^5.2.0",
+    "css-loader": "^3.2.0",
+    "file-loader": "^3.0.1",
     "node-sass": "^4.12.0",
-    "nodemon": "^1.18.9",
-    "prop-types": "^15.6.2",
+    "nodemon": "^1.19.2",
+    "postcss-loader": "^3.0.0",
     "sass-loader": "^8.0.0",
-    "style-loader": "^0.23.1",
-    "url-loader": "^2.0.1",
-    "webpack": "^4.20.2",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.9",
-    "webpack-hot-middleware": "^2.24.3"
+    "style-loader": "^1.0.0",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.1"
   }
 }`
-export default jsonPackage;
+export default packageJSON;

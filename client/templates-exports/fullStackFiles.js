@@ -2,8 +2,9 @@ import JSZip from 'jszip';
 import indexHTML from './frontEndTemplates/indexHTML.js';
 import indexJS from './frontEndTemplates/indexJS.js';
 import server from './fullStackTemplates/server.js';
-import jsonPackage from './fullStackTemplates/packagejson.js';
+import packageJSON from './fullStackTemplates/packageJSON.js';
 import webpack from './fullStackTemplates/webpack.config.js';
+import readmeMD from './fullStackTemplates/readmeMD.js';
 
 export default (data) => {
     const zip = new JSZip();
@@ -89,8 +90,9 @@ export default ${currentComponent.name};
     zip.file('assets/styles/styles.css', '');
     zip.file('index.js', indexJS);
     zip.file('server/server.js', server);
-    zip.file('packagejson.js', jsonPackage);
+    zip.file('packageJSON.js', packageJSON);
     zip.file('webpack.config.js', webpack);
+    zip.file('server/readmeMD.js', readmeMD);
 
 
 
