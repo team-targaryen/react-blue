@@ -23,6 +23,10 @@ label {
   margin: 0;
 }
 
+.btn-primary {
+  background: $prime-color-2;
+}
+
 #app {
   display: flex;
   flex-direction: column;
@@ -35,6 +39,12 @@ label {
 
 .is-container {
   display: flex;
+}
+
+input[type='text'] {
+  border: 0;
+  border-radius: 0.25rem;
+  padding: 10px 12px;
 }
 
 input[type='checkbox'] {

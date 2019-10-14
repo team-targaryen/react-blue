@@ -14,7 +14,6 @@
 }
 
 #panel-top {
-  text-align: center;
   padding: 20px 20px 0 20px;
 }
 
@@ -34,13 +33,17 @@
 #component-detail {
   margin-bottom: 40px;
 
-  #component-form {
+  #component-form-top,
+  #component-form-bottom {
     display: flex;
-    justify-content: center;
 
     > *:not(:last-child) {
       margin-right: 20px;
     }
+  }
+
+  #component-form-top {
+    margin-bottom: 10px;
   }
 
   .is-container {
@@ -58,7 +61,6 @@
   form,
   .each-child {
     display: flex;
-    justify-content: center;
 
     > *:not(:last-child) {
       margin-right: 20px;

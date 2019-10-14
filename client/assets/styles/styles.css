@@ -12,6 +12,10 @@ label {
   margin: 0;
 }
 
+.btn-primary {
+  background: #137ac1;
+}
+
 #app {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -33,6 +37,12 @@ label {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+
+input[type='text'] {
+  border: 0;
+  border-radius: 0.25rem;
+  padding: 10px 12px;
 }
 
 input[type='checkbox'] {
@@ -78,7 +88,6 @@ input[type='checkbox'] {
 }
 
 #panel-top {
-  text-align: center;
   padding: 20px 20px 0 20px;
 }
 
@@ -100,17 +109,20 @@ input[type='checkbox'] {
   margin-bottom: 40px;
 }
 
-#component-detail #component-form {
+#component-detail #component-form-top,
+#component-detail #component-form-bottom {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
 }
 
-#component-detail #component-form > *:not(:last-child) {
+#component-detail #component-form-top > *:not(:last-child),
+#component-detail #component-form-bottom > *:not(:last-child) {
   margin-right: 20px;
+}
+
+#component-detail #component-form-top {
+  margin-bottom: 10px;
 }
 
 #component-detail .is-container {
@@ -131,9 +143,6 @@ input[type='checkbox'] {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
 }
 
 #children-list form > *:not(:last-child),

@@ -55,7 +55,6 @@ const childMaker = (
   setTemplatesForComponent,
   nameAndCodeLinkedToComponentId
 ) => {
-  // console.log(templates);
   return (
     <div key={idx}>
       <EachChild
