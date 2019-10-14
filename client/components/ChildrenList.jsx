@@ -1,6 +1,6 @@
-import React from "react";
-import EachChild from "./EachChild.jsx";
-import TemplateDropdown from "./TemplateDropdown.jsx";
+import React from 'react';
+import EachChild from './EachChild.jsx';
+import TemplateDropdown from './TemplateDropdown.jsx';
 const ChildrenList = ({
   addChild,
   renameChild,
@@ -12,18 +12,22 @@ const ChildrenList = ({
   nameAndCodeLinkedToComponentId
 }) => {
   return (
-    <div id="children-list">
+    <div id='children-list'>
       <h4>Children List</h4>
       <form onSubmit={addChild}>
         <input
-          type="text"
-          id="addChildName"
-          name="childName"
+          type='text'
+          id='add-child-name'
+          name='childName'
           placeholder="Enter Child's Name"
         />
-        <input id="addChildContainerCheckbox" name="checkbox" type="checkbox" />
-        <span className="container-label">Container</span>
-        <button type="submit">+</button>
+        <input
+          id='add-child-container-checkbox'
+          name='checkbox'
+          type='checkbox'
+        />
+        <span className='container-label'>Container</span>
+        <button type='submit'>+</button>
       </form>
       {currentComponent.children &&
         currentComponent.children.map((child, idx) =>
@@ -53,7 +57,7 @@ const childMaker = (
 ) => {
   // console.log(templates);
   return (
-    <div>
+    <div key={idx}>
       <EachChild
         key={idx}
         name={child.name}
