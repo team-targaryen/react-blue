@@ -5,9 +5,6 @@ $prime-color-3: #36a2c2;
 $prime-color-4: #71b8c2;
 $prime-color-5: #ffffff;
 
-// variables
-$background-app: $prime-color-4;
-
 // general
 html,
 body,
@@ -16,15 +13,22 @@ body,
 }
 
 body {
-  background: $background-app;
+  background: #fafafa;
 }
 
 label {
   margin: 0;
 }
 
+i {
+  font-size: 30px;
+  color: $prime-color-1;
+  cursor: pointer;
+}
+
 .btn-primary {
-  background: $prime-color-2;
+  background: $prime-color-1;
+  border-color: $prime-color-1;
 }
 
 #app {
@@ -44,7 +48,8 @@ label {
 input[type='text'] {
   border: 0;
   border-radius: 0.25rem;
-  padding: 10px 12px;
+  padding: 9px 12px;
+  border: 1px solid $prime-color-1;
 }
 
 input[type='checkbox'] {
