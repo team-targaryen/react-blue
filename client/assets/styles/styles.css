@@ -1,18 +1,144 @@
+html,
+body,
+#app {
+  height: 100%;
+}
+
+body {
+  background: #71b8c2;
+}
+
+label {
+  margin: 0;
+}
+
+#app {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
 #panel-main-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+}
+
+.is-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-#panel-container {
-  width: 20%;
-  padding: 20px;
+input[type='checkbox'] {
+  margin-right: 5px;
 }
 
-#visual-container {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+.navbar {
+  background: #045590;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.navbar .keyboard-shortcut {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.navbar .keyboard-shortcut span:first-child {
+  margin-right: 40px;
+}
+
+#panel-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 30%;
+  background: rgba(255, 255, 255, 0.5);
+  margin: 20px;
+}
+
+#panel-top,
+#panel-bottom {
+  height: 50%;
+  overflow: auto;
+}
+
+#panel-top {
+  text-align: center;
+  padding: 20px 20px 0 20px;
+}
+
+#divider {
+  width: 60%;
+  height: 1px;
+  background: #045590;
+  margin: 20px auto;
+}
+
+#panel-bottom {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 20px 20px 20px;
+}
+
+#component-detail {
+  margin-bottom: 40px;
+}
+
+#component-detail #component-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#component-detail #component-form > *:not(:last-child) {
+  margin-right: 20px;
+}
+
+#component-detail .is-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#children-list > * {
+  margin: 0 auto 10px;
+}
+
+#children-list form,
+#children-list .each-child {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#children-list form > *:not(:last-child),
+#children-list .each-child > *:not(:last-child) {
+  margin-right: 20px;
 }
 
 #sidenav-icons {
@@ -23,10 +149,13 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  width: 100px;
 }
 
-#code-editor {
-  width: 50%;
-  background: cornsilk;
+#visual-container {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  background: #71b8c2;
 }
 /*# sourceMappingURL=styles.css.map */

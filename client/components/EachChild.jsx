@@ -15,13 +15,15 @@ const EachChild = ({
       defaultValue={name}
       onBlur={() => renameChild(event, childId)}
     ></input>
-    <input
-      className='container-checkbox'
-      type='checkbox'
-      checked={isContainer}
-      onChange={() => changeType(event, childId)}
-    />
-    <span className='container-label'>Container</span>
+    <div>
+      <input
+        className='container-checkbox'
+        type='checkbox'
+        checked={isContainer}
+        onChange={() => changeType(event, childId)}
+      />
+      <span className='container-label'>Container</span>
+    </div>
     <button className='delete-child' onClick={() => deleteChild(childId)}>
       X
     </button>

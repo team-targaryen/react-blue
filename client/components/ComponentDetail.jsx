@@ -5,12 +5,15 @@
 //          delete current component (if this component is a parent component, show warning message)
 //
 import React from 'react';
-
+import TemplateDropdown from './TemplateDropdown.jsx';
 const ComponentDetail = ({
   renameComponent,
   changeType,
   deleteComponent,
-  currentComponent
+  currentComponent,
+  templates,
+  setTemplatesForComponent,
+  nameLinkedToComponentId
 }) => {
   const disabled = () => {
     return currentComponent.depth === 0 ? 'disabled' : '';
@@ -18,27 +21,33 @@ const ComponentDetail = ({
 
   return (
     <div id='component-detail'>
-      <h3>Current Component</h3>
-      <div id='rename-field'>
+      <h2>Current Component</h2>
+      <div id='component-form'>
         <input
-          id='componentNameInput'
+          id='component-name-input'
           type='text'
           defaultValue={currentComponent.name}
           onBlur={renameComponent}
           disabled={disabled()}
         />
-      </div>
-      <div id='is-container'>
-        <input
-          id='componentDetailContainerCheckbox'
-          type='checkbox'
-          checked={currentComponent.isContainer}
-          onChange={changeType}
+        <div className='is-container'>
+          <input
+            id='is-container-curr'
+            type='checkbox'
+            checked={currentComponent.isContainer}
+            onChange={changeType}
+          />
+          <label id='container-label' htmlFor='is-container-curr'>
+            Container
+          </label>
+        </div>
+        <TemplateDropdown
+          templates={templates}
+          setTemplatesForComponent={setTemplatesForComponent}
+          currentComponent={currentComponent}
+          nameLinkedToComponentId={nameLinkedToComponentId}
         />
-        <span id='container-label'>Container</span>
-      </div>
-      <div id='delete-component'>
-        <button onClick={deleteComponent}>Delete Component</button>
+        <button onClick={deleteComponent}>X</button>
       </div>
     </div>
   );

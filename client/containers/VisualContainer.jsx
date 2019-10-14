@@ -8,14 +8,15 @@ import {
   setTransAndHistory,
   undo,
   redo
+  // setZoom
 } from '../actions/actions';
 import hotkeys from 'hotkeys-js';
 
-const containerStyles = {
-  width: '100%',
-  height: '100vh',
-  backgroundColor: 'lightBlue'
-};
+function DoublyLinkedList(value) {
+  this.value = value;
+  this.prev = null;
+  this.next = null;
+}
 
 function getRidOfStupidChildren(data) {
   if (!data.children) {
@@ -28,12 +29,6 @@ function getRidOfStupidChildren(data) {
   data.children.forEach(node => {
     getRidOfStupidChildren(node);
   });
-}
-
-function DoublyLinkedList(value) {
-  this.value = value;
-  this.prev = null;
-  this.next = null;
 }
 
 const mapStateToProps = store => ({
@@ -49,6 +44,7 @@ const mapDispatchToProps = dispatch =>
       setTransAndHistory,
       undo,
       redo
+      // setZoom
     },
     dispatch
   );
@@ -56,12 +52,17 @@ const mapDispatchToProps = dispatch =>
 class VisualContainer extends React.PureComponent {
   constructor(props) {
     super(props);
+    // this.state = {
+    //   translate: this.props.translate
+    // };
+    // this.setZoom = this.setZoom.bind(this);
   }
 
   componentDidMount() {
     const initialHistory = new DoublyLinkedList(clone(this.props.state));
     // translate sets the state of centering the tree on mount
     const dimensions = this.treeContainer.getBoundingClientRect();
+    // console.log("here in component did mount", this.state.tree);
     // this.props.setParentData();
     this.props.setTransAndHistory(
       {
@@ -71,7 +72,13 @@ class VisualContainer extends React.PureComponent {
       initialHistory
     );
   }
-
+  // setZoom(currentComponent) {
+  //   let x = this.props.translate.x
+  //   let y = this.props.translate.y
+  //   this.setState({translate:{x: x + currentComponent.x, y: y +currentComponent.y}});
+  //   console.log(this.props.translate);
+  //   console.log(currentComponent);
+  // }
   render() {
     const undoFunc = this.props.undo;
     const redoFunc = this.props.redo;
@@ -90,11 +97,7 @@ class VisualContainer extends React.PureComponent {
 
     getRidOfStupidChildren(this.props.data);
     return (
-      <div
-        id='visual-container'
-        style={containerStyles}
-        ref={tc => (this.treeContainer = tc)}
-      >
+      <div id='visual-container' ref={tc => (this.treeContainer = tc)}>
         <Tree
           data={this.props.data}
           translate={this.props.translate}
@@ -111,6 +114,7 @@ class VisualContainer extends React.PureComponent {
           }}
           onClick={currentComponent => {
             this.props.setCurrentComponent(currentComponent);
+            // this.setZoom(currentComponent);
           }}
           transitionDuration={500}
         />

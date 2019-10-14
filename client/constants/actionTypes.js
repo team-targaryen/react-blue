@@ -1,4 +1,3 @@
-
 // sidebar actions
 export const RENAME_COMPONENT = "RENAME_COMPONENT";
 export const CHANGE_TYPE = "CHANGE_TYPE";
@@ -16,5 +15,8 @@ export const RENAME_CHILD = "RENAME_CHILD";
 export const CHANGE_CHILD_TYPE = "CHANGE_CHILD_TYPE";
 export const ADD_CHILD = "ADD_CHILD";
 export const DELETE_CHILD = "DELETE_CHILD";
+//templating feature
 export const USE_TEMPLATES = "USE_TEMPLATES";
-
+export const SET_TEMPLATES_FOR_COMPONENT = "SET_TEMPLATES_FOR_COMPONENT";
+//ZOOM feature
+export const ZOOM_BY_CHANGING_X_AND_Y = "ZOOM_BY_CHANGING_X_AND_Y";
