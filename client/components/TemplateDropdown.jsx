@@ -10,11 +10,12 @@ const TemplateDropdown = ({
   const [isDefault, setIsDefault] = useState('');
   const [isCurrentId] = useState(currentComponent.componentId);
   // const [forceRerender, setForceRerender] = useState(true);
+  console.log('inside of template dropdown', nameAndCodeLinkedToComponentId)
   if (
     nameAndCodeLinkedToComponentId &&
     nameAndCodeLinkedToComponentId.has(currentComponent.componentId) &&
     isDefault !==
-      nameAndCodeLinkedToComponentId.get(currentComponent.componentId).name
+    nameAndCodeLinkedToComponentId.get(currentComponent.componentId).name
   ) {
     let name = nameAndCodeLinkedToComponentId.get(currentComponent.componentId)
       .name;
@@ -46,21 +47,21 @@ const TemplateDropdown = ({
         <Dropdown.Menu>
           {templates.length > 0
             ? templates.map((template, i) => {
-                return (
-                  <Dropdown.Item
-                    key={`templateDropdown-${currentComponent.componentId}index:${i}`}
-                    onClick={e => {
-                      e.preventDefault();
-                      if (template.name !== isDefault) {
-                        setTemplatesForComponent(currentComponent, template);
-                        setIsDefault(template.name);
-                      }
-                    }}
-                  >
-                    {template.name}
-                  </Dropdown.Item>
-                );
-              })
+              return (
+                <Dropdown.Item
+                  key={`templateDropdown-${currentComponent.componentId}index:${i}`}
+                  onClick={e => {
+                    e.preventDefault();
+                    if (template.name !== isDefault) {
+                      setTemplatesForComponent(currentComponent, template);
+                      setIsDefault(template.name);
+                    }
+                  }}
+                >
+                  {template.name}
+                </Dropdown.Item>
+              );
+            })
             : null}
         </Dropdown.Menu>
       </Dropdown>
