@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { MemoryRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import {
   renameChild,
   changeChildType,
@@ -90,7 +90,7 @@ const SideNavContainer = ({
         key={`templateDropdown-${currentComponent.componentId}`}
         id='panel-bottom'
       >
-        <MemoryRouter>
+        <BrowserRouter>
           <SideNavIcons />
           <Switch>
             <Route
@@ -108,7 +108,7 @@ const SideNavContainer = ({
               )}
             />
           </Switch>
-        </MemoryRouter>
+        </BrowserRouter>
       </div>
     </div>
   );
