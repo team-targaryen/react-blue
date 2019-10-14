@@ -45,10 +45,10 @@ const TemplateDropdown = ({
         </Dropdown.Toggle>
         <Dropdown.Menu>
           {templates.length > 0
-            ? templates.map(template => {
+            ? templates.map((template, i) => {
                 return (
                   <Dropdown.Item
-                    key={`templateDropdown-${currentComponent.componentId}`}
+                    key={`templateDropdown-${currentComponent.componentId}index:${i}`}
                     onClick={e => {
                       e.preventDefault();
                       if (template.name !== isDefault) {

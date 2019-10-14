@@ -23,7 +23,8 @@ const initialState = {
   currentComponent: appComponent,
   nameAndCodeLinkedToComponentId: new Map(),
   lastId: 0,
-  templates: []
+  templates: [],
+  orientation: "vertical"
 };
 
 const updateTree = (state, currentComponent) => {
@@ -346,6 +347,11 @@ const mainReducer = (state = initialState, action) => {
       return {
         ...state,
         translate
+      };
+    case types.CHANGE_DISPLAY_HORIZONTAL_OR_VERTICAL:
+      return {
+        ...state,
+        orientation: action.payload
       };
     default:
       return state;
