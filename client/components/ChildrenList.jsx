@@ -12,37 +12,39 @@ const ChildrenList = ({
   nameAndCodeLinkedToComponentId
 }) => {
   return (
-    <div id='children-list'>
+    <React.Fragment>
       <h4>Children List</h4>
-      <form onSubmit={addChild}>
-        <input
-          type='text'
-          id='add-child-name'
-          name='childName'
-          placeholder="Enter Child's Name"
-        />
-        <input
-          id='add-child-container-checkbox'
-          name='checkbox'
-          type='checkbox'
-        />
-        <span className='container-label'>Container</span>
-        <button type='submit'>+</button>
-      </form>
-      {currentComponent.children &&
-        currentComponent.children.map((child, idx) =>
-          childMaker(
-            child,
-            idx,
-            renameChild,
-            changeChildType,
-            deleteChild,
-            templates,
-            setTemplatesForComponent,
-            nameAndCodeLinkedToComponentId
-          )
-        )}
-    </div>
+      <div id='children-list'>
+        <form onSubmit={addChild}>
+          <input
+            type='text'
+            id='add-child-name'
+            name='childName'
+            placeholder="Enter Child's Name"
+          />
+          <input
+            id='add-child-container-checkbox'
+            name='checkbox'
+            type='checkbox'
+          />
+          <span className='container-label'>Container</span>
+          <button type='submit'>+</button>
+        </form>
+        {currentComponent.children &&
+          currentComponent.children.map((child, idx) =>
+            childMaker(
+              child,
+              idx,
+              renameChild,
+              changeChildType,
+              deleteChild,
+              templates,
+              setTemplatesForComponent,
+              nameAndCodeLinkedToComponentId
+            )
+          )}
+      </div>
+    </React.Fragment>
   );
 };
 const childMaker = (
@@ -55,7 +57,6 @@ const childMaker = (
   setTemplatesForComponent,
   nameAndCodeLinkedToComponentId
 ) => {
-  // console.log(templates);
   return (
     <div key={idx}>
       <EachChild

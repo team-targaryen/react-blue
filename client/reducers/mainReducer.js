@@ -23,7 +23,8 @@ const initialState = {
   currentComponent: appComponent,
   nameAndCodeLinkedToComponentId: new Map(),
   lastId: 0,
-  templates: []
+  templates: [],
+  orientation: "vertical"
 };
 
 const updateTree = (state, currentComponent) => {
@@ -90,8 +91,7 @@ const mainReducer = (state = initialState, action) => {
     inputName,
     updatedState,
     history,
-    nameAndCodeLinkedToComponentId,
-    translate;
+    nameAndCodeLinkedToComponentId;
   switch (action.type) {
     /******************************* actions for side bar ************************************/
 
@@ -125,11 +125,14 @@ const mainReducer = (state = initialState, action) => {
       }
 
       const findAndDelete = (tree, currentComponent) => {
-        if (tree.componentId === currentComponent.componentId) {
-          console.log("tree: ", tree);
-          tree = undefined;
-          console.log("state: ", state.data);
-          return;
+        let parent = clone(currentComponent.parent);
+        if (tree.componentId === parent.componentId) {
+          for(let i = 0; i < tree.children.length; i++) {
+            if(tree.children[i].componentId === currentComponent.componentId) {
+              tree.children.splice(i, 1);
+              return;
+            }
+          }
         }
         if (tree.children) {
           tree.children.forEach(child => {
@@ -140,12 +143,13 @@ const mainReducer = (state = initialState, action) => {
       };
 
       data = clone(state.data);
+      currentComponent = clone(state.currentComponent.parent)
       findAndDelete(data, state.currentComponent);
 
       return {
         ...state,
         data,
-        currentComponent: data
+        currentComponent: state.currentComponent.parent
       };
 
     /******************************* actions for main container ************************************/
@@ -244,7 +248,6 @@ const mainReducer = (state = initialState, action) => {
       }
       currentComponent = clone(state.currentComponent);
       currentComponent.children = clone(children);
-      // console.log('currentComponent in change child type: ', currentComponent);
 
       updatedState = updateTree(state, currentComponent);
 
@@ -346,6 +349,11 @@ const mainReducer = (state = initialState, action) => {
       return {
         ...state,
         translate
+      };
+    case types.CHANGE_DISPLAY_HORIZONTAL_OR_VERTICAL:
+      return {
+        ...state,
+        orientation: action.payload
       };
     default:
       return state;
