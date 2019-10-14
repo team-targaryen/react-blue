@@ -1,4 +1,4 @@
-import * as types from '../constants/actionTypes';
+import * as types from "../constants/actionTypes";
 
 /******************************* actions for side bar ************************************/
 
@@ -7,7 +7,7 @@ export const renameComponent = event => dispatch => {
   inputName = inputName.replace(/(\w)(\w*)/g, (g0, g1, g2) => {
     return g1.toUpperCase() + g2.toLowerCase();
   });
-  inputName = inputName.replace(/\s/g, '');
+  inputName = inputName.replace(/\s/g, "");
 
   dispatch({
     type: types.RENAME_COMPONENT,
@@ -27,19 +27,21 @@ export const changeType = event => dispatch => {
   });
 };
 
-export const deleteComponent = componentId => dispatch => {
+export const deleteComponent = () => dispatch => {
   dispatch({
     type: types.DELETE_COMPONENT,
-    payload: {
-      componentId
-    }
+    payload: null
   });
 };
 
 /******************************* actions for main container ************************************/
 
 export const setCurrentComponent = (currentComponent, data) => dispatch => {
-  document.getElementById('componentNameInput').value = currentComponent.name;
+  if (document.getElementById("component-name-input")) {
+    document.getElementById("component-name-input").value =
+      currentComponent.name;
+  }
+
   dispatch({
     type: types.SET_CURRENT_COMPONENT,
     payload: {
@@ -60,7 +62,6 @@ export const setTransAndHistory = (translate, history) => dispatch => {
 };
 
 export const undo = () => dispatch => {
-  console.log('inside of undo');
   dispatch({
     type: types.UN_DO,
     payload: null
@@ -76,7 +77,7 @@ export const redo = () => dispatch => {
 
 /*********************** actions for current component children list ****************************/
 export const renameChild = (event, childId) => dispatch => {
-  const inputName = event.target.value.replace(/\s/g, '');
+  const inputName = event.target.value.replace(/\s/g, "");
   dispatch({
     type: types.RENAME_CHILD,
     payload: {
@@ -99,15 +100,16 @@ export const changeChildType = (event, childId) => dispatch => {
 
 export const addChild = event => dispatch => {
   event.preventDefault();
-  let name = event.target.childName.value || 'Component';
+  let name = event.target.childName.value || "Component";
   name = name.replace(/(\w)(\w*)/g, (g0, g1, g2) => {
     return g1.toUpperCase() + g2.toLowerCase();
   });
-  name = name.replace(/\s/g, '');
+  name = name.replace(/\s/g, "");
   const isContainer = event.target.checkbox.checked;
+
   // reset the input fields
-  document.getElementById('addChildName').value = '';
-  document.getElementById('addChildContainerCheckbox').checked = false;
+  document.getElementById("add-child-name").value = "";
+  document.getElementById("add-child-container-checkbox").checked = false;
 
   dispatch({
     type: types.ADD_CHILD,
@@ -128,9 +130,31 @@ export const deleteChild = childId => dispatch => {
 };
 
 // actions for taking the templates and sending it to the store
-export const useTemplates = (templates, childrenString, isHook) => dispatch => {
+export const useTemplates = templates => dispatch => {
   dispatch({
     type: types.USE_TEMPLATES,
     payload: { templates }
   });
 };
+
+export const setTemplatesForComponent = (
+  currentComponent,
+  template
+) => dispatch => {
+  dispatch({
+    type: types.SET_TEMPLATES_FOR_COMPONENT,
+    payload: { currentComponent, template }
+  });
+};
+export const changeDisplayHorizontalToVertical = orientation => dispatch => {
+  dispatch({
+    type: types.CHANGE_DISPLAY_HORIZONTAL_OR_VERTICAL,
+    payload: orientation
+  });
+};
+// export const setZoom = (x, y) => dispatch => {
+//   dispatch({
+//     type: types.ZOOM_BY_CHANGING_X_AND_Y,
+//     payload: { x, y }
+//   });
+// };
