@@ -1,5 +1,12 @@
+// colors
+$prime-color-1: #045590;
+$prime-color-2: #137ac1;
+$prime-color-3: #36a2c2;
+$prime-color-4: #71b8c2;
+$prime-color-5: #ffffff;
+
 // variables
-$background-app: lightblue;
+$background-app: $prime-color-4;
 
 // general
 html,
@@ -10,6 +17,10 @@ body,
 
 body {
   background: $background-app;
+}
+
+label {
+  margin: 0;
 }
 
 #app {
@@ -24,4 +35,8 @@ body {
 
 .is-container {
   display: flex;
+}
+
+input[type='checkbox'] {
+  margin-right: 5px;
 }

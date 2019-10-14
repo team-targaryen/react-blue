@@ -108,27 +108,31 @@ export default ${currentComponent.name};
 
 const TopNavContainer = props => {
   return (
-    <Navbar collapseOnSelect expand='lg' bg='primary' variant='dark'>
+    <Navbar collapseOnSelect expand='lg' variant='dark'>
       <Navbar.Brand href='#home'>React-Blue</Navbar.Brand>
       <Navbar.Toggle aria-controls='responsive-navbar-nav' />
       <Navbar.Collapse id='responsive-navbar-nav'>
         <Nav className='mr-auto'>
           <NavDropdown title='Edit' id='collasible-nav-dropdown'>
-            <NavDropdown.Item onClick={props.undo}>
-              Undo &nbsp;&nbsp;&nbsp;
-              <span style={{ fontSize: '11.6px' }}> Ctrl+Z</span>
+            <NavDropdown.Item
+              className='keyboard-shortcut'
+              onClick={props.undo}
+            >
+              <span>Undo</span>
+              <span>Ctrl+Z</span>
             </NavDropdown.Item>
-            <NavDropdown.Item onClick={props.redo}>
-              Redo &nbsp;&nbsp;&nbsp;
-              <span style={{ fontSize: '11.6px' }}> Ctrl+Shift+Z</span>
+            <NavDropdown.Item
+              className='keyboard-shortcut'
+              onClick={props.redo}
+            >
+              <span>Redo</span>
+              <span>Ctrl+Shift+Z</span>
             </NavDropdown.Item>
           </NavDropdown>
-
           <NavDropdown title='View' id='collasible-nav-dropdown'>
             <NavDropdown.Item href='#action/3.1'>Horizontal</NavDropdown.Item>
             <NavDropdown.Item href='#action/3.2'>Vertical</NavDropdown.Item>
           </NavDropdown>
-
           <NavDropdown title='Help' id='collasible-nav-dropdown'>
             <NavDropdown.Item href='##'>About</NavDropdown.Item>
             <NavDropdown.Divider />

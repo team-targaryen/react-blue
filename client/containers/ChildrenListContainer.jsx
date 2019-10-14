@@ -29,16 +29,27 @@ const mapDispatchToProps = dispatch =>
 
 const ChildrenList = props => (
   <div id='children-list'>
-    <h4>Children List</h4>
+    <h3>Children List</h3>
     <form onSubmit={props.addChild}>
       <input
         type='text'
-        id='addChildName'
+        id='add-child-name'
         name='childName'
         placeholder="Enter Child's Name"
       />
-      <input id='addChildContainerCheckbox' name='checkbox' type='checkbox' />
-      <span className='container-label'>Container</span>
+      <div className='add-child-container'>
+        <input
+          id='add-child-container-checkbox'
+          name='checkbox'
+          type='checkbox'
+        />
+        <label
+          className='container-label'
+          htmlFor='add-child-container-checkbox'
+        >
+          Container
+        </label>
+      </div>
       <button type='submit'>+</button>
     </form>
     {props.currentComponent.children &&

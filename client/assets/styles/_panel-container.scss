@@ -1,38 +1,74 @@
+// panel containing top and bottom halves
 #panel-container {
   display: flex;
   flex-direction: column;
   width: 30%;
   background: rgba(255, 255, 255, 0.5);
-  padding: 20px;
   margin: 20px;
 }
 
 #panel-top,
 #panel-bottom {
   height: 50%;
+  overflow: auto;
 }
 
 #panel-top {
-  overflow: auto;
   text-align: center;
+  padding: 20px 20px 0 20px;
 }
 
+#divider {
+  width: 60%;
+  height: 1px;
+  background: $prime-color-1;
+  margin: 20px auto;
+}
+
+#panel-bottom {
+  display: flex;
+  padding: 0 20px 20px 20px;
+}
+
+// top panel, current component
 #component-detail {
+  margin-bottom: 40px;
+
+  #component-form {
+    display: flex;
+    justify-content: center;
+
+    > *:not(:last-child) {
+      margin-right: 20px;
+    }
+  }
+
+  .is-container {
+    display: flex;
+    align-items: center;
+  }
+}
+
+// top panel, children list
+#children-list {
   > * {
-    display: block;
     margin: 0 auto 10px;
   }
 
-  #is-container-curr {
-    margin-right: 5px;
-  }
+  form,
+  .each-child {
+    display: flex;
+    justify-content: center;
 
-  #container-label {
-    margin-bottom: 0;
+    > *:not(:last-child) {
+      margin-right: 20px;
+    }
   }
 }
 
+// bottom panel, sidenav icons
 #sidenav-icons {
   display: flex;
   flex-direction: column;
+  width: 100px;
 }

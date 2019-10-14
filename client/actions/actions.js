@@ -37,10 +37,10 @@ export const deleteComponent = () => dispatch => {
 /******************************* actions for main container ************************************/
 
 export const setCurrentComponent = (currentComponent, data) => dispatch => {
-  if(document.getElementById('componentNameInput')) {
-    document.getElementById('componentNameInput').value = currentComponent.name;
+  if (document.getElementById('component-name-input')) {
+    document.getElementById('component-name-input').value =
+      currentComponent.name;
   }
-  console.log("currentComponent: ", currentComponent);
   dispatch({
     type: types.SET_CURRENT_COMPONENT,
     payload: {
@@ -61,7 +61,6 @@ export const setTransAndHistory = (translate, history) => dispatch => {
 };
 
 export const undo = () => dispatch => {
-  console.log('inside of undo');
   dispatch({
     type: types.UN_DO,
     payload: null
@@ -107,8 +106,8 @@ export const addChild = event => dispatch => {
   name = name.replace(/\s/g, '');
   const isContainer = event.target.checkbox.checked;
   // reset the input fields
-  document.getElementById('addChildName').value = '';
-  document.getElementById('addChildContainerCheckbox').checked = false;
+  document.getElementById('add-child-name').value = '';
+  document.getElementById('add-child-container-checkbox').checked = false;
 
   dispatch({
     type: types.ADD_CHILD,

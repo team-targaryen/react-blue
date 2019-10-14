@@ -42,11 +42,12 @@ const SideNavContainer = props => {
         />
         <ChildrenListContainer />
       </div>
+      <div id='divider'></div>
       <div id='panel-bottom'>
         <MemoryRouter>
           <SideNavIcons />
           <Switch>
-            <Route path='/templates' render={() => <TemplatingArea />} />
+            <Route path='/' exact render={() => <TemplatingArea />} />
             <Route
               path='/file-tree'
               render={() => (
