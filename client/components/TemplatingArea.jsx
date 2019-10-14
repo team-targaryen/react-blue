@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-import clone from "clone";
+import clone from 'clone';
 import {
   InitialHookSyntax,
   InitialClassSyntax
-} from "../../templates/templates";
-import CreateCodeEditor from "./CreateCodeEditor.jsx";
-import { useTemplates } from "../actions/actions";
+} from '../templates-code/templates';
+import CreateCodeEditor from './CreateCodeEditor.jsx';
+import { useTemplates } from '../actions/actions';
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
@@ -28,8 +28,8 @@ function CustomTemplate(name, isHook) {
   (this.name = name
     ? name
     : isHook
-    ? "DEFAULT_HOOK_TEMPLATE"
-    : "DEFAULT_CLASS_TEMPLATE"),
+    ? 'DEFAULT_HOOK_TEMPLATE'
+    : 'DEFAULT_CLASS_TEMPLATE'),
     (this.code = isHook
       ? new InitialHookSyntax(name).code
       : new InitialClassSyntax(name).code);
@@ -52,14 +52,14 @@ const TemplatingArea = ({ useTemplates }) => {
 
   const setItemForLocalStorage = data => {
     data = data ? data : isInitialSyntax;
-    localStorage.setObj("storage", data);
+    localStorage.setObj('storage', data);
     useTemplates(data);
   };
 
   const getItemFromLocalStorage = reset => {
     const resetData = [initialClassSyntax, initialHookSyntax];
-    if (reset !== "reset") {
-      const data = localStorage.getObj("storage");
+    if (reset !== 'reset') {
+      const data = localStorage.getObj('storage');
       if (data) {
         setIsInitialSyntax(data);
       } else {
@@ -97,9 +97,9 @@ const TemplatingArea = ({ useTemplates }) => {
   };
 
   return showTemplates ? (
-    <div id="code-editor">
+    <div id='code-editor'>
       <button
-        style={{ width: 400, height: "auto" }}
+        style={{ width: 400, height: 'auto' }}
         onClick={() => {
           setShowTemplates(!showTemplates);
         }}
@@ -119,10 +119,10 @@ const TemplatingArea = ({ useTemplates }) => {
       <form
         onSubmit={e => {
           e.preventDefault();
-          const templateName = document.getElementById("addTemplateName");
-          const isClass = document.getElementById("isHook");
+          const templateName = document.getElementById('addTemplateName');
+          const isClass = document.getElementById('isHook');
           let nameVal;
-          if (templateName.value === "") {
+          if (templateName.value === '') {
             nameVal = undefined;
           } else {
             nameVal = templateName.value;
@@ -135,26 +135,26 @@ const TemplatingArea = ({ useTemplates }) => {
           clonedInitial.push(newCustomTemplate);
           setIsInitialSyntax(clonedInitial);
           setItemForLocalStorage(clonedInitial);
-          templateName.value = "";
+          templateName.value = '';
           isClass.checked = !isClass.checked
             ? isClass.checked
             : !isClass.checked;
         }}
       >
         <input
-          type="text"
-          id="addTemplateName"
-          placeholder="Enter Template Name"
+          type='text'
+          id='addTemplateName'
+          placeholder='Enter Template Name'
         />
-        {"React Hooks"}
-        <input id="isHook" name="checkbox" type="checkbox" />
-        <button type="submit">+</button>
+        {'React Hooks'}
+        <input id='isHook' name='checkbox' type='checkbox' />
+        <button type='submit'>+</button>
       </form>
 
       <button
         onClick={() => {
           setShowTemplates(!showTemplates);
-          getItemFromLocalStorage("reset");
+          getItemFromLocalStorage('reset');
         }}
       >
         Reset Templates
@@ -162,7 +162,7 @@ const TemplatingArea = ({ useTemplates }) => {
     </div>
   ) : (
     <button
-      style={{ width: 400, height: "auto" }}
+      style={{ width: 400, height: 'auto' }}
       onClick={() => {
         setShowTemplates(!showTemplates);
       }}
