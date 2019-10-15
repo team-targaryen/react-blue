@@ -1,14 +1,32 @@
-import * as types from '../constants/actionTypes';
-import clone from 'clone';
+import * as types from "../constants/actionTypes";
+import clone from "clone";
 
 function DoublyLinkedList(value) {
   this.value = value;
   this.prev = null;
   this.next = null;
 }
+const getCircularReplacer = () => {
+  const seen = new WeakSet();
+  return (key, value) => {
+    if (typeof value === "object" && value !== null) {
+      if (seen.has(value)) {
+        return;
+      }
+      seen.add(value);
+    }
+    return value;
+  };
+};
+Storage.prototype.setObj = function(key, obj) {
+  return this.setItem(key, JSON.stringify(obj, getCircularReplacer()));
+};
+Storage.prototype.getObj = function(key) {
+  return JSON.parse(this.getItem(key));
+};
 
 const appComponent = {
-  name: 'App',
+  name: "App",
   depth: 0,
   id: 0,
   componentId: 0,
@@ -21,23 +39,49 @@ const initialState = {
   translate: { x: 0, y: 0 },
   history: null,
   currentComponent: appComponent,
-  nameAndCodeLinkedToComponentId: new Map(),
+  nameAndCodeLinkedToComponentId: {},
   lastId: 0,
   templates: [],
-  orientation: 'vertical'
+  orientation: "vertical"
 };
-
+function resetTree(history) {
+  let obj = {
+    data: {
+      name: "App",
+      depth: 0,
+      id: 0,
+      componentId: 0,
+      isContainer: true,
+      children: []
+    },
+    translate: { x: 0, y: 0 },
+    history: history,
+    currentComponent: {
+      name: "App",
+      depth: 0,
+      id: 0,
+      componentId: 0,
+      isContainer: true,
+      children: []
+    },
+    nameAndCodeLinkedToComponentId: {},
+    lastId: 0,
+    templates: [],
+    orientation: "vertical"
+  };
+  return obj;
+}
 const updateTree = (state, currentComponent) => {
   // check if current component has a name
-  if (currentComponent.name === '') {
-    currentComponent.name = 'DEFAULT_NAME';
+  if (currentComponent.name === "") {
+    currentComponent.name = "DEFAULT_NAME";
   }
   // check if any child has empty name, then change it to 'DEFAUL NAME'
   let children = clone(currentComponent.children);
   if (children) {
     for (let child of children) {
-      if (child.name === '') {
-        child.name = 'DEFAULT_NAME';
+      if (child.name === "") {
+        child.name = "DEFAULT_NAME";
       }
     }
   } else {
@@ -59,14 +103,13 @@ const updateTree = (state, currentComponent) => {
     return;
   };
 
-  let data = clone(state.data);
+  const data = clone(state.data);
   findComponentAndUpdate(data, currentComponent);
-  // cache into the history
-  let preHistory = clone(state.history);
-  let nameAndCodeLinkedToComponentId = clone(
+  const nameAndCodeLinkedToComponentId = clone(
     state.nameAndCodeLinkedToComponentId
   );
-  let history = new DoublyLinkedList(
+  const preHistory = clone(state.history);
+  const history = new DoublyLinkedList(
     clone({
       data,
       currentComponent,
@@ -75,6 +118,12 @@ const updateTree = (state, currentComponent) => {
   );
   preHistory.next = history;
   history.prev = preHistory;
+  //setting local storage each of these props
+  localStorage.setObj("data", Object.assign({}, state.data));
+  localStorage.setObj(
+    "currentComponent",
+    Object.assign({}, state.currentComponent)
+  );
 
   return {
     data,
@@ -92,7 +141,9 @@ const mainReducer = (state = initialState, action) => {
     inputName,
     updatedState,
     history,
-    nameAndCodeLinkedToComponentId;
+    nameAndCodeLinkedToComponentId,
+    lastId;
+  // console.log(state.data, state.currentComponent);
   switch (action.type) {
     /******************************* actions for side bar ************************************/
 
@@ -159,7 +210,7 @@ const mainReducer = (state = initialState, action) => {
       preHistory.next = history;
       history.prev = preHistory;
 
-      document.getElementById('component-name-input').value = data.name;
+      document.getElementById("component-name-input").value = data.name;
 
       return {
         ...state,
@@ -213,7 +264,7 @@ const mainReducer = (state = initialState, action) => {
           nameAndCodeLinkedToComponentId
         };
       } else {
-        alert('No previous action');
+        alert("No previous action");
         return {
           ...state
         };
@@ -235,7 +286,7 @@ const mainReducer = (state = initialState, action) => {
           nameAndCodeLinkedToComponentId
         };
       } else {
-        alert('No next action');
+        alert("No next action");
         return {
           ...state
         };
@@ -302,11 +353,12 @@ const mainReducer = (state = initialState, action) => {
       nameAndCodeLinkedToComponentId = clone(
         state.nameAndCodeLinkedToComponentId
       );
-      nameAndCodeLinkedToComponentId.set(componentId, state.templates[0]);
-      updatedState.history.value.nameAndCodeLinkedToComponentId.set(
-        componentId,
-        state.templates[0]
-      );
+      nameAndCodeLinkedToComponentId[componentId] = state.templates[0];
+      updatedState.history.value.nameAndCodeLinkedToComponentId[componentId] =
+        state.templates[0];
+      localStorage.setObj("data", updatedState.data);
+      localStorage.setObj("currentComponent", updatedState.currentComponent);
+      localStorage.setObj("lastId", componentId);
       return {
         ...state,
         ...updatedState,
@@ -317,24 +369,23 @@ const mainReducer = (state = initialState, action) => {
     case types.DELETE_CHILD:
       childId = action.payload.childId;
       currentComponent = clone(state.currentComponent);
-      function recursivelyDeleteChildren(node, map) {
+      function recursivelyDeleteChildren(node, obj) {
         node.forEach(childNode => {
           if (childNode.children) {
-            map.delete(childNode.componentId);
+            delete obj[childNode[componentId]];
             recursivelyDeleteChildren(childNode.children, map);
           }
-          map.delete(childNode.componentId);
+          delete obj[childNode[componentId]];
         });
         return map;
       }
       for (let i = 0; i < currentComponent.children.length; i++) {
         if (currentComponent.children[i].componentId === childId) {
           const [tempNode] = currentComponent.children.splice(i, 1);
-          // console.log("inside of delete for loop", tempNode, tempNode[0]);
           nameAndCodeLinkedToComponentId = clone(
             state.nameAndCodeLinkedToComponentId
           );
-          nameAndCodeLinkedToComponentId.delete(childId);
+          delete nameAndCodeLinkedToComponentId[childId];
           if (tempNode.children && tempNode.children.length > 0) {
             nameAndCodeLinkedToComponentId = recursivelyDeleteChildren(
               tempNode.children,
@@ -343,7 +394,13 @@ const mainReducer = (state = initialState, action) => {
           }
         }
       }
+
       updatedState = updateTree(state, currentComponent);
+      localStorage.setObj("currentComponent", updatedState.currentComponent);
+      localStorage.setObj(
+        "nameAndCodeLinkedToComponentId",
+        nameAndCodeLinkedToComponentId
+      );
       return {
         ...state,
         ...updatedState,
@@ -355,11 +412,9 @@ const mainReducer = (state = initialState, action) => {
       nameAndCodeLinkedToComponentId = clone(
         state.nameAndCodeLinkedToComponentId
       );
-      // nameLinkedToComponentId = clone(state.nameLinkedToComponentId);
-      if (!nameAndCodeLinkedToComponentId.has(0)) {
-        nameAndCodeLinkedToComponentId.set(0, templates[0]);
+      if (!nameAndCodeLinkedToComponentId["0"]) {
+        nameAndCodeLinkedToComponentId["0"] = templates[0];
       }
-      // console.log("use templates", nameAndCodeLinkedToComponentId);
       return {
         ...state,
         nameAndCodeLinkedToComponentId,
@@ -369,14 +424,16 @@ const mainReducer = (state = initialState, action) => {
       nameAndCodeLinkedToComponentId = clone(
         state.nameAndCodeLinkedToComponentId
       );
-      nameAndCodeLinkedToComponentId.set(
-        action.payload.currentComponent.componentId,
-        action.payload.template
-      );
+      nameAndCodeLinkedToComponentId[
+        action.payload.currentComponent.componentId
+      ] = action.payload.template;
       history = clone(state.history);
-      history.value.nameAndCodeLinkedToComponentId.set(
-        action.payload.currentComponent.componentId,
-        action.payload.template
+      history.value.nameAndCodeLinkedToComponentId[
+        action.payload.currentComponent.componentId
+      ] = action.payload.template;
+      localStorage.setObj(
+        "nameAndCodeLinkedToComponentId",
+        nameAndCodeLinkedToComponentId
       );
       return {
         ...state,
@@ -398,10 +455,27 @@ const mainReducer = (state = initialState, action) => {
         ...state,
         orientation: action.payload
       };
+    case types.UPDATE_STATE_WITH_LOCAL_STORAGE:
+      data = action.payload.data;
+      currentComponent = action.payload.currentComponent;
+      nameAndCodeLinkedToComponentId =
+        action.payload.nameAndCodeLinkedToComponentId;
+      lastId = action.payload.lastId;
+      return {
+        ...state,
+        data,
+        currentComponent,
+        nameAndCodeLinkedToComponentId,
+        lastId
+      };
+    case types.RESET_ENTIRE_TREE:
+      const resetState = resetTree(state.history);
+      return {
+        ...resetState
+      };
     default:
       return state;
   }
 };
-4;
 
 export default mainReducer;
