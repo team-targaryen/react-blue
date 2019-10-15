@@ -5,6 +5,7 @@ body,
 }
 
 body {
+  font-size: 12px;
   background: #fafafa;
 }
 
@@ -13,9 +14,31 @@ label {
 }
 
 i {
-  font-size: 30px;
+  font-size: 35px;
   color: #045590;
   cursor: pointer;
+}
+
+h2 {
+  font-size: 1.6rem;
+}
+
+h3 {
+  font-size: 1.4rem;
+}
+
+h4 {
+  font-size: 1.2rem;
+}
+
+button {
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+.btn {
+  font-size: 12px;
 }
 
 .btn-primary {
@@ -63,6 +86,10 @@ input[type='checkbox'] {
   padding-right: 20px;
 }
 
+.navbar .dropdown-menu {
+  font-size: 12px;
+}
+
 .navbar .keyboard-shortcut {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -107,8 +134,11 @@ input[type='checkbox'] {
   padding: 20px 20px 0 20px;
 }
 
-#divider {
-  width: 60%;
+#divider-panel {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+  width: 90%;
   height: 1px;
   background: #045590;
   margin: 20px auto;
@@ -123,7 +153,7 @@ input[type='checkbox'] {
 }
 
 #component-detail {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 #component-detail #component-form-top,
@@ -171,11 +201,31 @@ input[type='checkbox'] {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 #children-list form > *:not(:last-child),
 #children-list .each-child > *:not(:last-child) {
   margin-right: 20px;
+}
+
+#children-list .each-child-container {
+  position: relative;
+}
+
+#children-list .each-child-container::before {
+  content: '';
+  display: block;
+  width: 66%;
+  height: 1px;
+  background: #045590;
+  margin: 20px 0;
+}
+
+#children-list .each-child {
+  margin-bottom: 10px;
 }
 
 #sidenav-icons {
@@ -186,7 +236,22 @@ input[type='checkbox'] {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  width: 100px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#sidenav-icons a {
+  margin-bottom: 20px;
+}
+
+#divider-sidenav {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+  width: 1px;
+  background: #045590;
+  margin: 0 20px;
 }
 
 #visual-container {
@@ -194,5 +259,9 @@ input[type='checkbox'] {
       -ms-flex: 1;
           flex: 1;
   background: #fafafa;
+}
+
+#visual-container .nodeBase {
+  fill: #045590;
 }
 /*# sourceMappingURL=styles.css.map */

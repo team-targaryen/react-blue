@@ -85,13 +85,14 @@ const SideNavContainer = ({
           nameAndCodeLinkedToComponentId={nameAndCodeLinkedToComponentId}
         />
       </div>
-      <div id='divider'></div>
+      <div id='divider-panel'></div>
       <div
         key={`templateDropdown-${currentComponent.componentId}`}
         id='panel-bottom'
       >
         <BrowserRouter>
           <SideNavIcons />
+          <div id='divider-sidenav'></div>
           <Switch>
             <Route
               path='/'

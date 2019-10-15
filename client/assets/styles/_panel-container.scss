@@ -19,8 +19,9 @@
   padding: 20px 20px 0 20px;
 }
 
-#divider {
-  width: 60%;
+#divider-panel {
+  flex: 0 0 auto;
+  width: 90%;
   height: 1px;
   background: $prime-color-1;
   margin: 20px auto;
@@ -34,7 +35,7 @@
 
 // top panel, current component
 #component-detail {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 
   #component-form-top,
   #component-form-bottom {
@@ -71,10 +72,28 @@
   form,
   .each-child {
     display: flex;
+    align-items: center;
 
     > *:not(:last-child) {
       margin-right: 20px;
     }
+  }
+
+  .each-child-container {
+    position: relative;
+
+    &::before {
+      content: '';
+      display: block;
+      width: 66%;
+      height: 1px;
+      background: $prime-color-1;
+      margin: 20px 0;
+    }
+  }
+
+  .each-child {
+    margin-bottom: 10px;
   }
 }
 
@@ -82,5 +101,19 @@
 #sidenav-icons {
   display: flex;
   flex-direction: column;
-  width: 100px;
+  align-items: center;
+
+  a {
+    margin-bottom: 20px;
+  }
+}
+
+#divider-sidenav {
+  flex: 0 0 auto;
+  width: 1px;
+  background: $prime-color-1;
+  margin: 0 20px;
+}
+
+#code-editor {
 }
