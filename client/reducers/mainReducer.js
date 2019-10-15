@@ -358,6 +358,10 @@ const mainReducer = (state = initialState, action) => {
         state.templates[0];
       localStorage.setObj("data", updatedState.data);
       localStorage.setObj("currentComponent", updatedState.currentComponent);
+      localStorage.setObj(
+        "nameAndCodeLinkedToComponentId",
+        nameAndCodeLinkedToComponentId
+      );
       localStorage.setObj("lastId", componentId);
       return {
         ...state,
