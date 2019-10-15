@@ -44,12 +44,9 @@ const updateTree = (state, currentComponent) => {
     children = clone(currentComponent);
     children.name = currentComponent.name;
   }
-  // console.log("state.data: ", state.data);
   const findComponentAndUpdate = (tree, currentComponent) => {
     if (tree.componentId === currentComponent.componentId) {
       tree.name = currentComponent.name;
-      // console.log("inside of recursive", templateOption)
-      // console.log(tree.templateOption);
       tree.isContainer = currentComponent.isContainer;
       tree.children = clone(currentComponent.children);
       return;
@@ -66,10 +63,14 @@ const updateTree = (state, currentComponent) => {
   findComponentAndUpdate(data, currentComponent);
   // cache into the history
   let preHistory = clone(state.history);
+  let nameAndCodeLinkedToComponentId = clone(
+    state.nameAndCodeLinkedToComponentId
+  );
   let history = new DoublyLinkedList(
     clone({
       data,
-      currentComponent
+      currentComponent,
+      nameAndCodeLinkedToComponentId
     })
   );
   preHistory.next = history;
@@ -127,8 +128,8 @@ const mainReducer = (state = initialState, action) => {
       const findAndDelete = (tree, currentComponent) => {
         let parent = clone(currentComponent.parent);
         if (tree.componentId === parent.componentId) {
-          for(let i = 0; i < tree.children.length; i++) {
-            if(tree.children[i].componentId === currentComponent.componentId) {
+          for (let i = 0; i < tree.children.length; i++) {
+            if (tree.children[i].componentId === currentComponent.componentId) {
               tree.children.splice(i, 1);
               return;
             }
@@ -143,7 +144,7 @@ const mainReducer = (state = initialState, action) => {
       };
 
       data = clone(state.data);
-      currentComponent = clone(state.currentComponent.parent)
+      currentComponent = clone(state.currentComponent.parent);
       findAndDelete(data, state.currentComponent);
 
       return {
@@ -183,14 +184,17 @@ const mainReducer = (state = initialState, action) => {
     case types.UN_DO:
       if (state.history.prev) {
         history = clone(state.history.prev);
-
         data = clone(history.value.data);
         currentComponent = clone(history.value.currentComponent);
+        nameAndCodeLinkedToComponentId = clone(
+          history.value.nameAndCodeLinkedToComponentId
+        );
         return {
           ...state,
           data,
           history,
-          currentComponent
+          currentComponent,
+          nameAndCodeLinkedToComponentId
         };
       } else {
         alert("No previous action");
@@ -204,11 +208,15 @@ const mainReducer = (state = initialState, action) => {
         history = clone(state.history.next);
         data = clone(history.value.data);
         currentComponent = clone(history.value.currentComponent);
+        nameAndCodeLinkedToComponentId = clone(
+          history.value.nameAndCodeLinkedToComponentId
+        );
         return {
           ...state,
           data,
           history,
-          currentComponent
+          currentComponent,
+          nameAndCodeLinkedToComponentId
         };
       } else {
         alert("No next action");
@@ -279,6 +287,10 @@ const mainReducer = (state = initialState, action) => {
         state.nameAndCodeLinkedToComponentId
       );
       nameAndCodeLinkedToComponentId.set(componentId, state.templates[0]);
+      updatedState.history.value.nameAndCodeLinkedToComponentId.set(
+        componentId,
+        state.templates[0]
+      );
       return {
         ...state,
         ...updatedState,
@@ -289,18 +301,32 @@ const mainReducer = (state = initialState, action) => {
     case types.DELETE_CHILD:
       childId = action.payload.childId;
       currentComponent = clone(state.currentComponent);
+      function recursivelyDeleteChildren(node, map) {
+        node.forEach(childNode => {
+          if (childNode.children) {
+            map.delete(childNode.componentId);
+            recursivelyDeleteChildren(childNode.children, map);
+          }
+          map.delete(childNode.componentId);
+        });
+        return map;
+      }
       for (let i = 0; i < currentComponent.children.length; i++) {
         if (currentComponent.children[i].componentId === childId) {
-          currentComponent.children.splice(i, 1);
+          const [tempNode] = currentComponent.children.splice(i, 1);
+          // console.log("inside of delete for loop", tempNode, tempNode[0]);
           nameAndCodeLinkedToComponentId = clone(
             state.nameAndCodeLinkedToComponentId
           );
           nameAndCodeLinkedToComponentId.delete(childId);
-          // delete codeLinkedToComponentId[childId];
-          // delete nameLinkedToComponentId[childId];
+          if (tempNode.children && tempNode.children.length > 0) {
+            nameAndCodeLinkedToComponentId = recursivelyDeleteChildren(
+              tempNode.children,
+              nameAndCodeLinkedToComponentId
+            );
+          }
         }
       }
-      // console.log("deleting node", codeLinkedToComponentId);
       updatedState = updateTree(state, currentComponent);
       return {
         ...state,
@@ -324,20 +350,21 @@ const mainReducer = (state = initialState, action) => {
         templates
       };
     case types.SET_TEMPLATES_FOR_COMPONENT:
-      // currentComponent = clone(action.payload.currentComponent);
       nameAndCodeLinkedToComponentId = clone(
         state.nameAndCodeLinkedToComponentId
       );
-      // codeLinkedToComponentId[action.payload.currentComponent.componentId] =
-      //   action.payload.templateCode;
-      // nameLinkedToComponentId[action.payload.currentComponent.componentId] =
-      //   action.payload.templateName;
       nameAndCodeLinkedToComponentId.set(
+        action.payload.currentComponent.componentId,
+        action.payload.template
+      );
+      history = clone(state.history);
+      history.value.nameAndCodeLinkedToComponentId.set(
         action.payload.currentComponent.componentId,
         action.payload.template
       );
       return {
         ...state,
+        history,
         nameAndCodeLinkedToComponentId
       };
     case types.ZOOM_BY_CHANGING_X_AND_Y:
@@ -359,5 +386,6 @@ const mainReducer = (state = initialState, action) => {
       return state;
   }
 };
+4;
 
 export default mainReducer;
