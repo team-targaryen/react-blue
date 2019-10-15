@@ -8,7 +8,7 @@ const CreateCodeEditor = ({
   updateCode
 }) => {
   return (
-    <div key={`showCodeMirror${index}`} class='template-container'>
+    <div key={`showCodeMirror${index}`} className='template-container'>
       <input
         onChange={e => {
           e.preventDefault();
