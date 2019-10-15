@@ -1,7 +1,7 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import React from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import {
   renameChild,
   changeChildType,
@@ -13,12 +13,12 @@ import {
   setCurrentComponent,
   setTemplatesForComponent,
   useTemplates
-} from '../actions/actions';
-import ComponentDetail from '../components/ComponentDetail.jsx';
-import TemplatingArea from '../components/TemplatingArea.jsx';
-import FileTree from '../components/FileTree.jsx';
-import SideNavIcons from '../components/SideNavIcons.jsx';
-import ChildrenList from '../components/ChildrenList.jsx';
+} from "../actions/actions";
+import ComponentDetail from "../components/ComponentDetail.jsx";
+import TemplatingArea from "../components/TemplatingArea.jsx";
+import FileTree from "../components/FileTree.jsx";
+import SideNavIcons from "../components/SideNavIcons.jsx";
+import ChildrenList from "../components/ChildrenList.jsx";
 
 const mapStateToProps = store => ({
   state: store.main,
@@ -59,12 +59,11 @@ const SideNavContainer = ({
   setCurrentComponent,
   setTemplatesForComponent,
   useTemplates,
-  state,
   nameAndCodeLinkedToComponentId
 }) => {
   return (
-    <div id='panel-container'>
-      <div id='panel-top'>
+    <div id="panel-container">
+      <div id="panel-top">
         <ComponentDetail
           renameComponent={renameComponent}
           changeType={changeType}
@@ -85,22 +84,22 @@ const SideNavContainer = ({
           nameAndCodeLinkedToComponentId={nameAndCodeLinkedToComponentId}
         />
       </div>
-      <div id='divider-panel'></div>
+      <div id="divider-panel"></div>
       <div
         key={`templateDropdown-${currentComponent.componentId}`}
-        id='panel-bottom'
+        id="panel-bottom"
       >
         <BrowserRouter>
           <SideNavIcons />
-          <div id='divider-sidenav'></div>
+          <div id="divider-sidenav"></div>
           <Switch>
             <Route
-              path='/'
+              path="/"
               exact
               render={() => <TemplatingArea useTemplates={useTemplates} />}
             />
             <Route
-              path='/file-tree'
+              path="/file-tree"
               render={() => (
                 <FileTree
                   data={data}
