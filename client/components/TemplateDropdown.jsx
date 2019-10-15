@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Dropdown from 'react-bootstrap/Dropdown';
+import React, { useState, useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Dropdown from "react-bootstrap/Dropdown";
 const TemplateDropdown = ({
   templates,
   setTemplatesForComponent,
   currentComponent,
   nameAndCodeLinkedToComponentId
 }) => {
-  const [isDefault, setIsDefault] = useState('');
+  const [isDefault, setIsDefault] = useState("");
   const [isCurrentId] = useState(currentComponent.componentId);
   // const [forceRerender, setForceRerender] = useState(true);
 
   if (
     nameAndCodeLinkedToComponentId &&
-    nameAndCodeLinkedToComponentId.has(currentComponent.componentId) &&
+    nameAndCodeLinkedToComponentId[currentComponent.componentId] &&
     isDefault !==
-      nameAndCodeLinkedToComponentId.get(currentComponent.componentId).name
+      nameAndCodeLinkedToComponentId[currentComponent.componentId].name
   ) {
-    let name = nameAndCodeLinkedToComponentId.get(currentComponent.componentId)
-      .name;
+    let name =
+      nameAndCodeLinkedToComponentId[currentComponent.componentId].name;
     setIsDefault(name);
   }
   // useEffect(() => {
@@ -34,14 +34,14 @@ const TemplateDropdown = ({
 
   useEffect(() => {
     return () => {
-      setIsDefault('');
+      setIsDefault("");
     };
   }, []);
 
   return (
     <Dropdown>
-      <Dropdown.Toggle id='dropdown-basic'>
-        {!isDefault ? 'Default Template - Class Syntax' : isDefault}
+      <Dropdown.Toggle id="dropdown-basic">
+        {!isDefault ? "Default Template - Class Syntax" : isDefault}
       </Dropdown.Toggle>
       <Dropdown.Menu>
         {templates.length > 0
