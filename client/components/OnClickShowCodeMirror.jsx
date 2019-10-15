@@ -13,13 +13,15 @@ const OnClickShowCodeMirror = ({ code, updateCode, index, deleteTemplate }) => {
   const [isSave, setIsSave] = useState(false);
   return isClicked ? (
     <div>
-      <button
-        onClick={() => {
-          deleteTemplate(index);
-        }}
-      >
-        delete
-      </button>
+      {index > 1 ? (
+        <button
+          onClick={() => {
+            deleteTemplate(index);
+          }}
+        >
+          delete
+        </button>
+      ) : null}
       <button
         onClick={() => {
           setIsClicked(!isClicked);
@@ -42,13 +44,15 @@ const OnClickShowCodeMirror = ({ code, updateCode, index, deleteTemplate }) => {
     </div>
   ) : (
     <div>
-      <button
-        onClick={() => {
-          deleteTemplate(index);
-        }}
-      >
-        delete
-      </button>
+      {index > 1 ? (
+        <button
+          onClick={() => {
+            deleteTemplate(index);
+          }}
+        >
+          delete
+        </button>
+      ) : null}
       <button
         onClick={() => {
           setIsClicked(!isClicked);
