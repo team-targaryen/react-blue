@@ -26,9 +26,11 @@ export default (data) => {
                 .join('');
             childComponents = currentComponent.children
                 .map(file => {
-                    return `\n<${file.name} />`;
+                    return ` <${file.name} />`;
                 })
                 .join('');
+        } else if (!currentComponent.children) {
+            imports = "";
         }
 
         const template = `import React, { Component } from 'react';
@@ -37,7 +39,8 @@ class ${currentComponent.name} extends Component {
   state = {  }
   render() { 
     return (
-      <div>${childComponents}
+      <div>
+       ${childComponents || ""}
       </div>
     );
   }
