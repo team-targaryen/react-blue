@@ -38,7 +38,6 @@ const TemplatingArea = ({ useTemplates }) => {
 
   useEffect(() => {
     let data = getItemFromLocalStorage();
-    console.log('here in use effect', data)
     setItemForLocalStorage(data);
   }, []);
 
@@ -68,7 +67,6 @@ const TemplatingArea = ({ useTemplates }) => {
   };
 
   const deleteTemplate = index => {
-    console.log(index)
     let cloneOfIsInitialSyntax = clone(isInitialSyntax);
     cloneOfIsInitialSyntax.splice(index, 1);
     setIsInitialSyntax(cloneOfIsInitialSyntax);
