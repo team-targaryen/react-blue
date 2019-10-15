@@ -5,32 +5,55 @@
 //          delete current component (if this component is a parent component, show warning message)
 //
 import React from "react";
-
+import TemplateDropdown from "./TemplateDropdown.jsx";
 const ComponentDetail = ({
   renameComponent,
   changeType,
   deleteComponent,
-  currentComponent
+  currentComponent,
+  templates,
+  setTemplatesForComponent,
+  nameAndCodeLinkedToComponentId
 }) => {
-  //   console.log("here in component detail", currentComponent);
+  const disabled = () => {
+    return currentComponent.depth === 0 ? "disabled" : "";
+  };
+
   return (
-    <div className="componentDetail">
-      <div className="renameField">
-        <input
-          id="componentNameInput"
-          type="text"
-          defaultValue={currentComponent.name}
-          onBlur={renameComponent}
-        />
-      </div>
-      <div className="isContainer">
-        <input
-          id="componentDetailContainerCheckbox"
-          type="checkbox"
-          checked={currentComponent.isContainer}
-          onChange={changeType}
-        />
-        <span className="containerLabel">Container</span>
+    <div id="component-detail">
+      <h2>Current Component</h2>
+      <div id="component-form">
+        <div id="component-form-top">
+          <input
+            id="component-name-input"
+            type="text"
+            defaultValue={currentComponent.name}
+            onBlur={renameComponent}
+            disabled={disabled()}
+          />
+          <div className="is-container">
+            <input
+              id="is-container-curr"
+              type="checkbox"
+              checked={currentComponent.isContainer}
+              onChange={changeType}
+            />
+            <label id="container-label" htmlFor="is-container-curr">
+              Container
+            </label>
+          </div>
+          <button onClick={deleteComponent}>
+            <i className='far fa-minus-square'></i>
+          </button>
+        </div>
+        <div id="component-form-bottom">
+          <TemplateDropdown
+            templates={templates}
+            setTemplatesForComponent={setTemplatesForComponent}
+            currentComponent={currentComponent}
+            nameAndCodeLinkedToComponentId={nameAndCodeLinkedToComponentId}
+          />
+        </div>
       </div>
     </div>
   );

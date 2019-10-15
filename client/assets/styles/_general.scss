@@ -1,0 +1,85 @@
+// variables
+$font-size: 12px;
+
+$prime-color-1: #045590;
+$prime-color-2: #137ac1;
+$prime-color-3: #36a2c2;
+$prime-color-4: #71b8c2;
+$prime-color-5: #ffffff;
+
+// general
+html,
+body,
+#app {
+  height: 100%;
+}
+
+body {
+  font-size: $font-size;
+  background: #fafafa;
+}
+
+label {
+  margin: 0;
+}
+
+i {
+  font-size: 35px;
+  color: $prime-color-1;
+  cursor: pointer;
+}
+
+// headings
+h2 {
+  font-size: 1.6rem;
+}
+
+h3 {
+  font-size: 1.4rem;
+}
+
+h4 {
+  font-size: 1.2rem;
+}
+
+// buttons
+button {
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+.btn {
+  font-size: 12px;
+}
+
+.btn-primary {
+  background: $prime-color-1;
+  border-color: $prime-color-1;
+}
+
+// content
+#app {
+  display: flex;
+  flex-direction: column;
+}
+
+#panel-main-container {
+  display: flex;
+  height: 100%;
+}
+
+.is-container {
+  display: flex;
+}
+
+input[type='text'] {
+  border: 0;
+  border-radius: 0.25rem;
+  padding: 9px 12px;
+  border: 1px solid $prime-color-1;
+}
+
+input[type='checkbox'] {
+  margin-right: 5px;
+}

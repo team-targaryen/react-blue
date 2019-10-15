@@ -1,48 +1,33 @@
-import React from "react";
-import DropdownTemplates from "./DropdownTemplates.jsx";
+import React from 'react';
+
 const EachChild = ({
   name,
   childId,
   isContainer,
   renameChild,
   changeType,
-  deleteChild,
-  templates,
-  setTemplatesForComponent,
-  currentComponent
-}) => {
-  //   setTemplatesForComponent(childId);
-  return (
-    <div className="eachChild">
+  deleteChild
+}) => (
+  <div className='each-child'>
+    <input
+      className='child-name'
+      type='text'
+      defaultValue={name}
+      onBlur={() => renameChild(event, childId)}
+    ></input>
+    <div>
       <input
-        className="childName"
-        type="text"
-        defaultValue={name}
-        onBlur={() => renameChild(event, childId)}
-      ></input>
-      <input
-        className="containerCheckbox"
-        type="checkbox"
+        className='container-checkbox'
+        type='checkbox'
         checked={isContainer}
         onChange={() => changeType(event, childId)}
       />
-      <DropdownTemplates
-        templates={templates}
-        setTemplatesForComponent={setTemplatesForComponent}
-        childId={childId}
-        currentComponent={currentComponent}
-      />
-      <span className="containerLabel">Container</span>
-      <button
-        className="deleteChild"
-        onClick={() => {
-          deleteChild(childId);
-        }}
-      >
-        X
-      </button>
+      <span className='container-label'>Container</span>
     </div>
-  );
-};
+    <button className='delete-child' onClick={() => deleteChild(childId)}>
+      <i className='far fa-minus-square'></i>
+    </button>
+  </div>
+);
 
 export default EachChild;

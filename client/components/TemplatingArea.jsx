@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
 
 import clone from "clone";
 import {
@@ -8,14 +6,6 @@ import {
   InitialClassSyntax
 } from "../templates-code/templates";
 import CreateCodeEditor from "./CreateCodeEditor.jsx";
-import { useTemplates } from "../actions/actions";
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      useTemplates
-    },
-    dispatch
-  );
 
 Storage.prototype.setObj = function(key, obj) {
   return this.setItem(key, JSON.stringify(obj));
@@ -44,14 +34,18 @@ const TemplatingArea = ({ useTemplates }) => {
     initialHookSyntax
   ]);
 
-  const [showTemplates, setShowTemplates] = useState(false);
+  // const [showTemplates, setShowTemplates] = useState(false);
 
   useEffect(() => {
-    getItemFromLocalStorage();
+    let data = getItemFromLocalStorage();
+    setItemForLocalStorage(data);
   }, []);
 
   const setItemForLocalStorage = data => {
-    data = data ? data : isInitialSyntax;
+    data =
+      data !== null && data.length > 0
+        ? data
+        : [initialClassSyntax, initialHookSyntax];
     localStorage.setObj("storage", data);
     useTemplates(data);
   };
@@ -67,6 +61,7 @@ const TemplatingArea = ({ useTemplates }) => {
         setIsInitialSyntax(resetData);
         useTemplates(resetData);
       }
+      return data;
     } else {
       setIsInitialSyntax(resetData);
       setItemForLocalStorage(resetData);
@@ -79,6 +74,7 @@ const TemplatingArea = ({ useTemplates }) => {
     cloneOfIsInitialSyntax.splice(index, 1);
     setIsInitialSyntax(cloneOfIsInitialSyntax);
     setItemForLocalStorage(cloneOfIsInitialSyntax);
+    useTemplates(cloneOfIsInitialSyntax);
   };
 
   const updateCode = (newCode, index, name) => {
@@ -98,19 +94,12 @@ const TemplatingArea = ({ useTemplates }) => {
     return;
   };
 
-  return showTemplates ? (
+  return (
     <div id="code-editor">
-      <button
-        style={{ width: 400, height: "auto" }}
-        onClick={() => {
-          setShowTemplates(!showTemplates);
-        }}
-      >
-        <h4>Templates</h4>
-      </button>
       {isInitialSyntax.map((syntaxObject, index) => {
         return (
           <CreateCodeEditor
+            key={`createCodeEditor-${index}`}
             syntaxObject={syntaxObject}
             index={index}
             deleteTemplate={deleteTemplate}
@@ -155,26 +144,13 @@ const TemplatingArea = ({ useTemplates }) => {
 
       <button
         onClick={() => {
-          setShowTemplates(!showTemplates);
           getItemFromLocalStorage("reset");
         }}
       >
         Reset Templates
       </button>
     </div>
-  ) : (
-    <button
-      style={{ width: 400, height: "auto" }}
-      onClick={() => {
-        setShowTemplates(!showTemplates);
-      }}
-    >
-      <h4>Templates</h4>
-    </button>
   );
 };
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(TemplatingArea);
+export default TemplatingArea;
