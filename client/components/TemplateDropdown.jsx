@@ -10,7 +10,6 @@ const TemplateDropdown = ({
   const [isDefault, setIsDefault] = useState('');
   const [isCurrentId] = useState(currentComponent.componentId);
   // const [forceRerender, setForceRerender] = useState(true);
-  console.log('inside of template dropdown', nameAndCodeLinkedToComponentId)
   if (
     nameAndCodeLinkedToComponentId &&
     nameAndCodeLinkedToComponentId.has(currentComponent.componentId) &&
