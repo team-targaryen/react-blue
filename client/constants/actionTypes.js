@@ -1,4 +1,3 @@
-
 // sidebar actions
 export const RENAME_COMPONENT = "RENAME_COMPONENT";
 export const CHANGE_TYPE = "CHANGE_TYPE";
@@ -9,12 +8,17 @@ export const SET_CURRENT_COMPONENT = "SET_CURRENT_COMPONENT";
 export const SET_TRANS_AND_HISTORY = "SET_TRANS_AND_HISTORY";
 export const UN_DO = "UN_DO";
 export const RE_DO = "RE_DO";
-
+// change display of d3 tree
+export const CHANGE_DISPLAY_HORIZONTAL_OR_VERTICAL =
+  "CHANGE_DISPLAY_HORIZONTAL_OR_VERTICAL";
 // children list actions
 export const SET_CHILDREN = "SET_CHILDREN";
 export const RENAME_CHILD = "RENAME_CHILD";
 export const CHANGE_CHILD_TYPE = "CHANGE_CHILD_TYPE";
 export const ADD_CHILD = "ADD_CHILD";
 export const DELETE_CHILD = "DELETE_CHILD";
+//templating feature
 export const USE_TEMPLATES = "USE_TEMPLATES";
-
+export const SET_TEMPLATES_FOR_COMPONENT = "SET_TEMPLATES_FOR_COMPONENT";
+//ZOOM feature
+export const ZOOM_BY_CHANGING_X_AND_Y = "ZOOM_BY_CHANGING_X_AND_Y";

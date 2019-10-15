@@ -1,0 +1,119 @@
+// panel containing top and bottom halves
+#panel-container {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 15px;
+  margin: 20px;
+}
+
+#panel-top,
+#panel-bottom {
+  height: 50%;
+}
+
+#panel-top {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px 0 20px;
+}
+
+#divider-panel {
+  flex: 0 0 auto;
+  width: 90%;
+  height: 1px;
+  background: $prime-color-1;
+  margin: 20px auto;
+}
+
+#panel-bottom {
+  display: flex;
+  overflow: auto;
+  padding: 0 20px 20px 20px;
+}
+
+// top panel, current component
+#component-detail {
+  margin-bottom: 20px;
+
+  #component-form-top,
+  #component-form-bottom {
+    display: flex;
+    align-items: center;
+
+    > *:not(:last-child) {
+      margin-right: 20px;
+    }
+  }
+
+  #component-form-top {
+    margin-bottom: 10px;
+  }
+
+  #component-name-input {
+    border: 1px solid $prime-color-1;
+  }
+
+  .is-container {
+    display: flex;
+    align-items: center;
+  }
+}
+
+// top panel, children list
+#children-list {
+  overflow: auto;
+
+  > * {
+    margin: 0 auto 10px;
+  }
+
+  form,
+  .each-child {
+    display: flex;
+    align-items: center;
+
+    > *:not(:last-child) {
+      margin-right: 20px;
+    }
+  }
+
+  .each-child-container {
+    position: relative;
+
+    &::before {
+      content: '';
+      display: block;
+      width: 66%;
+      height: 1px;
+      background: $prime-color-1;
+      margin: 20px 0;
+    }
+  }
+
+  .each-child {
+    margin-bottom: 10px;
+  }
+}
+
+// bottom panel, sidenav icons
+#sidenav-icons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  a {
+    margin-bottom: 20px;
+  }
+}
+
+#divider-sidenav {
+  flex: 0 0 auto;
+  width: 1px;
+  background: $prime-color-1;
+  margin: 0 20px;
+}
+
+#code-editor {
+}

@@ -8,6 +8,7 @@ let indexHTML = `<!DOCTYPE html>
 </head>
 <body>
   <div id="root"></div>
+  <script type="text/javascript" src="./../build/bundle.js"></script>
 </body>
 </html>
 `;
