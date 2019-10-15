@@ -22,13 +22,22 @@ const ChildrenList = ({
             name='childName'
             placeholder="Enter Child's Name"
           />
-          <input
-            id='add-child-container-checkbox'
-            name='checkbox'
-            type='checkbox'
-          />
-          <span className='container-label'>Container</span>
-          <button type='submit'>+</button>
+          <div>
+            <input
+              id='add-child-container-checkbox'
+              name='checkbox'
+              type='checkbox'
+            />
+            <label
+              className='container-label'
+              htmlFor='add-child-container-checkbox'
+            >
+              Container
+            </label>
+          </div>
+          <button type='submit'>
+            <i className='far fa-plus-square'></i>
+          </button>
         </form>
         {currentComponent.children &&
           currentComponent.children.map((child, idx) =>
@@ -58,7 +67,7 @@ const childMaker = (
   nameAndCodeLinkedToComponentId
 ) => {
   return (
-    <div key={idx}>
+    <div key={idx} className='each-child-container'>
       <EachChild
         key={idx}
         name={child.name}

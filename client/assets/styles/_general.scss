@@ -1,4 +1,6 @@
-// colors
+// variables
+$font-size: 12px;
+
 $prime-color-1: #045590;
 $prime-color-2: #137ac1;
 $prime-color-3: #36a2c2;
@@ -13,6 +15,7 @@ body,
 }
 
 body {
+  font-size: $font-size;
   background: #fafafa;
 }
 
@@ -21,9 +24,33 @@ label {
 }
 
 i {
-  font-size: 30px;
+  font-size: 35px;
   color: $prime-color-1;
   cursor: pointer;
+}
+
+// headings
+h2 {
+  font-size: 1.6rem;
+}
+
+h3 {
+  font-size: 1.4rem;
+}
+
+h4 {
+  font-size: 1.2rem;
+}
+
+// buttons
+button {
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+.btn {
+  font-size: 12px;
 }
 
 .btn-primary {
@@ -31,6 +58,7 @@ i {
   border-color: $prime-color-1;
 }
 
+// content
 #app {
   display: flex;
   flex-direction: column;

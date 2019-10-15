@@ -25,7 +25,7 @@ const EachChild = ({
       <span className='container-label'>Container</span>
     </div>
     <button className='delete-child' onClick={() => deleteChild(childId)}>
-      X
+      <i className='far fa-minus-square'></i>
     </button>
   </div>
 );

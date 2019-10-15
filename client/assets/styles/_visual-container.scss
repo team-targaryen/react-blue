@@ -1,4 +1,8 @@
 #visual-container {
   flex: 1;
   background: #fafafa;
+
+  .nodeBase {
+    fill: $prime-color-1;
+  }
 }

@@ -1,5 +1,5 @@
-import * as types from "../constants/actionTypes";
-import clone from "clone";
+import * as types from '../constants/actionTypes';
+import clone from 'clone';
 
 function DoublyLinkedList(value) {
   this.value = value;
@@ -8,7 +8,7 @@ function DoublyLinkedList(value) {
 }
 
 const appComponent = {
-  name: "App",
+  name: 'App',
   depth: 0,
   id: 0,
   componentId: 0,
@@ -24,20 +24,20 @@ const initialState = {
   nameAndCodeLinkedToComponentId: new Map(),
   lastId: 0,
   templates: [],
-  orientation: "vertical"
+  orientation: 'vertical'
 };
 
 const updateTree = (state, currentComponent) => {
   // check if current component has a name
-  if (currentComponent.name === "") {
-    currentComponent.name = "DEFAULT_NAME";
+  if (currentComponent.name === '') {
+    currentComponent.name = 'DEFAULT_NAME';
   }
   // check if any child has empty name, then change it to 'DEFAUL NAME'
   let children = clone(currentComponent.children);
   if (children) {
     for (let child of children) {
-      if (child.name === "") {
-        child.name = "DEFAULT_NAME";
+      if (child.name === '') {
+        child.name = 'DEFAULT_NAME';
       }
     }
   } else {
@@ -111,6 +111,7 @@ const mainReducer = (state = initialState, action) => {
       currentComponent = clone(state.currentComponent);
       currentComponent.isContainer = isContainer;
       updatedState = updateTree(state, currentComponent);
+
       return {
         ...state,
         ...updatedState
@@ -127,8 +128,8 @@ const mainReducer = (state = initialState, action) => {
       const findAndDelete = (tree, currentComponent) => {
         let parent = clone(currentComponent.parent);
         if (tree.componentId === parent.componentId) {
-          for(let i = 0; i < tree.children.length; i++) {
-            if(tree.children[i].componentId === currentComponent.componentId) {
+          for (let i = 0; i < tree.children.length; i++) {
+            if (tree.children[i].componentId === currentComponent.componentId) {
               tree.children.splice(i, 1);
               return;
             }
@@ -143,7 +144,7 @@ const mainReducer = (state = initialState, action) => {
       };
 
       data = clone(state.data);
-      currentComponent = clone(state.currentComponent.parent)
+      currentComponent = clone(state.currentComponent.parent);
       findAndDelete(data, state.currentComponent);
 
       return {
@@ -193,7 +194,7 @@ const mainReducer = (state = initialState, action) => {
           currentComponent
         };
       } else {
-        alert("No previous action");
+        alert('No previous action');
         return {
           ...state
         };
@@ -211,7 +212,7 @@ const mainReducer = (state = initialState, action) => {
           currentComponent
         };
       } else {
-        alert("No next action");
+        alert('No next action');
         return {
           ...state
         };
