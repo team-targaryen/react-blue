@@ -13,13 +13,14 @@ const OnClickShowCodeMirror = ({ code, updateCode, index, deleteTemplate }) => {
   const [isSave, setIsSave] = useState(false);
   return isClicked ? (
     <div style={{ fontFamily: "Lato" }}>
-      <button
-        onClick={() => {
-          deleteTemplate(index);
-        }}
-      >
-        delete
-      </button>
+      {
+        index > 1 ? <button
+          onClick={() => {
+            deleteTemplate(index);
+          }}
+        >
+          delete
+      </button> : null}
       <button
         style={{ float: "right" }}
         onClick={() => {
@@ -43,24 +44,25 @@ const OnClickShowCodeMirror = ({ code, updateCode, index, deleteTemplate }) => {
       </div>
     </div>
   ) : (
-    <div style={{ width: 400, height: 20 }}>
-      <button
-        onClick={() => {
-          deleteTemplate(index);
-        }}
-      >
-        delete
-      </button>
-      <button
-        style={{ float: "right" }}
-        onClick={() => {
-          setIsClicked(!isClicked);
-          setIsSave(!isSave);
-        }}
-      >
-        {isSave ? "save" : "edit"}
-      </button>
-    </div>
-  );
+      <div style={{ width: 400, height: 20 }}>
+        {
+          index > 1 ? <button
+            onClick={() => {
+              deleteTemplate(index);
+            }}
+          >
+            delete
+      </button> : null}
+        <button
+          style={{ float: "right" }}
+          onClick={() => {
+            setIsClicked(!isClicked);
+            setIsSave(!isSave);
+          }}
+        >
+          {isSave ? "save" : "edit"}
+        </button>
+      </div>
+    );
 };
 export default OnClickShowCodeMirror;

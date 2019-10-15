@@ -23,31 +23,35 @@ const ComponentDetail = ({
     <div id='component-detail'>
       <h2>Current Component</h2>
       <div id='component-form'>
-        <input
-          id='component-name-input'
-          type='text'
-          defaultValue={currentComponent.name}
-          onBlur={renameComponent}
-          disabled={disabled()}
-        />
-        <div className='is-container'>
+        <div id='component-form-top'>
           <input
-            id='is-container-curr'
-            type='checkbox'
-            checked={currentComponent.isContainer}
-            onChange={changeType}
+            id='component-name-input'
+            type='text'
+            defaultValue={currentComponent.name}
+            onBlur={renameComponent}
+            disabled={disabled()}
           />
-          <label id='container-label' htmlFor='is-container-curr'>
-            Container
-          </label>
+          <div className='is-container'>
+            <input
+              id='is-container-curr'
+              type='checkbox'
+              checked={currentComponent.isContainer}
+              onChange={changeType}
+            />
+            <label id='container-label' htmlFor='is-container-curr'>
+              Container
+            </label>
+          </div>
         </div>
-        <TemplateDropdown
-          templates={templates}
-          setTemplatesForComponent={setTemplatesForComponent}
-          currentComponent={currentComponent}
-          nameLinkedToComponentId={nameLinkedToComponentId}
-        />
-        <button onClick={deleteComponent}>X</button>
+        <div id='component-form-bottom'>
+          <TemplateDropdown
+            templates={templates}
+            setTemplatesForComponent={setTemplatesForComponent}
+            currentComponent={currentComponent}
+            nameLinkedToComponentId={nameLinkedToComponentId}
+          />
+          <i class='far fa-minus-square' onClick={deleteComponent}></i>
+        </div>
       </div>
     </div>
   );

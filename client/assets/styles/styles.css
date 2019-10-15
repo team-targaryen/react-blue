@@ -5,11 +5,22 @@ body,
 }
 
 body {
-  background: #71b8c2;
+  background: #fafafa;
 }
 
 label {
   margin: 0;
+}
+
+i {
+  font-size: 30px;
+  color: #045590;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #045590;
+  border-color: #045590;
 }
 
 #app {
@@ -33,6 +44,13 @@ label {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+
+input[type='text'] {
+  border: 0;
+  border-radius: 0.25rem;
+  padding: 9px 12px;
+  border: 1px solid #045590;
 }
 
 input[type='checkbox'] {
@@ -68,17 +86,24 @@ input[type='checkbox'] {
           flex-direction: column;
   width: 30%;
   background: rgba(255, 255, 255, 0.5);
+  -webkit-box-shadow: 0 0 15px;
+          box-shadow: 0 0 15px;
   margin: 20px;
 }
 
 #panel-top,
 #panel-bottom {
   height: 50%;
-  overflow: auto;
 }
 
 #panel-top {
-  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   padding: 20px 20px 0 20px;
 }
 
@@ -93,6 +118,7 @@ input[type='checkbox'] {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  overflow: auto;
   padding: 0 20px 20px 20px;
 }
 
@@ -100,17 +126,27 @@ input[type='checkbox'] {
   margin-bottom: 40px;
 }
 
-#component-detail #component-form {
+#component-detail #component-form-top,
+#component-detail #component-form-bottom {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-#component-detail #component-form > *:not(:last-child) {
+#component-detail #component-form-top > *:not(:last-child),
+#component-detail #component-form-bottom > *:not(:last-child) {
   margin-right: 20px;
+}
+
+#component-detail #component-form-top {
+  margin-bottom: 10px;
+}
+
+#component-detail #component-name-input {
+  border: 1px solid #045590;
 }
 
 #component-detail .is-container {
@@ -122,6 +158,10 @@ input[type='checkbox'] {
           align-items: center;
 }
 
+#children-list {
+  overflow: auto;
+}
+
 #children-list > * {
   margin: 0 auto 10px;
 }
@@ -131,9 +171,6 @@ input[type='checkbox'] {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
 }
 
 #children-list form > *:not(:last-child),
@@ -156,6 +193,6 @@ input[type='checkbox'] {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  background: #71b8c2;
+  background: #fafafa;
 }
 /*# sourceMappingURL=styles.css.map */
