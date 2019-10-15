@@ -95,7 +95,7 @@ class VisualContainer extends React.PureComponent {
           break;
       }
     });
-
+    
     getRidOfStupidChildren(this.props.data);
     return (
       <div id="visual-container" ref={tc => (this.treeContainer = tc)}>
@@ -105,8 +105,23 @@ class VisualContainer extends React.PureComponent {
           orientation={this.props.orientation}
           collapsible={false}
           nodeSvgShape={{
+            // for the circle
             shape: "circle",
             shapeProps: { r: "30" }
+
+            // for the square shape
+            // shape: "rect",
+            // shapeProps: {  
+            //   width: 40,
+            //   height: 40,
+            //   x: -20,
+            //   y: -20, }
+
+            // for the star shape
+            // shape: "polygon",
+            // shapeProps: {
+            //   points: "0 -20, 5 0, 20 0, 10 10, 15 25, 0 15, -15 25, -10 10, -20 0, -5 0"
+            // }
           }}
           textLayout={{
             textAnchor: "start",

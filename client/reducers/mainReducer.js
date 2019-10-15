@@ -127,6 +127,8 @@ const mainReducer = (state = initialState, action) => {
 
       const findAndDelete = (tree, currentComponent) => {
         let parent = clone(currentComponent.parent);
+        // console.log('parent in find and delete: ', parent);
+        
         if (tree.componentId === parent.componentId) {
           for (let i = 0; i < tree.children.length; i++) {
             if (tree.children[i].componentId === currentComponent.componentId) {
@@ -137,26 +139,39 @@ const mainReducer = (state = initialState, action) => {
         }
         if (tree.children) {
           tree.children.forEach(child => {
-            findAndDelete(child, currentComponent);
+            return findAndDelete(child, currentComponent);
           });
         }
-        return;
       };
 
       data = clone(state.data);
       currentComponent = clone(state.currentComponent.parent);
       findAndDelete(data, state.currentComponent);
 
+      let preHistory = clone(state.history);
+      history = new DoublyLinkedList(
+        clone({
+          data,
+          currentComponent: data
+        })
+      );
+      preHistory.next = history;
+      history.prev = preHistory;
+      
+      document.getElementById("component-name-input").value = data.name;
+
       return {
         ...state,
         data,
-        currentComponent: state.currentComponent.parent
+        currentComponent: data,
+        history
       };
 
     /******************************* actions for main container ************************************/
 
     case types.SET_CURRENT_COMPONENT:
       currentComponent = action.payload.currentComponent;
+      // console.log('currentComponent: ', currentComponent);
       data = action.payload.data;
 
       if (data) {
@@ -281,6 +296,7 @@ const mainReducer = (state = initialState, action) => {
       children.push(newChild);
       currentComponent = clone(state.currentComponent);
       currentComponent.children = children.slice();
+      
 
       updatedState = updateTree(state, currentComponent);
       nameAndCodeLinkedToComponentId = clone(

@@ -50,7 +50,7 @@ const ComponentDetail = ({
             currentComponent={currentComponent}
             nameAndCodeLinkedToComponentId={nameAndCodeLinkedToComponentId}
           />
-          <i class="far fa-minus-square" onClick={deleteComponent}></i>
+          <i className='far fa-minus-square' onClick={deleteComponent}></i>
         </div>
       </div>
     </div>
