@@ -3,6 +3,10 @@
   padding-left: 20px;
   padding-right: 20px;
 
+  .dropdown-menu {
+    font-size: $font-size;
+  }
+
   .keyboard-shortcut {
     display: flex;
     justify-content: space-between;

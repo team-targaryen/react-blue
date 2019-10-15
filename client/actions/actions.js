@@ -1,4 +1,4 @@
-import * as types from "../constants/actionTypes";
+import * as types from '../constants/actionTypes';
 
 /******************************* actions for side bar ************************************/
 
@@ -7,7 +7,7 @@ export const renameComponent = event => dispatch => {
   inputName = inputName.replace(/(\w)(\w*)/g, (g0, g1, g2) => {
     return g1.toUpperCase() + g2.toLowerCase();
   });
-  inputName = inputName.replace(/\s/g, "");
+  inputName = inputName.replace(/\s/g, '');
 
   dispatch({
     type: types.RENAME_COMPONENT,
@@ -19,6 +19,7 @@ export const renameComponent = event => dispatch => {
 
 export const changeType = event => dispatch => {
   const isContainer = event.target.checked;
+
   dispatch({
     type: types.CHANGE_TYPE,
     payload: {
@@ -37,8 +38,8 @@ export const deleteComponent = () => dispatch => {
 /******************************* actions for main container ************************************/
 
 export const setCurrentComponent = (currentComponent, data) => dispatch => {
-  if (document.getElementById("component-name-input")) {
-    document.getElementById("component-name-input").value =
+  if (document.getElementById('component-name-input')) {
+    document.getElementById('component-name-input').value =
       currentComponent.name;
   }
 
@@ -77,7 +78,7 @@ export const redo = () => dispatch => {
 
 /*********************** actions for current component children list ****************************/
 export const renameChild = (event, childId) => dispatch => {
-  const inputName = event.target.value.replace(/\s/g, "");
+  const inputName = event.target.value.replace(/\s/g, '');
   dispatch({
     type: types.RENAME_CHILD,
     payload: {
@@ -100,16 +101,16 @@ export const changeChildType = (event, childId) => dispatch => {
 
 export const addChild = event => dispatch => {
   event.preventDefault();
-  let name = event.target.childName.value || "Component";
+  let name = event.target.childName.value || 'Component';
   name = name.replace(/(\w)(\w*)/g, (g0, g1, g2) => {
     return g1.toUpperCase() + g2.toLowerCase();
   });
-  name = name.replace(/\s/g, "");
+  name = name.replace(/\s/g, '');
   const isContainer = event.target.checkbox.checked;
 
   // reset the input fields
-  document.getElementById("add-child-name").value = "";
-  document.getElementById("add-child-container-checkbox").checked = false;
+  document.getElementById('add-child-name').value = '';
+  document.getElementById('add-child-container-checkbox').checked = false;
 
   dispatch({
     type: types.ADD_CHILD,

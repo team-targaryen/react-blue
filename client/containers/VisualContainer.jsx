@@ -1,16 +1,16 @@
-import React, { Component, useState, useEffect } from "react";
-import { connect } from "react-redux";
-import Tree from "react-d3-tree";
-import clone from "clone";
-import { bindActionCreators } from "redux";
+import React, { Component, useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import Tree from 'react-d3-tree';
+import clone from 'clone';
+import { bindActionCreators } from 'redux';
 import {
   setCurrentComponent,
   setTransAndHistory,
   undo,
   redo
   // setZoom
-} from "../actions/actions";
-import hotkeys from "hotkeys-js";
+} from '../actions/actions';
+import hotkeys from 'hotkeys-js';
 
 function DoublyLinkedList(value) {
   this.value = value;
@@ -83,22 +83,22 @@ class VisualContainer extends React.PureComponent {
   render() {
     const undoFunc = this.props.undo;
     const redoFunc = this.props.redo;
-    hotkeys("ctrl+z, ctrl+shift+z", function(event, handler) {
+    hotkeys('ctrl+z, ctrl+shift+z', function(event, handler) {
       event.preventDefault();
       switch (handler.key) {
-        case "ctrl+z":
+        case 'ctrl+z':
           undoFunc();
           return;
 
-        case "ctrl+shift+z":
+        case 'ctrl+shift+z':
           redoFunc();
           break;
       }
     });
-    
+
     getRidOfStupidChildren(this.props.data);
     return (
-      <div id="visual-container" ref={tc => (this.treeContainer = tc)}>
+      <div id='visual-container' ref={tc => (this.treeContainer = tc)}>
         <Tree
           data={this.props.data}
           translate={this.props.translate}
@@ -106,16 +106,17 @@ class VisualContainer extends React.PureComponent {
           collapsible={false}
           nodeSvgShape={{
             // for the circle
-            shape: "circle",
-            shapeProps: { r: "30" }
+            // shape: "circle",
+            // shapeProps: { r: "30" }
 
             // for the square shape
-            // shape: "rect",
-            // shapeProps: {  
-            //   width: 40,
-            //   height: 40,
-            //   x: -20,
-            //   y: -20, }
+            shape: 'rect',
+            shapeProps: {
+              width: 30,
+              height: 30,
+              x: -15,
+              y: -15
+            }
 
             // for the star shape
             // shape: "polygon",
@@ -124,9 +125,9 @@ class VisualContainer extends React.PureComponent {
             // }
           }}
           textLayout={{
-            textAnchor: "start",
-            x: -30,
-            y: -45
+            textAnchor: 'start',
+            x: 0,
+            y: -30
           }}
           onClick={currentComponent => {
             this.props.setCurrentComponent(currentComponent);

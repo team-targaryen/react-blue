@@ -42,6 +42,9 @@ const ComponentDetail = ({
               Container
             </label>
           </div>
+          <button onClick={deleteComponent}>
+            <i className='far fa-minus-square'></i>
+          </button>
         </div>
         <div id="component-form-bottom">
           <TemplateDropdown
@@ -50,7 +53,6 @@ const ComponentDetail = ({
             currentComponent={currentComponent}
             nameAndCodeLinkedToComponentId={nameAndCodeLinkedToComponentId}
           />
-          <i className='far fa-minus-square' onClick={deleteComponent}></i>
         </div>
       </div>
     </div>
