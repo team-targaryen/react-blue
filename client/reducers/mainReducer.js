@@ -41,21 +41,23 @@ const initialState = {
   currentComponent: appComponent,
   nameAndCodeLinkedToComponentId: {},
   lastId: 0,
+  defaultNameCount: 0,
   templates: [],
   orientation: "vertical"
 };
 
 const updateTree = (state, currentComponent) => {
+  const defaultNameCount = state.defaultNameCount + 1;
   // check if current component has a name
-  if (currentComponent.name === "") {
-    currentComponent.name = "DEFAULT_NAME";
+  if (currentComponent.name === '') {
+    currentComponent.name = `Component${defaultNameCount}`;
   }
   // check if any child has empty name, then change it to 'DEFAUL NAME'
   let children = clone(currentComponent.children);
   if (children) {
     for (let child of children) {
-      if (child.name === "") {
-        child.name = "DEFAULT_NAME";
+      if (child.name === '') {
+        child.name = `Component${defaultNameCount}`;
       }
     }
   } else {
@@ -71,10 +73,9 @@ const updateTree = (state, currentComponent) => {
     }
     if (tree.children) {
       tree.children.forEach(child => {
-        findComponentAndUpdate(child, currentComponent);
+        return findComponentAndUpdate(child, currentComponent);
       });
     }
-    return;
   };
 
   const data = clone(state.data);
@@ -100,6 +101,7 @@ const updateTree = (state, currentComponent) => {
     currentComponent,
     history,
     nameAndCodeLinkedToComponentId
+    defaultNameCount
   };
 };
 
@@ -149,45 +151,45 @@ const mainReducer = (state = initialState, action) => {
         };
       }
 
-      const findAndDelete = (tree, currentComponent) => {
-        let parent = clone(currentComponent.parent);
-        // console.log('parent in find and delete: ', parent);
+      data = clone(state.data);
+      currentComponent = clone(state.currentComponent);
+      let parent = Object.assign(state.currentComponent.parent);
 
+      const findAndDelete = (tree, currentComponent) => {
         if (tree.componentId === parent.componentId) {
           for (let i = 0; i < tree.children.length; i++) {
             if (tree.children[i].componentId === currentComponent.componentId) {
               tree.children.splice(i, 1);
+              parent.children = tree.children.slice();
               return;
             }
           }
         }
-        if (tree.children) {
+        else if (tree.children) {
           tree.children.forEach(child => {
             return findAndDelete(child, currentComponent);
           });
         }
       };
 
-      data = clone(state.data);
-      currentComponent = clone(state.currentComponent.parent);
-      findAndDelete(data, state.currentComponent);
+      findAndDelete(data, currentComponent);
 
       let preHistory = clone(state.history);
       history = new DoublyLinkedList(
         clone({
           data,
-          currentComponent: data
+          currentComponent: parent
         })
       );
       preHistory.next = history;
       history.prev = preHistory;
 
-      document.getElementById("component-name-input").value = data.name;
+      document.getElementById('component-name-input').value = parent.name;
 
       return {
         ...state,
         data,
-        currentComponent: data,
+        currentComponent: parent,
         history
       };
 
@@ -304,7 +306,8 @@ const mainReducer = (state = initialState, action) => {
       };
 
     case types.ADD_CHILD:
-      const name = action.payload.name;
+      const defaultNameCount = state.defaultNameCount + 1;
+      const name = action.payload.name || `Component${defaultNameCount}`;
       isContainer = action.payload.isContainer;
       const componentId = state.lastId + 1;
       const newChild = {
@@ -339,7 +342,8 @@ const mainReducer = (state = initialState, action) => {
         ...state,
         ...updatedState,
         nameAndCodeLinkedToComponentId,
-        lastId: componentId
+        lastId: componentId,
+        defaultNameCount
       };
 
     case types.DELETE_CHILD:

@@ -9,6 +9,7 @@ const TemplateDropdown = ({
 }) => {
   const [isDefault, setIsDefault] = useState("");
   const [isCurrentId] = useState(currentComponent.componentId);
+
   if (
     nameAndCodeLinkedToComponentId &&
     nameAndCodeLinkedToComponentId[currentComponent.componentId] &&

@@ -12,56 +12,62 @@ const OnClickShowCodeMirror = ({ code, updateCode, index, deleteTemplate }) => {
   const [isClicked, setIsClicked] = useState(false);
   const [isSave, setIsSave] = useState(false);
   return isClicked ? (
-    <div>
-      {index > 1 ? (
-        <button
-          onClick={() => {
-            deleteTemplate(index);
-          }}
-        >
-          delete
-        </button>
-      ) : null}
+    <React.Fragment>
       <button
         onClick={() => {
           setIsClicked(!isClicked);
           setIsSave(!isSave);
         }}
       >
-        {isSave ? 'save' : 'edit'}
+        {isSave ? (
+          <i className='fas fa-save'></i>
+        ) : (
+          <i className='fas fa-edit'></i>
+        )}
       </button>
-      <div>
-        <CodeMirror
-          value={code}
-          onChange={value => {
-            updateCode(value, index);
+      {index > 1 ? (
+        <button
+          onClick={() => {
+            deleteTemplate(index);
           }}
-          options={{
-            lineNumbers: true
-          }}
-        />
-      </div>
-    </div>
+        >
+          <i className='far fa-minus-square'></i>
+        </button>
+      ) : null}
+      <CodeMirror
+        value={code}
+        onChange={value => {
+          updateCode(value, index);
+        }}
+        options={{
+          lineNumbers: true
+        }}
+      />
+    </React.Fragment>
   ) : (
-    <div>
-      {index > 1 ? (
-        <button
-          onClick={() => {
-            deleteTemplate(index);
-          }}
-        >
-          delete
-        </button>
-      ) : null}
+    <React.Fragment>
       <button
         onClick={() => {
           setIsClicked(!isClicked);
           setIsSave(!isSave);
         }}
       >
-        {isSave ? 'save' : 'edit'}
+        {isSave ? (
+          <i className='fas fa-save'></i>
+        ) : (
+          <i className='fas fa-edit'></i>
+        )}
       </button>
-    </div>
+      {index > 1 ? (
+        <button
+          onClick={() => {
+            deleteTemplate(index);
+          }}
+        >
+          <i className='far fa-minus-square'></i>
+        </button>
+      ) : null}
+    </React.Fragment>
   );
 };
 export default OnClickShowCodeMirror;
