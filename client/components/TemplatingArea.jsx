@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import clone from "clone";
+import clone from 'clone';
 import {
   InitialHookSyntax,
   InitialClassSyntax
-} from "../templates-code/templates";
-import CreateCodeEditor from "./CreateCodeEditor.jsx";
+} from '../templates-code/templates';
+import CreateCodeEditor from './CreateCodeEditor.jsx';
 
-Storage.prototype.setObj = function (key, obj) {
+Storage.prototype.setObj = function(key, obj) {
   return this.setItem(key, JSON.stringify(obj));
 };
-Storage.prototype.getObj = function (key) {
+Storage.prototype.getObj = function(key) {
   return JSON.parse(this.getItem(key));
 };
 
@@ -18,8 +18,8 @@ function CustomTemplate(name, isHook) {
   (this.name = name
     ? name
     : isHook
-      ? "DEFAULT_HOOK_TEMPLATE"
-      : "DEFAULT_CLASS_TEMPLATE"),
+    ? 'DEFAULT_HOOK_TEMPLATE'
+    : 'DEFAULT_CLASS_TEMPLATE'),
     (this.code = isHook
       ? new InitialHookSyntax(name).code
       : new InitialClassSyntax(name).code);
@@ -42,15 +42,18 @@ const TemplatingArea = ({ useTemplates }) => {
   }, []);
 
   const setItemForLocalStorage = data => {
-    data = data !== null && data.length > 0 ? data : [initialClassSyntax, initialHookSyntax];
-    localStorage.setObj("storage", data);
+    data =
+      data !== null && data.length > 0
+        ? data
+        : [initialClassSyntax, initialHookSyntax];
+    localStorage.setObj('storage', data);
     useTemplates(data);
   };
 
   const getItemFromLocalStorage = reset => {
     const resetData = [initialClassSyntax, initialHookSyntax];
-    if (reset !== "reset") {
-      const data = localStorage.getObj("storage");
+    if (reset !== 'reset') {
+      const data = localStorage.getObj('storage');
       if (data) {
         setIsInitialSyntax(data);
         useTemplates(data);
@@ -71,7 +74,7 @@ const TemplatingArea = ({ useTemplates }) => {
     cloneOfIsInitialSyntax.splice(index, 1);
     setIsInitialSyntax(cloneOfIsInitialSyntax);
     setItemForLocalStorage(cloneOfIsInitialSyntax);
-    useTemplates(cloneOfIsInitialSyntax)
+    useTemplates(cloneOfIsInitialSyntax);
   };
 
   const updateCode = (newCode, index, name) => {
@@ -92,7 +95,7 @@ const TemplatingArea = ({ useTemplates }) => {
   };
 
   return (
-    <div id="code-editor">
+    <div id='code-editor'>
       {isInitialSyntax.map((syntaxObject, index) => {
         return (
           <CreateCodeEditor
@@ -107,10 +110,10 @@ const TemplatingArea = ({ useTemplates }) => {
       <form
         onSubmit={e => {
           e.preventDefault();
-          const templateName = document.getElementById("addTemplateName");
-          const isClass = document.getElementById("isHook");
+          const templateName = document.getElementById('add-template-name');
+          const isClass = document.getElementById('is-hook');
           let nameVal;
-          if (templateName.value === "") {
+          if (templateName.value === '') {
             nameVal = undefined;
           } else {
             nameVal = templateName.value;
@@ -123,25 +126,30 @@ const TemplatingArea = ({ useTemplates }) => {
           clonedInitial.push(newCustomTemplate);
           setIsInitialSyntax(clonedInitial);
           setItemForLocalStorage(clonedInitial);
-          templateName.value = "";
+          templateName.value = '';
           isClass.checked = !isClass.checked
             ? isClass.checked
             : !isClass.checked;
         }}
       >
         <input
-          type="text"
-          id="addTemplateName"
-          placeholder="Enter Template Name"
+          type='text'
+          id='add-template-name'
+          placeholder='Enter Template Name'
         />
-        {"React Hooks"}
-        <input id="isHook" name="checkbox" type="checkbox" />
-        <button type="submit">+</button>
+        <div className='is-hook-container'>
+          <input id='is-hook' name='checkbox' type='checkbox' />
+          <label htmlFor='is-hook'>Hooks</label>
+        </div>
+        <button type='submit'>
+          <i className='far fa-plus-square'></i>
+        </button>
       </form>
 
       <button
+        id='reset-templates'
         onClick={() => {
-          getItemFromLocalStorage("reset");
+          getItemFromLocalStorage('reset');
         }}
       >
         Reset Templates

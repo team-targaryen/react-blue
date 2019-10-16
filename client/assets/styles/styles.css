@@ -6,7 +6,7 @@ body,
 
 body {
   font-size: 12px;
-  background: #fafafa;
+  background: #f8f8ff;
 }
 
 label {
@@ -16,7 +16,17 @@ label {
 i {
   font-size: 35px;
   color: #045590;
+  -webkit-transition: color 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out;
   cursor: pointer;
+}
+
+i:hover {
+  color: #007bff;
+}
+
+.dropdown-item {
+  font-size: 12px;
 }
 
 h2 {
@@ -69,6 +79,10 @@ button {
   display: flex;
 }
 
+input {
+  background: #f8f8ff;
+}
+
 input[type='text'] {
   border: 0;
   border-radius: 0.25rem;
@@ -103,35 +117,14 @@ input[type='checkbox'] {
   margin-right: 40px;
 }
 
-#panel-container {
+#panel-nav-icons {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  width: 30%;
-  background: rgba(255, 255, 255, 0.5);
-  -webkit-box-shadow: 0 0 15px;
-          box-shadow: 0 0 15px;
-  margin: 20px;
 }
 
-#panel-top,
-#panel-bottom {
-  height: 50%;
-}
-
-#panel-top {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  padding: 20px 20px 0 20px;
+#panel-nav-icons > a:not(:last-child) {
+  margin-right: 20px;
 }
 
 #divider-panel {
@@ -144,15 +137,34 @@ input[type='checkbox'] {
   margin: 20px auto;
 }
 
-#panel-bottom {
+#panel-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  overflow: auto;
-  padding: 0 20px 20px 20px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 22%;
+  background: rgba(248, 248, 255, 0.5);
+  -webkit-box-shadow: 0 0 15px;
+          box-shadow: 0 0 15px;
+  padding: 20px;
+  margin: 20px;
 }
 
 #component-detail {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  overflow: auto;
+}
+
+#component-detail #component-form {
   margin-bottom: 20px;
 }
 
@@ -172,7 +184,18 @@ input[type='checkbox'] {
 }
 
 #component-detail #component-form-top {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   margin-bottom: 10px;
+}
+
+#component-detail input[type='text'] {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  width: 100%;
+  max-width: 219px;
 }
 
 #component-detail #component-name-input {
@@ -188,7 +211,26 @@ input[type='checkbox'] {
           align-items: center;
 }
 
+#component-detail #code-editor {
+  display: none;
+}
+
+form#children-list-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 20px;
+}
+
+form#children-list-form > *:not(:last-child) {
+  margin-right: 20px;
+}
+
 #children-list {
+  height: 100%;
   overflow: auto;
 }
 
@@ -215,50 +257,89 @@ input[type='checkbox'] {
   position: relative;
 }
 
-#children-list .each-child-container::before {
+#children-list .each-child-container::after {
   content: '';
   display: block;
-  width: 66%;
+  width: 93%;
   height: 1px;
   background: #045590;
   margin: 20px 0;
+}
+
+#children-list .each-child-container:last-child::after {
+  display: none;
 }
 
 #children-list .each-child {
   margin-bottom: 10px;
 }
 
-#sidenav-icons {
+#code-editor .template-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-bottom: 10px;
+  overflow: auto;
+}
+
+#code-editor .template-container button {
+  margin: 0 0 10px 20px;
+}
+
+#code-editor input[type='text'] {
+  width: 100%;
+  max-width: 219px;
+}
+
+#code-editor .change-name {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin-bottom: 10px;
+}
+
+#code-editor form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 
-#sidenav-icons a {
-  margin-bottom: 20px;
+#code-editor .is-hook-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-#divider-sidenav {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
-  width: 1px;
+#code-editor #reset-templates {
+  display: block;
+  color: #fff;
   background: #045590;
-  margin: 0 20px;
+  padding: 10px 20px;
+  margin: 20px auto 0;
+  -webkit-transition: background-color 0.15s ease-in-out;
+  transition: background-color 0.15s ease-in-out;
+}
+
+#code-editor #reset-templates:hover {
+  background: #007bff;
 }
 
 #visual-container {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  background: #fafafa;
+  background: #f8f8ff;
 }
 
 #visual-container .nodeBase {
