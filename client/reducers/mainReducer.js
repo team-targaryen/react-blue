@@ -1,5 +1,5 @@
-import * as types from "../constants/actionTypes";
-import clone from "clone";
+import * as types from '../constants/actionTypes';
+import clone from 'clone';
 
 function DoublyLinkedList(value) {
   this.value = value;
@@ -9,7 +9,7 @@ function DoublyLinkedList(value) {
 const getCircularReplacer = () => {
   const seen = new WeakSet();
   return (key, value) => {
-    if (typeof value === "object" && value !== null) {
+    if (typeof value === 'object' && value !== null) {
       if (seen.has(value)) {
         return;
       }
@@ -26,7 +26,7 @@ Storage.prototype.getObj = function(key) {
 };
 
 const appComponent = {
-  name: "App",
+  name: 'App',
   depth: 0,
   id: 0,
   componentId: 0,
@@ -43,12 +43,14 @@ const initialState = {
   lastId: 0,
   defaultNameCount: 0,
   templates: [],
-  orientation: "vertical"
+  orientation: 'vertical',
+  toggleFileTree: false
 };
+
 function resetTree(history) {
   let obj = {
     data: {
-      name: "App",
+      name: 'App',
       depth: 0,
       id: 0,
       componentId: 0,
@@ -58,7 +60,7 @@ function resetTree(history) {
     translate: { x: 0, y: 0 },
     history: history,
     currentComponent: {
-      name: "App",
+      name: 'App',
       depth: 0,
       id: 0,
       componentId: 0,
@@ -68,10 +70,11 @@ function resetTree(history) {
     nameAndCodeLinkedToComponentId: {},
     lastId: 0,
     templates: [],
-    orientation: "vertical"
+    orientation: 'vertical'
   };
   return obj;
 }
+
 const updateTree = (state, currentComponent) => {
   const defaultNameCount = state.defaultNameCount + 1;
   // check if current component has a name
@@ -120,9 +123,9 @@ const updateTree = (state, currentComponent) => {
   preHistory.next = history;
   history.prev = preHistory;
   //setting local storage each of these props
-  localStorage.setObj("data", Object.assign({}, state.data));
+  localStorage.setObj('data', Object.assign({}, state.data));
   localStorage.setObj(
-    "currentComponent",
+    'currentComponent',
     Object.assign({}, state.currentComponent)
   );
 
@@ -144,7 +147,8 @@ const mainReducer = (state = initialState, action) => {
     updatedState,
     history,
     nameAndCodeLinkedToComponentId,
-    lastId;
+    lastId,
+    toggleFileTree;
   // console.log(state.data, state.currentComponent);
   switch (action.type) {
     /******************************* actions for side bar ************************************/
@@ -192,8 +196,7 @@ const mainReducer = (state = initialState, action) => {
               return;
             }
           }
-        }
-        else if (tree.children) {
+        } else if (tree.children) {
           tree.children.forEach(child => {
             return findAndDelete(child, currentComponent);
           });
@@ -266,7 +269,7 @@ const mainReducer = (state = initialState, action) => {
           nameAndCodeLinkedToComponentId
         };
       } else {
-        alert("No previous action");
+        alert('No previous action');
         return {
           ...state
         };
@@ -288,7 +291,7 @@ const mainReducer = (state = initialState, action) => {
           nameAndCodeLinkedToComponentId
         };
       } else {
-        alert("No next action");
+        alert('No next action');
         return {
           ...state
         };
@@ -359,13 +362,13 @@ const mainReducer = (state = initialState, action) => {
       nameAndCodeLinkedToComponentId[componentId] = state.templates[0];
       updatedState.history.value.nameAndCodeLinkedToComponentId[componentId] =
         state.templates[0];
-      localStorage.setObj("data", updatedState.data);
-      localStorage.setObj("currentComponent", updatedState.currentComponent);
+      localStorage.setObj('data', updatedState.data);
+      localStorage.setObj('currentComponent', updatedState.currentComponent);
       localStorage.setObj(
-        "nameAndCodeLinkedToComponentId",
+        'nameAndCodeLinkedToComponentId',
         nameAndCodeLinkedToComponentId
       );
-      localStorage.setObj("lastId", componentId);
+      localStorage.setObj('lastId', componentId);
       return {
         ...state,
         ...updatedState,
@@ -404,9 +407,9 @@ const mainReducer = (state = initialState, action) => {
       }
 
       updatedState = updateTree(state, currentComponent);
-      localStorage.setObj("currentComponent", updatedState.currentComponent);
+      localStorage.setObj('currentComponent', updatedState.currentComponent);
       localStorage.setObj(
-        "nameAndCodeLinkedToComponentId",
+        'nameAndCodeLinkedToComponentId',
         nameAndCodeLinkedToComponentId
       );
       return {
@@ -420,8 +423,8 @@ const mainReducer = (state = initialState, action) => {
       nameAndCodeLinkedToComponentId = clone(
         state.nameAndCodeLinkedToComponentId
       );
-      if (!nameAndCodeLinkedToComponentId["0"]) {
-        nameAndCodeLinkedToComponentId["0"] = templates[0];
+      if (!nameAndCodeLinkedToComponentId['0']) {
+        nameAndCodeLinkedToComponentId['0'] = templates[0];
       }
       return {
         ...state,
@@ -440,7 +443,7 @@ const mainReducer = (state = initialState, action) => {
         action.payload.currentComponent.componentId
       ] = action.payload.template;
       localStorage.setObj(
-        "nameAndCodeLinkedToComponentId",
+        'nameAndCodeLinkedToComponentId',
         nameAndCodeLinkedToComponentId
       );
       return {
@@ -480,6 +483,15 @@ const mainReducer = (state = initialState, action) => {
       const resetState = resetTree(state.history);
       return {
         ...resetState
+      };
+
+    // file tree toggle
+    case types.SHOW_FILE_TREE:
+      const newToggleFileTree = state.toggleFileTree;
+
+      return {
+        ...state,
+        toggleFileTree: !newToggleFileTree
       };
     default:
       return state;

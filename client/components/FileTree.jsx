@@ -1,7 +1,7 @@
 import React from 'react';
 import File from './File.jsx';
 
-const FileTree = ({ data, setCurrentComponent }) => {
+const FileTree = ({ data, setCurrentComponent, toggleFileTree }) => {
   const containerFiles = [];
   const componentFiles = [];
 
@@ -20,8 +20,12 @@ const FileTree = ({ data, setCurrentComponent }) => {
 
   filterFiles(data);
 
+  const getFileTree = () => {
+    return toggleFileTree ? 'hidden' : '';
+  };
+
   return (
-    <div className='file-tree'>
+    <div id='file-tree' className={`${getFileTree()}`}>
       <ul>
         <li key='container-files' id='container-files'>
           <h3>Containers</h3>
