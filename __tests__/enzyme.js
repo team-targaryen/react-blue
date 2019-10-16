@@ -1,11 +1,17 @@
 import React from "react";
-import { configure, shallow, ShallowWrapper } from "enzyme";
+import { configure, shallow, mount } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import toJson from "enzyme-to-json";
 
 import EachChild from "../client/components/EachChild.jsx";
 import ComponentDetail from "../client/components/ComponentDetail.jsx";
+import TemplatingArea from "../client/components/TemplatingArea.jsx";
+import App from "../client/App.jsx";
 // import TemplateDropdown from "../client/components/TemplateDropdown.jsx";
+import ChildrenList from "../client/components/ChildrenList.jsx";
+
+import { render, cleanup, waitForElement } from "@testing-library/react"; // testing helpers
+import userEvent from "@testing-library/user-event";
 configure({ adapter: new Adapter() });
 
 describe("React Blue unit tests", () => {
@@ -37,7 +43,6 @@ describe("React Blue unit tests", () => {
       expect(input.at(1).props().checked).toBe(true);
       expect(input.at(1).props().type).toBe("checkbox");
     });
-    console.log("for git");
   });
   describe("ComponentDetail.jsx", () => {
     let wrapper, input;
@@ -86,4 +91,41 @@ describe("React Blue unit tests", () => {
       expect(deleteMock).toHaveBeenCalled;
     });
   });
+});
+describe("Integration testing", () => {
+  let childrenList;
+  const addMock = function() {
+    return "added";
+  };
+  const renameMock = jest.fn();
+  const changeMock = jest.fn();
+  const deleteMock = jest.fn();
+  const setTemplatesMock = jest.fn();
+  const mockComponent = {
+    name: "test",
+    isContainer: true,
+    depth: 0
+  };
+  let childrenListProps = {
+    addChild: addMock,
+    renameChild: renameMock,
+    changeChildType: changeMock,
+    deleteChild: deleteMock,
+    currentComponent: mockComponent,
+    templates: "templateMock1",
+    setTemplatesForComponent: setTemplatesMock,
+    nameAndCodeLinkedToComponentId: { "0": "templateMock1" }
+  };
+
+  beforeAll(() => {
+    childrenList = mount(<ChildrenList {...childrenListProps} />);
+    console.log(childrenList);
+  });
+  afterAll(() => cleanup);
+  describe("Adding nodes display correct length of childrenList", () => {
+    expect(childrenList.find('.each-child-container"')).to.equal(undefined);
+    childrenList.find("button").simulate("click");
+    expect(childrenList.find('.each-child-container"')).toHaveLength(1);
+  });
+  describe("Showing correct number of children on d3 tree", () => {});
 });
