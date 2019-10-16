@@ -13,32 +13,33 @@ const ChildrenList = ({
 }) => {
   return (
     <React.Fragment>
+      <h4>Add Child</h4>
+      <form id='children-list-form' onSubmit={addChild}>
+        <input
+          type='text'
+          id='add-child-name'
+          name='childName'
+          placeholder="Enter Child's Name"
+        />
+        <div>
+          <input
+            id='add-child-container-checkbox'
+            name='checkbox'
+            type='checkbox'
+          />
+          <label
+            className='container-label'
+            htmlFor='add-child-container-checkbox'
+          >
+            Container
+          </label>
+        </div>
+        <button type='submit'>
+          <i className='far fa-plus-square'></i>
+        </button>
+      </form>
       <h4>Children List</h4>
       <div id='children-list'>
-        <form onSubmit={addChild}>
-          <input
-            type='text'
-            id='add-child-name'
-            name='childName'
-            placeholder="Enter Child's Name"
-          />
-          <div>
-            <input
-              id='add-child-container-checkbox'
-              name='checkbox'
-              type='checkbox'
-            />
-            <label
-              className='container-label'
-              htmlFor='add-child-container-checkbox'
-            >
-              Container
-            </label>
-          </div>
-          <button type='submit'>
-            <i className='far fa-plus-square'></i>
-          </button>
-        </form>
         {currentComponent.children &&
           currentComponent.children.map((child, idx) =>
             childMaker(

@@ -15,7 +15,7 @@ const CreateCodeEditor = ({
           updateCode(syntaxObject, index, e.target.value);
         }}
         type='text'
-        id='changeName'
+        className='change-name'
         value={syntaxObject.name}
       />
       <OnClickShowCodeMirror
@@ -24,7 +24,6 @@ const CreateCodeEditor = ({
         index={index}
         deleteTemplate={deleteTemplate}
       />
-      <br />
     </div>
   );
 };
