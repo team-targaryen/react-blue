@@ -9,6 +9,12 @@
     "dev": "NODE_ENV=development nodemon server/server.js & webpack-dev-server --open",
     "test": "jest --verbose"
   },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "identity-obj-proxy"
+    }
+  },
   "author": "",
   "license": "MIT",
   "dependencies": {
@@ -49,6 +55,7 @@
     "enzyme-adapter-react-16": "^1.15.1",
     "enzyme-to-json": "^3.4.2",
     "file-loader": "^4.0.0",
+    "identity-obj-proxy": "^3.0.0",
     "morgan": "^1.9.1",
     "node-sass": "^4.12.0",
     "nodemon": "^1.18.9",
