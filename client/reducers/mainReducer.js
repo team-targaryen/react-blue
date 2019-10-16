@@ -95,14 +95,14 @@ const updateTree = (state, currentComponent) => {
   preHistory.next = history;
   history.prev = preHistory;
   //setting local storage each of these props
-  localStorage.setObj("data", Object.assign({}, data));
-  localStorage.setObj("currentComponent", Object.assign({}, currentComponent));
+  localStorage.setObj('data', Object.assign({}, data));
+  localStorage.setObj('currentComponent', Object.assign({}, currentComponent));
 
   return {
     data,
     currentComponent,
     history,
-    nameAndCodeLinkedToComponentId
+    nameAndCodeLinkedToComponentId,
     defaultNameCount
   };
 };
@@ -117,8 +117,6 @@ const mainReducer = (state = initialState, action) => {
     updatedState,
     history,
     nameAndCodeLinkedToComponentId,
-    lastId,
-    toggleFileTree,
     lastId;
   switch (action.type) {
     /******************************* actions for side bar ************************************/
@@ -353,11 +351,11 @@ const mainReducer = (state = initialState, action) => {
       function recursivelyDeleteChildren(node, obj) {
         node.forEach(childNode => {
           delete obj[childNode.componentId];
-          console.log("componentid", obj[childNode.componentId]);
+          console.log('componentid', obj[childNode.componentId]);
           if (childNode.children) {
             delete obj[childNode[`${componentId}`]];
             recursivelyDeleteChildren(childNode.children, obj);
-            console.log("obj inside of recursive", obj);
+            console.log('obj inside of recursive', obj);
           }
         });
         return obj;
@@ -379,12 +377,12 @@ const mainReducer = (state = initialState, action) => {
       }
 
       updatedState = updateTree(state, currentComponent);
-      localStorage.setObj("currentComponent", updatedState.currentComponent);
+      localStorage.setObj('currentComponent', updatedState.currentComponent);
       localStorage.setObj(
         'nameAndCodeLinkedToComponentId',
         nameAndCodeLinkedToComponentId
       );
-      localStorage.setObj("data", updatedState.data);
+      localStorage.setObj('data', updatedState.data);
       return {
         ...state,
         ...updatedState,
