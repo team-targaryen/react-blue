@@ -64,7 +64,7 @@ const TopNavContainer = ({
             </NavDropdown.Item>
             <NavDropdown.Item
               onClick={() => {
-                props.changeDisplayHorizontalToVertical('vertical');
+                changeDisplayHorizontalToVertical('vertical');
               }}
             >
               Vertical

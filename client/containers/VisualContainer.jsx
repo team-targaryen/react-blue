@@ -78,11 +78,13 @@ class VisualContainer extends React.Component {
       );
       const currentComponent = localStorage.getObj("currentComponent");
       const lastId = localStorage.getObj("lastId");
+      const history = localStorage.getObj('history')
       this.props.updateStateWithLocalStorage(
         data,
         currentComponent,
         nameAndCodeLinkedToComponentId,
-        lastId
+        lastId,
+        history
       );
     }
     const initialHistory = new DoublyLinkedList(clone(this.props.state));
