@@ -32,33 +32,32 @@ const TopNavContainer = ({
   resetEntireTree
 }) => {
   return (
-
-    <Navbar collapseOnSelect expand="lg" variant="dark">
-      <Navbar.Brand href="#home">React-Blue</Navbar.Brand>
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className="mr-auto">
-          <NavDropdown title="Edit" id="collasible-nav-dropdown">
-            <NavDropdown.Item className="keyboard-shortcut" onClick={undo}>
+    <Navbar collapseOnSelect expand='lg' variant='dark'>
+      <Navbar.Brand href='#home'>React-Blue</Navbar.Brand>
+      <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+      <Navbar.Collapse id='responsive-navbar-nav'>
+        <Nav className='mr-auto'>
+          <NavDropdown title='Edit' id='collasible-nav-dropdown'>
+            <NavDropdown.Item className='keyboard-shortcut' onClick={undo}>
               <span>Undo</span>
               <span>Ctrl+Z</span>
             </NavDropdown.Item>
-            <NavDropdown.Item className="keyboard-shortcut" onClick={redo}>
-
+            <NavDropdown.Item className='keyboard-shortcut' onClick={redo}>
               <span>Redo</span>
               <span>Ctrl+Shift+Z</span>
             </NavDropdown.Item>
+            <NavDropdown.Divider />
             <NavDropdown.Item
-              className="keyboard-shortcut"
+              className='keyboard-shortcut'
               onClick={resetEntireTree}
             >
-              DELETE TREE
+              Delete Tree
             </NavDropdown.Item>
           </NavDropdown>
           <NavDropdown title='View' id='collasible-nav-dropdown'>
             <NavDropdown.Item
               onClick={() => {
-                changeDisplayHorizontalToVertical("horizontal");
+                changeDisplayHorizontalToVertical('horizontal');
               }}
             >
               Horizontal
@@ -78,13 +77,12 @@ const TopNavContainer = ({
               href='https://github.com/team-targaryan/react-blue'
               target='_blank'
             >
-              {' '}
-              GitHub{' '}
+              GitHub
             </NavDropdown.Item>
           </NavDropdown>
         </Nav>
         <Nav>
-          <NavDropdown title="Export" id="collasible-nav-dropdown">
+          <NavDropdown title='Export' id='collasible-nav-dropdown'>
             <NavDropdown.Item onClick={() => exportZipFront(data)}>
               Export FrontEnd
             </NavDropdown.Item>
