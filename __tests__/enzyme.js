@@ -37,6 +37,7 @@ describe("React Blue unit tests", () => {
       expect(input.at(1).props().checked).toBe(true);
       expect(input.at(1).props().type).toBe("checkbox");
     });
+    console.log("for git");
   });
   describe("ComponentDetail.jsx", () => {
     let wrapper, input;
