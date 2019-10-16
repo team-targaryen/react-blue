@@ -47,34 +47,6 @@ const initialState = {
   toggleFileTree: false
 };
 
-function resetTree(history) {
-  let obj = {
-    data: {
-      name: 'App',
-      depth: 0,
-      id: 0,
-      componentId: 0,
-      isContainer: true,
-      children: []
-    },
-    translate: { x: 0, y: 0 },
-    history: history,
-    currentComponent: {
-      name: 'App',
-      depth: 0,
-      id: 0,
-      componentId: 0,
-      isContainer: true,
-      children: []
-    },
-    nameAndCodeLinkedToComponentId: {},
-    lastId: 0,
-    templates: [],
-    orientation: 'vertical'
-  };
-  return obj;
-}
-
 const updateTree = (state, currentComponent) => {
   const defaultNameCount = state.defaultNameCount + 1;
   // check if current component has a name
@@ -123,16 +95,14 @@ const updateTree = (state, currentComponent) => {
   preHistory.next = history;
   history.prev = preHistory;
   //setting local storage each of these props
-  localStorage.setObj('data', Object.assign({}, state.data));
-  localStorage.setObj(
-    'currentComponent',
-    Object.assign({}, state.currentComponent)
-  );
+  localStorage.setObj("data", Object.assign({}, data));
+  localStorage.setObj("currentComponent", Object.assign({}, currentComponent));
 
   return {
     data,
     currentComponent,
     history,
+    nameAndCodeLinkedToComponentId
     defaultNameCount
   };
 };
@@ -148,8 +118,8 @@ const mainReducer = (state = initialState, action) => {
     history,
     nameAndCodeLinkedToComponentId,
     lastId,
-    toggleFileTree;
-  // console.log(state.data, state.currentComponent);
+    toggleFileTree,
+    lastId;
   switch (action.type) {
     /******************************* actions for side bar ************************************/
 
@@ -382,13 +352,15 @@ const mainReducer = (state = initialState, action) => {
       currentComponent = clone(state.currentComponent);
       function recursivelyDeleteChildren(node, obj) {
         node.forEach(childNode => {
+          delete obj[childNode.componentId];
+          console.log("componentid", obj[childNode.componentId]);
           if (childNode.children) {
-            delete obj[childNode[componentId]];
-            recursivelyDeleteChildren(childNode.children, map);
+            delete obj[childNode[`${componentId}`]];
+            recursivelyDeleteChildren(childNode.children, obj);
+            console.log("obj inside of recursive", obj);
           }
-          delete obj[childNode[componentId]];
         });
-        return map;
+        return obj;
       }
       for (let i = 0; i < currentComponent.children.length; i++) {
         if (currentComponent.children[i].componentId === childId) {
@@ -407,11 +379,12 @@ const mainReducer = (state = initialState, action) => {
       }
 
       updatedState = updateTree(state, currentComponent);
-      localStorage.setObj('currentComponent', updatedState.currentComponent);
+      localStorage.setObj("currentComponent", updatedState.currentComponent);
       localStorage.setObj(
         'nameAndCodeLinkedToComponentId',
         nameAndCodeLinkedToComponentId
       );
+      localStorage.setObj("data", updatedState.data);
       return {
         ...state,
         ...updatedState,
@@ -452,11 +425,9 @@ const mainReducer = (state = initialState, action) => {
         nameAndCodeLinkedToComponentId
       };
     case types.ZOOM_BY_CHANGING_X_AND_Y:
-      // console.log(action.payload);
       translate = Object.assign({}, state.translate);
       translate.x += action.payload.x;
       translate.y += action.payload.y;
-      // console.log(translate);
       return {
         ...state,
         translate
@@ -480,7 +451,8 @@ const mainReducer = (state = initialState, action) => {
         lastId
       };
     case types.RESET_ENTIRE_TREE:
-      const resetState = resetTree(state.history);
+      localStorage.clear();
+      location.reload(true);
       return {
         ...resetState
       };

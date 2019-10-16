@@ -25,31 +25,32 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 
-const TopNavContainer = props => {
+const TopNavContainer = ({
+  undo,
+  redo,
+  changeDisplayHorizontalToVertical,
+  resetEntireTree
+}) => {
   return (
-    <Navbar collapseOnSelect expand='lg' variant='dark'>
-      <Navbar.Brand href='#home'>React Blue</Navbar.Brand>
-      <Navbar.Toggle aria-controls='responsive-navbar-nav' />
-      <Navbar.Collapse id='responsive-navbar-nav'>
-        <Nav className='mr-auto'>
-          <NavDropdown title='Edit' id='collasible-nav-dropdown'>
-            <NavDropdown.Item
-              className='keyboard-shortcut'
-              onClick={props.undo}
-            >
+
+    <Navbar collapseOnSelect expand="lg" variant="dark">
+      <Navbar.Brand href="#home">React-Blue</Navbar.Brand>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Collapse id="responsive-navbar-nav">
+        <Nav className="mr-auto">
+          <NavDropdown title="Edit" id="collasible-nav-dropdown">
+            <NavDropdown.Item className="keyboard-shortcut" onClick={undo}>
               <span>Undo</span>
               <span>Ctrl+Z</span>
             </NavDropdown.Item>
-            <NavDropdown.Item
-              className='keyboard-shortcut'
-              onClick={props.redo}
-            >
+            <NavDropdown.Item className="keyboard-shortcut" onClick={redo}>
+
               <span>Redo</span>
               <span>Ctrl+Shift+Z</span>
             </NavDropdown.Item>
             <NavDropdown.Item
-              className='keyboard-shortcut'
-              onClick={props.resetEntireTree}
+              className="keyboard-shortcut"
+              onClick={resetEntireTree}
             >
               DELETE TREE
             </NavDropdown.Item>
@@ -57,7 +58,7 @@ const TopNavContainer = props => {
           <NavDropdown title='View' id='collasible-nav-dropdown'>
             <NavDropdown.Item
               onClick={() => {
-                props.changeDisplayHorizontalToVertical('horizontal');
+                changeDisplayHorizontalToVertical("horizontal");
               }}
             >
               Horizontal
@@ -83,11 +84,11 @@ const TopNavContainer = props => {
           </NavDropdown>
         </Nav>
         <Nav>
-          <NavDropdown title='Export' id='collasible-nav-dropdown'>
-            <NavDropdown.Item onClick={() => exportZipFront(props.data)}>
+          <NavDropdown title="Export" id="collasible-nav-dropdown">
+            <NavDropdown.Item onClick={() => exportZipFront(data)}>
               Export FrontEnd
             </NavDropdown.Item>
-            <NavDropdown.Item onClick={() => exportZipFull(props.data)}>
+            <NavDropdown.Item onClick={() => exportZipFull(data)}>
               Export FullStack
             </NavDropdown.Item>
           </NavDropdown>

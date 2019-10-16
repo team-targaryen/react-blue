@@ -172,7 +172,6 @@ export const updateStateWithLocalStorage = (
 };
 
 export const resetEntireTree = () => dispatch => {
-  console.log('here inside of actions');
   dispatch({
     type: types.RESET_ENTIRE_TREE,
     payload: null
