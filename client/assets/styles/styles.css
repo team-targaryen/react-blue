@@ -13,8 +13,14 @@ label {
   margin: 0;
 }
 
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
 i {
-  font-size: 35px;
+  font-size: 20px;
   color: #045590;
   -webkit-transition: color 0.15s ease-in-out;
   transition: color 0.15s ease-in-out;
@@ -30,15 +36,15 @@ i:hover {
 }
 
 h2 {
-  font-size: 1.6rem;
+  font-size: 1.2rem;
 }
 
 h3 {
-  font-size: 1.4rem;
+  font-size: 1rem;
 }
 
 h4 {
-  font-size: 1.2rem;
+  font-size: 0.8rem;
 }
 
 button {
@@ -127,7 +133,7 @@ input[type='checkbox'] {
   margin-right: 20px;
 }
 
-#divider-panel {
+.divider-panel {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
@@ -273,6 +279,41 @@ form#children-list-form > *:not(:last-child) {
 
 #children-list .each-child {
   margin-bottom: 10px;
+}
+
+#toggle-file-tree {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+  width: 120px;
+  height: 38px;
+  color: #fff;
+  background: #045590;
+  border-radius: 0.25rem;
+  margin: auto;
+}
+
+#file-tree.hidden {
+  display: none;
+}
+
+#file-tree > ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  padding-top: 20px;
+}
+
+#file-tree #container-files > ul,
+#file-tree #component-files > ul {
+  list-style-type: square;
+}
+
+#file-tree #container-files > ul > li,
+#file-tree #component-files > ul > li {
+  cursor: pointer;
 }
 
 #code-editor .template-container {
