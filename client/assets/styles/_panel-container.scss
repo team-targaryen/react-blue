@@ -23,6 +23,7 @@
   flex-direction: column;
   width: 22%;
   background: rgba(248, 248, 255, 0.5);
+  border-radius: 10px;
   box-shadow: 0 0 15px;
   padding: 20px;
   margin: 20px;
@@ -164,6 +165,7 @@ form#children-list-form {
     display: block;
     color: #fff;
     background: $prime-color-1;
+    border-radius: 0.25rem;
     padding: 10px 20px;
     margin: 20px auto 0;
     transition: background-color 0.15s ease-in-out;

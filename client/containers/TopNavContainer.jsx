@@ -6,7 +6,8 @@ import { bindActionCreators } from 'redux';
 import {
   undo,
   redo,
-  changeDisplayHorizontalToVertical
+  changeDisplayHorizontalToVertical,
+  resetEntireTree
 } from '../actions/actions';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -20,7 +21,7 @@ const mapStateToProps = store => ({
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
-    { undo, redo, changeDisplayHorizontalToVertical },
+    { undo, redo, changeDisplayHorizontalToVertical, resetEntireTree },
     dispatch
   );
 
@@ -45,6 +46,12 @@ const TopNavContainer = props => {
             >
               <span>Redo</span>
               <span>Ctrl+Shift+Z</span>
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              className='keyboard-shortcut'
+              onClick={props.resetEntireTree}
+            >
+              DELETE TREE
             </NavDropdown.Item>
           </NavDropdown>
           <NavDropdown title='View' id='collasible-nav-dropdown'>

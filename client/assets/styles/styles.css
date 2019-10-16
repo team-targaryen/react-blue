@@ -147,6 +147,7 @@ input[type='checkbox'] {
           flex-direction: column;
   width: 22%;
   background: rgba(248, 248, 255, 0.5);
+  border-radius: 10px;
   -webkit-box-shadow: 0 0 15px;
           box-shadow: 0 0 15px;
   padding: 20px;
@@ -325,6 +326,7 @@ form#children-list-form > *:not(:last-child) {
   display: block;
   color: #fff;
   background: #045590;
+  border-radius: 0.25rem;
   padding: 10px 20px;
   margin: 20px auto 0;
   -webkit-transition: background-color 0.15s ease-in-out;
