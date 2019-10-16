@@ -1,22 +1,12 @@
-// panel containing top and bottom halves
-#panel-container {
+// panel nav icons
+#panel-nav-icons {
   display: flex;
-  flex-direction: column;
-  width: 30%;
-  background: rgba(255, 255, 255, 0.5);
-  box-shadow: 0 0 15px;
-  margin: 20px;
-}
 
-#panel-top,
-#panel-bottom {
-  height: 50%;
-}
-
-#panel-top {
-  display: flex;
-  flex-direction: column;
-  padding: 20px 20px 0 20px;
+  > a {
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
+  }
 }
 
 #divider-panel {
@@ -27,15 +17,26 @@
   margin: 20px auto;
 }
 
-#panel-bottom {
+// panel containing top and bottom halves
+#panel-container {
   display: flex;
-  overflow: auto;
-  padding: 0 20px 20px 20px;
+  flex-direction: column;
+  width: 22%;
+  background: rgba(248, 248, 255, 0.5);
+  box-shadow: 0 0 15px;
+  padding: 20px;
+  margin: 20px;
 }
 
-// top panel, current component
+// current component
 #component-detail {
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+
+  #component-form {
+    margin-bottom: 20px;
+  }
 
   #component-form-top,
   #component-form-bottom {
@@ -48,7 +49,14 @@
   }
 
   #component-form-top {
+    justify-content: space-between;
     margin-bottom: 10px;
+  }
+
+  input[type='text'] {
+    flex: 1;
+    width: 100%;
+    max-width: 219px;
   }
 
   #component-name-input {
@@ -59,10 +67,25 @@
     display: flex;
     align-items: center;
   }
+
+  #code-editor {
+    display: none;
+  }
 }
 
-// top panel, children list
+// children list
+form#children-list-form {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+
+  > *:not(:last-child) {
+    margin-right: 20px;
+  }
+}
+
 #children-list {
+  height: 100%;
   overflow: auto;
 
   > * {
@@ -82,13 +105,19 @@
   .each-child-container {
     position: relative;
 
-    &::before {
+    &::after {
       content: '';
       display: block;
-      width: 66%;
+      width: 93%;
       height: 1px;
       background: $prime-color-1;
       margin: 20px 0;
+    }
+
+    &:last-child {
+      &::after {
+        display: none;
+      }
     }
   }
 
@@ -97,23 +126,50 @@
   }
 }
 
-// bottom panel, sidenav icons
-#sidenav-icons {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  a {
-    margin-bottom: 20px;
-  }
-}
-
-#divider-sidenav {
-  flex: 0 0 auto;
-  width: 1px;
-  background: $prime-color-1;
-  margin: 0 20px;
-}
-
+// templates
 #code-editor {
+  .template-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    overflow: auto;
+
+    button {
+      margin: 0 0 10px 20px;
+    }
+  }
+
+  input[type='text'] {
+    width: 100%;
+    max-width: 219px;
+  }
+
+  .change-name {
+    flex: 1;
+    margin-bottom: 10px;
+  }
+
+  form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .is-hook-container {
+    display: flex;
+    align-items: center;
+  }
+
+  #reset-templates {
+    display: block;
+    color: #fff;
+    background: $prime-color-1;
+    padding: 10px 20px;
+    margin: 20px auto 0;
+    transition: background-color 0.15s ease-in-out;
+
+    &:hover {
+      background: #007bff;
+    }
+  }
 }

@@ -17,7 +17,7 @@ import {
 import ComponentDetail from '../components/ComponentDetail.jsx';
 import TemplatingArea from '../components/TemplatingArea.jsx';
 import FileTree from '../components/FileTree.jsx';
-import SideNavIcons from '../components/SideNavIcons.jsx';
+import PanelNavIcons from '../components/PanelNavIcons.jsx';
 import ChildrenList from '../components/ChildrenList.jsx';
 
 const mapStateToProps = store => ({
@@ -63,43 +63,51 @@ const SideNavContainer = ({
   nameAndCodeLinkedToComponentId
 }) => {
   return (
-    <div id='panel-container'>
-      <div id='panel-top'>
-        <ComponentDetail
-          renameComponent={renameComponent}
-          changeType={changeType}
-          deleteComponent={deleteComponent}
-          currentComponent={currentComponent}
-          templates={templates}
-          setTemplatesForComponent={setTemplatesForComponent}
-          nameAndCodeLinkedToComponentId={nameAndCodeLinkedToComponentId}
-        />
-        <ChildrenList
-          addChild={addChild}
-          currentComponent={currentComponent}
-          renameChild={renameChild}
-          changeChildType={changeChildType}
-          deleteChild={deleteChild}
-          templates={templates}
-          setTemplatesForComponent={setTemplatesForComponent}
-          nameAndCodeLinkedToComponentId={nameAndCodeLinkedToComponentId}
-        />
-      </div>
-      <div id='divider-panel'></div>
-      <div
-        key={`templateDropdown-${currentComponent.componentId}`}
-        id='panel-bottom'
-      >
-        <BrowserRouter>
-          <SideNavIcons />
-          <div id='divider-sidenav'></div>
-          <Switch>
-            <Route
-              path='/'
-              exact
-              render={() => <TemplatingArea useTemplates={useTemplates} />}
-            />
-            <Route
+    <div
+      key={`templateDropdown-${currentComponent.componentId}`}
+      id='panel-container'
+    >
+      <BrowserRouter>
+        <PanelNavIcons />
+        <div id='divider-panel'></div>
+        <Switch>
+          <Route
+            path='/'
+            exact
+            render={() => (
+              <div id='component-detail'>
+                <ComponentDetail
+                  renameComponent={renameComponent}
+                  changeType={changeType}
+                  deleteComponent={deleteComponent}
+                  currentComponent={currentComponent}
+                  templates={templates}
+                  setTemplatesForComponent={setTemplatesForComponent}
+                  nameAndCodeLinkedToComponentId={
+                    nameAndCodeLinkedToComponentId
+                  }
+                />
+                <ChildrenList
+                  addChild={addChild}
+                  currentComponent={currentComponent}
+                  renameChild={renameChild}
+                  changeChildType={changeChildType}
+                  deleteChild={deleteChild}
+                  templates={templates}
+                  setTemplatesForComponent={setTemplatesForComponent}
+                  nameAndCodeLinkedToComponentId={
+                    nameAndCodeLinkedToComponentId
+                  }
+                />
+                <TemplatingArea useTemplates={useTemplates} />
+              </div>
+            )}
+          />
+          <Route
+            path='/templates'
+            render={() => <TemplatingArea useTemplates={useTemplates} />}
+          />
+          {/* <Route
               path='/file-tree'
               render={() => (
                 <FileTree
@@ -107,10 +115,9 @@ const SideNavContainer = ({
                   setCurrentComponent={setCurrentComponent}
                 />
               )}
-            />
-          </Switch>
-        </BrowserRouter>
-      </div>
+            /> */}
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 };
