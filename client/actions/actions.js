@@ -101,7 +101,7 @@ export const changeChildType = (event, childId) => dispatch => {
 
 export const addChild = event => dispatch => {
   event.preventDefault();
-  let name = event.target.childName.value || "Component";
+  let name = event.target.childName.value;
   name = name.replace(/(\w)(\w*)/g, (g0, g1, g2) => {
     return g1.toUpperCase() + g2.toLowerCase();
   });
