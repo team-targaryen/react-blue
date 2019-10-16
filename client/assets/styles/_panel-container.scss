@@ -9,7 +9,7 @@
   }
 }
 
-#divider-panel {
+.divider-panel {
   flex: 0 0 auto;
   width: 90%;
   height: 1px;
@@ -124,6 +124,39 @@ form#children-list-form {
 
   .each-child {
     margin-bottom: 10px;
+  }
+}
+
+// file tree
+#toggle-file-tree {
+  flex: 0 0 auto;
+  width: 120px;
+  height: 38px;
+  color: #fff;
+  background: $prime-color-1;
+  border-radius: 0.25rem;
+  margin: auto;
+}
+
+#file-tree {
+  &.hidden {
+    display: none;
+  }
+
+  > ul {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 20px;
+  }
+
+  #container-files,
+  #component-files {
+    > ul {
+      list-style-type: square;
+      > li {
+        cursor: pointer;
+      }
+    }
   }
 }
 

@@ -11,6 +11,7 @@ import {
   changeType,
   deleteComponent,
   setCurrentComponent,
+  showFileTree,
   setTemplatesForComponent,
   useTemplates
 } from '../actions/actions';
@@ -24,6 +25,7 @@ const mapStateToProps = store => ({
   state: store.main,
   data: store.main.data,
   currentComponent: store.main.currentComponent,
+  toggleFileTree: store.main.toggleFileTree,
   templates: store.main.templates,
   nameAndCodeLinkedToComponentId: store.main.nameAndCodeLinkedToComponentId
 });
@@ -39,6 +41,7 @@ const mapDispatchToProps = dispatch =>
       changeType,
       deleteComponent,
       setCurrentComponent,
+      showFileTree,
       setTemplatesForComponent,
       useTemplates
     },
@@ -55,6 +58,8 @@ const SideNavContainer = ({
   deleteChild,
   renameComponent,
   changeType,
+  showFileTree,
+  toggleFileTree,
   deleteComponent,
   setCurrentComponent,
   setTemplatesForComponent,
@@ -68,7 +73,7 @@ const SideNavContainer = ({
     >
       <BrowserRouter>
         <PanelNavIcons />
-        <div id='divider-panel'></div>
+        <div className='divider-panel'></div>
         <Switch>
           <Route
             path='/'
@@ -98,6 +103,20 @@ const SideNavContainer = ({
                     nameAndCodeLinkedToComponentId
                   }
                 />
+                <div className='divider-panel'></div>
+                <button
+                  id='toggle-file-tree'
+                  onClick={() => {
+                    showFileTree();
+                  }}
+                >
+                  Toggle File Tree
+                </button>
+                <FileTree
+                  data={data}
+                  setCurrentComponent={setCurrentComponent}
+                  toggleFileTree={toggleFileTree}
+                />
                 <TemplatingArea useTemplates={useTemplates} />
               </div>
             )}
@@ -106,15 +125,6 @@ const SideNavContainer = ({
             path='/templates'
             render={() => <TemplatingArea useTemplates={useTemplates} />}
           />
-          {/* <Route
-              path='/file-tree'
-              render={() => (
-                <FileTree
-                  data={data}
-                  setCurrentComponent={setCurrentComponent}
-                />
-              )}
-            /> */}
         </Switch>
       </BrowserRouter>
     </div>
