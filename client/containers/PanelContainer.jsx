@@ -59,7 +59,6 @@ const SideNavContainer = ({
   setCurrentComponent,
   setTemplatesForComponent,
   useTemplates,
-  state,
   nameAndCodeLinkedToComponentId
 }) => {
   return (

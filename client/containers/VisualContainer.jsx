@@ -1,22 +1,29 @@
-import React, { Component, useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import Tree from 'react-d3-tree';
-import clone from 'clone';
-import { bindActionCreators } from 'redux';
+import React, { Component, useState, useEffect } from "react";
+import { connect } from "react-redux";
+import Tree from "react-d3-tree";
+import clone from "clone";
+import { bindActionCreators } from "redux";
 import {
   setCurrentComponent,
   setTransAndHistory,
   undo,
-  redo
+  redo,
+  updateStateWithLocalStorage
   // setZoom
-} from '../actions/actions';
-import hotkeys from 'hotkeys-js';
+} from "../actions/actions";
+import hotkeys from "hotkeys-js";
 
 function DoublyLinkedList(value) {
   this.value = value;
   this.prev = null;
   this.next = null;
 }
+Storage.prototype.setObj = function(key, obj) {
+  return this.setItem(key, JSON.stringify(obj));
+};
+Storage.prototype.getObj = function(key) {
+  return JSON.parse(this.getItem(key));
+};
 
 function getRidOfStupidChildren(data) {
   if (!data.children) {
@@ -35,6 +42,7 @@ const mapStateToProps = store => ({
   state: store.main,
   data: store.main.data,
   translate: store.main.translate,
+  currentComponent: store.main.currentComponent,
   orientation: store.main.orientation
 });
 
@@ -44,27 +52,42 @@ const mapDispatchToProps = dispatch =>
       setCurrentComponent,
       setTransAndHistory,
       undo,
-      redo
+      redo,
+      updateStateWithLocalStorage
       // setZoom
     },
     dispatch
   );
 
-class VisualContainer extends React.PureComponent {
+class VisualContainer extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   translate: this.props.translate
-    // };
+    this.state = {
+      translate: this.props.translate,
+      intervalId: 0
+    };
+
     // this.setZoom = this.setZoom.bind(this);
   }
-
+  // let intervalId = 0;
   componentDidMount() {
+    const data = localStorage.getObj("data");
+    if (data) {
+      const nameAndCodeLinkedToComponentId = localStorage.getObj(
+        "nameAndCodeLinkedToComponentId"
+      );
+      const currentComponent = localStorage.getObj("currentComponent");
+      const lastId = localStorage.getObj("lastId");
+      this.props.updateStateWithLocalStorage(
+        data,
+        currentComponent,
+        nameAndCodeLinkedToComponentId,
+        lastId
+      );
+    }
     const initialHistory = new DoublyLinkedList(clone(this.props.state));
     // translate sets the state of centering the tree on mount
     const dimensions = this.treeContainer.getBoundingClientRect();
-    // console.log("here in component did mount", this.state.tree);
-    // this.props.setParentData();
     this.props.setTransAndHistory(
       {
         x: dimensions.width / 2,
@@ -73,6 +96,7 @@ class VisualContainer extends React.PureComponent {
       initialHistory
     );
   }
+
   // setZoom(currentComponent) {
   //   let x = this.props.translate.x
   //   let y = this.props.translate.y
@@ -83,14 +107,14 @@ class VisualContainer extends React.PureComponent {
   render() {
     const undoFunc = this.props.undo;
     const redoFunc = this.props.redo;
-    hotkeys('ctrl+z, ctrl+shift+z', function(event, handler) {
+    hotkeys("ctrl+z, ctrl+shift+z", function(event, handler) {
       event.preventDefault();
       switch (handler.key) {
-        case 'ctrl+z':
+        case "ctrl+z":
           undoFunc();
           return;
 
-        case 'ctrl+shift+z':
+        case "ctrl+shift+z":
           redoFunc();
           break;
       }
@@ -98,7 +122,7 @@ class VisualContainer extends React.PureComponent {
 
     getRidOfStupidChildren(this.props.data);
     return (
-      <div id='visual-container' ref={tc => (this.treeContainer = tc)}>
+      <div id="visual-container" ref={tc => (this.treeContainer = tc)}>
         <Tree
           data={this.props.data}
           translate={this.props.translate}
@@ -110,7 +134,7 @@ class VisualContainer extends React.PureComponent {
             // shapeProps: { r: "30" }
 
             // for the square shape
-            shape: 'rect',
+            shape: "rect",
             shapeProps: {
               width: 30,
               height: 30,
@@ -125,7 +149,7 @@ class VisualContainer extends React.PureComponent {
             // }
           }}
           textLayout={{
-            textAnchor: 'start',
+            textAnchor: "start",
             x: 0,
             y: -30
           }}
