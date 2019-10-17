@@ -7,6 +7,7 @@
 import React from 'react';
 import TemplateDropdown from './TemplateDropdown.jsx';
 const ComponentDetail = ({
+  initialName,
   renameComponent,
   changeType,
   deleteComponent,
@@ -21,13 +22,14 @@ const ComponentDetail = ({
 
   return (
     <React.Fragment>
-      <h2>Current Component</h2>
+      <h4>Current Component</h4>
       <div id='component-form'>
         <div id='component-form-top'>
           <input
             id='component-name-input'
             type='text'
-            defaultValue={currentComponent.name}
+            key={`initialName:${initialName || currentComponent.name}`}
+            defaultValue={initialName || currentComponent.name}
             onBlur={renameComponent}
             disabled={disabled()}
           />

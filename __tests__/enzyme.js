@@ -91,6 +91,10 @@ describe("React Blue unit tests", () => {
       expect(deleteMock).toHaveBeenCalled;
     });
   });
+
+  describe("mainReducer.js", () => {
+    it('should return the initial state')
+  });
 });
 describe("Integration testing", () => {
   let childrenList;
