@@ -42,7 +42,6 @@ export const setCurrentComponent = (currentComponent, data) => dispatch => {
         document.getElementById('component-name-input').value =
             currentComponent.name;
     }
-
     dispatch({
         type: types.SET_CURRENT_COMPONENT,
         payload: {

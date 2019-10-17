@@ -50,7 +50,6 @@
   }
 
   #component-form-top {
-    justify-content: space-between;
     margin-bottom: 10px;
   }
 
@@ -157,6 +156,8 @@ form#children-list-form {
   #component-files {
     > ul {
       list-style-type: square;
+      padding-left: 15px;
+
       > li {
         cursor: pointer;
       }
@@ -198,8 +199,11 @@ form#children-list-form {
 
   form {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+
+    > *:not(:last-child) {
+      margin-right: 20px;
+    }
   }
 
   .is-hook-container {
