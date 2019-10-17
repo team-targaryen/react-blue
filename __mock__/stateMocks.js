@@ -8,7 +8,7 @@ const appComponent = {
 };
 
 const childComponent1 = {
-    name: "test",
+    name: "childComponent1",
     depth: 1,
     id: 1,
     componentId: 1,
@@ -18,7 +18,7 @@ const childComponent1 = {
 }
 
 const childComponent2 = {
-    name: "test",
+    name: "childComponent2",
     depth: 1,
     id: 2,
     componentId: 2,

@@ -18,10 +18,10 @@ const getCircularReplacer = () => {
     return value;
   };
 };
-Storage.prototype.setObj = function(key, obj) {
+Storage.prototype.setObj = function (key, obj) {
   return this.setItem(key, JSON.stringify(obj, getCircularReplacer()));
 };
-Storage.prototype.getObj = function(key) {
+Storage.prototype.getObj = function (key) {
   return JSON.parse(this.getItem(key));
 };
 
@@ -59,7 +59,7 @@ const updateTree = (state, currentComponent) => {
   if (children) {
     for (let child of children) {
       if (child.name === '') {
-        defaultNameCount = defaultNameCount 
+        defaultNameCount = defaultNameCount
           ? defaultNameCount + 1
           : state.defaultNameCount + 1
       }
@@ -107,8 +107,8 @@ const updateTree = (state, currentComponent) => {
     data,
     currentComponent,
     history,
-    defaultNameCount: defaultNameCount 
-      ? defaultNameCount 
+    defaultNameCount: defaultNameCount
+      ? defaultNameCount
       : state.defaultNameCount
   };
 };
@@ -191,7 +191,7 @@ const mainReducer = (state = initialState, action) => {
       );
       preHistory.next = history;
       history.prev = preHistory;
-      
+
       return {
         ...state,
         data,
@@ -203,21 +203,10 @@ const mainReducer = (state = initialState, action) => {
 
     case types.SET_CURRENT_COMPONENT:
       currentComponent = action.payload.currentComponent;
-      // console.log('currentComponent: ', currentComponent);
-      data = action.payload.data;
-
-      if (data) {
-        return {
-          ...state,
-          data,
-          currentComponent
-        };
-      } else {
-        return {
-          ...state,
-          currentComponent
-        };
-      }
+      return {
+        ...state,
+        currentComponent
+      };
 
     case types.SET_TRANS_AND_HISTORY:
       const translate = action.payload.translate;
@@ -313,7 +302,7 @@ const mainReducer = (state = initialState, action) => {
 
     case types.ADD_CHILD:
       let name, defaultNameCount;
-      if(action.payload.name) {
+      if (action.payload.name) {
         name = action.payload.name;
       } else {
         defaultNameCount = state.defaultNameCount + 1;
@@ -350,13 +339,70 @@ const mainReducer = (state = initialState, action) => {
         nameAndCodeLinkedToComponentId
       );
       localStorage.setObj('lastId', componentId);
+
+      // easter egg
+      if (name === 'Sandstorm') {
+        const audio = new Audio(
+          'https://iringtone.net/rington/file?id=8454&type=sound&name=mp3'
+        );
+        audio.play();
+
+        const app = document.getElementById('app');
+        app.classList.add('secret');
+
+        for (let i = 0; i <= 1000; i += 1) {
+          const particle = document.createElement('i');
+          particle.classList.add('particle');
+          app.appendChild(particle);
+        }
+
+        const colorGen = () => {
+          const r = Math.floor(Math.random() * 256);
+          const g = Math.floor(Math.random() * 256);
+          const b = Math.floor(Math.random() * 256);
+
+          return 'rgb(' + r + ',' + g + ',' + b + ')';
+        };
+
+        setInterval(() => {
+          document.querySelector(
+            '.navbar'
+          ).style.backgroundColor = `${colorGen()}`;
+
+          const buttons = document.getElementsByTagName('button');
+          for (let i = 0; i < buttons.length; i += 1) {
+            buttons[i].style.backgroundColor = `${colorGen()}`;
+          }
+
+          const navIcons = document.getElementsByClassName('fas');
+          for (let i = 0; i < navIcons.length; i += 1) {
+            navIcons[i].style.color = `${colorGen()}`;
+          }
+
+          const icons = document.getElementsByClassName('far');
+          for (let i = 0; i < icons.length; i += 1) {
+            icons[i].style.color = `${colorGen()}`;
+          }
+
+          const nodeBase = document.getElementsByClassName('nodeBase');
+          for (let i = 0; i < nodeBase.length; i += 1) {
+            nodeBase[i].style.fill = `${colorGen()}`;
+          }
+
+          const leafNodeBase = document.getElementsByClassName('leafNodeBase');
+          for (let i = 0; i < leafNodeBase.length; i += 1) {
+            leafNodeBase[i].style.fill = `${colorGen()}`;
+          }
+        }, 100);
+      }
+
       return {
         ...state,
         ...updatedState,
         nameAndCodeLinkedToComponentId,
         lastId: componentId,
-        defaultNameCount: defaultNameCount 
-          ? defaultNameCount 
+        defaultNameCount: defaultNameCount
+          ? defaultNameCount
           : state.defaultNameCount
       };
 
@@ -366,11 +412,9 @@ const mainReducer = (state = initialState, action) => {
       function recursivelyDeleteChildren(node, obj) {
         node.forEach(childNode => {
           delete obj[childNode.componentId];
-          console.log('componentid', obj[childNode.componentId]);
           if (childNode.children) {
             delete obj[childNode[`${componentId}`]];
             recursivelyDeleteChildren(childNode.children, obj);
-            console.log('obj inside of recursive', obj);
           }
         });
         return obj;

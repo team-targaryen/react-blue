@@ -16,7 +16,8 @@ import exportZipFront from '../templates-exports/frontEndFiles.js';
 import exportZipFull from '../templates-exports/fullStackFiles.js';
 
 const mapStateToProps = store => ({
-  data: store.main.data
+  data: store.main.data,
+  nameAndCodeLinkedToComponentId: store.main.nameAndCodeLinkedToComponentId
 });
 
 const mapDispatchToProps = dispatch =>
@@ -26,6 +27,8 @@ const mapDispatchToProps = dispatch =>
   );
 
 const TopNavContainer = ({
+  data,
+  nameAndCodeLinkedToComponentId,
   undo,
   redo,
   changeDisplayHorizontalToVertical,
@@ -33,7 +36,7 @@ const TopNavContainer = ({
 }) => {
   return (
     <Navbar collapseOnSelect expand='lg' variant='dark'>
-      <Navbar.Brand href='#home'>React-Blue</Navbar.Brand>
+      <Navbar.Brand href='#home'>React Blue</Navbar.Brand>
       <Navbar.Toggle aria-controls='responsive-navbar-nav' />
       <Navbar.Collapse id='responsive-navbar-nav'>
         <Nav className='mr-auto'>
@@ -83,10 +86,10 @@ const TopNavContainer = ({
         </Nav>
         <Nav>
           <NavDropdown title='Export' id='collasible-nav-dropdown'>
-            <NavDropdown.Item onClick={() => exportZipFront(data)}>
+            <NavDropdown.Item onClick={() => exportZipFront(data, nameAndCodeLinkedToComponentId)}>
               Export FrontEnd
             </NavDropdown.Item>
-            <NavDropdown.Item onClick={() => exportZipFull(data)}>
+            <NavDropdown.Item onClick={() => exportZipFull(data, nameAndCodeLinkedToComponentId)}>
               Export FullStack
             </NavDropdown.Item>
           </NavDropdown>
