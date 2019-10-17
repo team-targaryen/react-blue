@@ -16,7 +16,8 @@ import exportZipFront from '../templates-exports/frontEndFiles.js';
 import exportZipFull from '../templates-exports/fullStackFiles.js';
 
 const mapStateToProps = store => ({
-  data: store.main.data
+  data: store.main.data,
+  nameAndCodeLinkedToComponentId: store.main.nameAndCodeLinkedToComponentId
 });
 
 const mapDispatchToProps = dispatch =>
@@ -84,10 +85,10 @@ const TopNavContainer = props => {
         </Nav>
         <Nav>
           <NavDropdown title='Export' id='collasible-nav-dropdown'>
-            <NavDropdown.Item onClick={() => exportZipFront(props.data)}>
+            <NavDropdown.Item onClick={() => exportZipFront(props.data, props.nameAndCodeLinkedToComponentId)}>
               Export FrontEnd
             </NavDropdown.Item>
-            <NavDropdown.Item onClick={() => exportZipFull(props.data)}>
+            <NavDropdown.Item onClick={() => exportZipFull(props.data, props.nameAndCodeLinkedToComponentId)}>
               Export FullStack
             </NavDropdown.Item>
           </NavDropdown>

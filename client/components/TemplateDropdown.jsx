@@ -10,17 +10,17 @@ const TemplateDropdown = ({
   const [isDefault, setIsDefault] = useState("");
   const [isCurrentId] = useState(currentComponent.componentId);
   // const [forceRerender, setForceRerender] = useState(true);
-  console.log('currentComponent: ', currentComponent);
-  console.log(
-    'nameAndCodeLinkedToComponentId: ',
-    nameAndCodeLinkedToComponentId
-  );
+  // console.log('currentComponent: ', currentComponent);
+  // console.log(
+  //   'nameAndCodeLinkedToComponentId: ',
+  //   nameAndCodeLinkedToComponentId
+  // );
 
   if (
     nameAndCodeLinkedToComponentId &&
     nameAndCodeLinkedToComponentId[currentComponent.componentId] &&
     isDefault !==
-      nameAndCodeLinkedToComponentId[currentComponent.componentId].name
+    nameAndCodeLinkedToComponentId[currentComponent.componentId].name
   ) {
     let name =
       nameAndCodeLinkedToComponentId[currentComponent.componentId].name;
@@ -51,21 +51,21 @@ const TemplateDropdown = ({
       <Dropdown.Menu>
         {templates.length > 0
           ? templates.map((template, i) => {
-              return (
-                <Dropdown.Item
-                  key={`templateDropdown-${currentComponent.componentId}index:${i}`}
-                  onClick={e => {
-                    e.preventDefault();
-                    if (template.name !== isDefault) {
-                      setTemplatesForComponent(currentComponent, template);
-                      setIsDefault(template.name);
-                    }
-                  }}
-                >
-                  {template.name}
-                </Dropdown.Item>
-              );
-            })
+            return (
+              <Dropdown.Item
+                key={`templateDropdown-${currentComponent.componentId}index:${i}`}
+                onClick={e => {
+                  e.preventDefault();
+                  if (template.name !== isDefault) {
+                    setTemplatesForComponent(currentComponent, template);
+                    setIsDefault(template.name);
+                  }
+                }}
+              >
+                {template.name}
+              </Dropdown.Item>
+            );
+          })
           : null}
       </Dropdown.Menu>
     </Dropdown>

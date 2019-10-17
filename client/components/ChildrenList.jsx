@@ -41,8 +41,11 @@ const ChildrenList = ({
       <h4>Children List</h4>
       <div id='children-list'>
         {currentComponent.children &&
-          currentComponent.children.map((child, idx) =>
-            childMaker(
+          currentComponent.children.filter((node, index) => {
+            return node !== null;
+          }).map((child, idx) => {
+            console.log('inside children list', child)
+            return childMaker(
               child,
               idx,
               renameChild,
@@ -52,6 +55,7 @@ const ChildrenList = ({
               setTemplatesForComponent,
               nameAndCodeLinkedToComponentId
             )
+          }
           )}
       </div>
     </React.Fragment>

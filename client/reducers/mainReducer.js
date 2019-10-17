@@ -18,10 +18,10 @@ const getCircularReplacer = () => {
     return value;
   };
 };
-Storage.prototype.setObj = function(key, obj) {
+Storage.prototype.setObj = function (key, obj) {
   return this.setItem(key, JSON.stringify(obj, getCircularReplacer()));
 };
-Storage.prototype.getObj = function(key) {
+Storage.prototype.getObj = function (key) {
   return JSON.parse(this.getItem(key));
 };
 
@@ -105,6 +105,7 @@ const updateTree = (state, currentComponent) => {
   };
 
   const data = clone(state.data);
+  console.log('here in update tree for current component id', currentComponent.componentId)
   findComponentAndUpdate(data, currentComponent);
   const nameAndCodeLinkedToComponentId = clone(
     state.nameAndCodeLinkedToComponentId
@@ -478,6 +479,8 @@ const mainReducer = (state = initialState, action) => {
       };
     case types.RESET_ENTIRE_TREE:
       const resetState = resetTree(state.history);
+      localStorage.clear();
+      console.log('cleared local storage')
       return {
         ...resetState
       };
