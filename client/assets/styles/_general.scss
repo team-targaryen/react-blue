@@ -5,7 +5,7 @@ $prime-color-1: #045590;
 $prime-color-2: #137ac1;
 $prime-color-3: #36a2c2;
 $prime-color-4: #71b8c2;
-$prime-color-5: #ffffff;
+$prime-color-5: #f8f8ff;
 
 // general
 html,
@@ -16,7 +16,7 @@ body,
 
 body {
   font-size: $font-size;
-  background: #fafafa;
+  background: $prime-color-5;
 }
 
 label {
@@ -24,9 +24,18 @@ label {
 }
 
 i {
-  font-size: 35px;
+  font-size: 30px;
   color: $prime-color-1;
+  transition: color 0.15s ease-in-out;
   cursor: pointer;
+
+  &:hover {
+    color: #007bff;
+  }
+}
+
+.dropdown-item {
+  font-size: $font-size;
 }
 
 // headings
@@ -71,6 +80,10 @@ button {
 
 .is-container {
   display: flex;
+}
+
+input {
+  background: $prime-color-5;
 }
 
 input[type='text'] {
