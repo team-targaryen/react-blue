@@ -366,11 +366,9 @@ const mainReducer = (state = initialState, action) => {
       function recursivelyDeleteChildren(node, obj) {
         node.forEach(childNode => {
           delete obj[childNode.componentId];
-          console.log('componentid', obj[childNode.componentId]);
           if (childNode.children) {
             delete obj[childNode[`${componentId}`]];
             recursivelyDeleteChildren(childNode.children, obj);
-            console.log('obj inside of recursive', obj);
           }
         });
         return obj;

@@ -23,7 +23,7 @@ describe('renameComponent', () => {
     it('should return the state with new current component name "Test"', () => {
         expect(renameComponentState.currentComponent.name).toEqual('Test');
     });
-    it('data tree should also be mutated with new input name', () => {
+    it('should mutate data tree with new input name', () => {
         expect(renameComponentState.data.name).toEqual('Test');
     });
 })
@@ -38,7 +38,7 @@ describe('changeType', () => {
     it('should return the state with current component is not container', () => {
         expect(changeTypeState.currentComponent.isContainer).toEqual(false);
     });
-    it('data tree should also be mutated with container type', () => {
+    it('should mutate data tree with container type', () => {
         expect(changeTypeState.data.isContainer).toEqual(false);
     });
 })
@@ -46,11 +46,14 @@ describe('changeType', () => {
 describe('deleteComponent', () => {
     const deleteComponentState = mainReducer(stateWithChildMock, {
         type: types.DELETE_COMPONENT
-    })
+    });
     it('should return state with data that has only one child ', () => {
         expect(deleteComponentState.data.children).toHaveLength(1);
     });
-    it('current component should be assigned by parent of the deleted component', () => {
+    it('should delete the right child component and reset the index of children array', () => {
+        expect(deleteComponentState.data.children[0].name).toEqual('childComponent2');
+    });
+    it('should have current component that assigned by the parent of the deleted component', () => {
         expect(deleteComponentState.currentComponent.componentId).toEqual(0);
     });
 })
