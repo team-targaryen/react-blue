@@ -1,5 +1,5 @@
 import React from "react";
-import { configure, shallow, ShallowWrapper } from "enzyme";
+import { configure, shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import toJson from "enzyme-to-json";
 
@@ -37,7 +37,6 @@ describe("React Blue unit tests", () => {
       expect(input.at(1).props().checked).toBe(true);
       expect(input.at(1).props().type).toBe("checkbox");
     });
-    console.log("for git");
   });
   describe("ComponentDetail.jsx", () => {
     let wrapper, input;
@@ -85,5 +84,9 @@ describe("React Blue unit tests", () => {
       wrapper.find("button").simulate("click");
       expect(deleteMock).toHaveBeenCalled;
     });
+  });
+
+  describe("mainReducer.js", () => {
+    it('should return the initial state')
   });
 });

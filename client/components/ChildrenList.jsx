@@ -13,7 +13,7 @@ const ChildrenList = ({
 }) => {
   return (
     <React.Fragment>
-      <h4>Add Child</h4>
+      <h6>Add Child</h6>
       <form id='children-list-form' onSubmit={addChild}>
         <input
           type='text'
@@ -38,7 +38,7 @@ const ChildrenList = ({
           <i className='far fa-plus-square'></i>
         </button>
       </form>
-      <h4>Children List</h4>
+      <h6>Children List</h6>
       <div id='children-list'>
         {currentComponent.children &&
           currentComponent.children.map((child, idx) =>

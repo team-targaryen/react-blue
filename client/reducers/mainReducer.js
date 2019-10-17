@@ -45,33 +45,7 @@ const initialState = {
   templates: [],
   orientation: "vertical"
 };
-function resetTree(history) {
-  let obj = {
-    data: {
-      name: "App",
-      depth: 0,
-      id: 0,
-      componentId: 0,
-      isContainer: true,
-      children: []
-    },
-    translate: { x: 0, y: 0 },
-    history: history,
-    currentComponent: {
-      name: "App",
-      depth: 0,
-      id: 0,
-      componentId: 0,
-      isContainer: true,
-      children: []
-    },
-    nameAndCodeLinkedToComponentId: {},
-    lastId: 0,
-    templates: [],
-    orientation: "vertical"
-  };
-  return obj;
-}
+
 const updateTree = (state, currentComponent) => {
   let defaultNameCount;
   // check if current component has a name
@@ -117,7 +91,9 @@ const updateTree = (state, currentComponent) => {
     clone({
       data,
       currentComponent,
-      nameAndCodeLinkedToComponentId
+      nameAndCodeLinkedToComponentId,
+      lastId: state.lastId,
+      defaultNameCount: state.defaultNameCount
     })
   );
   preHistory.next = history;
@@ -211,14 +187,15 @@ const mainReducer = (state = initialState, action) => {
       history = new DoublyLinkedList(
         clone({
           data,
-          currentComponent: parent
+          currentComponent: parent,
+          nameAndCodeLinkedToComponentId,
+          lastId: state.lastId,
+          defaultNameCount: state.defaultNameCount
         })
       );
       preHistory.next = history;
       history.prev = preHistory;
-
-      document.getElementById('component-name-input').value = parent.name;
-
+      
       return {
         ...state,
         data,
@@ -490,7 +467,13 @@ const mainReducer = (state = initialState, action) => {
         lastId
       };
     case types.RESET_ENTIRE_TREE:
-      const resetState = resetTree(state.history);
+      history = clone(state.history);
+      history.prev = null;
+      history.next = null;
+      const resetState = Object.assign(initialState, {
+        history,
+        translate: state.translate
+      });
       return {
         ...resetState
       };
