@@ -1,4 +1,4 @@
-const package = `{
+const packageJSON = `{
   "name": "my-react-blue-app",
   "version": "1.0.0",
   "description": "",
