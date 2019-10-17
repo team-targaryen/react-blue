@@ -7,30 +7,29 @@ import webpack from './fullStackTemplates/webpack.config.js';
 import readmeMD from './fullStackTemplates/readmeMD.js';
 
 function connectFiles(currentComponent, code, fileObject) {
-  let childComponents, imports;
-  if (currentComponent.children) {
-    imports = currentComponent.children
-      .map(child => {
-        if (child.isContainer) {
-          return `import ${child.name} from './containers/${child.name}.jsx';\n`;
-        } else {
-          return `import ${child.name} from './components/${child.name}.jsx';\n`;
-        }
-      })
-      .join('');
-    childComponents = currentComponent.children
-      .map(child => {
-        return ` <${child.name} />`;
-      })
-      .join('');
-  } else if (!currentComponent.children) {
-    imports = '';
-  }
-  if (childComponents) {
-    code = code.replace('DONOTDELETETHISSTRING', childComponents);
-  } else {
-    code = code.replace('DONOTDELETETHISSTRING', '');
-  }
+    let childComponents, imports;
+    if (currentComponent.children) {
+        imports = currentComponent.children
+            .map(child => {
+                if (child.isContainer) {
+                    return `import ${child.name} from './containers/${child.name}.jsx';\n`;
+                } else {
+                    return `import ${child.name} from './components/${child.name}.jsx';\n`;
+                }
+            })
+            .join('');
+        childComponents = currentComponent.children.map(child => {
+            return `\t<${child.name} />\n\t\t`;;
+        })
+            .join('');
+    } else if (!currentComponent.children) {
+        imports = "";
+    }
+    if (childComponents) {
+        code = code.replace('DONOTDELETETHISSTRING', childComponents)
+    } else {
+        code = code.replace('DONOTDELETETHISSTRING', '')
+    }
 
   if (currentComponent.isContainer) {
     fileObject.container[currentComponent.name] = imports.concat(
@@ -75,7 +74,6 @@ export default (data, nameAndCodeLinkedToComponentId) => {
   for (let component in componentObject) {
     zip.file(`component/${component}.jsx`, componentObject[component]);
   }
-
   zip.file('assets/index.html', indexHTML);
   zip.file('assets/styles/styles.css', '');
   zip.file('index.js', indexJS);
