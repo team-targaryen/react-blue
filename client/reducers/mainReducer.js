@@ -18,10 +18,10 @@ const getCircularReplacer = () => {
     return value;
   };
 };
-Storage.prototype.setObj = function(key, obj) {
+Storage.prototype.setObj = function (key, obj) {
   return this.setItem(key, JSON.stringify(obj, getCircularReplacer()));
 };
-Storage.prototype.getObj = function(key) {
+Storage.prototype.getObj = function (key) {
   return JSON.parse(this.getItem(key));
 };
 
@@ -59,7 +59,7 @@ const updateTree = (state, currentComponent) => {
   if (children) {
     for (let child of children) {
       if (child.name === '') {
-        defaultNameCount = defaultNameCount 
+        defaultNameCount = defaultNameCount
           ? defaultNameCount + 1
           : state.defaultNameCount + 1
       }
@@ -107,8 +107,8 @@ const updateTree = (state, currentComponent) => {
     data,
     currentComponent,
     history,
-    defaultNameCount: defaultNameCount 
-      ? defaultNameCount 
+    defaultNameCount: defaultNameCount
+      ? defaultNameCount
       : state.defaultNameCount
   };
 };
@@ -191,7 +191,7 @@ const mainReducer = (state = initialState, action) => {
       );
       preHistory.next = history;
       history.prev = preHistory;
-      
+
       return {
         ...state,
         data,
@@ -313,7 +313,7 @@ const mainReducer = (state = initialState, action) => {
 
     case types.ADD_CHILD:
       let name, defaultNameCount;
-      if(action.payload.name) {
+      if (action.payload.name) {
         name = action.payload.name;
       } else {
         defaultNameCount = state.defaultNameCount + 1;
@@ -412,8 +412,8 @@ const mainReducer = (state = initialState, action) => {
         ...updatedState,
         nameAndCodeLinkedToComponentId,
         lastId: componentId,
-        defaultNameCount: defaultNameCount 
-          ? defaultNameCount 
+        defaultNameCount: defaultNameCount
+          ? defaultNameCount
           : state.defaultNameCount
       };
 
@@ -423,11 +423,9 @@ const mainReducer = (state = initialState, action) => {
       function recursivelyDeleteChildren(node, obj) {
         node.forEach(childNode => {
           delete obj[childNode.componentId];
-          console.log('componentid', obj[childNode.componentId]);
           if (childNode.children) {
             delete obj[childNode[`${componentId}`]];
             recursivelyDeleteChildren(childNode.children, obj);
-            console.log('obj inside of recursive', obj);
           }
         });
         return obj;
