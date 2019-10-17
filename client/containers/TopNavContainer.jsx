@@ -27,6 +27,8 @@ const mapDispatchToProps = dispatch =>
   );
 
 const TopNavContainer = ({
+  data,
+  nameAndCodeLinkedToComponentId,
   undo,
   redo,
   changeDisplayHorizontalToVertical,
@@ -84,10 +86,10 @@ const TopNavContainer = ({
         </Nav>
         <Nav>
           <NavDropdown title='Export' id='collasible-nav-dropdown'>
-            <NavDropdown.Item onClick={() => exportZipFront(props.data, props.nameAndCodeLinkedToComponentId)}>
+            <NavDropdown.Item onClick={() => exportZipFront(data, nameAndCodeLinkedToComponentId)}>
               Export FrontEnd
             </NavDropdown.Item>
-            <NavDropdown.Item onClick={() => exportZipFull(props.data, props.nameAndCodeLinkedToComponentId)}>
+            <NavDropdown.Item onClick={() => exportZipFull(data, nameAndCodeLinkedToComponentId)}>
               Export FullStack
             </NavDropdown.Item>
           </NavDropdown>
