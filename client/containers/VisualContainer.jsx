@@ -18,10 +18,10 @@ function DoublyLinkedList(value) {
   this.prev = null;
   this.next = null;
 }
-Storage.prototype.setObj = function(key, obj) {
+Storage.prototype.setObj = function (key, obj) {
   return this.setItem(key, JSON.stringify(obj));
 };
-Storage.prototype.getObj = function(key) {
+Storage.prototype.getObj = function (key) {
   return JSON.parse(this.getItem(key));
 };
 
@@ -109,7 +109,7 @@ class VisualContainer extends React.Component {
   render() {
     const undoFunc = this.props.undo;
     const redoFunc = this.props.redo;
-    hotkeys("ctrl+z, ctrl+shift+z", function(event, handler) {
+    hotkeys("ctrl+z, ctrl+shift+z", function (event, handler) {
       event.preventDefault();
       switch (handler.key) {
         case "ctrl+z":
@@ -121,7 +121,6 @@ class VisualContainer extends React.Component {
           break;
       }
     });
-
     getRidOfStupidChildren(this.props.data);
     return (
       <div id="visual-container" ref={tc => (this.treeContainer = tc)}>
