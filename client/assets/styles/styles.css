@@ -13,8 +13,14 @@ label {
   margin: 0;
 }
 
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
 i {
-  font-size: 30px;
+  font-size: 20px;
   color: #045590;
   -webkit-transition: color 0.15s ease-in-out;
   transition: color 0.15s ease-in-out;
@@ -30,15 +36,15 @@ i:hover {
 }
 
 h2 {
-  font-size: 1.6rem;
+  font-size: 1.2rem;
 }
 
 h3 {
-  font-size: 1.4rem;
+  font-size: 1rem;
 }
 
 h4 {
-  font-size: 1.2rem;
+  font-size: 0.8rem;
 }
 
 button {
@@ -127,7 +133,7 @@ input[type='checkbox'] {
   margin-right: 20px;
 }
 
-#divider-panel {
+.divider-panel {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
@@ -145,7 +151,7 @@ input[type='checkbox'] {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  width: 22%;
+  width: 25%;
   background: rgba(248, 248, 255, 0.5);
   border-radius: 10px;
   -webkit-box-shadow: 0 0 15px;
@@ -212,7 +218,7 @@ input[type='checkbox'] {
           align-items: center;
 }
 
-#component-detail #code-editor {
+#component-detail #code-editor-container {
   display: none;
 }
 
@@ -261,10 +267,10 @@ form#children-list-form > *:not(:last-child) {
 #children-list .each-child-container::after {
   content: '';
   display: block;
-  width: 93%;
+  width: 90%;
   height: 1px;
   background: #045590;
-  margin: 20px 0;
+  margin: 20px auto;
 }
 
 #children-list .each-child-container:last-child::after {
@@ -275,7 +281,66 @@ form#children-list-form > *:not(:last-child) {
   margin-bottom: 10px;
 }
 
-#code-editor .template-container {
+#toggle-file-tree {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+  width: 120px;
+  height: 38px;
+  color: #fff;
+  background: #045590;
+  border-radius: 0.25rem;
+  margin: auto;
+}
+
+#file-tree {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+  max-height: 120px;
+  overflow: auto;
+  margin-top: 20px;
+}
+
+#file-tree.hidden {
+  display: none;
+}
+
+#file-tree > ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+#file-tree #container-files > ul,
+#file-tree #component-files > ul {
+  list-style-type: square;
+}
+
+#file-tree #container-files > ul > li,
+#file-tree #component-files > ul > li {
+  cursor: pointer;
+}
+
+#code-editor-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 100%;
+}
+
+#code-editor-container .template-container {
+  height: 100%;
+  overflow: auto;
+}
+
+#code-editor-container .template-item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -285,23 +350,23 @@ form#children-list-form > *:not(:last-child) {
   overflow: auto;
 }
 
-#code-editor .template-container button {
+#code-editor-container .template-item button {
   margin: 0 0 10px 20px;
 }
 
-#code-editor input[type='text'] {
+#code-editor-container input[type='text'] {
   width: 100%;
   max-width: 219px;
 }
 
-#code-editor .change-name {
+#code-editor-container .change-name {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
   margin-bottom: 10px;
 }
 
-#code-editor form {
+#code-editor-container form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -313,7 +378,7 @@ form#children-list-form > *:not(:last-child) {
           align-items: center;
 }
 
-#code-editor .is-hook-container {
+#code-editor-container .is-hook-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -322,18 +387,18 @@ form#children-list-form > *:not(:last-child) {
           align-items: center;
 }
 
-#code-editor #reset-templates {
+#code-editor-container #reset-templates {
   display: block;
   color: #fff;
   background: #045590;
   border-radius: 0.25rem;
   padding: 10px 20px;
-  margin: 20px auto 0;
+  margin: auto;
   -webkit-transition: background-color 0.15s ease-in-out;
   transition: background-color 0.15s ease-in-out;
 }
 
-#code-editor #reset-templates:hover {
+#code-editor-container #reset-templates:hover {
   background: #007bff;
 }
 
