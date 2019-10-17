@@ -38,11 +38,6 @@ export const deleteComponent = () => dispatch => {
 /******************************* actions for main container ************************************/
 
 export const setCurrentComponent = (currentComponent, data) => dispatch => {
-  if (document.getElementById('component-name-input')) {
-    document.getElementById('component-name-input').value =
-      currentComponent.name;
-  }
-
   dispatch({
     type: types.SET_CURRENT_COMPONENT,
     payload: {

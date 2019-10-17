@@ -95,18 +95,8 @@ const TemplatingArea = ({ useTemplates }) => {
   };
 
   return (
-    <div id='code-editor'>
-      {isInitialSyntax.map((syntaxObject, index) => {
-        return (
-          <CreateCodeEditor
-            key={`createCodeEditor-${index}`}
-            syntaxObject={syntaxObject}
-            index={index}
-            deleteTemplate={deleteTemplate}
-            updateCode={updateCode}
-          />
-        );
-      })}
+    <div id='code-editor-container'>
+      <h3>Add Template</h3>
       <form
         onSubmit={e => {
           e.preventDefault();
@@ -145,7 +135,22 @@ const TemplatingArea = ({ useTemplates }) => {
           <i className='far fa-plus-square'></i>
         </button>
       </form>
-
+      <div className='divider-panel'></div>
+      <h3>Template List</h3>
+      <div className='template-container'>
+        {isInitialSyntax.map((syntaxObject, index) => {
+          return (
+            <CreateCodeEditor
+              key={`createCodeEditor-${index}`}
+              syntaxObject={syntaxObject}
+              index={index}
+              deleteTemplate={deleteTemplate}
+              updateCode={updateCode}
+            />
+          );
+        })}
+      </div>
+      <div className='divider-panel'></div>
       <button
         id='reset-templates'
         onClick={() => {
