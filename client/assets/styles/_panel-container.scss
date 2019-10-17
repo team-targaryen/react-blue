@@ -157,6 +157,8 @@ form#children-list-form {
   #component-files {
     > ul {
       list-style-type: square;
+      padding-left: 15px;
+
       > li {
         cursor: pointer;
       }
