@@ -9,7 +9,7 @@
   }
 }
 
-#divider-panel {
+.divider-panel {
   flex: 0 0 auto;
   width: 90%;
   height: 1px;
@@ -21,7 +21,7 @@
 #panel-container {
   display: flex;
   flex-direction: column;
-  width: 22%;
+  width: 25%;
   background: rgba(248, 248, 255, 0.5);
   border-radius: 10px;
   box-shadow: 0 0 15px;
@@ -69,7 +69,7 @@
     align-items: center;
   }
 
-  #code-editor {
+  #code-editor-container {
     display: none;
   }
 }
@@ -109,10 +109,10 @@ form#children-list-form {
     &::after {
       content: '';
       display: block;
-      width: 93%;
+      width: 90%;
       height: 1px;
       background: $prime-color-1;
-      margin: 20px 0;
+      margin: 20px auto;
     }
 
     &:last-child {
@@ -127,9 +127,55 @@ form#children-list-form {
   }
 }
 
+// file tree
+#toggle-file-tree {
+  flex: 0 0 auto;
+  width: 120px;
+  height: 38px;
+  color: #fff;
+  background: $prime-color-1;
+  border-radius: 0.25rem;
+  margin: auto;
+}
+
+#file-tree {
+  flex: 0 0 auto;
+  max-height: 120px;
+  overflow: auto;
+  margin-top: 20px;
+
+  &.hidden {
+    display: none;
+  }
+
+  > ul {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  #container-files,
+  #component-files {
+    > ul {
+      list-style-type: square;
+      > li {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
 // templates
-#code-editor {
+#code-editor-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
   .template-container {
+    height: 100%;
+    overflow: auto;
+  }
+
+  .template-item {
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 10px;
@@ -167,7 +213,7 @@ form#children-list-form {
     background: $prime-color-1;
     border-radius: 0.25rem;
     padding: 10px 20px;
-    margin: 20px auto 0;
+    margin: auto;
     transition: background-color 0.15s ease-in-out;
 
     &:hover {

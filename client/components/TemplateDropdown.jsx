@@ -9,7 +9,6 @@ const TemplateDropdown = ({
 }) => {
   const [isDefault, setIsDefault] = useState("");
   const [isCurrentId] = useState(currentComponent.componentId);
-  // const [forceRerender, setForceRerender] = useState(true);
 
   if (
     nameAndCodeLinkedToComponentId &&
@@ -21,16 +20,6 @@ const TemplateDropdown = ({
       nameAndCodeLinkedToComponentId[currentComponent.componentId].name;
     setIsDefault(name);
   }
-  // useEffect(() => {
-  //   if (
-  //     currentComponent.componentId !== isCurrentId &&
-  //     nameAndCodeLinkedToComponentId
-  //   ) {
-  //     return setIsDefault(
-  //       nameAndCodeLinkedToComponentId.get(currentComponent.componentId).name
-  //     );
-  //   }
-  // });
 
   useEffect(() => {
     return () => {
