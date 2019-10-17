@@ -22,7 +22,7 @@ const ComponentDetail = ({
 
   return (
     <React.Fragment>
-      <h4>Current Component</h4>
+      <h2>Current Component</h2>
       <div id='component-form'>
         <div id='component-form-top'>
           <input
