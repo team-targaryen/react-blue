@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 const EachChild = ({
+  initiailName,
   name,
   childId,
   isContainer,
@@ -12,7 +13,8 @@ const EachChild = ({
     <input
       className='child-name'
       type='text'
-      defaultValue={name}
+      key={`initialName:${initiailName || name}`}
+      defaultValue = {initiailName || name}
       onBlur={() => renameChild(event, childId)}
     ></input>
     <div>

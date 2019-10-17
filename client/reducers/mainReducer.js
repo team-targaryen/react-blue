@@ -48,9 +48,10 @@ const initialState = {
 };
 
 const updateTree = (state, currentComponent) => {
-  const defaultNameCount = state.defaultNameCount + 1;
+  let defaultNameCount;
   // check if current component has a name
   if (currentComponent.name === '') {
+    defaultNameCount = state.defaultNameCount + 1;
     currentComponent.name = `Component${defaultNameCount}`;
   }
   // check if any child has empty name, then change it to 'DEFAUL NAME'
@@ -58,7 +59,9 @@ const updateTree = (state, currentComponent) => {
   if (children) {
     for (let child of children) {
       if (child.name === '') {
-        child.name = `Component${defaultNameCount}`;
+        defaultNameCount = defaultNameCount 
+          ? defaultNameCount + 1
+          : state.defaultNameCount + 1
       }
     }
   } else {
@@ -89,7 +92,9 @@ const updateTree = (state, currentComponent) => {
     clone({
       data,
       currentComponent,
-      nameAndCodeLinkedToComponentId
+      nameAndCodeLinkedToComponentId,
+      lastId: state.lastId,
+      defaultNameCount: state.defaultNameCount
     })
   );
   preHistory.next = history;
@@ -102,8 +107,9 @@ const updateTree = (state, currentComponent) => {
     data,
     currentComponent,
     history,
-    nameAndCodeLinkedToComponentId,
-    defaultNameCount
+    defaultNameCount: defaultNameCount 
+      ? defaultNameCount 
+      : state.defaultNameCount
   };
 };
 
@@ -177,14 +183,15 @@ const mainReducer = (state = initialState, action) => {
       history = new DoublyLinkedList(
         clone({
           data,
-          currentComponent: parent
+          currentComponent: parent,
+          nameAndCodeLinkedToComponentId,
+          lastId: state.lastId,
+          defaultNameCount: state.defaultNameCount
         })
       );
       preHistory.next = history;
       history.prev = preHistory;
-
-      document.getElementById('component-name-input').value = parent.name;
-
+      
       return {
         ...state,
         data,
@@ -305,8 +312,14 @@ const mainReducer = (state = initialState, action) => {
       };
 
     case types.ADD_CHILD:
-      const defaultNameCount = state.defaultNameCount + 1;
-      const name = action.payload.name || `Component${defaultNameCount}`;
+      let name, defaultNameCount;
+      if(action.payload.name) {
+        name = action.payload.name;
+      } else {
+        defaultNameCount = state.defaultNameCount + 1;
+        name = `Component${defaultNameCount}`;
+      }
+
       isContainer = action.payload.isContainer;
       const componentId = state.lastId + 1;
       const newChild = {
@@ -399,7 +412,9 @@ const mainReducer = (state = initialState, action) => {
         ...updatedState,
         nameAndCodeLinkedToComponentId,
         lastId: componentId,
-        defaultNameCount
+        defaultNameCount: defaultNameCount 
+          ? defaultNameCount 
+          : state.defaultNameCount
       };
 
     case types.DELETE_CHILD:
@@ -506,6 +521,13 @@ const mainReducer = (state = initialState, action) => {
         lastId
       };
     case types.RESET_ENTIRE_TREE:
+      history = clone(state.history);
+      history.prev = null;
+      history.next = null;
+      const resetState = Object.assign(initialState, {
+        history,
+        translate: state.translate
+      });
       localStorage.clear();
       location.reload(true);
       return {
