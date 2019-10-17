@@ -50,10 +50,25 @@ describe('deleteComponent', () => {
     it('should return state with data that has only one child ', () => {
         expect(deleteComponentState.data.children).toHaveLength(1);
     });
-    it('should delete the right child component and reset the index of children array', () => {
+    it('should delete the correct child component and reset the index of children array', () => {
         expect(deleteComponentState.data.children[0].name).toEqual('childComponent2');
     });
     it('should have current component that assigned by the parent of the deleted component', () => {
         expect(deleteComponentState.currentComponent.componentId).toEqual(0);
     });
 })
+
+// describe('setCurrentComponent', () => {
+//     const setCurrentComponentState = mainReducer(stateWithChildMock, {
+//         type: types.DELETE_COMPONENT
+//     });
+//     it('should return state with data that has only one child ', () => {
+//         expect(deleteComponentState.data.children).toHaveLength(1);
+//     });
+//     it('should delete the correct child component and reset the index of children array', () => {
+//         expect(deleteComponentState.data.children[0].name).toEqual('childComponent2');
+//     });
+//     it('should have current component that assigned by the parent of the deleted component', () => {
+//         expect(deleteComponentState.currentComponent.componentId).toEqual(0);
+//     });
+// })

@@ -20,7 +20,7 @@ function connectFiles(currentComponent, code, fileObject) {
             })
             .join('');
         childComponents = currentComponent.children.map(child => {
-            return ` <${child.name} />`;
+            return `\t<${child.name} />\n\t\t`;;
         })
             .join('');
     } else if (!currentComponent.children) {
@@ -73,7 +73,7 @@ export default (data, nameAndCodeLinkedToComponentId) => {
     zip.file('assets/styles/styles.css', '');
     zip.file('index.js', indexJS);
     zip.file('server/server.js', server);
-    zip.file('packageJSON.js', packageJSON);
+    zip.file('package.json', packageJSON);
     zip.file('webpack.config.js', webpack);
     zip.file('server/readmeMD.js', readmeMD);
 
