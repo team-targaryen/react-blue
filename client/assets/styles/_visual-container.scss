@@ -1,0 +1,12 @@
+#visual-container {
+  flex: 1;
+  background: $prime-color-5;
+
+  .nodeBase {
+    fill: $prime-color-1;
+  }
+
+  .leafNodeBase {
+    fill: $prime-color-4;
+  }
+}

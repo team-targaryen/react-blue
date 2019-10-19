@@ -1,0 +1,27 @@
+.navbar {
+  background: $prime-color-1;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  .dropdown-menu {
+    font-size: $font-size;
+  }
+
+  .keyboard-shortcut {
+    display: flex;
+    justify-content: space-between;
+
+    span {
+      &:first-child {
+        margin-right: 40px;
+      }
+    }
+  }
+
+  .export {
+    .dropdown-menu {
+      left: auto;
+      right: 0;
+    }
+  }
+}

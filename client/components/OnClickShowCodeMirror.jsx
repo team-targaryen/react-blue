@@ -1,66 +1,73 @@
-import React, { useState } from "react";
-import "codemirror/lib/codemirror.css";
-import CodeMirror from "react-codemirror";
-require("codemirror/mode/javascript/javascript");
-require("codemirror/mode/xml/xml");
-require("codemirror/mode/markdown/markdown");
-require("codemirror/mode/css/css");
-require("codemirror/mode/htmlembedded/htmlembedded");
-require("codemirror/mode/htmlmixed/htmlmixed");
+import React, { useState } from 'react';
+import 'codemirror/lib/codemirror.css';
+import CodeMirror from 'react-codemirror';
+require('codemirror/mode/javascript/javascript');
+require('codemirror/mode/xml/xml');
+require('codemirror/mode/markdown/markdown');
+require('codemirror/mode/css/css');
+require('codemirror/mode/htmlembedded/htmlembedded');
+require('codemirror/mode/htmlmixed/htmlmixed');
 
 const OnClickShowCodeMirror = ({ code, updateCode, index, deleteTemplate }) => {
   const [isClicked, setIsClicked] = useState(false);
   const [isSave, setIsSave] = useState(false);
   return isClicked ? (
-    <div style={{ fontFamily: "Lato" }}>
+    <React.Fragment>
       <button
-        onClick={() => {
-          deleteTemplate(index);
-        }}
-      >
-        delete
-      </button>
-      <button
-        style={{ float: "right" }}
         onClick={() => {
           setIsClicked(!isClicked);
           setIsSave(!isSave);
         }}
       >
-        {isSave ? "save" : "edit"}
+        {isSave ? (
+          <i className='fas fa-save'></i>
+        ) : (
+          <i className='fas fa-edit'></i>
+        )}
       </button>
-      <div>
-        <CodeMirror
-          style={{ height: "auto", width: "auto" }}
-          value={code}
-          onChange={value => {
-            updateCode(value, index);
+      {index > 1 ? (
+        <button
+          onClick={() => {
+            deleteTemplate(index);
           }}
-          options={{
-            lineNumbers: true
-          }}
-        />
-      </div>
-    </div>
+        >
+          <i className='far fa-minus-square'></i>
+        </button>
+      ) : null}
+      <CodeMirror
+        value={code}
+        onChange={value => {
+          updateCode(value, index);
+        }}
+        options={{
+          lineNumbers: true
+        }}
+      />
+    </React.Fragment>
   ) : (
-    <div style={{ width: 400, height: 20 }}>
+    <React.Fragment>
       <button
-        onClick={() => {
-          deleteTemplate(index);
-        }}
-      >
-        delete
-      </button>
-      <button
-        style={{ float: "right" }}
         onClick={() => {
           setIsClicked(!isClicked);
           setIsSave(!isSave);
         }}
       >
-        {isSave ? "save" : "edit"}
+        {isSave ? (
+          <i className='fas fa-save'></i>
+        ) : (
+          <i className='fas fa-edit'></i>
+        )}
       </button>
-    </div>
+      {index > 1 ? (
+        <button
+          onClick={() => {
+            deleteTemplate(index);
+          }}
+        >
+          <i className='far fa-minus-square'></i>
+        </button>
+      ) : null}
+    </React.Fragment>
   );
 };
 export default OnClickShowCodeMirror;

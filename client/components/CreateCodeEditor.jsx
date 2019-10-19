@@ -1,5 +1,5 @@
-import React from "react";
-import OnClickShowCodeMirror from "./OnClickShowCodeMirror.jsx";
+import React, { useState } from 'react';
+import OnClickShowCodeMirror from './OnClickShowCodeMirror.jsx';
 
 const CreateCodeEditor = ({
   syntaxObject,
@@ -7,17 +7,20 @@ const CreateCodeEditor = ({
   deleteTemplate,
   updateCode
 }) => {
+  const [isName, setIsName] = useState(syntaxObject.name)
+  if (syntaxObject.name !== isName) {
+    setIsName(syntaxObject.name)
+  }
   return (
-    <div key={`showCodeMirror${index}`}>
+    <div key={`showCodeMirror${index}`} className='template-item'>
       <input
-        style={{ width: 300 }}
         onChange={e => {
           e.preventDefault();
           updateCode(syntaxObject, index, e.target.value);
         }}
-        type="text"
-        id="changeName"
-        value={syntaxObject.name}
+        type='text'
+        className='change-name'
+        value={isName}
       />
       <OnClickShowCodeMirror
         code={syntaxObject.code}
@@ -25,7 +28,6 @@ const CreateCodeEditor = ({
         index={index}
         deleteTemplate={deleteTemplate}
       />
-      <br />
     </div>
   );
 };
