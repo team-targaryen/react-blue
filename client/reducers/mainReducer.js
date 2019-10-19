@@ -124,6 +124,7 @@ const mainReducer = (state = initialState, action) => {
     history,
     nameAndCodeLinkedToComponentId,
     lastId;
+  console.log(state.data)
   switch (action.type) {
     /******************************* actions for side bar ************************************/
 
@@ -283,7 +284,7 @@ const mainReducer = (state = initialState, action) => {
           child.name = inputName;
         }
       }
-      
+
       currentComponent = clone(state.currentComponent);
       currentComponent.children = children;
       updatedState = updateTree(state, currentComponent);
