@@ -85,17 +85,26 @@ const TopNavContainer = ({
           </NavDropdown>
         </Nav>
         <Nav>
-          <NavDropdown title='Export' id='collasible-nav-dropdown'>
-            <NavDropdown.Item onClick={() => exportZipFront(data, nameAndCodeLinkedToComponentId)}>
+          <NavDropdown
+            title='Export'
+            id='collasible-nav-dropdown'
+            className='export'
+          >
+            <NavDropdown.Item
+              onClick={() =>
+                exportZipFront(data, nameAndCodeLinkedToComponentId)
+              }
+            >
               Export FrontEnd
             </NavDropdown.Item>
-            <NavDropdown.Item onClick={() => exportZipFull(data, nameAndCodeLinkedToComponentId)}>
+            <NavDropdown.Item
+              onClick={() =>
+                exportZipFull(data, nameAndCodeLinkedToComponentId)
+              }
+            >
               Export FullStack
             </NavDropdown.Item>
           </NavDropdown>
-          <Nav.Link eventKey={2} href='#memes'>
-            ExSomthing
-          </Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

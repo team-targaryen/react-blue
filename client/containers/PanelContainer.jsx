@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { MemoryRouter, Switch, Route } from 'react-router-dom';
 import {
   renameChild,
   changeChildType,
@@ -71,62 +71,53 @@ const SideNavContainer = ({
       key={`templateDropdown-${currentComponent.componentId}`}
       id='panel-container'
     >
-      <BrowserRouter>
+      <MemoryRouter>
         <PanelNavIcons />
         <div className='divider-panel'></div>
         <Switch>
-          <Route
-            path='/'
-            exact
-            render={() => (
-              <div id='component-detail'>
-                <ComponentDetail
-                  renameComponent={renameComponent}
-                  changeType={changeType}
-                  deleteComponent={deleteComponent}
-                  currentComponent={currentComponent}
-                  templates={templates}
-                  setTemplatesForComponent={setTemplatesForComponent}
-                  nameAndCodeLinkedToComponentId={
-                    nameAndCodeLinkedToComponentId
-                  }
-                />
-                <ChildrenList
-                  addChild={addChild}
-                  currentComponent={currentComponent}
-                  renameChild={renameChild}
-                  changeChildType={changeChildType}
-                  deleteChild={deleteChild}
-                  templates={templates}
-                  setTemplatesForComponent={setTemplatesForComponent}
-                  nameAndCodeLinkedToComponentId={
-                    nameAndCodeLinkedToComponentId
-                  }
-                />
-                <div className='divider-panel'></div>
-                <button
-                  id='toggle-file-tree'
-                  onClick={() => {
-                    showFileTree();
-                  }}
-                >
-                  Toggle File Tree
-                </button>
-                <FileTree
-                  data={data}
-                  setCurrentComponent={setCurrentComponent}
-                  toggleFileTree={toggleFileTree}
-                />
-                <TemplatingArea useTemplates={useTemplates} />
-              </div>
-            )}
-          />
-          <Route
-            path='/templates'
-            render={() => <TemplatingArea useTemplates={useTemplates} />}
-          />
+          <Route path='/' exact>
+            <div id='component-detail'>
+              <ComponentDetail
+                renameComponent={renameComponent}
+                changeType={changeType}
+                deleteComponent={deleteComponent}
+                currentComponent={currentComponent}
+                templates={templates}
+                setTemplatesForComponent={setTemplatesForComponent}
+                nameAndCodeLinkedToComponentId={nameAndCodeLinkedToComponentId}
+              />
+              <ChildrenList
+                addChild={addChild}
+                currentComponent={currentComponent}
+                renameChild={renameChild}
+                changeChildType={changeChildType}
+                deleteChild={deleteChild}
+                templates={templates}
+                setTemplatesForComponent={setTemplatesForComponent}
+                nameAndCodeLinkedToComponentId={nameAndCodeLinkedToComponentId}
+              />
+              <div className='divider-panel'></div>
+              <button
+                id='toggle-file-tree'
+                onClick={() => {
+                  showFileTree();
+                }}
+              >
+                Toggle File Tree
+              </button>
+              <FileTree
+                data={data}
+                setCurrentComponent={setCurrentComponent}
+                toggleFileTree={toggleFileTree}
+              />
+              <TemplatingArea useTemplates={useTemplates} />
+            </div>
+          </Route>
+          <Route path='/templates'>
+            <TemplatingArea useTemplates={useTemplates} />
+          </Route>
         </Switch>
-      </BrowserRouter>
+      </MemoryRouter>
     </div>
   );
 };

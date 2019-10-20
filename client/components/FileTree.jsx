@@ -33,7 +33,6 @@ const FileTree = ({ data, setCurrentComponent, toggleFileTree }) => {
             {containerFiles.map((file, index) => (
               <File
                 key={index}
-                data={data}
                 file={file}
                 name={file.name}
                 setCurrentComponent={setCurrentComponent}

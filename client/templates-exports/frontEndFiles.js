@@ -15,7 +15,7 @@ function connectFiles(currentComponent, code, fileObject) {
             })
             .join('');
         childComponents = currentComponent.children.map(child => {
-            return `\t\t<${child.name} />\n\t`;
+            return `\t<${child.name} />\n\t\t`;
         })
             .join('');
     } else if (!currentComponent.children) {
@@ -26,7 +26,6 @@ function connectFiles(currentComponent, code, fileObject) {
     } else {
         code = code.replace('DONOTDELETETHISSTRING', '')
     }
-    console.log(fileObject)
     if (currentComponent.isContainer) {
         fileObject.container[currentComponent.name] = imports.concat(code.replace("Template_Class", currentComponent.name));
     } else {
@@ -54,8 +53,6 @@ export default (data, nameAndCodeLinkedToComponentId) => {
             })
         } else return;
     }
-
-    console.log("nameAndCodeLinkedToComponentId", nameAndCodeLinkedToComponentId);
 
     recursivelyCreateTemplates(data, nameAndCodeLinkedToComponentId, fileCounter);
 

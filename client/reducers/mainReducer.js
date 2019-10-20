@@ -204,21 +204,10 @@ const mainReducer = (state = initialState, action) => {
 
     case types.SET_CURRENT_COMPONENT:
       currentComponent = action.payload.currentComponent;
-      // console.log('currentComponent: ', currentComponent);
-      data = action.payload.data;
-
-      if (data) {
-        return {
-          ...state,
-          data,
-          currentComponent
-        };
-      } else {
-        return {
-          ...state,
-          currentComponent
-        };
-      }
+      return {
+        ...state,
+        currentComponent
+      };
 
     case types.SET_TRANS_AND_HISTORY:
       const translate = action.payload.translate;
