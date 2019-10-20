@@ -37,19 +37,13 @@ export const deleteComponent = () => dispatch => {
 
 /******************************* actions for main container ************************************/
 
-export const setCurrentComponent = (currentComponent, data) => dispatch => {
-    if (document.getElementById('component-name-input')) {
-        document.getElementById('component-name-input').value =
-            currentComponent.name;
-    }
-
+export const setCurrentComponent = (currentComponent) => dispatch => {
     dispatch({
         type: types.SET_CURRENT_COMPONENT,
         payload: {
-            currentComponent,
-            data
+            currentComponent
         }
-    });
+    })
 };
 
 export const setTransAndHistory = (translate, history) => dispatch => {

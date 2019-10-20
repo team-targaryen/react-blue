@@ -91,10 +91,11 @@ describe("React Blue unit tests", () => {
       expect(deleteMock).toHaveBeenCalled;
     });
   });
+
 });
 describe("Integration testing", () => {
   let childrenList;
-  const addMock = function() {
+  const addMock = function () {
     return "added";
   };
   const renameMock = jest.fn();
@@ -127,5 +128,5 @@ describe("Integration testing", () => {
     childrenList.find("button").simulate("click");
     expect(childrenList.find('.each-child-container"')).toHaveLength(1);
   });
-  describe("Showing correct number of children on d3 tree", () => {});
+  describe("Showing correct number of children on d3 tree", () => { });
 });

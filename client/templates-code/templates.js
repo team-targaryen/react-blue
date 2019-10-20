@@ -1,16 +1,17 @@
 const defaultSyntax = {};
 
-defaultSyntax.InitialClassSyntax = function(inputName = "Template_Class") {
+defaultSyntax.InitialClassSyntax = function (inputName = "Template_Class") {
   (this.name = "React Class Syntax - DEFAULT"),
     (this.code = `import React, { Component } from 'react';
 
 /* ADD your modular shit */
 
-class ${inputName} extends Component{
+class ${inputName} extends Component {
   constructor(props){
     super(props);
     this.state = {
       template: null,
+      isCreated: true,
       
     };
   };
@@ -21,17 +22,19 @@ render(){
 
     <React.Fragment>
 
-    {/* Children Components*/}
+    DONOTDELETETHISSTRING
 
     </React.Fragment>
 
   );
-};`);
+ };
+};`
+    );
 };
 
-defaultSyntax.InitialHookSyntax = function(inputName = "Template_Hooks") {
+defaultSyntax.InitialHookSyntax = function (inputName = "Template_Hooks") {
   (this.name = "React Hooks Syntax"),
-    (this.code = `import React, {useState} from 'react';
+    (this.code = `import React, { useState } from 'react';
 
 const ${inputName} = ({/* INSERT PROPS HERE */}) =>{
   /* ADD your modular shit */
@@ -40,7 +43,8 @@ const ${inputName} = ({/* INSERT PROPS HERE */}) =>{
 
     <React.Fragment>
 
-    {/* Children Components*/}
+    DONOTDELETETHISSTRING 
+    
     </React.Fragment>
 
   )

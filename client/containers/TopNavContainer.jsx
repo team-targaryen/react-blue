@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import JSZip from 'jszip';
-import FileSave from 'file-saver';
 import { bindActionCreators } from 'redux';
 import {
   undo,
@@ -16,7 +14,8 @@ import exportZipFront from '../templates-exports/frontEndFiles.js';
 import exportZipFull from '../templates-exports/fullStackFiles.js';
 
 const mapStateToProps = store => ({
-  data: store.main.data
+  data: store.main.data,
+  nameAndCodeLinkedToComponentId: store.main.nameAndCodeLinkedToComponentId
 });
 
 const mapDispatchToProps = dispatch =>
@@ -26,39 +25,41 @@ const mapDispatchToProps = dispatch =>
   );
 
 const TopNavContainer = ({
+  data,
+  nameAndCodeLinkedToComponentId,
   undo,
   redo,
   changeDisplayHorizontalToVertical,
   resetEntireTree
 }) => {
+  console.log('Inside of TopNavContainer.jsx')
   return (
-
-    <Navbar collapseOnSelect expand="lg" variant="dark">
-      <Navbar.Brand href="#home">React-Blue</Navbar.Brand>
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className="mr-auto">
-          <NavDropdown title="Edit" id="collasible-nav-dropdown">
-            <NavDropdown.Item className="keyboard-shortcut" onClick={undo}>
+    <Navbar collapseOnSelect expand='lg' variant='dark'>
+      <Navbar.Brand href='#home'>React Blue</Navbar.Brand>
+      <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+      <Navbar.Collapse id='responsive-navbar-nav'>
+        <Nav className='mr-auto'>
+          <NavDropdown title='Edit' id='collasible-nav-dropdown'>
+            <NavDropdown.Item className='keyboard-shortcut' onClick={undo}>
               <span>Undo</span>
               <span>Ctrl+Z</span>
             </NavDropdown.Item>
-            <NavDropdown.Item className="keyboard-shortcut" onClick={redo}>
-
+            <NavDropdown.Item className='keyboard-shortcut' onClick={redo}>
               <span>Redo</span>
               <span>Ctrl+Shift+Z</span>
             </NavDropdown.Item>
+            <NavDropdown.Divider />
             <NavDropdown.Item
-              className="keyboard-shortcut"
+              className='keyboard-shortcut'
               onClick={resetEntireTree}
             >
-              DELETE TREE
+              Delete Tree
             </NavDropdown.Item>
           </NavDropdown>
           <NavDropdown title='View' id='collasible-nav-dropdown'>
             <NavDropdown.Item
               onClick={() => {
-                changeDisplayHorizontalToVertical("horizontal");
+                changeDisplayHorizontalToVertical('horizontal');
               }}
             >
               Horizontal
@@ -78,23 +79,31 @@ const TopNavContainer = ({
               href='https://github.com/team-targaryan/react-blue'
               target='_blank'
             >
-              {' '}
-              GitHub{' '}
+              GitHub
             </NavDropdown.Item>
           </NavDropdown>
         </Nav>
         <Nav>
-          <NavDropdown title="Export" id="collasible-nav-dropdown">
-            <NavDropdown.Item onClick={() => exportZipFront(data)}>
+          <NavDropdown
+            title='Export'
+            id='collasible-nav-dropdown'
+            className='export'
+          >
+            <NavDropdown.Item
+              onClick={() =>
+                exportZipFront(data, nameAndCodeLinkedToComponentId)
+              }
+            >
               Export FrontEnd
             </NavDropdown.Item>
-            <NavDropdown.Item onClick={() => exportZipFull(data)}>
+            <NavDropdown.Item
+              onClick={() =>
+                exportZipFull(data, nameAndCodeLinkedToComponentId)
+              }
+            >
               Export FullStack
             </NavDropdown.Item>
           </NavDropdown>
-          <Nav.Link eventKey={2} href='#memes'>
-            ExSomthing
-          </Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

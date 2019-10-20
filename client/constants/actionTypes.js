@@ -33,6 +33,6 @@ export const ZOOM_BY_CHANGING_X_AND_Y = 'ZOOM_BY_CHANGING_X_AND_Y';
 //checking if the entire tree exists inside of local storage and updating it to the state
 export const UPDATE_STATE_WITH_LOCAL_STORAGE =
   'UPDATE_STATE_WITH_LOCAL_STORAGE';
-//deleting entire tree
 
+//deleting entire tree
 export const RESET_ENTIRE_TREE = 'RESET_ENTIRE_TREE';

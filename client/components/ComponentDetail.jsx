@@ -7,6 +7,7 @@
 import React from 'react';
 import TemplateDropdown from './TemplateDropdown.jsx';
 const ComponentDetail = ({
+  initialName,
   renameComponent,
   changeType,
   deleteComponent,
@@ -18,7 +19,7 @@ const ComponentDetail = ({
   const disabled = () => {
     return currentComponent.depth === 0 ? 'disabled' : '';
   };
-
+  console.log('Inside of ComponentDetail.jsx')
   return (
     <React.Fragment>
       <h2>Current Component</h2>
@@ -27,7 +28,8 @@ const ComponentDetail = ({
           <input
             id='component-name-input'
             type='text'
-            defaultValue={currentComponent.name}
+            key={`initialName:${initialName || currentComponent.name}`}
+            defaultValue={initialName || currentComponent.name}
             onBlur={renameComponent}
             disabled={disabled()}
           />
