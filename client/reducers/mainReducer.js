@@ -48,9 +48,10 @@ const initialState = {
 };
 
 const updateTree = (state, currentComponent) => {
-  const defaultNameCount = state.defaultNameCount + 1;
+  let defaultNameCount;
   // check if current component has a name
   if (currentComponent.name === '') {
+    defaultNameCount = state.defaultNameCount + 1;
     currentComponent.name = `Component${defaultNameCount}`;
   }
   // check if any child has empty name, then change it to 'DEFAUL NAME'
@@ -58,7 +59,9 @@ const updateTree = (state, currentComponent) => {
   if (children) {
     for (let child of children) {
       if (child.name === '') {
-        child.name = `Component${defaultNameCount}`;
+        defaultNameCount = defaultNameCount
+          ? defaultNameCount + 1
+          : state.defaultNameCount + 1
       }
     }
   } else {
@@ -89,7 +92,9 @@ const updateTree = (state, currentComponent) => {
     clone({
       data,
       currentComponent,
-      nameAndCodeLinkedToComponentId
+      nameAndCodeLinkedToComponentId,
+      lastId: state.lastId,
+      defaultNameCount: state.defaultNameCount
     })
   );
   preHistory.next = history;
@@ -102,8 +107,9 @@ const updateTree = (state, currentComponent) => {
     data,
     currentComponent,
     history,
-    nameAndCodeLinkedToComponentId,
-    defaultNameCount
+    defaultNameCount: defaultNameCount
+      ? defaultNameCount
+      : state.defaultNameCount
   };
 };
 
@@ -118,6 +124,7 @@ const mainReducer = (state = initialState, action) => {
     history,
     nameAndCodeLinkedToComponentId,
     lastId;
+  console.log(state.data)
   switch (action.type) {
     /******************************* actions for side bar ************************************/
 
@@ -177,13 +184,14 @@ const mainReducer = (state = initialState, action) => {
       history = new DoublyLinkedList(
         clone({
           data,
-          currentComponent: parent
+          currentComponent: parent,
+          nameAndCodeLinkedToComponentId,
+          lastId: state.lastId,
+          defaultNameCount: state.defaultNameCount
         })
       );
       preHistory.next = history;
       history.prev = preHistory;
-
-      document.getElementById('component-name-input').value = parent.name;
 
       return {
         ...state,
@@ -276,7 +284,7 @@ const mainReducer = (state = initialState, action) => {
           child.name = inputName;
         }
       }
-      
+
       currentComponent = clone(state.currentComponent);
       currentComponent.children = children;
       updatedState = updateTree(state, currentComponent);
@@ -304,8 +312,14 @@ const mainReducer = (state = initialState, action) => {
       };
 
     case types.ADD_CHILD:
-      const defaultNameCount = state.defaultNameCount + 1;
-      const name = action.payload.name || `Component${defaultNameCount}`;
+      let name, defaultNameCount;
+      if (action.payload.name) {
+        name = action.payload.name;
+      } else {
+        defaultNameCount = state.defaultNameCount + 1;
+        name = `Component${defaultNameCount}`;
+      }
+
       isContainer = action.payload.isContainer;
       const componentId = state.lastId + 1;
       const newChild = {
@@ -336,12 +350,71 @@ const mainReducer = (state = initialState, action) => {
         nameAndCodeLinkedToComponentId
       );
       localStorage.setObj('lastId', componentId);
+
+      // easter egg
+      if (name === 'Sandstorm') {
+        const audio = new Audio(
+          'https://iringtone.net/rington/file?id=8454&type=sound&name=mp3'
+        );
+        audio.play();
+
+        const app = document.getElementById('app');
+        app.classList.add('secret');
+
+        for (let i = 0; i <= 1000; i += 1) {
+          const particle = document.createElement('i');
+          particle.classList.add('particle');
+          app.appendChild(particle);
+        }
+
+        const colorGen = () => {
+          const r = Math.floor(Math.random() * 256);
+          const g = Math.floor(Math.random() * 256);
+          const b = Math.floor(Math.random() * 256);
+
+          return 'rgb(' + r + ',' + g + ',' + b + ')';
+        };
+
+        setInterval(() => {
+          document.querySelector(
+            '.navbar'
+          ).style.backgroundColor = `${colorGen()}`;
+
+          const buttons = document.getElementsByTagName('button');
+          for (let i = 0; i < buttons.length; i += 1) {
+            buttons[i].style.backgroundColor = `${colorGen()}`;
+          }
+
+          const navIcons = document.getElementsByClassName('fas');
+          for (let i = 0; i < navIcons.length; i += 1) {
+            navIcons[i].style.color = `${colorGen()}`;
+          }
+
+          const icons = document.getElementsByClassName('far');
+          for (let i = 0; i < icons.length; i += 1) {
+            icons[i].style.color = `${colorGen()}`;
+          }
+
+          const nodeBase = document.getElementsByClassName('nodeBase');
+          for (let i = 0; i < nodeBase.length; i += 1) {
+            nodeBase[i].style.fill = `${colorGen()}`;
+          }
+
+          const leafNodeBase = document.getElementsByClassName('leafNodeBase');
+          for (let i = 0; i < leafNodeBase.length; i += 1) {
+            leafNodeBase[i].style.fill = `${colorGen()}`;
+          }
+        }, 100);
+      }
+
       return {
         ...state,
         ...updatedState,
         nameAndCodeLinkedToComponentId,
         lastId: componentId,
-        defaultNameCount
+        defaultNameCount: defaultNameCount
+          ? defaultNameCount
+          : state.defaultNameCount
       };
 
     case types.DELETE_CHILD:
@@ -350,11 +423,9 @@ const mainReducer = (state = initialState, action) => {
       function recursivelyDeleteChildren(node, obj) {
         node.forEach(childNode => {
           delete obj[childNode.componentId];
-          console.log('componentid', obj[childNode.componentId]);
           if (childNode.children) {
             delete obj[childNode[`${componentId}`]];
             recursivelyDeleteChildren(childNode.children, obj);
-            console.log('obj inside of recursive', obj);
           }
         });
         return obj;
@@ -450,6 +521,13 @@ const mainReducer = (state = initialState, action) => {
         history
       };
     case types.RESET_ENTIRE_TREE:
+      history = clone(state.history);
+      history.prev = null;
+      history.next = null;
+      const resetState = Object.assign(initialState, {
+        history,
+        translate: state.translate
+      });
       localStorage.clear();
       location.reload(true);
       return {

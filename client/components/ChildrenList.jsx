@@ -13,7 +13,7 @@ const ChildrenList = ({
 }) => {
   return (
     <React.Fragment>
-      <h4>Add Child</h4>
+      <h3>Add Child</h3>
       <form id='children-list-form' onSubmit={addChild}>
         <input
           type='text'
@@ -38,11 +38,14 @@ const ChildrenList = ({
           <i className='far fa-plus-square'></i>
         </button>
       </form>
-      <h4>Children List</h4>
+      <h3>Children List</h3>
       <div id='children-list'>
         {currentComponent.children &&
-          currentComponent.children.map((child, idx) =>
-            childMaker(
+          currentComponent.children.filter((node, index) => {
+            return node !== null;
+          }).map((child, idx) => {
+            console.log('inside children list', child)
+            return childMaker(
               child,
               idx,
               renameChild,
@@ -52,6 +55,7 @@ const ChildrenList = ({
               setTemplatesForComponent,
               nameAndCodeLinkedToComponentId
             )
+          }
           )}
       </div>
     </React.Fragment>
