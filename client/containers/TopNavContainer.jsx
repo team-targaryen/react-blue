@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import JSZip from 'jszip';
-import FileSave from 'file-saver';
 import { bindActionCreators } from 'redux';
 import {
   undo,
@@ -34,6 +32,7 @@ const TopNavContainer = ({
   changeDisplayHorizontalToVertical,
   resetEntireTree
 }) => {
+  console.log('Inside of TopNavContainer.jsx')
   return (
     <Navbar collapseOnSelect expand='lg' variant='dark'>
       <Navbar.Brand href='#home'>React Blue</Navbar.Brand>

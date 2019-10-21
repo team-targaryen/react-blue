@@ -66,6 +66,7 @@ const SideNavContainer = ({
   useTemplates,
   nameAndCodeLinkedToComponentId
 }) => {
+  console.log('Inside PanelContainer.jsx')
   return (
     <div
       key={`templateDropdown-${currentComponent.componentId}`}

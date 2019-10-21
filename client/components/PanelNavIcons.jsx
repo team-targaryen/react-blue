@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const PanelNavIcons = () => {
+  console.log('Inside of PanelNavIcons')
   return (
     <nav id='panel-nav-icons'>
       <Link to='/'>

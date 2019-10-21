@@ -11,6 +11,7 @@ const ChildrenList = ({
   currentComponent,
   nameAndCodeLinkedToComponentId
 }) => {
+  console.log('Inside of ChildrenList.jsx')
   return (
     <React.Fragment>
       <h3>Add Child</h3>
@@ -44,7 +45,7 @@ const ChildrenList = ({
           currentComponent.children.filter((node, index) => {
             return node !== null;
           }).map((child, idx) => {
-            console.log('inside children list', child)
+            // console.log('inside children list', child)
             return childMaker(
               child,
               idx,
@@ -73,6 +74,7 @@ const childMaker = (
 ) => {
   return (
     <div key={idx} className='each-child-container'>
+      {console.log('Inside of childMaker function inside of ChildrenList.jsx')}
       <EachChild
         key={idx}
         name={child.name}

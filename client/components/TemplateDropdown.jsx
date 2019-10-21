@@ -8,7 +8,7 @@ const TemplateDropdown = ({
 }) => {
   const [isDefault, setIsDefault] = useState("");
   const [isCurrentId] = useState(currentComponent.componentId);
-
+  console.log('Inside TemplateDropdown.jsx')
   if (
     nameAndCodeLinkedToComponentId &&
     nameAndCodeLinkedToComponentId[currentComponent.componentId] &&

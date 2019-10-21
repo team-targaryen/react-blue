@@ -39,10 +39,13 @@ export const deleteComponent = () => dispatch => {
 
 
 export const setCurrentComponent = (currentComponent) => dispatch => {
-  dispatch({
-    type: types.SET_CURRENT_COMPONENT,
-    payload: {
-      currentComponent
+    dispatch({
+        type: types.SET_CURRENT_COMPONENT,
+        payload: {
+            currentComponent
+        }
+    })
+};
 
 export const setTransAndHistory = (translate, history) => dispatch => {
     dispatch({

@@ -92,6 +92,7 @@ describe("React Blue unit tests", () => {
       expect(deleteMock).toHaveBeenCalled;
     });
   });
+
 });
 describe("Integration testing", () => {
   let childrenList;
