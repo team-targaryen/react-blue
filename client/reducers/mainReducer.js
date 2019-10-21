@@ -158,6 +158,7 @@ const updateTree = (state, currentComponent) => {
   }
   // check if any child has empty name, then change it to 'DEFAUL NAME'
   let children = currentComponent.children
+
   if (children) {
     for (let child of children) {
       if (child.name === '') {
@@ -215,8 +216,7 @@ const mainReducer = (state = initialState, action) => {
     updatedState,
     history,
     nameAndCodeLinkedToComponentId,
-    lastId, defaultNameCount;
-  console.log('maind reducer', state.defaultNameCount)
+    lastId;
   switch (action.type) {
     /******************************* actions for side bar ************************************/
     case types.RENAME_COMPONENT:

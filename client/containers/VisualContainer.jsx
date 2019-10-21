@@ -61,11 +61,11 @@ const VisualContainer =({
             }}
             onClick={currentComponent => {
               setCurrentComponent(currentComponent);
-
             }}
             transitionDuration={500}
           />
         </div>
+
       );
     }
 

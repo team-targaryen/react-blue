@@ -37,6 +37,7 @@ export const deleteComponent = () => dispatch => {
 
 /******************************* actions for main container ************************************/
 
+
 export const setCurrentComponent = (currentComponent) => dispatch => {
     dispatch({
         type: types.SET_CURRENT_COMPONENT,
