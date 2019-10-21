@@ -40,8 +40,7 @@ const mainReducer = (state = initialState, action) => {
     updatedState,
     history,
     nameAndCodeLinkedToComponentId,
-    lastId, defaultNameCount;
-  console.log('maind reducer', state.defaultNameCount)
+    lastId;
   switch (action.type) {
     /******************************* actions for side bar ************************************/
     case types.RENAME_COMPONENT:
