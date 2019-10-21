@@ -5,6 +5,7 @@ import VisualContainer from './containers/VisualContainer.jsx';
 
 // App is just outter wrapper to get connnection with main container
 const App = () => (
+
   <React.Fragment>
     <TopNavContainer />
     <div id='panel-main-container'>

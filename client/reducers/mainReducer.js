@@ -55,7 +55,7 @@ const updateTree = (state, currentComponent) => {
     currentComponent.name = `Component${defaultNameCount}`;
   }
   // check if any child has empty name, then change it to 'DEFAUL NAME'
-  let children = clone(currentComponent.children);
+  let children = currentComponent.children.slice();
   if (children) {
     for (let child of children) {
       if (child.name === '') {
@@ -65,14 +65,14 @@ const updateTree = (state, currentComponent) => {
       }
     }
   } else {
-    children = clone(currentComponent);
+    children = currentComponent.slice();
     children.name = currentComponent.name;
   }
   const findComponentAndUpdate = (tree, currentComponent) => {
     if (tree.componentId === currentComponent.componentId) {
       tree.name = currentComponent.name;
       tree.isContainer = currentComponent.isContainer;
-      tree.children = clone(currentComponent.children);
+      tree.children = currentComponent.children.slice();
       return;
     }
     if (tree.children) {
@@ -102,7 +102,7 @@ const updateTree = (state, currentComponent) => {
   //setting local storage each of these props
   localStorage.setObj('data', Object.assign({}, data));
   localStorage.setObj('currentComponent', Object.assign({}, currentComponent));
-
+  localStorage.setObj('history', Object.assign({}, history))
   return {
     data,
     currentComponent,
@@ -124,6 +124,7 @@ const mainReducer = (state = initialState, action) => {
     history,
     nameAndCodeLinkedToComponentId,
     lastId;
+  console.log(state.data)
   switch (action.type) {
     /******************************* actions for side bar ************************************/
 
@@ -266,16 +267,16 @@ const mainReducer = (state = initialState, action) => {
     case types.RENAME_CHILD:
       inputName = action.payload.inputName;
       childId = action.payload.childId;
-      children = clone(state.currentComponent.children);
+      children = state.currentComponent.children.slice();
       for (let child of children) {
         if (child.componentId === childId) {
           child.name = inputName;
         }
       }
-      currentComponent = clone(state.currentComponent);
-      currentComponent.children = clone(children);
-      updatedState = updateTree(state, currentComponent);
 
+      currentComponent = clone(state.currentComponent);
+      currentComponent.children = children;
+      updatedState = updateTree(state, currentComponent);
       return {
         ...state,
         ...updatedState
@@ -291,8 +292,7 @@ const mainReducer = (state = initialState, action) => {
         }
       }
       currentComponent = clone(state.currentComponent);
-      currentComponent.children = clone(children);
-
+      currentComponent.children = children;
       updatedState = updateTree(state, currentComponent);
 
       return {
@@ -500,12 +500,14 @@ const mainReducer = (state = initialState, action) => {
       nameAndCodeLinkedToComponentId =
         action.payload.nameAndCodeLinkedToComponentId;
       lastId = action.payload.lastId;
+      history = action.payload.history
       return {
         ...state,
         data,
         currentComponent,
         nameAndCodeLinkedToComponentId,
-        lastId
+        lastId,
+        history
       };
     case types.RESET_ENTIRE_TREE:
       history = clone(state.history);

@@ -1,7 +1,7 @@
 import React from "react";
 import { configure, shallow, mount } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import toJson from "enzyme-to-json";
+// import toJson from "enzyme-to-json";
 
 import EachChild from "../client/components/EachChild.jsx";
 import ComponentDetail from "../client/components/ComponentDetail.jsx";
@@ -67,6 +67,7 @@ describe("React Blue unit tests", () => {
     beforeAll(() => {
       wrapper = shallow(<ComponentDetail {...props} />);
       input = wrapper.find("input");
+      console.log(input.debug())
     });
     it("Should show text of Current Component", () => {
       expect(
@@ -91,14 +92,10 @@ describe("React Blue unit tests", () => {
       expect(deleteMock).toHaveBeenCalled;
     });
   });
-
-  describe("mainReducer.js", () => {
-    it('should return the initial state')
-  });
 });
 describe("Integration testing", () => {
   let childrenList;
-  const addMock = function() {
+  const addMock = function () {
     return "added";
   };
   const renameMock = jest.fn();
@@ -123,7 +120,6 @@ describe("Integration testing", () => {
 
   beforeAll(() => {
     childrenList = mount(<ChildrenList {...childrenListProps} />);
-    console.log(childrenList);
   });
   afterAll(() => cleanup);
   describe("Adding nodes display correct length of childrenList", () => {
@@ -131,5 +127,5 @@ describe("Integration testing", () => {
     childrenList.find("button").simulate("click");
     expect(childrenList.find('.each-child-container"')).toHaveLength(1);
   });
-  describe("Showing correct number of children on d3 tree", () => {});
+  describe("Showing correct number of children on d3 tree", () => { });
 });
