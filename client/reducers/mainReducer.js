@@ -136,7 +136,6 @@ const mainReducer = (state = initialState, action) => {
           nameAndCodeLinkedToComponentId
         };
       } else {
-        alert('No previous action');
         return {
           ...state
         };
@@ -158,7 +157,6 @@ const mainReducer = (state = initialState, action) => {
           nameAndCodeLinkedToComponentId
         };
       } else {
-        alert('No next action');
         return {
           ...state
         };
@@ -231,8 +229,7 @@ const mainReducer = (state = initialState, action) => {
       console.time('cloning children')
       // console.time('clone of current Component')
       currentComponent = clone(state.currentComponent);
-      // console.timeEnd('clone of current Component')
-      currentComponent.children = children;
+      currentComponent.children = children.slice();
       console.time('updateTree ENTIRE')
       updatedState = updateTree(state, currentComponent);
       console.timeEnd('updateTree ENTIRE')
