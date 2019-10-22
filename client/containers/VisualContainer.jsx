@@ -1,15 +1,13 @@
-import React from "react";
+import React, {useMemo} from "react";
 import Tree from "react-d3-tree";
 import hotkeys from "hotkeys-js";
 
 function getRidOfStupidChildren(data) {
 //  console.log('inside children', data)
   if (!data.children) {
-    console.log('inside if statement', data)
     if(data.parent && data.parent.children){
       data.parent.children = data.parent.children.filter(el => el !== null);
     }
-    
     delete data.children;
     return;
   }
@@ -80,5 +78,5 @@ const VisualContainer =({
 
       );
     }
-
+  }
   export default VisualContainer;

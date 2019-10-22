@@ -82,7 +82,7 @@ function checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state) {
      
         localStorage.setObj('lastId', state.lastId);
         console.log('SUCCESS!!!!')
-    }, 1000)
+    }, 10000)
     setTimeoutId(tempId);
   }
   if (!recentTimeoutId) {
