@@ -9,13 +9,19 @@ const ChildrenList = ({
   templates,
   setTemplatesForComponent,
   currentComponent,
-  nameAndCodeLinkedToComponentId
+  nameAndCodeLinkedToComponentId,
+  state,
+  recentTimeoutId,
+  setTimeoutId,
+  checkID_ClearAndSetTimeout
 }) => {
-  console.log('Inside of ChildrenList.jsx')
+  // console.log('Inside of ChildrenList.jsx')
   return (
     <React.Fragment>
       <h3>Add Child</h3>
-      <form id='children-list-form' onSubmit={addChild}>
+      <form id='children-list-form' onSubmit={(e)=>{
+        checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId,state)
+        addChild(e)}}>
         <input
           type='text'
           id='add-child-name'
@@ -54,7 +60,11 @@ const ChildrenList = ({
               deleteChild,
               templates,
               setTemplatesForComponent,
-              nameAndCodeLinkedToComponentId
+              nameAndCodeLinkedToComponentId,
+              state,
+              recentTimeoutId,
+              setTimeoutId,
+              checkID_ClearAndSetTimeout
             )
           }
           )}
@@ -70,11 +80,15 @@ const childMaker = (
   deleteChild,
   templates,
   setTemplatesForComponent,
-  nameAndCodeLinkedToComponentId
+  nameAndCodeLinkedToComponentId,
+  state,
+  recentTimeoutId,
+  setTimeoutId,
+  checkID_ClearAndSetTimeout
 ) => {
   return (
     <div key={idx} className='each-child-container'>
-      {console.log('Inside of childMaker function inside of ChildrenList.jsx')}
+      {/*console.log('Inside of childMaker function inside of ChildrenList.jsx')*/}
       <EachChild
         key={idx}
         name={child.name}
@@ -83,12 +97,20 @@ const childMaker = (
         renameChild={renameChild}
         changeType={changeChildType}
         deleteChild={deleteChild}
+        state={state}
+        recentTimeoutId={recentTimeoutId}
+        setTimeoutId={setTimeoutId}
+        checkID_ClearAndSetTimeout={checkID_ClearAndSetTimeout}
       />
       <TemplateDropdown
         currentComponent={child}
         templates={templates}
         setTemplatesForComponent={setTemplatesForComponent}
         nameAndCodeLinkedToComponentId={nameAndCodeLinkedToComponentId}
+        state={state}
+        recentTimeoutId={recentTimeoutId}
+        setTimeoutId={setTimeoutId}
+        checkID_ClearAndSetTimeout={checkID_ClearAndSetTimeout}
       />
     </div>
   );

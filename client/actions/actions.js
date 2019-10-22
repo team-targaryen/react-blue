@@ -180,3 +180,10 @@ export const showFileTree = () => dispatch => {
         type: types.SHOW_FILE_TREE
     });
 };
+// update id
+export const setTimeoutId = (id) => dispatch => [
+    dispatch({
+        type: types.SET_TIMEOUT_ID,
+        payload: id
+    })
+]

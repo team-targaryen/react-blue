@@ -4,11 +4,15 @@ const TemplateDropdown = ({
   templates,
   setTemplatesForComponent,
   currentComponent,
-  nameAndCodeLinkedToComponentId
+  nameAndCodeLinkedToComponentId,
+  state,
+  recentTimeoutId,
+  setTimeoutId,
+  checkID_ClearAndSetTimeout
 }) => {
   const [isDefault, setIsDefault] = useState("");
   const [isCurrentId] = useState(currentComponent.componentId);
-  console.log('Inside TemplateDropdown.jsx')
+  // console.log('Inside TemplateDropdown.jsx')
   if (
     nameAndCodeLinkedToComponentId &&
     nameAndCodeLinkedToComponentId[currentComponent.componentId] &&
@@ -40,6 +44,7 @@ const TemplateDropdown = ({
                 onClick={e => {
                   e.preventDefault();
                   if (template.name !== isDefault) {
+                    checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state)
                     setTemplatesForComponent(currentComponent, template);
                     setIsDefault(template.name);
                   }
@@ -55,20 +60,3 @@ const TemplateDropdown = ({
   );
 };
 export default TemplateDropdown;
-
-// useEffect(() => {
-//   if (
-//     nameAndCodeLinkedToComponentId &&
-//     nameAndCodeLinkedToComponentId.has(currentComponent.componentId)
-//   ) {
-//     let name = nameAndCodeLinkedToComponentId.get(
-//       currentComponent.componentId
-//     ).name;
-//     setIsDefault(name);
-//   }
-// }, []);
-// useEffect(() => {
-//   return () => {
-//     setIsDefault("");
-//   };
-// }, []);

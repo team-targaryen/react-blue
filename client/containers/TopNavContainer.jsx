@@ -32,7 +32,7 @@ const TopNavContainer = ({
   changeDisplayHorizontalToVertical,
   resetEntireTree
 }) => {
-  console.log('Inside of TopNavContainer.jsx')
+  // console.log('Inside of TopNavContainer.jsx')
   return (
     <Navbar collapseOnSelect expand='lg' variant='dark'>
       <Navbar.Brand href='#home'>React Blue</Navbar.Brand>

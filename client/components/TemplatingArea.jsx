@@ -29,7 +29,7 @@ const initialHookSyntax = new InitialHookSyntax();
 const initialClassSyntax = new InitialClassSyntax();
 
 const TemplatingArea = ({ useTemplates }) => {
-  console.log('Inside of TemplatingArea.jsx')
+  // console.log('Inside of TemplatingArea.jsx')
   const [isInitialSyntax, setIsInitialSyntax] = useState([
     initialClassSyntax,
     initialHookSyntax

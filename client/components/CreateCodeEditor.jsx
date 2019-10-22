@@ -11,7 +11,7 @@ const CreateCodeEditor = ({
   if (syntaxObject.name !== isName) {
     setIsName(syntaxObject.name)
   }
-  console.log('Inside of CreatCodeEditor.jsx')
+  // console.log('Inside of CreatCodeEditor.jsx')
   return (
     <div key={`showCodeMirror${index}`} className='template-item'>
       <input
