@@ -9,7 +9,7 @@ require('codemirror/mode/htmlembedded/htmlembedded');
 require('codemirror/mode/htmlmixed/htmlmixed');
 
 const OnClickShowCodeMirror = ({ code, updateCode, index, deleteTemplate }) => {
-  console.log('Inside of OnClickShowCodeMirror.jsx')
+  // console.log('Inside of OnClickShowCodeMirror.jsx')
   const [isClicked, setIsClicked] = useState(false);
   const [isSave, setIsSave] = useState(false);
   return isClicked ? (

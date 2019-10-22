@@ -3,17 +3,29 @@ import Tree from "react-d3-tree";
 import hotkeys from "hotkeys-js";
 
 function getRidOfStupidChildren(data) {
+//  console.log('inside children', data)
   if (!data.children) {
-    delete data.children
+    console.log('inside if statement', data)
+    if(data.parent && data.parent.children){
+      data.parent.children = data.parent.children.filter(el => el !== null);
+    }
+    
+    delete data.children;
     return;
   }
   if (data.children && !data.children.length) {
+    
     delete data._children;
     return;
   }
   data.children.forEach(node => {
+    
     getRidOfStupidChildren(node);
+    console.log('THIS:', node)
+    // getRidOfNullsFromStupidParent(node.parent)
   });
+  // getRidOfNullsFromStupidParent(data.parent)
+
 }
 
 const VisualContainer =({  

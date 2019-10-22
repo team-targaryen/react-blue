@@ -36,3 +36,5 @@ export const UPDATE_STATE_WITH_LOCAL_STORAGE =
 
 //deleting entire tree
 export const RESET_ENTIRE_TREE = 'RESET_ENTIRE_TREE';
+// setTimeout functionality of Local Storage
+export const SET_TIMEOUT_ID = 'SET_TIMEOUT_ID';

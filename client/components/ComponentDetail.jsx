@@ -14,12 +14,15 @@ const ComponentDetail = ({
   currentComponent,
   templates,
   setTemplatesForComponent,
-  nameAndCodeLinkedToComponentId
+  nameAndCodeLinkedToComponentId,
+  recentTimeoutId,
+  setTimeoutId,
+  checkID_ClearAndSetTimeout
 }) => {
   const disabled = () => {
     return currentComponent.depth === 0 ? 'disabled' : '';
   };
-  console.log('Inside of ComponentDetail.jsx')
+  // console.log('Inside of ComponentDetail.jsx')
   return (
     <React.Fragment>
       <h2>Current Component</h2>
@@ -54,6 +57,9 @@ const ComponentDetail = ({
             setTemplatesForComponent={setTemplatesForComponent}
             currentComponent={currentComponent}
             nameAndCodeLinkedToComponentId={nameAndCodeLinkedToComponentId}
+            recentTimeoutId={recentTimeoutId}
+            setTimeoutId={setTimeoutId}
+            checkID_ClearAndSetTimeout={checkID_ClearAndSetTimeout}
           />
         </div>
       </div>

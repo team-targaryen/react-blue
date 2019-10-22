@@ -7,27 +7,37 @@ const EachChild = ({
   isContainer,
   renameChild,
   changeType,
-  deleteChild
+  deleteChild,
+  state,
+  recentTimeoutId,
+  setTimeoutId,
+  checkID_ClearAndSetTimeout
 }) => (
     <div className='each-child'>
-      {console.log('Inside of EachChild.jsx')}
+      {/*console.log('Inside of EachChild.jsx')*/}
       <input
         className='child-name'
         type='text'
         key={`initialName:${initiailName || name}`}
         defaultValue={initiailName || name}
-        onBlur={() => renameChild(event, childId)}
+        onBlur={() => {
+          checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state)
+          renameChild(event, childId)}}
       ></input>
       <div>
         <input
           className='container-checkbox'
           type='checkbox'
           checked={isContainer}
-          onChange={() => changeType(event, childId)}
+          onChange={() => {
+            checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state)
+            changeType(event, childId)}}
         />
         <span className='container-label'>Container</span>
       </div>
-      <button className='delete-child' onClick={() => deleteChild(childId)}>
+      <button className='delete-child' onClick={() => {
+        checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state)
+        deleteChild(childId)}}>
         <i className='far fa-minus-square'></i>
       </button>
     </div>
