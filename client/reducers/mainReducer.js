@@ -223,15 +223,16 @@ const mainReducer = (state = initialState, action) => {
         isContainer,
         parent: state.currentComponent
       };
-
+      console.time('cloning children')
       children = state.currentComponent.children
         ? state.currentComponent.children.slice()
         : [];
       children.push(newChild);
+      console.time('cloning children')
       // console.time('clone of current Component')
       currentComponent = clone(state.currentComponent);
       // console.timeEnd('clone of current Component')
-      currentComponent.children = children.slice();
+      currentComponent.children = children;
       console.time('updateTree ENTIRE')
       updatedState = updateTree(state, currentComponent);
       console.timeEnd('updateTree ENTIRE')

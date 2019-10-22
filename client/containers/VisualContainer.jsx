@@ -2,8 +2,7 @@ import React, {useMemo} from "react";
 import Tree from "react-d3-tree";
 import hotkeys from "hotkeys-js";
 
-function getRidOfStupidChildren(data) {
-//  console.log('inside children', data)
+function getRidOfStupidChildren(data, actualData) {
   if (!data.children) {
     if(data.parent && data.parent.children){
       data.parent.children = data.parent.children.filter(el => el !== null);
@@ -12,18 +11,19 @@ function getRidOfStupidChildren(data) {
     return;
   }
   if (data.children && !data.children.length) {
-    
     delete data._children;
     return;
   }
-  data.children.forEach(node => {
-    
-    getRidOfStupidChildren(node);
-    console.log('THIS:', node)
-    // getRidOfNullsFromStupidParent(node.parent)
-  });
-  // getRidOfNullsFromStupidParent(data.parent)
-
+  for (let i = 0; i < data.children.length; i += 1){
+    if (data.children[i] === null){
+      data.children.splice(i, 1);
+      continue;
+    }
+    getRidOfStupidChildren(data.children[i], actualData);
+  }
+  if (data.children.includes(null)){
+    getRidOfStupidChildren(data, actualData);
+  }
 }
 
 const VisualContainer =({  
@@ -47,9 +47,13 @@ const VisualContainer =({
             break;
         }
       });
-      getRidOfStupidChildren(data);
-      return (
+      useMemo(()=>{
+        getRidOfStupidChildren(data, data);
+      }, [data]) 
+      return useMemo(()=>{
+        return (
         <div id="visual-container">
+        {console.log('inside useMemo', data)}
           <Tree
             data={data}
             translate={translate}
@@ -77,6 +81,6 @@ const VisualContainer =({
         </div>
 
       );
+      }, [data, translate, orientation])
     }
-  }
   export default VisualContainer;

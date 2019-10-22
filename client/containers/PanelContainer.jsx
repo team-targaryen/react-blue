@@ -77,7 +77,8 @@ function checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state) {
         localStorage.setObj('data', state.data);
      
         localStorage.setObj('currentComponent', state.currentComponent);
-     
+        state.history.next = null;
+        state.history.prev = null;
         localStorage.setObj('history', state.history);
      
         localStorage.setObj('lastId', state.lastId);
