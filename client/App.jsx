@@ -45,12 +45,13 @@ const App = ({
   translate,
   orientation }) => {
   useEffect(() => {
-    const data = localStorage.getObj("data");
+    let data = localStorage.getObj("data");
     if (data) {
       const nameAndCodeLinkedToComponentId = localStorage.getObj(
         "nameAndCodeLinkedToComponentId"
       );
       const currentComponent = localStorage.getObj("currentComponent");
+      // console.log(JSON.parse(JSON.stringify(data)))
       const lastId = localStorage.getObj("lastId");
       const history = localStorage.getObj('history')
       history.prev = null;
