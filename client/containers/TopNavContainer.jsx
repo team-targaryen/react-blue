@@ -15,6 +15,7 @@ import exportZipFull from '../templates-exports/fullStackFiles.js';
 
 const mapStateToProps = store => ({
   data: store.main.data,
+  history: store.main.history,
   nameAndCodeLinkedToComponentId: store.main.nameAndCodeLinkedToComponentId
 });
 
@@ -27,12 +28,22 @@ const mapDispatchToProps = dispatch =>
 const TopNavContainer = ({
   data,
   nameAndCodeLinkedToComponentId,
+  history,
   undo,
   redo,
   changeDisplayHorizontalToVertical,
   resetEntireTree
 }) => {
-  console.log('Inside of TopNavContainer.jsx')
+  let undoDisabled = () => false;
+  let redoDisabled = () => false;
+  if(history) {
+    undoDisabled = () => {
+      return history.prev ? false : true;
+    }
+    redoDisabled = () => {
+      return history.next ? false : true;
+    }
+  }
   return (
     <Navbar collapseOnSelect expand='lg' variant='dark'>
       <Navbar.Brand href='#home'>React Blue</Navbar.Brand>
@@ -40,11 +51,11 @@ const TopNavContainer = ({
       <Navbar.Collapse id='responsive-navbar-nav'>
         <Nav className='mr-auto'>
           <NavDropdown title='Edit' id='collasible-nav-dropdown'>
-            <NavDropdown.Item className='keyboard-shortcut' onClick={undo}>
+            <NavDropdown.Item className='keyboard-shortcut' onClick={undo} disabled={undoDisabled()}>
               <span>Undo</span>
               <span>Ctrl+Z</span>
             </NavDropdown.Item>
-            <NavDropdown.Item className='keyboard-shortcut' onClick={redo}>
+            <NavDropdown.Item className='keyboard-shortcut' onClick={redo} disabled={redoDisabled()}>
               <span>Redo</span>
               <span>Ctrl+Shift+Z</span>
             </NavDropdown.Item>
