@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { MemoryRouter, Switch, Route } from 'react-router-dom';
@@ -13,7 +13,8 @@ import {
   setCurrentComponent,
   showFileTree,
   setTemplatesForComponent,
-  useTemplates
+  useTemplates,
+  setTimeoutId
 } from '../actions/actions';
 import ComponentDetail from '../components/ComponentDetail.jsx';
 import TemplatingArea from '../components/TemplatingArea.jsx';
@@ -27,7 +28,8 @@ const mapStateToProps = store => ({
   currentComponent: store.main.currentComponent,
   toggleFileTree: store.main.toggleFileTree,
   templates: store.main.templates,
-  nameAndCodeLinkedToComponentId: store.main.nameAndCodeLinkedToComponentId
+  nameAndCodeLinkedToComponentId: store.main.nameAndCodeLinkedToComponentId,
+  recentTimeoutId: store.main.recentTimeoutId
 });
 
 const mapDispatchToProps = dispatch =>
@@ -43,11 +45,54 @@ const mapDispatchToProps = dispatch =>
       setCurrentComponent,
       showFileTree,
       setTemplatesForComponent,
-      useTemplates
+      useTemplates,
+      setTimeoutId
     },
     dispatch
   );
+  const getCircularReplacer = () => {
+    const seen = new WeakSet();
+    return (key, value) => {
+      if (typeof value === 'object' && value !== null) {
+        if (seen.has(value)) {
+          return;
+        }
+        seen.add(value);
+      }
+      return value;
+    };
+  };
+  Storage.prototype.setObj = function (key, obj) {
+    return this.setItem(key, JSON.stringify(obj, getCircularReplacer()));
+  };
+  Storage.prototype.getObj = function (key) {
+    return JSON.parse(this.getItem(key));
+  };
 
+function checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state) {
+  function setTimeoutAndSendToReducer(setTimeoutId, recentTimeoutId, state) {
+    const tempId = setTimeout(() => {
+        localStorage.setObj('nameAndCodeLinkedToComponentId', state.nameAndCodeLinkedToComponentId);
+      
+        localStorage.setObj('data', state.data);
+     
+        localStorage.setObj('currentComponent', state.currentComponent);
+        state.history.next = null;
+        state.history.prev = null;
+        localStorage.setObj('history', state.history);
+     
+        localStorage.setObj('lastId', state.lastId);
+        console.log('SUCCESS!!!!')
+    }, 10000)
+    setTimeoutId(tempId);
+  }
+  if (!recentTimeoutId) {
+    return setTimeoutAndSendToReducer(setTimeoutId, recentTimeoutId, state)
+  }
+  clearTimeout(recentTimeoutId);
+  setTimeoutAndSendToReducer(setTimeoutId, recentTimeoutId, state);
+  return;
+}
 const SideNavContainer = ({
   data,
   currentComponent,
@@ -64,7 +109,10 @@ const SideNavContainer = ({
   setCurrentComponent,
   setTemplatesForComponent,
   useTemplates,
-  nameAndCodeLinkedToComponentId
+  nameAndCodeLinkedToComponentId,
+  recentTimeoutId,
+  setTimeoutId,
+  state
 }) => {
   return (
     <div
@@ -85,6 +133,10 @@ const SideNavContainer = ({
                 templates={templates}
                 setTemplatesForComponent={setTemplatesForComponent}
                 nameAndCodeLinkedToComponentId={nameAndCodeLinkedToComponentId}
+                state={state}
+                recentTimeoutId={recentTimeoutId}
+                setTimeoutId={setTimeoutId}
+                checkID_ClearAndSetTimeout={checkID_ClearAndSetTimeout}
               />
               <ChildrenList
                 addChild={addChild}
@@ -94,7 +146,11 @@ const SideNavContainer = ({
                 deleteChild={deleteChild}
                 templates={templates}
                 setTemplatesForComponent={setTemplatesForComponent}
+                state={state}
                 nameAndCodeLinkedToComponentId={nameAndCodeLinkedToComponentId}
+                recentTimeoutId={recentTimeoutId}
+                setTimeoutId={setTimeoutId}
+                checkID_ClearAndSetTimeout={checkID_ClearAndSetTimeout}
               />
               <div className='divider-panel'></div>
               <button

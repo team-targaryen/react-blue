@@ -5,7 +5,6 @@ import {
   findAndDeleteInCurrentComponent
 } from './utils/deleteNodeFuncs';
 import { easterEgg } from './utils/easterEgg'
-import { sendToLocalStorage } from './utils/localStorage'
 import { updateTree, DoublyLinkedList } from './utils/updateTree'
 
 const appComponent = {
@@ -27,7 +26,8 @@ const initialState = {
   defaultNameCount: 0,
   templates: [],
   orientation: 'vertical',
-  toggleFileTree: true
+  toggleFileTree: true,
+  recentTimeoutId: 0
 };
 
 const mainReducer = (state = initialState, action) => {
@@ -46,6 +46,7 @@ const mainReducer = (state = initialState, action) => {
     case types.RENAME_COMPONENT:
       inputName = action.payload.inputName;
       currentComponent = clone(state.currentComponent);
+      c
       currentComponent.name = inputName;
       updatedState = updateTree(state, currentComponent);
 
@@ -80,7 +81,7 @@ const mainReducer = (state = initialState, action) => {
       nameAndCodeLinkedToComponentId = deleteChildrenInNameAndCodeLinkedToComponentId(currentComponent, nameAndCodeLinkedToComponentId)
       findAndDeleteInCurrentComponent(data, currentComponent, parent);
 
-      let preHistory = clone(state.history);
+      let preHistory = state.history;
       history = new DoublyLinkedList(
         clone({
           data,
@@ -92,7 +93,6 @@ const mainReducer = (state = initialState, action) => {
       );
       preHistory.next = history;
       history.prev = preHistory;
-      sendToLocalStorage(nameAndCodeLinkedToComponentId, data, currentComponent, history, null);
       return {
         ...state,
         data,
@@ -128,8 +128,6 @@ const mainReducer = (state = initialState, action) => {
         nameAndCodeLinkedToComponentId = clone(
           history.value.nameAndCodeLinkedToComponentId
         );
-        sendToLocalStorage(nameAndCodeLinkedToComponentId, data, currentComponent, history, currentComponent.componentId);
-
         return {
           ...state,
           data,
@@ -151,7 +149,6 @@ const mainReducer = (state = initialState, action) => {
         nameAndCodeLinkedToComponentId = clone(
           history.value.nameAndCodeLinkedToComponentId
         );
-        sendToLocalStorage(nameAndCodeLinkedToComponentId, data, currentComponent, history, currentComponent.componentId);
         return {
           ...state,
           data,
@@ -204,6 +201,7 @@ const mainReducer = (state = initialState, action) => {
       };
 
     case types.ADD_CHILD:
+      console.time('timer add child for entirety')
       let name, defaultNameCount;
       if (action.payload.name) {
         name = action.payload.name;
@@ -223,21 +221,27 @@ const mainReducer = (state = initialState, action) => {
         isContainer,
         parent: state.currentComponent
       };
-
+      console.time('cloning children')
       children = state.currentComponent.children
         ? state.currentComponent.children.slice()
         : [];
       children.push(newChild);
+      console.time('cloning children')
+      // console.time('clone of current Component')
       currentComponent = clone(state.currentComponent);
       currentComponent.children = children.slice();
+      console.time('updateTree ENTIRE')
       updatedState = updateTree(state, currentComponent);
+      console.timeEnd('updateTree ENTIRE')
+      // console.time('clone of name and code');
       nameAndCodeLinkedToComponentId = clone(
         state.nameAndCodeLinkedToComponentId
       );
+      // console.timeEnd('clone of name and code');
       nameAndCodeLinkedToComponentId[componentId] = state.templates[0];
       updatedState.history.value.nameAndCodeLinkedToComponentId[componentId] =
         state.templates[0];
-      sendToLocalStorage(nameAndCodeLinkedToComponentId, updatedState.data, updatedState.currentComponent, state.history, componentId);
+      // console.timeEnd('timer add child for entirety')
       return {
         ...state,
         ...updatedState,
@@ -269,13 +273,6 @@ const mainReducer = (state = initialState, action) => {
       }
 
       updatedState = updateTree(state, currentComponent);
-      sendToLocalStorage(nameAndCodeLinkedToComponentId, updatedState.data, updatedState.currentComponent, state.history, null)
-      // localStorage.setObj('currentComponent', updatedState.currentComponent);
-      // localStorage.setObj(
-      //   'nameAndCodeLinkedToComponentId',
-      //   nameAndCodeLinkedToComponentId
-      // );
-      // localStorage.setObj('data', updatedState.data);
       return {
         ...state,
         ...updatedState,
@@ -306,10 +303,6 @@ const mainReducer = (state = initialState, action) => {
       history.value.nameAndCodeLinkedToComponentId[
         action.payload.currentComponent.componentId
       ] = action.payload.template;
-      localStorage.setObj(
-        'nameAndCodeLinkedToComponentId',
-        nameAndCodeLinkedToComponentId
-      );
       return {
         ...state,
         history,
@@ -337,7 +330,6 @@ const mainReducer = (state = initialState, action) => {
       history = action.payload.history
       history.prev = null;
       defaultNameCount = lastId - 1;
-      // console.log('udate state', history)
       return {
         ...state,
         data,
@@ -362,6 +354,11 @@ const mainReducer = (state = initialState, action) => {
         ...state,
         toggleFileTree: !newToggleFileTree
       };
+    case types.SET_TIMEOUT_ID:
+      return {
+        ...state,
+        recentTimeoutId: action.payload
+      }
     default:
       return state;
   }

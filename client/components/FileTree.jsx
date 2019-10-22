@@ -2,7 +2,7 @@ import React from 'react';
 import File from './File.jsx';
 
 const FileTree = ({ data, setCurrentComponent, toggleFileTree }) => {
-  console.log('Inside of FileTree.jsx')
+  // console.log('Inside of FileTree.jsx')
   const containerFiles = [];
   const componentFiles = [];
 
