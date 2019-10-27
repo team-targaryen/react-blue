@@ -139,7 +139,7 @@ const TemplatingArea = ({ useTemplates }) => {
         {isInitialSyntax.map((syntaxObject, index) => {
           return (
             <CreateCodeEditor
-              key={`createCodeEditor-${index}`}
+              key={`createCodeEditor${index}`}
               syntaxObject={syntaxObject}
               index={index}
               deleteTemplate={deleteTemplate}

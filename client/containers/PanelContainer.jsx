@@ -14,7 +14,9 @@ import {
   showFileTree,
   setTemplatesForComponent,
   useTemplates,
-  setTimeoutId
+  setTimeoutId,
+  showSubTree,
+  addOrDeleteNewSubTree
 } from '../actions/actions';
 import ComponentDetail from '../components/ComponentDetail.jsx';
 import TemplatingArea from '../components/TemplatingArea.jsx';
@@ -29,7 +31,10 @@ const mapStateToProps = store => ({
   toggleFileTree: store.main.toggleFileTree,
   templates: store.main.templates,
   nameAndCodeLinkedToComponentId: store.main.nameAndCodeLinkedToComponentId,
-  recentTimeoutId: store.main.recentTimeoutId
+  recentTimeoutId: store.main.recentTimeoutId,
+  displaySubTreeDropDown: store.main.displaySubTreeDropDown,
+  currentlyDisplayedSubTreeId: store.main.currentlyDisplayedSubTreeId,
+  currentSubTreeDisplayToUser: store.main.currentSubTreeDisplayToUser
 });
 
 const mapDispatchToProps = dispatch =>
@@ -46,45 +51,45 @@ const mapDispatchToProps = dispatch =>
       showFileTree,
       setTemplatesForComponent,
       useTemplates,
-      setTimeoutId
+      setTimeoutId,
+      showSubTree,
+      addOrDeleteNewSubTree
     },
     dispatch
   );
-  const getCircularReplacer = () => {
-    const seen = new WeakSet();
-    return (key, value) => {
-      if (typeof value === 'object' && value !== null) {
-        if (seen.has(value)) {
-          return;
-        }
-        seen.add(value);
+const getCircularReplacer = () => {
+  const seen = new WeakSet();
+  return (key, value) => {
+    if (value instanceof Object && value !== null) {
+      if (seen.has(value)) {
+        return;
       }
-      return value;
-    };
+      seen.add(value);
+    }
+    return value;
   };
-  Storage.prototype.setObj = function (key, obj) {
-    return this.setItem(key, JSON.stringify(obj, getCircularReplacer()));
-  };
-  Storage.prototype.getObj = function (key) {
-    return JSON.parse(this.getItem(key));
-  };
+};
+Storage.prototype.setObj = function (key, obj) {
+  return this.setItem(key, JSON.stringify(obj, getCircularReplacer()));
+};
+Storage.prototype.getObj = function (key) {
+  return JSON.parse(this.getItem(key));
+};
 
 function checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state) {
   function setTimeoutAndSendToReducer(setTimeoutId, recentTimeoutId, state) {
-    const tempId = setTimeout(() => {
-        localStorage.setObj('nameAndCodeLinkedToComponentId', state.nameAndCodeLinkedToComponentId);
-      
-        localStorage.setObj('data', state.data);
-     
-        localStorage.setObj('currentComponent', state.currentComponent);
-        state.history.next = null;
-        state.history.prev = null;
-        localStorage.setObj('history', state.history);
-     
-        localStorage.setObj('lastId', state.lastId);
-        console.log('SUCCESS!!!!')
+    const newSetTimeoutID = setTimeout(() => {
+      localStorage.setObj('nameAndCodeLinkedToComponentId', state.nameAndCodeLinkedToComponentId);
+      localStorage.setObj('data', state.data);
+      localStorage.setObj('currentComponent', state.currentComponent);
+      localStorage.setObj('displaySubTreeDropDown', state.displaySubTreeDropDown);
+      state.history.next = null;
+      state.history.prev = null;
+      localStorage.setObj('history', state.history);
+      localStorage.setObj('lastId', state.lastId);
+      console.log('SUCCESS!!!!')
     }, 10000)
-    setTimeoutId(tempId);
+    setTimeoutId(newSetTimeoutID);
   }
   if (!recentTimeoutId) {
     return setTimeoutAndSendToReducer(setTimeoutId, recentTimeoutId, state)
@@ -112,11 +117,16 @@ const SideNavContainer = ({
   nameAndCodeLinkedToComponentId,
   recentTimeoutId,
   setTimeoutId,
-  state
+  state,
+  displaySubTreeDropDown,
+  showSubTree,
+  currentlyDisplayedSubTreeId,
+  currentSubTreeDisplayToUser,
+  addOrDeleteNewSubTree
 }) => {
   return (
     <div
-      key={`templateDropdown-${currentComponent.componentId}`}
+      key={`templateDropdown${currentComponent.componentId}`}
       id='panel-container'
     >
       <MemoryRouter>
@@ -137,6 +147,11 @@ const SideNavContainer = ({
                 recentTimeoutId={recentTimeoutId}
                 setTimeoutId={setTimeoutId}
                 checkID_ClearAndSetTimeout={checkID_ClearAndSetTimeout}
+
+                displaySubTreeDropDown={displaySubTreeDropDown}
+                showSubTree={showSubTree}
+                currentlyDisplayedSubTreeId={currentlyDisplayedSubTreeId}
+                addOrDeleteNewSubTree={addOrDeleteNewSubTree}
               />
               <ChildrenList
                 addChild={addChild}
@@ -151,6 +166,11 @@ const SideNavContainer = ({
                 recentTimeoutId={recentTimeoutId}
                 setTimeoutId={setTimeoutId}
                 checkID_ClearAndSetTimeout={checkID_ClearAndSetTimeout}
+
+
+                displaySubTreeDropDown={displaySubTreeDropDown}
+                showSubTree={showSubTree}
+                currentlyDisplayedSubTreeId={currentlyDisplayedSubTreeId}
               />
               <div className='divider-panel'></div>
               <button
@@ -162,7 +182,7 @@ const SideNavContainer = ({
                 Toggle File Tree
               </button>
               <FileTree
-                data={data}
+                currentSubTreeDisplayToUser={currentSubTreeDisplayToUser}
                 setCurrentComponent={setCurrentComponent}
                 toggleFileTree={toggleFileTree}
               />
@@ -178,7 +198,7 @@ const SideNavContainer = ({
   );
 };
 
-export default connect(
+export default React.memo(connect(
   mapStateToProps,
   mapDispatchToProps
-)(SideNavContainer);
+)(SideNavContainer));

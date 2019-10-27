@@ -17,12 +17,14 @@ const ComponentDetail = ({
   nameAndCodeLinkedToComponentId,
   recentTimeoutId,
   setTimeoutId,
-  checkID_ClearAndSetTimeout
+  checkID_ClearAndSetTimeout,
+  showSubTree,
+  currentlyDisplayedSubTreeId,
+  addOrDeleteNewSubTree
 }) => {
   const disabled = () => {
     return currentComponent.depth === 0 ? 'disabled' : '';
   };
-  // console.log('Inside of ComponentDetail.jsx')
   return (
     <React.Fragment>
       <h2>Current Component</h2>
@@ -31,7 +33,7 @@ const ComponentDetail = ({
           <input
             id='component-name-input'
             type='text'
-            key={`initialName:${initialName || currentComponent.name}`}
+            key={`initialName${initialName || currentComponent.name}`}
             defaultValue={initialName || currentComponent.name}
             onBlur={renameComponent}
             disabled={disabled()}
@@ -47,9 +49,20 @@ const ComponentDetail = ({
               Container
             </label>
           </div>
-          <button onClick={deleteComponent}>
+          <button onClick={() => {
+            deleteComponent()
+            showSubTree(currentlyDisplayedSubTreeId);
+          }}>
             <i className='far fa-minus-square'></i>
           </button>
+          <input id='add-sub-tree' type='checkbox' onChange={() => {
+            const isChecked = document.getElementById('add-sub-tree').checked;
+            // console.log(isChecked, currentComponent)
+            if (currentComponent.componentId !== 0) {
+              addOrDeleteNewSubTree(isChecked, currentComponent.componentId, currentComponent.name)
+            }
+          }} />
+          <label>Add into subtree</label>
         </div>
         <div id='component-form-bottom'>
           <TemplateDropdown

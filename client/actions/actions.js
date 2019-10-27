@@ -159,11 +159,12 @@ export const updateStateWithLocalStorage = (
     currentComponent,
     nameAndCodeLinkedToComponentId,
     lastId,
-    history
+    history,
+    displaySubTreeDropDown
 ) => dispatch => {
     dispatch({
         type: types.UPDATE_STATE_WITH_LOCAL_STORAGE,
-        payload: { data, currentComponent, nameAndCodeLinkedToComponentId, lastId, history }
+        payload: { data, currentComponent, nameAndCodeLinkedToComponentId, lastId, history, displaySubTreeDropDown }
     });
 };
 
@@ -181,9 +182,22 @@ export const showFileTree = () => dispatch => {
     });
 };
 // update id
-export const setTimeoutId = (id) => dispatch => [
+export const setTimeoutId = (id) => dispatch => {
     dispatch({
         type: types.SET_TIMEOUT_ID,
         payload: id
     })
-]
+}
+export const showSubTree = (componentId) => dispatch => {
+    dispatch({
+        type: types.SHOW_SUBTREE,
+        payload: componentId
+    })
+}
+
+export const addOrDeleteNewSubTree = (isChecked, componentId, name) => dispatch => {
+    dispatch({
+        type: types.ADD_OR_DELETE_NEW_SUB_TREE,
+        payload: { isChecked, componentId, name }
+    })
+}
