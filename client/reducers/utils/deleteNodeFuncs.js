@@ -14,6 +14,7 @@ export const deleteChildrenInNameAndCodeLinkedToComponentId = (node, obj) => {
   return obj;
 }
 export const findAndDeleteInCurrentComponent = (tree, currentComponent, parent) => {
+  console.log('inside of recursive', tree, currentComponent, parent)
   if (tree.componentId === parent.componentId) {
     for (let i = 0; i < tree.children.length; i++) {
       if(tree.children[i] === null){
@@ -47,17 +48,29 @@ export const findSubTreeAndDeleteAllPropertiesInObjectRelatedToSubTree = (id, da
     }
   }
   findSubTree(data, id);
-  function recursivelyDeleteFromFoundSubTree(subTreeToDeleteFrom, displaySubTreeDropDown){
+  function deleteFromFoundSubTree(subTreeToDeleteFrom, displaySubTreeDropDown){
     if (!subTreeToDeleteFrom) return;
     if (displaySubTreeDropDown[subTreeToDeleteFrom.componentId]){
       delete displaySubTreeDropDown[subTreeToDeleteFrom.componentId];
     }
     if (subTreeToDeleteFrom.children){
       subTreeToDeleteFrom.children.forEach(node =>{
-        return recursivelyDeleteFromFoundSubTree(node, displaySubTreeDropDown);
+        return deleteFromFoundSubTree(node, displaySubTreeDropDown);
       })
     }
   }
-  recursivelyDeleteFromFoundSubTree(subTreeToDeleteFrom, displaySubTreeDropDown)
+  deleteFromFoundSubTree(subTreeToDeleteFrom, displaySubTreeDropDown)
+  return;
+}
+
+export const deletePropertiesInsideOfSubTree = (currentComponent, displaySubTreeDropDown) =>{
+  if (displaySubTreeDropDown[currentComponent.componentId]){
+    delete displaySubTreeDropDown[currentComponent.componentId];
+  }
+  if (currentComponent.children){
+    currentComponent.children.forEach(node =>{
+        return deletePropertiesInsideOfSubTree(node, displaySubTreeDropDown);
+      })
+  }
   return;
 }

@@ -79,7 +79,7 @@ Storage.prototype.getObj = function (key) {
 };
 
 function checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state) {
-  function setTimeoutAndSendToReducer(setTimeoutId, recentTimeoutId, state) {
+  function setTimeoutAndSendToReducer(setTimeoutId, state) {
     const newSetTimeoutID = setTimeout(() => {
       localStorage.setObj('nameAndCodeLinkedToComponentId', state.nameAndCodeLinkedToComponentId);
       localStorage.setObj('data', state.data);
@@ -94,10 +94,10 @@ function checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state) {
     setTimeoutId(newSetTimeoutID);
   }
   if (!recentTimeoutId) {
-    return setTimeoutAndSendToReducer(setTimeoutId, recentTimeoutId, state)
+    return setTimeoutAndSendToReducer(setTimeoutId, state)
   }
   clearTimeout(recentTimeoutId);
-  setTimeoutAndSendToReducer(setTimeoutId, recentTimeoutId, state);
+  setTimeoutAndSendToReducer(setTimeoutId, state);
   return;
 }
 const SideNavContainer = ({
@@ -182,6 +182,7 @@ const SideNavContainer = ({
                 Toggle File Tree
               </button>
               <FileTree
+                currentComponent={currentComponent}
                 currentSubTreeDisplayToUser={currentSubTreeDisplayToUser}
                 setCurrentComponent={setCurrentComponent}
                 toggleFileTree={toggleFileTree}
@@ -192,13 +193,13 @@ const SideNavContainer = ({
           <Route path='/templates'>
             <TemplatingArea useTemplates={useTemplates} />
           </Route>
-          <Route path = '/subTree'>
-            <SubTree  
+          <Route path='/subTree'>
+            <SubTree
               displaySubTreeDropDown={displaySubTreeDropDown}
-              setTimeoutId={setTimeoutId} 
-              recentTimeoutId={recentTimeoutId} 
-              state={state} 
-              checkID_ClearAndSetTimeout={checkID_ClearAndSetTimeout} 
+              setTimeoutId={setTimeoutId}
+              recentTimeoutId={recentTimeoutId}
+              state={state}
+              checkID_ClearAndSetTimeout={checkID_ClearAndSetTimeout}
               showSubTree={showSubTree}
               deleteSubTreeDropdownItem={deleteSubTreeDropdownItem}
             />

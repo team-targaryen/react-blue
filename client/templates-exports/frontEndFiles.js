@@ -1,6 +1,7 @@
 import JSZip from 'jszip';
 import indexHTML from './frontEndTemplates/indexHTML.js';
 import indexJS from './frontEndTemplates/indexJS.js';
+import { saveAs } from 'file-saver';
 
 function connectFiles(currentComponent, code, fileObject) {
     let childComponents, imports;

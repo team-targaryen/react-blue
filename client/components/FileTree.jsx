@@ -1,13 +1,11 @@
 import React, {useMemo, useCallback} from 'react';
 import File from './File.jsx';
 
-const FileTree = ({ currentSubTreeDisplayToUser, setCurrentComponent, toggleFileTree }) => {
-  // console.log('Inside of FileTree.jsx')
+const FileTree = ({ currentComponent, currentSubTreeDisplayToUser, setCurrentComponent, toggleFileTree }) => {
   const containerFiles = [];
   const componentFiles = [];
 
   const filterFiles = currentComponent => {
-    // console.log('inside of useCallback !!!!!')
     if (currentComponent.isContainer) {
       containerFiles.push(currentComponent);
     } else {
@@ -31,27 +29,41 @@ return (
         <li key='containerFiles' id='container-files'>
           <h3>Containers</h3>
           <ul>
-            {containerFiles.map((file, index) => (
-              <File
+            {containerFiles.map((file, index) => {
+              return currentComponent.componentId === file.componentId ? 
+              ( <div key={`currentComponentContainer${index}`} id='current-component-file-tree'>
+                <File
+                file={file}
+                name={file.name}
+                setCurrentComponent={setCurrentComponent}
+              /></div>) : 
+              (<File
                 key={index}
                 file={file}
                 name={file.name}
                 setCurrentComponent={setCurrentComponent}
-              />
-            ))}
+              />)
+            })}
           </ul>
         </li>
         <li key='componentFiles' id='component-files'>
           <h3>Components</h3>
           <ul>
-            {componentFiles.map((file, index) => (
-              <File
+            {componentFiles.map((file, index) => {
+            return currentComponent.componentId === file.componentId ? 
+              ( <div key={`currentComponentComponent${index}`} id='current-component-file-tree'>
+                <File
+                file={file}
+                name={file.name}
+                setCurrentComponent={setCurrentComponent}
+              /></div>) : 
+              (<File
                 key={index}
                 file={file}
                 name={file.name}
                 setCurrentComponent={setCurrentComponent}
-              />
-            ))}
+              />)
+            })}
           </ul>
         </li>
       </ul>
@@ -60,4 +72,4 @@ return (
 
 };
 
-export default FileTree;
+export default React.memo(FileTree);

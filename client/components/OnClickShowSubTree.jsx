@@ -18,7 +18,6 @@ const OnClickShowSubTree = ({
     }}>{name} </button>
     {!+id ? null : 
     <button className='delete-subTree' onClick={() => {
-      console.log('inside onclick', id)
         deleteSubTreeDropdownItem(id);
         showSubTree(0);
         checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state);

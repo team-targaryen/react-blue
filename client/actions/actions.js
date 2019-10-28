@@ -1,7 +1,6 @@
 import * as types from '../constants/actionTypes';
 
 /******************************* actions for side bar ************************************/
-
 export const renameComponent = event => dispatch => {
     let inputName = event.target.value;
     inputName = inputName.replace(/(\w)(\w*)/g, (g0, g1, g2) => {
@@ -19,7 +18,6 @@ export const renameComponent = event => dispatch => {
 
 export const changeType = event => dispatch => {
     const isContainer = event.target.checked;
-
     dispatch({
         type: types.CHANGE_TYPE,
         payload: {
@@ -175,19 +173,21 @@ export const resetEntireTree = () => dispatch => {
     });
 };
 
-// file tree
+// toggle file tree
 export const showFileTree = () => dispatch => {
     dispatch({
         type: types.SHOW_FILE_TREE
     });
 };
-// update id
+// update set timeout id 
 export const setTimeoutId = (id) => dispatch => {
     dispatch({
         type: types.SET_TIMEOUT_ID,
         payload: id
     })
 }
+
+//subtree action creators
 export const showSubTree = (componentId) => dispatch => {
     dispatch({
         type: types.SHOW_SUBTREE,
@@ -195,7 +195,8 @@ export const showSubTree = (componentId) => dispatch => {
     })
 }
 
-export const addOrDeleteNewSubTree = (isChecked, componentId, name) => dispatch => {
+export const addOrDeleteNewSubTree = (event, componentId, name) => dispatch => {
+    const isChecked = event.target.checked;
     dispatch({
         type: types.ADD_OR_DELETE_NEW_SUB_TREE,
         payload: { isChecked, componentId, name }

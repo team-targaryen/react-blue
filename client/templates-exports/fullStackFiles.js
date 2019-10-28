@@ -1,4 +1,5 @@
 import JSZip from 'jszip';
+import { saveAs } from 'file-saver';
 import indexHTML from './frontEndTemplates/indexHTML.js';
 import indexJS from './frontEndTemplates/indexJS.js';
 import server from './fullStackTemplates/server.js';
@@ -7,30 +8,29 @@ import webpack from './fullStackTemplates/webpack.config.js';
 import readmeMD from './fullStackTemplates/readmeMD.js';
 
 function connectFiles(currentComponent, code, fileObject) {
-    let childComponents, imports;
-    if (currentComponent.children) {
-        imports = currentComponent.children
-            .map(child => {
-                if (child.isContainer) {
-                    return `import ${child.name} from './containers/${child.name}.jsx';\n`;
-                } else {
-                    return `import ${child.name} from './components/${child.name}.jsx';\n`;
-                }
-            })
-            .join('');
-        childComponents = currentComponent.children.map(child => {
-            return `\t<${child.name} />\n\t\t`;;
-        })
-            .join('');
-    } else if (!currentComponent.children) {
-        imports = "";
-    }
-    if (childComponents) {
-        code = code.replace('DONOTDELETETHISSTRING', childComponents)
-    } else {
-        code = code.replace('DONOTDELETETHISSTRING', '')
-    }
-
+  let childComponents, imports;
+  if (currentComponent.children) {
+    imports = currentComponent.children
+      .map(child => {
+        if (child.isContainer) {
+          return `import ${child.name} from './containers/${child.name}.jsx';\n`;
+        } else {
+          return `import ${child.name} from './components/${child.name}.jsx';\n`;
+        }
+      })
+      .join('');
+    childComponents = currentComponent.children.map(child => {
+      return `\t<${child.name} />\n\t\t`;;
+    })
+      .join('');
+  } else if (!currentComponent.children) {
+    imports = "";
+  }
+  if (childComponents) {
+    code = code.replace('DONOTDELETETHISSTRING', childComponents)
+  } else {
+    code = code.replace('DONOTDELETETHISSTRING', '')
+  }
   if (currentComponent.isContainer) {
     fileObject.container[currentComponent.name] = imports.concat(
       code.replace('Template_Class', currentComponent.name)
@@ -82,7 +82,9 @@ export default (data, nameAndCodeLinkedToComponentId) => {
   zip.file('webpack.config.js', webpack);
   zip.file('server/readmeMD.js', readmeMD);
 
-  zip.generateAsync({ type: 'blob' }).then(function(content) {
-    saveAs(content, 'react-blue.zip');
-  });
+  zip.generateAsync({ type: 'blob' })
+    .then(function (content) {
+
+      saveAs(content, 'react-blue.zip');
+    });
 };

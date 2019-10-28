@@ -3,7 +3,8 @@ import clone from 'clone';
 import {
   deleteChildrenInNameAndCodeLinkedToComponentId,
   findAndDeleteInCurrentComponent,
-  findSubTreeAndDeleteAllPropertiesInObjectRelatedToSubTree
+  findSubTreeAndDeleteAllPropertiesInObjectRelatedToSubTree,
+  deletePropertiesInsideOfSubTree,
 } from './utils/deleteNodeFuncs';
 import { easterEgg } from './utils/easterEgg'
 import { updateTree, DoublyLinkedList } from './utils/updateTree'
@@ -48,8 +49,9 @@ const mainReducer = (state = initialState, action) => {
     lastId,
     currentSubTreeDisplayToUser,
     currentlyDisplayedSubTreeId,
-    displaySubTreeDropDown;
-    console.log('inside of reducer', state.displaySubTreeDropDown )
+    displaySubTreeDropDown,
+    defaultNameCount;
+  console.log('state.current componenet inside of reducer', state.currentComponent)
   switch (action.type) {
     /******************************* actions for side bar ************************************/
     case types.RENAME_COMPONENT:
@@ -57,8 +59,8 @@ const mainReducer = (state = initialState, action) => {
       currentComponent = clone(state.currentComponent);
       currentComponent.name = inputName;
       updatedState = updateTree(state, currentComponent);
-      displaySubTreeDropDown= Object.assign({}, state.displaySubTreeDropDown);
-      if(state.displaySubTreeDropDown[`${currentComponent.componentId}`]){
+      displaySubTreeDropDown = Object.assign({}, state.displaySubTreeDropDown);
+      if (state.displaySubTreeDropDown[`${currentComponent.componentId}`]) {
         displaySubTreeDropDown[`${currentComponent.componentId}`] = inputName;
       }
       return {
@@ -72,6 +74,7 @@ const mainReducer = (state = initialState, action) => {
       currentComponent = clone(state.currentComponent);
       currentComponent.isContainer = isContainer;
       updatedState = updateTree(state, currentComponent);
+
       return {
         ...state,
         ...updatedState
@@ -89,19 +92,24 @@ const mainReducer = (state = initialState, action) => {
       data = clone(state.data);
       currentComponent = clone(state.currentComponent);
       nameAndCodeLinkedToComponentId = clone(state.nameAndCodeLinkedToComponentId);
+      console.log('inside of delete component', currentComponent)
       nameAndCodeLinkedToComponentId = deleteChildrenInNameAndCodeLinkedToComponentId(currentComponent, nameAndCodeLinkedToComponentId)
       findAndDeleteInCurrentComponent(data, currentComponent, parent);
-
+      //deleting all of the properties in subtree dropdown that are related to the current component and its children
+      displaySubTreeDropDown = Object.assign({}, state.displaySubTreeDropDown);
+      deletePropertiesInsideOfSubTree(currentComponent, displaySubTreeDropDown);
+      currentComponent = parent;
+      lastId = state.lastId
+      defaultNameCount = state.defaultNameCount;
       let preHistory = state.history;
       history = new DoublyLinkedList(
         clone({
           data,
-          currentComponent: parent,
+          currentComponent,
           nameAndCodeLinkedToComponentId,
-          lastId: state.lastId,
-          defaultNameCount: state.defaultNameCount,
-          currentSubTreeDisplayToUser: clone(state.currentSubTreeDisplayToUser),
-          currentlyDisplayedSubTreeId: state.currentlyDisplayedSubTreeId,
+          lastId,
+          defaultNameCount,
+          displaySubTreeDropDown
         })
       );
       preHistory.next = history;
@@ -111,7 +119,8 @@ const mainReducer = (state = initialState, action) => {
         data,
         currentComponent: parent,
         nameAndCodeLinkedToComponentId,
-        history
+        history,
+        displaySubTreeDropDown
       };
 
     /******************************* actions for main container ************************************/
@@ -137,13 +146,15 @@ const mainReducer = (state = initialState, action) => {
         nameAndCodeLinkedToComponentId = clone(
           history.value.nameAndCodeLinkedToComponentId
         );
-        console.log('inside of undo', data, currentComponent)
+        displaySubTreeDropDown = history.value.displaySubTreeDropDown;
+
         return {
           ...state,
           data,
           history,
           currentComponent,
-          nameAndCodeLinkedToComponentId
+          nameAndCodeLinkedToComponentId,
+          displaySubTreeDropDown
         };
       } else {
         return {
@@ -159,12 +170,14 @@ const mainReducer = (state = initialState, action) => {
         nameAndCodeLinkedToComponentId = clone(
           history.value.nameAndCodeLinkedToComponentId
         );
+        displaySubTreeDropDown = history.value.displaySubTreeDropDown;
         return {
           ...state,
           data,
           history,
           currentComponent,
-          nameAndCodeLinkedToComponentId
+          nameAndCodeLinkedToComponentId,
+          displaySubTreeDropDown
         };
       } else {
         return {
@@ -177,13 +190,13 @@ const mainReducer = (state = initialState, action) => {
       inputName = action.payload.inputName;
       childId = action.payload.childId;
       children = state.currentComponent.children.slice();
-      displaySubTreeDropDown= Object.assign({}, state.displaySubTreeDropDown);
+      displaySubTreeDropDown = Object.assign({}, state.displaySubTreeDropDown);
       for (let child of children) {
         if (child.componentId === childId) {
-          child.name = inputName; 
-        if(displaySubTreeDropDown[`${child.componentId}`]){
-          displaySubTreeDropDown[`${child.componentId}`] = inputName;
-        }
+          child.name = inputName;
+          if (displaySubTreeDropDown[`${child.componentId}`]) {
+            displaySubTreeDropDown[`${child.componentId}`] = inputName;
+          }
         }
       }
       currentComponent = clone(state.currentComponent);
@@ -234,17 +247,13 @@ const mainReducer = (state = initialState, action) => {
         isContainer,
         parent: state.currentComponent
       };
-
       children = state.currentComponent.children
         ? state.currentComponent.children.slice()
         : [];
       children.push(newChild);
       currentComponent = clone(state.currentComponent);
-
       currentComponent.children = children.slice();
-
       updatedState = updateTree(state, currentComponent);
-
       nameAndCodeLinkedToComponentId = clone(
         state.nameAndCodeLinkedToComponentId
       );
@@ -265,10 +274,10 @@ const mainReducer = (state = initialState, action) => {
     case types.DELETE_CHILD:
       childId = action.payload.childId;
       currentComponent = clone(state.currentComponent);
-
-      for (let i = 0; i < currentComponent.children.length; i+=1) {
+      let tempNode;
+      for (let i = 0; i < currentComponent.children.length; i += 1) {
         if (currentComponent.children[i].componentId === childId) {
-          const [tempNode] = currentComponent.children.splice(i, 1);
+          [tempNode] = currentComponent.children.splice(i, 1);
           nameAndCodeLinkedToComponentId = clone(
             state.nameAndCodeLinkedToComponentId
           );
@@ -281,12 +290,17 @@ const mainReducer = (state = initialState, action) => {
           }
         }
       }
-      //data currentcomponent 
+      displaySubTreeDropDown = Object.assign({}, state.displaySubTreeDropDown);
+      if (displaySubTreeDropDown[`${childId}`]) {
+        delete displaySubTreeDropDown[`${childId}`];
+      };
+      deletePropertiesInsideOfSubTree(tempNode, displaySubTreeDropDown);
       updatedState = updateTree(state, currentComponent);
       return {
         ...state,
         ...updatedState,
-        nameAndCodeLinkedToComponentId
+        nameAndCodeLinkedToComponentId,
+        displaySubTreeDropDown
       };
 
     case types.USE_TEMPLATES:
@@ -340,7 +354,7 @@ const mainReducer = (state = initialState, action) => {
       history = action.payload.history
       displaySubTreeDropDown = action.payload.displaySubTreeDropDown
       defaultNameCount = lastId - 1;
-      
+
       return {
         ...state,
         data,
@@ -388,17 +402,10 @@ const mainReducer = (state = initialState, action) => {
           });
         }
       }(currentlyDisplayedSubTreeId, state.data));
-      //checking if the current component needs to change to the cloned node found above, if id is not eual to the state's currently displayed subtree id than set the current component to tempNode for subtree
-      if (action.payload !== state.currentlyDisplayedSubTreeId) {
-        currentComponent = currentSubTreeDisplayToUser;
-      } else {
-        currentComponent = state.currentComponent;
-      }
       return {
         ...state,
         currentSubTreeDisplayToUser,
-        currentlyDisplayedSubTreeId,
-        currentComponent
+        currentlyDisplayedSubTreeId
       }
     case types.ADD_OR_DELETE_NEW_SUB_TREE:
       //checking of the checkbox is checked, if so go ahead and shallow clone subtree object and insert new componentId as key and name as value
@@ -407,8 +414,8 @@ const mainReducer = (state = initialState, action) => {
         displaySubTreeDropDown[action.payload.componentId] = action.payload.name;
       } else {
         displaySubTreeDropDown = Object.assign({}, state.displaySubTreeDropDown);
-        for (let keys in displaySubTreeDropDown){
-          if (+keys === action.payload.componentId){
+        for (let keys in displaySubTreeDropDown) {
+          if (+keys === action.payload.componentId) {
             delete displaySubTreeDropDown[keys];
           }
         }
@@ -417,13 +424,13 @@ const mainReducer = (state = initialState, action) => {
         ...state,
         displaySubTreeDropDown
       }
-    case types.DELETE_SUBTREE_DROPDOWN_ITEM: 
+    case types.DELETE_SUBTREE_DROPDOWN_ITEM:
       displaySubTreeDropDown = Object.assign({}, state.displaySubTreeDropDown);
       findSubTreeAndDeleteAllPropertiesInObjectRelatedToSubTree(+action.payload, state.data, displaySubTreeDropDown);
-    return {
-      ...state,
-      displaySubTreeDropDown
-    }
+      return {
+        ...state,
+        displaySubTreeDropDown
+      }
     default:
       return state;
   }
