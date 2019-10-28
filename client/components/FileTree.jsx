@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useMemo, useCallback} from 'react';
 import File from './File.jsx';
 
-const FileTree = ({ data, setCurrentComponent, toggleFileTree }) => {
+const FileTree = ({ currentSubTreeDisplayToUser, setCurrentComponent, toggleFileTree }) => {
   // console.log('Inside of FileTree.jsx')
   const containerFiles = [];
   const componentFiles = [];
 
   const filterFiles = currentComponent => {
+    // console.log('inside of useCallback !!!!!')
     if (currentComponent.isContainer) {
       containerFiles.push(currentComponent);
     } else {
@@ -18,17 +19,16 @@ const FileTree = ({ data, setCurrentComponent, toggleFileTree }) => {
       });
     }
   };
-
-  filterFiles(data);
+  filterFiles(currentSubTreeDisplayToUser);
 
   const getFileTree = () => {
     return toggleFileTree ? 'hidden' : '';
   };
 
-  return (
+return (
     <div id='file-tree' className={`${getFileTree()}`}>
       <ul>
-        <li key='container-files' id='container-files'>
+        <li key='containerFiles' id='container-files'>
           <h3>Containers</h3>
           <ul>
             {containerFiles.map((file, index) => (
@@ -41,13 +41,12 @@ const FileTree = ({ data, setCurrentComponent, toggleFileTree }) => {
             ))}
           </ul>
         </li>
-        <li key='component-files' id='component-files'>
+        <li key='componentFiles' id='component-files'>
           <h3>Components</h3>
           <ul>
             {componentFiles.map((file, index) => (
               <File
                 key={index}
-                data={data}
                 file={file}
                 name={file.name}
                 setCurrentComponent={setCurrentComponent}
@@ -58,6 +57,7 @@ const FileTree = ({ data, setCurrentComponent, toggleFileTree }) => {
       </ul>
     </div>
   );
+
 };
 
 export default FileTree;

@@ -44,6 +44,7 @@ const TopNavContainer = ({
       return history.next ? false : true;
     }
   }
+  // console.log('inside TopNavContainer')
   return (
     <Navbar collapseOnSelect expand='lg' variant='dark'>
       <Navbar.Brand href='#home'>React Blue</Navbar.Brand>

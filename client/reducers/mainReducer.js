@@ -18,6 +18,7 @@ const appComponent = {
 
 const initialState = {
   data: appComponent,
+  dataClone: {},
   translate: { x: 0, y: 0 },
   history: null,
   currentComponent: appComponent,
@@ -27,7 +28,10 @@ const initialState = {
   templates: [],
   orientation: 'vertical',
   toggleFileTree: true,
-  recentTimeoutId: 0
+  recentTimeoutId: 0,
+  displaySubTreeDropDown: { 0: 'App' },
+  currentSubTreeDisplayToUser: {},
+  currentlyDisplayedSubTreeId: 0
 };
 
 const mainReducer = (state = initialState, action) => {
@@ -40,13 +44,15 @@ const mainReducer = (state = initialState, action) => {
     updatedState,
     history,
     nameAndCodeLinkedToComponentId,
-    lastId;
+    lastId,
+    currentSubTreeDisplayToUser,
+    currentlyDisplayedSubTreeId;
   switch (action.type) {
     /******************************* actions for side bar ************************************/
     case types.RENAME_COMPONENT:
       inputName = action.payload.inputName;
       currentComponent = clone(state.currentComponent);
-      c
+
       currentComponent.name = inputName;
       updatedState = updateTree(state, currentComponent);
 
@@ -88,7 +94,9 @@ const mainReducer = (state = initialState, action) => {
           currentComponent: parent,
           nameAndCodeLinkedToComponentId,
           lastId: state.lastId,
-          defaultNameCount: state.defaultNameCount
+          defaultNameCount: state.defaultNameCount,
+          currentSubTreeDisplayToUser: clone(state.currentSubTreeDisplayToUser),
+          currentlyDisplayedSubTreeId: state.currentlyDisplayedSubTreeId
         })
       );
       preHistory.next = history;
@@ -121,7 +129,6 @@ const mainReducer = (state = initialState, action) => {
 
     case types.UN_DO:
       if (state.history.prev) {
-
         history = clone(state.history.prev);
         data = clone(history.value.data);
         currentComponent = clone(history.value.currentComponent);
@@ -173,7 +180,6 @@ const mainReducer = (state = initialState, action) => {
           child.name = inputName;
         }
       }
-
       currentComponent = clone(state.currentComponent);
       currentComponent.children = children;
       updatedState = updateTree(state, currentComponent);
@@ -201,7 +207,7 @@ const mainReducer = (state = initialState, action) => {
       };
 
     case types.ADD_CHILD:
-      console.time('timer add child for entirety')
+      // console.time('timer add child for entirety')
       let name, defaultNameCount;
       if (action.payload.name) {
         name = action.payload.name;
@@ -221,18 +227,19 @@ const mainReducer = (state = initialState, action) => {
         isContainer,
         parent: state.currentComponent
       };
-      console.time('cloning children')
+      // console.time('cloning children')
       children = state.currentComponent.children
         ? state.currentComponent.children.slice()
         : [];
       children.push(newChild);
-      console.time('cloning children')
+      // console.time('cloning children')
       // console.time('clone of current Component')
       currentComponent = clone(state.currentComponent);
+      // console.log('inside add child', currentComponent)
       currentComponent.children = children.slice();
-      console.time('updateTree ENTIRE')
+      // console.time('updateTree ENTIRE')
       updatedState = updateTree(state, currentComponent);
-      console.timeEnd('updateTree ENTIRE')
+      // console.timeEnd('updateTree ENTIRE')
       // console.time('clone of name and code');
       nameAndCodeLinkedToComponentId = clone(
         state.nameAndCodeLinkedToComponentId
@@ -241,7 +248,6 @@ const mainReducer = (state = initialState, action) => {
       nameAndCodeLinkedToComponentId[componentId] = state.templates[0];
       updatedState.history.value.nameAndCodeLinkedToComponentId[componentId] =
         state.templates[0];
-      // console.timeEnd('timer add child for entirety')
       return {
         ...state,
         ...updatedState,
@@ -271,7 +277,7 @@ const mainReducer = (state = initialState, action) => {
           }
         }
       }
-
+      //data currentcomponent 
       updatedState = updateTree(state, currentComponent);
       return {
         ...state,
@@ -328,7 +334,7 @@ const mainReducer = (state = initialState, action) => {
         action.payload.nameAndCodeLinkedToComponentId;
       lastId = action.payload.lastId;
       history = action.payload.history
-      history.prev = null;
+      displaySubTreeDropDown = action.payload.displaySubTreeDropDown
       defaultNameCount = lastId - 1;
       return {
         ...state,
@@ -337,7 +343,8 @@ const mainReducer = (state = initialState, action) => {
         nameAndCodeLinkedToComponentId,
         lastId,
         history,
-        defaultNameCount
+        defaultNameCount,
+        displaySubTreeDropDown
       };
     case types.RESET_ENTIRE_TREE:
       localStorage.clear();
@@ -349,7 +356,6 @@ const mainReducer = (state = initialState, action) => {
     // file tree toggle
     case types.SHOW_FILE_TREE:
       const newToggleFileTree = state.toggleFileTree;
-
       return {
         ...state,
         toggleFileTree: !newToggleFileTree
@@ -358,6 +364,55 @@ const mainReducer = (state = initialState, action) => {
       return {
         ...state,
         recentTimeoutId: action.payload
+      }
+    case types.SHOW_SUBTREE:
+      //recursively find the node with matching componentId with action payload passed in (number), once found clone the node (and potentially its children) and set it to tempNodeForSubTree
+      if (!action.payload) {
+        currentlyDisplayedSubTreeId = state.currentlyDisplayedSubTreeId
+      } else {
+        currentlyDisplayedSubTreeId = action.payload;
+      }
+      (function findComponentIdNode(id, data) {
+        if (!data) return;
+        if (data.componentId === id) {
+          currentSubTreeDisplayToUser = clone(data);
+          return;
+        }
+        if (data.children) {
+          data.children.forEach(node => {
+            return findComponentIdNode(id, node);
+          });
+        }
+      }(currentlyDisplayedSubTreeId, state.data));
+      //checking if the current component needs to change to the cloned node found above, if id is not eual to the state's currently displayed subtree id than set the current component to tempNode for subtree
+      if (action.payload !== state.currentlyDisplayedSubTreeId) {
+        currentComponent = currentSubTreeDisplayToUser;
+      } else {
+        currentComponent = state.currentComponent;
+      }
+      return {
+        ...state,
+        currentSubTreeDisplayToUser,
+        currentlyDisplayedSubTreeId,
+        currentComponent
+      }
+    case types.ADD_OR_DELETE_NEW_SUB_TREE:
+      let displaySubTreeDropDown;
+      //checking of the checkbox is checked, if so go ahead and shallow clone subtree object and insert new componentId as key and name as value
+      if (action.payload.isChecked) {
+        displaySubTreeDropDown = Object.assign({}, state.displaySubTreeDropDown);
+        displaySubTreeDropDown[action.payload.componentId] = action.payload.name;
+      } else {
+        displaySubTreeDropDown = Object.assign({}, state.displaySubTreeDropDown);
+        for (let keys in displaySubTreeDropDown){
+          if (+keys === action.payload.componentId){
+            delete displaySubTreeDropDown[keys];
+          }
+        }
+      }
+      return {
+        ...state,
+        displaySubTreeDropDown
       }
     default:
       return state;

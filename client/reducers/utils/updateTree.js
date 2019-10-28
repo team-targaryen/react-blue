@@ -4,18 +4,26 @@ export function DoublyLinkedList(value) {
   this.prev = null;
   this.next = null;
 }
+const getCircularReplacer = () => {
+  const seen = new WeakSet();
+  return (key, value) => {
+    if (typeof value === 'object' && value !== null) {
+      if (seen.has(value)) {
+        return;
+      }
+      seen.add(value);
+    }
+    return value;
+  };
+};
 export const updateTree = (state, currentComponent) => {
-  console.time('updateTreeInsideOfFunction')
   let defaultNameCount;
-  // check if current component has a name
-  console.time('cloning state data')
   const data = clone(state.data);
-  console.timeEnd('cloning state data')
   if (!currentComponent.name) {
     defaultNameCount = state.defaultNameCount + 1;
     currentComponent.name = `Component${defaultNameCount}`;
   }
-  // check if any child has empty name, then change it to 'DEFAUL NAME'
+  // check if any child has empty name, then change it to 'DEFAULT NAME'
   let children = currentComponent.children
   if (children) {
     for (let child of children) {
@@ -29,8 +37,7 @@ export const updateTree = (state, currentComponent) => {
     children = currentComponent
     children.name = currentComponent.name;
   }
-  console.time('recursiveFunction');
-  (function findComponentAndUpdate(tree, currentComponent) {
+  function findComponentAndUpdate(tree, currentComponent) {
     if (tree.componentId === currentComponent.componentId) {
       tree.name = currentComponent.name;
       tree.isContainer = currentComponent.isContainer;
@@ -42,12 +49,9 @@ export const updateTree = (state, currentComponent) => {
         return findComponentAndUpdate(child, currentComponent);
       });
     }
-  }(data, currentComponent));
-  console.timeEnd('recursiveFunction')
-  console.time('cloneHistory');
+  };
+  findComponentAndUpdate(data, currentComponent);
   const preHistory = state.history;
-  console.timeEnd('cloneHistory')
-  console.time('instantiate doubly linked list');
   const history = new DoublyLinkedList(
     {
       data,
@@ -57,10 +61,8 @@ export const updateTree = (state, currentComponent) => {
       defaultNameCount: state.defaultNameCount
     }
   );
-  console.timeEnd('instantiate doubly linked list')
   preHistory.next = history;
   history.prev = preHistory;
-  console.timeEnd('updateTreeInsideOfFunction')
   return {
     data,
     currentComponent,

@@ -11,7 +11,9 @@ const EachChild = ({
   state,
   recentTimeoutId,
   setTimeoutId,
-  checkID_ClearAndSetTimeout
+  checkID_ClearAndSetTimeout,
+  showSubTree,
+  currentlyDisplayedSubTreeId
 }) => (
     <div className='each-child'>
       {/*console.log('Inside of EachChild.jsx')*/}
@@ -22,7 +24,10 @@ const EachChild = ({
         defaultValue={initiailName || name}
         onBlur={() => {
           checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state)
-          renameChild(event, childId)}}
+          renameChild(event, childId)
+          showSubTree(currentlyDisplayedSubTreeId)
+        }}
+          
       ></input>
       <div>
         <input
@@ -31,13 +36,17 @@ const EachChild = ({
           checked={isContainer}
           onChange={() => {
             checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state)
-            changeType(event, childId)}}
+            changeType(event, childId)
+            showSubTree(currentlyDisplayedSubTreeId)
+          }}
         />
         <span className='container-label'>Container</span>
       </div>
       <button className='delete-child' onClick={() => {
         checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state)
-        deleteChild(childId)}}>
+        deleteChild(childId)
+        showSubTree(currentlyDisplayedSubTreeId)
+      }}>
         <i className='far fa-minus-square'></i>
       </button>
     </div>
