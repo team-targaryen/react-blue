@@ -1,6 +1,7 @@
 import React from 'react';
 
-const File = ({ data, file, name, setCurrentComponent }) => {
+const File = ({ file, name, setCurrentComponent }) => {
+  // console.log('Inside of File.jsx')
   return <li onClick={() => setCurrentComponent(file)}>{name}</li>;
 };
 

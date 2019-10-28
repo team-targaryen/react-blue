@@ -9,6 +9,7 @@ require('codemirror/mode/htmlembedded/htmlembedded');
 require('codemirror/mode/htmlmixed/htmlmixed');
 
 const OnClickShowCodeMirror = ({ code, updateCode, index, deleteTemplate }) => {
+  // console.log('Inside of OnClickShowCodeMirror.jsx')
   const [isClicked, setIsClicked] = useState(false);
   const [isSave, setIsSave] = useState(false);
   return isClicked ? (
@@ -22,8 +23,8 @@ const OnClickShowCodeMirror = ({ code, updateCode, index, deleteTemplate }) => {
         {isSave ? (
           <i className='fas fa-save'></i>
         ) : (
-          <i className='fas fa-edit'></i>
-        )}
+            <i className='fas fa-edit'></i>
+          )}
       </button>
       {index > 1 ? (
         <button
@@ -45,29 +46,29 @@ const OnClickShowCodeMirror = ({ code, updateCode, index, deleteTemplate }) => {
       />
     </React.Fragment>
   ) : (
-    <React.Fragment>
-      <button
-        onClick={() => {
-          setIsClicked(!isClicked);
-          setIsSave(!isSave);
-        }}
-      >
-        {isSave ? (
-          <i className='fas fa-save'></i>
-        ) : (
-          <i className='fas fa-edit'></i>
-        )}
-      </button>
-      {index > 1 ? (
+      <React.Fragment>
         <button
           onClick={() => {
-            deleteTemplate(index);
+            setIsClicked(!isClicked);
+            setIsSave(!isSave);
           }}
         >
-          <i className='far fa-minus-square'></i>
+          {isSave ? (
+            <i className='fas fa-save'></i>
+          ) : (
+              <i className='fas fa-edit'></i>
+            )}
         </button>
-      ) : null}
-    </React.Fragment>
-  );
+        {index > 1 ? (
+          <button
+            onClick={() => {
+              deleteTemplate(index);
+            }}
+          >
+            <i className='far fa-minus-square'></i>
+          </button>
+        ) : null}
+      </React.Fragment>
+    );
 };
 export default OnClickShowCodeMirror;

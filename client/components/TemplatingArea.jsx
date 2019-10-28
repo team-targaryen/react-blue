@@ -7,10 +7,10 @@ import {
 } from '../templates-code/templates';
 import CreateCodeEditor from './CreateCodeEditor.jsx';
 
-Storage.prototype.setObj = function(key, obj) {
+Storage.prototype.setObj = function (key, obj) {
   return this.setItem(key, JSON.stringify(obj));
 };
-Storage.prototype.getObj = function(key) {
+Storage.prototype.getObj = function (key) {
   return JSON.parse(this.getItem(key));
 };
 
@@ -18,8 +18,8 @@ function CustomTemplate(name, isHook) {
   (this.name = name
     ? name
     : isHook
-    ? 'DEFAULT_HOOK_TEMPLATE'
-    : 'DEFAULT_CLASS_TEMPLATE'),
+      ? 'DEFAULT_HOOK_TEMPLATE'
+      : 'DEFAULT_CLASS_TEMPLATE'),
     (this.code = isHook
       ? new InitialHookSyntax(name).code
       : new InitialClassSyntax(name).code);
@@ -29,13 +29,11 @@ const initialHookSyntax = new InitialHookSyntax();
 const initialClassSyntax = new InitialClassSyntax();
 
 const TemplatingArea = ({ useTemplates }) => {
+  // console.log('Inside of TemplatingArea.jsx')
   const [isInitialSyntax, setIsInitialSyntax] = useState([
     initialClassSyntax,
     initialHookSyntax
   ]);
-
-  // const [showTemplates, setShowTemplates] = useState(false);
-
   useEffect(() => {
     let data = getItemFromLocalStorage();
     setItemForLocalStorage(data);
@@ -141,7 +139,7 @@ const TemplatingArea = ({ useTemplates }) => {
         {isInitialSyntax.map((syntaxObject, index) => {
           return (
             <CreateCodeEditor
-              key={`createCodeEditor-${index}`}
+              key={`createCodeEditor${index}`}
               syntaxObject={syntaxObject}
               index={index}
               deleteTemplate={deleteTemplate}

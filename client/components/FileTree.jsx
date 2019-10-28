@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useMemo, useCallback} from 'react';
 import File from './File.jsx';
 
-const FileTree = ({ data, setCurrentComponent, toggleFileTree }) => {
+const FileTree = ({ currentComponent, currentSubTreeDisplayToUser, setCurrentComponent, toggleFileTree }) => {
   const containerFiles = [];
   const componentFiles = [];
 
@@ -17,46 +17,59 @@ const FileTree = ({ data, setCurrentComponent, toggleFileTree }) => {
       });
     }
   };
-
-  filterFiles(data);
+  filterFiles(currentSubTreeDisplayToUser);
 
   const getFileTree = () => {
     return toggleFileTree ? 'hidden' : '';
   };
 
-  return (
+return (
     <div id='file-tree' className={`${getFileTree()}`}>
       <ul>
-        <li key='container-files' id='container-files'>
+        <li key='containerFiles' id='container-files'>
           <h3>Containers</h3>
           <ul>
-            {containerFiles.map((file, index) => (
-              <File
+            {containerFiles.map((file, index) => {
+              return currentComponent.componentId === file.componentId ? 
+              ( <div key={`currentComponentContainer${index}`} id='current-component-file-tree'>
+                <File
+                file={file}
+                name={file.name}
+                setCurrentComponent={setCurrentComponent}
+              /></div>) : 
+              (<File
                 key={index}
                 file={file}
                 name={file.name}
                 setCurrentComponent={setCurrentComponent}
-              />
-            ))}
+              />)
+            })}
           </ul>
         </li>
-        <li key='component-files' id='component-files'>
+        <li key='componentFiles' id='component-files'>
           <h3>Components</h3>
           <ul>
-            {componentFiles.map((file, index) => (
-              <File
-                key={index}
-                data={data}
+            {componentFiles.map((file, index) => {
+            return currentComponent.componentId === file.componentId ? 
+              ( <div key={`currentComponentComponent${index}`} id='current-component-file-tree'>
+                <File
                 file={file}
                 name={file.name}
                 setCurrentComponent={setCurrentComponent}
-              />
-            ))}
+              /></div>) : 
+              (<File
+                key={index}
+                file={file}
+                name={file.name}
+                setCurrentComponent={setCurrentComponent}
+              />)
+            })}
           </ul>
         </li>
       </ul>
     </div>
   );
+
 };
 
-export default FileTree;
+export default React.memo(FileTree);
