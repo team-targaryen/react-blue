@@ -1,3 +1,4 @@
+
 export const deleteChildrenInNameAndCodeLinkedToComponentId = (node, obj) => {
   if (node instanceof Object) {
     delete obj[node]
@@ -30,3 +31,33 @@ export const findAndDeleteInCurrentComponent = (tree, currentComponent, parent) 
     });
   }
 };
+
+export const findSubTreeAndDeleteAllPropertiesInObjectRelatedToSubTree = (id, data, displaySubTreeDropDown)=>{
+  let subTreeToDeleteFrom;
+  function findSubTree(data, id){
+    if (!data) return;
+    if (data.componentId === id) {
+      subTreeToDeleteFrom = data;
+      return;
+    }
+    if (data.children) {
+      data.children.forEach(node => {
+        return findSubTree(node, id);
+      });
+    }
+  }
+  findSubTree(data, id);
+  function recursivelyDeleteFromFoundSubTree(subTreeToDeleteFrom, displaySubTreeDropDown){
+    if (!subTreeToDeleteFrom) return;
+    if (displaySubTreeDropDown[subTreeToDeleteFrom.componentId]){
+      delete displaySubTreeDropDown[subTreeToDeleteFrom.componentId];
+    }
+    if (subTreeToDeleteFrom.children){
+      subTreeToDeleteFrom.children.forEach(node =>{
+        return recursivelyDeleteFromFoundSubTree(node, displaySubTreeDropDown);
+      })
+    }
+  }
+  recursivelyDeleteFromFoundSubTree(subTreeToDeleteFrom, displaySubTreeDropDown)
+  return;
+}

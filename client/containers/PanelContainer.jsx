@@ -16,14 +16,15 @@ import {
   useTemplates,
   setTimeoutId,
   showSubTree,
-  addOrDeleteNewSubTree
+  addOrDeleteNewSubTree,
+  deleteSubTreeDropdownItem
 } from '../actions/actions';
 import ComponentDetail from '../components/ComponentDetail.jsx';
 import TemplatingArea from '../components/TemplatingArea.jsx';
 import FileTree from '../components/FileTree.jsx';
 import PanelNavIcons from '../components/PanelNavIcons.jsx';
 import ChildrenList from '../components/ChildrenList.jsx';
-
+import SubTree from '../components/SubTree.jsx';
 const mapStateToProps = store => ({
   state: store.main,
   data: store.main.data,
@@ -53,7 +54,8 @@ const mapDispatchToProps = dispatch =>
       useTemplates,
       setTimeoutId,
       showSubTree,
-      addOrDeleteNewSubTree
+      addOrDeleteNewSubTree,
+      deleteSubTreeDropdownItem
     },
     dispatch
   );
@@ -122,7 +124,8 @@ const SideNavContainer = ({
   showSubTree,
   currentlyDisplayedSubTreeId,
   currentSubTreeDisplayToUser,
-  addOrDeleteNewSubTree
+  addOrDeleteNewSubTree,
+  deleteSubTreeDropdownItem
 }) => {
   return (
     <div
@@ -147,7 +150,6 @@ const SideNavContainer = ({
                 recentTimeoutId={recentTimeoutId}
                 setTimeoutId={setTimeoutId}
                 checkID_ClearAndSetTimeout={checkID_ClearAndSetTimeout}
-
                 displaySubTreeDropDown={displaySubTreeDropDown}
                 showSubTree={showSubTree}
                 currentlyDisplayedSubTreeId={currentlyDisplayedSubTreeId}
@@ -166,8 +168,6 @@ const SideNavContainer = ({
                 recentTimeoutId={recentTimeoutId}
                 setTimeoutId={setTimeoutId}
                 checkID_ClearAndSetTimeout={checkID_ClearAndSetTimeout}
-
-
                 displaySubTreeDropDown={displaySubTreeDropDown}
                 showSubTree={showSubTree}
                 currentlyDisplayedSubTreeId={currentlyDisplayedSubTreeId}
@@ -191,6 +191,17 @@ const SideNavContainer = ({
           </Route>
           <Route path='/templates'>
             <TemplatingArea useTemplates={useTemplates} />
+          </Route>
+          <Route path = '/subTree'>
+            <SubTree  
+              displaySubTreeDropDown={displaySubTreeDropDown}
+              setTimeoutId={setTimeoutId} 
+              recentTimeoutId={recentTimeoutId} 
+              state={state} 
+              checkID_ClearAndSetTimeout={checkID_ClearAndSetTimeout} 
+              showSubTree={showSubTree}
+              deleteSubTreeDropdownItem={deleteSubTreeDropdownItem}
+            />
           </Route>
         </Switch>
       </MemoryRouter>

@@ -201,3 +201,9 @@ export const addOrDeleteNewSubTree = (isChecked, componentId, name) => dispatch 
         payload: { isChecked, componentId, name }
     })
 }
+export const deleteSubTreeDropdownItem = (componentId) =>dispatch =>{
+    dispatch({
+        type: types.DELETE_SUBTREE_DROPDOWN_ITEM,
+        payload: componentId
+    })
+}
