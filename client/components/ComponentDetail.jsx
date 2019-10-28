@@ -20,7 +20,8 @@ const ComponentDetail = ({
   checkID_ClearAndSetTimeout,
   showSubTree,
   currentlyDisplayedSubTreeId,
-  addOrDeleteNewSubTree
+  addOrDeleteNewSubTree,
+  state
 }) => {
   const disabled = () => {
     return currentComponent.depth === 0 ? 'disabled' : '';
@@ -35,7 +36,11 @@ const ComponentDetail = ({
             type='text'
             key={`initialName${initialName || currentComponent.name}`}
             defaultValue={initialName || currentComponent.name}
-            onBlur={renameComponent}
+            onBlur={(e)=>{
+              renameComponent(e);
+              showSubTree(currentlyDisplayedSubTreeId);
+              checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state);
+            }}
             disabled={disabled()}
           />
           <div className='is-container'>
@@ -50,16 +55,17 @@ const ComponentDetail = ({
             </label>
           </div>
           <button onClick={() => {
-            deleteComponent()
+            deleteComponent();
             showSubTree(currentlyDisplayedSubTreeId);
+            checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state)
           }}>
             <i className='far fa-minus-square'></i>
           </button>
           <input id='add-sub-tree' type='checkbox' onChange={() => {
             const isChecked = document.getElementById('add-sub-tree').checked;
-            // console.log(isChecked, currentComponent)
             if (currentComponent.componentId !== 0) {
-              addOrDeleteNewSubTree(isChecked, currentComponent.componentId, currentComponent.name)
+              addOrDeleteNewSubTree(isChecked, currentComponent.componentId, currentComponent.name);
+              checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state);
             }
           }} />
           <label>Add into subtree</label>

@@ -58,7 +58,9 @@ export const updateTree = (state, currentComponent) => {
       currentComponent,
       nameAndCodeLinkedToComponentId: state.nameAndCodeLinkedToComponentId,
       lastId: state.lastId,
-      defaultNameCount: state.defaultNameCount
+      defaultNameCount: state.defaultNameCount,
+      currentSubTreeDisplayToUser: clone(state.currentSubTreeDisplayToUser),
+      currentlyDisplayedSubTreeId: state.currentlyDisplayedSubTreeId
     }
   );
   preHistory.next = history;

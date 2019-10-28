@@ -2,7 +2,8 @@ import React, { useMemo } from "react";
 import Tree from "react-d3-tree";
 import hotkeys from "hotkeys-js";
 
-function getRidOfStupidChildren(data, actualData) {
+function deleteNull_ChildrenFromD3Tree(data, actualData) {
+  if(!data) return;
   if (!data.children) {
     if (data.parent && data.parent.children) {
       data.parent.children = data.parent.children.filter(el => el !== null);
@@ -19,10 +20,10 @@ function getRidOfStupidChildren(data, actualData) {
       data.children.splice(i, 1);
       continue;
     }
-    getRidOfStupidChildren(data.children[i], actualData);
+    deleteNull_ChildrenFromD3Tree(data.children[i], actualData);
   }
   if (data.children.includes(null)) {
-    getRidOfStupidChildren(data, actualData);
+    deleteNull_ChildrenFromD3Tree(data, actualData);
   }
 }
 
@@ -38,13 +39,11 @@ const VisualContainer = ({
   currentlyDisplayedSubTreeId
 }) => {
   useMemo(() => {
-    getRidOfStupidChildren(currentSubTreeDisplayToUser, currentSubTreeDisplayToUser);
+    deleteNull_ChildrenFromD3Tree(currentSubTreeDisplayToUser, currentSubTreeDisplayToUser);
   }, [currentSubTreeDisplayToUser]);
   const undoFunc = undo;
   const redoFunc = redo;
-  console.log('in fn scope', currentlyDisplayedSubTreeId)
   hotkeys("ctrl+z, ctrl+shift+z", function (event, handler) {
-    // console.log('outside of switch statement', currentlyDisplayedSubTreeId)
     event.preventDefault();
     switch (handler.key) {
       case "ctrl+z":
@@ -56,7 +55,7 @@ const VisualContainer = ({
     }
     showSubTree();
   });
-  // return useMemo(() => {
+  return useMemo(() => {
     return (
       <div id="visual-container" >
          {/*console.log('inside useMemo for Visual Container', data)*/}
@@ -80,7 +79,6 @@ const VisualContainer = ({
             y: -30
           }}
           onClick={currentComponent => {
-            // console.log('here inside of onclick')
             setCurrentComponent(currentComponent);
           }}
           transitionDuration={500}
@@ -88,7 +86,7 @@ const VisualContainer = ({
       </div>
 
     );
-  // }, [currentSubTreeDisplayToUser, translate, orientation])
+  }, [currentSubTreeDisplayToUser, translate, orientation])
 }
-export default React.memo(VisualContainer);
+export default VisualContainer;
 

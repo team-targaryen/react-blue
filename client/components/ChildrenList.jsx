@@ -1,7 +1,6 @@
 import React from 'react';
 import EachChild from './EachChild.jsx';
 import TemplateDropdown from './TemplateDropdown.jsx';
-import OnClickShowSubTree from './OnClickShowSubTree.jsx';
 const ChildrenList = ({
   addChild,
   renameChild,
@@ -15,14 +14,9 @@ const ChildrenList = ({
   recentTimeoutId,
   setTimeoutId,
   checkID_ClearAndSetTimeout,
-  displaySubTreeDropDown,
   showSubTree,
-  currentlyDisplayedSubTreeId
+  currentlyDisplayedSubTreeId,
 }) => {
-  const displaySubTreeArray = [];
-  for (let [key, value] of Object.entries(displaySubTreeDropDown)){
-    displaySubTreeArray.push(<OnClickShowSubTree key={`SubTreeDropdown${key}`} id={key} name = {value} showSubTree={showSubTree} />);
-  }
   return (
     <React.Fragment>
       <h3>Add Child</h3>
@@ -57,7 +51,6 @@ const ChildrenList = ({
       </form>
       <h3>Children List</h3>
       <div id='children-list'>
-        {displaySubTreeArray}
         {currentComponent.children &&
           currentComponent.children.filter((node, index) => {
             return node !== null;
@@ -84,6 +77,8 @@ const ChildrenList = ({
     </React.Fragment>
   );
 };
+
+
 const childMaker = (
   child,
   index,
