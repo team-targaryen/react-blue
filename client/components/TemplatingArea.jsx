@@ -7,10 +7,10 @@ import {
 } from '../templates-code/templates';
 import CreateCodeEditor from './CreateCodeEditor.jsx';
 
-Storage.prototype.setObj = function (key, obj) {
+Storage.prototype.setObj = function(key, obj) {
   return this.setItem(key, JSON.stringify(obj));
 };
-Storage.prototype.getObj = function (key) {
+Storage.prototype.getObj = function(key) {
   return JSON.parse(this.getItem(key));
 };
 
@@ -18,8 +18,8 @@ function CustomTemplate(name, isHook) {
   (this.name = name
     ? name
     : isHook
-      ? 'DEFAULT_HOOK_TEMPLATE'
-      : 'DEFAULT_CLASS_TEMPLATE'),
+    ? 'DEFAULT_HOOK_TEMPLATE'
+    : 'DEFAULT_CLASS_TEMPLATE'),
     (this.code = isHook
       ? new InitialHookSyntax(name).code
       : new InitialClassSyntax(name).code);
