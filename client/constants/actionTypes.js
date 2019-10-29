@@ -36,8 +36,10 @@ export const UPDATE_STATE_WITH_LOCAL_STORAGE =
 
 //deleting entire tree
 export const RESET_ENTIRE_TREE = 'RESET_ENTIRE_TREE';
+
 // setTimeout functionality of Local Storage
 export const SET_TIMEOUT_ID = 'SET_TIMEOUT_ID';
+
 //display sub tree
 export const SHOW_SUBTREE = 'SHOW_SUBTREE';
 export const ADD_OR_DELETE_NEW_SUB_TREE = 'ADD_OR_DELETE_NEW_SUB_TREE';

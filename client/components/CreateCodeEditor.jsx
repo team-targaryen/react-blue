@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import OnClickShowCodeMirror from './OnClickShowCodeMirror.jsx';
 
 const CreateCodeEditor = ({
@@ -8,20 +8,18 @@ const CreateCodeEditor = ({
   updateCode
 }) => {
   const [isName, setIsName] = useState(syntaxObject.name)
-  if (syntaxObject.name !== isName) {
-    setIsName(syntaxObject.name)
-  }
-  // console.log('Inside of CreatCodeEditor.jsx')
+  useEffect(() => {
+    if (syntaxObject.name !== isName) {
+      setIsName(syntaxObject.name)
+    }
+  }, [syntaxObject.name])
   return (
     <div key={`showCodeMirror${index}`} className='template-item'>
       <input
-        onChange={e => {
-          e.preventDefault();
-          updateCode(syntaxObject, index, e.target.value);
-        }}
         type='text'
         className='change-name'
         value={isName}
+        disabled={true}
       />
       <OnClickShowCodeMirror
         code={syntaxObject.code}

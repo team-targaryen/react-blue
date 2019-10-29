@@ -60,7 +60,7 @@ const App = ({
       );
       const currentComponent = localStorage.getObj("currentComponent");
       const lastId = localStorage.getObj("lastId");
-      const history = localStorage.getObj('history')
+      const history = localStorage.getObj('history');
       const displaySubTreeDropDown = localStorage.getObj('displaySubTreeDropDown');
       updateStateWithLocalStorage(
         data,
@@ -101,7 +101,6 @@ const App = ({
           currentlyDisplayedSubTreeId={currentlyDisplayedSubTreeId}
         />
       </div>
-
     </React.Fragment>)
 }
 
