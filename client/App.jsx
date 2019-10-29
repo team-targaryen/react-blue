@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   setTransAndHistory,
   updateStateWithLocalStorage,
   undo,
   redo,
   setCurrentComponent,
-  showSubTree,
-} from "./actions/actions";
-import clone from "clone";
+  showSubTree
+} from './actions/actions';
+import clone from 'clone';
 import TopNavContainer from './containers/TopNavContainer.jsx';
 import PanelContainer from './containers/PanelContainer.jsx';
 import VisualContainer from './containers/VisualContainer.jsx';
@@ -26,18 +26,20 @@ const mapStateToProps = store => ({
   orientation: store.main.orientation,
   currentSubTreeDisplayToUser: store.main.currentSubTreeDisplayToUser,
   currentlyDisplayedSubTreeId: store.main.currentlyDisplayedSubTreeId
-})
+});
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({
-    updateStateWithLocalStorage,
-    setTransAndHistory,
-    undo,
-    redo,
-    setCurrentComponent,
-    showSubTree,
-  }, dispatch
-  )
+  bindActionCreators(
+    {
+      updateStateWithLocalStorage,
+      setTransAndHistory,
+      undo,
+      redo,
+      setCurrentComponent,
+      showSubTree
+    },
+    dispatch
+  );
 const App = ({
   state,
   updateStateWithLocalStorage,
@@ -53,15 +55,17 @@ const App = ({
   currentlyDisplayedSubTreeId
 }) => {
   useEffect(() => {
-    let data = localStorage.getObj("data");
+    let data = localStorage.getObj('data');
     if (data) {
       const nameAndCodeLinkedToComponentId = localStorage.getObj(
-        "nameAndCodeLinkedToComponentId"
+        'nameAndCodeLinkedToComponentId'
       );
-      const currentComponent = localStorage.getObj("currentComponent");
-      const lastId = localStorage.getObj("lastId");
-      const history = localStorage.getObj('history')
-      const displaySubTreeDropDown = localStorage.getObj('displaySubTreeDropDown');
+      const currentComponent = localStorage.getObj('currentComponent');
+      const lastId = localStorage.getObj('lastId');
+      const history = localStorage.getObj('history');
+      const displaySubTreeDropDown = localStorage.getObj(
+        'displaySubTreeDropDown'
+      );
       updateStateWithLocalStorage(
         data,
         currentComponent,
@@ -72,7 +76,9 @@ const App = ({
       );
     }
     const initialHistory = new DoublyLinkedList(clone(state));
-    const domElementForVisualContainer = document.getElementById('visual-container');
+    const domElementForVisualContainer = document.getElementById(
+      'visual-container'
+    );
     const dimensions = domElementForVisualContainer.getBoundingClientRect();
     setTransAndHistory(
       {
@@ -82,10 +88,9 @@ const App = ({
       initialHistory
     );
     showSubTree(currentlyDisplayedSubTreeId);
-  }, [])
+  }, []);
   return (
-    <React.Fragment>
-      {/*console.log('Inside of App.jsx')*/}
+    <div id='application'>
       <TopNavContainer />
       <div id='panel-main-container'>
         <PanelContainer />
@@ -101,8 +106,11 @@ const App = ({
           currentlyDisplayedSubTreeId={currentlyDisplayedSubTreeId}
         />
       </div>
+    </div>
+  );
+};
 
-    </React.Fragment>)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

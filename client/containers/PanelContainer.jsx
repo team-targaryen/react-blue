@@ -71,30 +71,36 @@ const getCircularReplacer = () => {
     return value;
   };
 };
-Storage.prototype.setObj = function (key, obj) {
+Storage.prototype.setObj = function(key, obj) {
   return this.setItem(key, JSON.stringify(obj, getCircularReplacer()));
 };
-Storage.prototype.getObj = function (key) {
+Storage.prototype.getObj = function(key) {
   return JSON.parse(this.getItem(key));
 };
 
 function checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state) {
   function setTimeoutAndSendToReducer(setTimeoutId, recentTimeoutId, state) {
     const newSetTimeoutID = setTimeout(() => {
-      localStorage.setObj('nameAndCodeLinkedToComponentId', state.nameAndCodeLinkedToComponentId);
+      localStorage.setObj(
+        'nameAndCodeLinkedToComponentId',
+        state.nameAndCodeLinkedToComponentId
+      );
       localStorage.setObj('data', state.data);
       localStorage.setObj('currentComponent', state.currentComponent);
-      localStorage.setObj('displaySubTreeDropDown', state.displaySubTreeDropDown);
+      localStorage.setObj(
+        'displaySubTreeDropDown',
+        state.displaySubTreeDropDown
+      );
       state.history.next = null;
       state.history.prev = null;
       localStorage.setObj('history', state.history);
       localStorage.setObj('lastId', state.lastId);
-      console.log('SUCCESS!!!!')
-    }, 10000)
+      console.log('SUCCESS!!!!');
+    }, 10000);
     setTimeoutId(newSetTimeoutID);
   }
   if (!recentTimeoutId) {
-    return setTimeoutAndSendToReducer(setTimeoutId, recentTimeoutId, state)
+    return setTimeoutAndSendToReducer(setTimeoutId, recentTimeoutId, state);
   }
   clearTimeout(recentTimeoutId);
   setTimeoutAndSendToReducer(setTimeoutId, recentTimeoutId, state);
@@ -192,13 +198,13 @@ const SideNavContainer = ({
           <Route path='/templates'>
             <TemplatingArea useTemplates={useTemplates} />
           </Route>
-          <Route path = '/subTree'>
-            <SubTree  
+          <Route path='/subTree'>
+            <SubTree
               displaySubTreeDropDown={displaySubTreeDropDown}
-              setTimeoutId={setTimeoutId} 
-              recentTimeoutId={recentTimeoutId} 
-              state={state} 
-              checkID_ClearAndSetTimeout={checkID_ClearAndSetTimeout} 
+              setTimeoutId={setTimeoutId}
+              recentTimeoutId={recentTimeoutId}
+              state={state}
+              checkID_ClearAndSetTimeout={checkID_ClearAndSetTimeout}
               showSubTree={showSubTree}
               deleteSubTreeDropdownItem={deleteSubTreeDropdownItem}
             />
@@ -209,7 +215,9 @@ const SideNavContainer = ({
   );
 };
 
-export default React.memo(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SideNavContainer));
+export default React.memo(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(SideNavContainer)
+);
