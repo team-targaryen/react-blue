@@ -39,15 +39,36 @@
     height: 100%;
     background: linear-gradient(45deg, $prime-color-1, teal);
     position: fixed;
-    z-index: -1;
+    top: 0;
   }
 
   #hero {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
+    width: 352px;
+    height: 352px;
     color: #fff;
+    margin: auto;
+    position: absolute;
+    top: 22vh;
+    right: 0;
+    left: 0;
+
+    .logo-frame {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 240px;
+      height: 240px;
+      background: #fff;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+    }
+
+    .logo {
+      width: 200px;
+    }
 
     h2 {
       margin-bottom: 20px;
@@ -66,6 +87,12 @@
   #features {
     background: $prime-color-5;
     padding: 80px 0;
+    margin-top: 80vh;
+    position: relative;
+
+    h2 {
+      margin: 0;
+    }
 
     .feature-item {
       display: flex;
@@ -82,10 +109,13 @@
 
   #action {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    max-width: 752px;
     color: #fff;
-    padding: 160px 0;
+    margin: 160px auto;
+    position: relative;
 
     h2 {
       margin-bottom: 40px;
@@ -100,6 +130,7 @@
       font-size: 100px;
       color: #fff;
       margin: 0 10px 10px;
+      transition: 0.2s;
     }
 
     p {
@@ -112,12 +143,19 @@
       border: 0;
       padding: 0;
       margin: 0 10px;
+
+      &:hover {
+        i {
+          color: $prime-color-4;
+        }
+      }
     }
   }
 
   #installation {
     padding: 160px 0;
     background: $prime-color-5;
+    position: relative;
   }
 
   #team {
@@ -126,8 +164,8 @@
     flex-direction: column;
     width: 100%;
     max-width: 1000px;
-    padding: 160px 0;
-    margin: auto;
+    margin: 160px auto;
+    position: relative;
 
     h2 {
       color: #fff;
@@ -138,6 +176,68 @@
       display: flex;
       justify-content: space-between;
       width: 100%;
+
+      > div {
+        &:nth-of-type(1) {
+          .profile-frame {
+            &:hover {
+              .profile-photo {
+                background-image: url('../images/darren-funny.jpg');
+              }
+            }
+          }
+
+          .profile-photo {
+            background: url('../images/darren.jpg') no-repeat center;
+            background-size: cover;
+          }
+        }
+
+        &:nth-of-type(2) {
+          .profile-frame {
+            &:hover {
+              .profile-photo {
+                background-image: url('../images/kendall-funny.png');
+              }
+            }
+          }
+
+          .profile-photo {
+            background: url('../images/kendall.jpg') no-repeat center;
+            background-size: cover;
+          }
+        }
+
+        &:nth-of-type(3) {
+          .profile-frame {
+            &:hover {
+              .profile-photo {
+                background-image: url('../images/randy-funny.png');
+              }
+            }
+          }
+
+          .profile-photo {
+            background: url('../images/randy.jpg') no-repeat center;
+            background-size: cover;
+          }
+        }
+
+        &:nth-of-type(4) {
+          .profile-frame {
+            &:hover {
+              .profile-photo {
+                background-image: url('../images/krystal-funny.jpg');
+              }
+            }
+          }
+
+          .profile-photo {
+            background: url('../images/krystal.jpg') no-repeat center;
+            background-size: cover;
+          }
+        }
+      }
 
       > i {
         font-size: 80px;
@@ -166,12 +266,19 @@
       background: $prime-color-5;
       border-radius: 50%;
       margin-bottom: 10px;
+
+      &:hover {
+        .profile-photo {
+          transform: rotateY(180deg);
+        }
+      }
     }
 
     .profile-photo {
       width: 140px;
       height: 140px;
       border-radius: 50%;
+      transition: 0.2s;
     }
 
     figcaption {
@@ -187,6 +294,14 @@
 
       a {
         margin: 0 10px;
+      }
+
+      i {
+        transition: 0.2s;
+
+        &:hover {
+          color: $prime-color-4;
+        }
       }
     }
 

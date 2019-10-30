@@ -35,6 +35,14 @@ const Index = () => {
             size: {
               value: 4
             }
+          },
+          interactivity: {
+            events: {
+              onhover: {
+                enable: true,
+                mode: 'repulse'
+              }
+            }
           }
         }}
       />

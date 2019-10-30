@@ -4,6 +4,7 @@ import Fade from 'react-reveal/Fade';
 const Features = () => {
   return (
     <section id='features'>
+      <h2>Streamline Your Development Process</h2>
       <figure className='feature-item'>
         <iframe
           width='600'
