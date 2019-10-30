@@ -79,7 +79,7 @@ Storage.prototype.getObj = function(key) {
 };
 
 function checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state) {
-  function setTimeoutAndSendToReducer(setTimeoutId, recentTimeoutId, state) {
+  function setTimeoutAndSendToReducer(setTimeoutId, state) {
     const newSetTimeoutID = setTimeout(() => {
       localStorage.setObj(
         'nameAndCodeLinkedToComponentId',
@@ -100,10 +100,10 @@ function checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state) {
     setTimeoutId(newSetTimeoutID);
   }
   if (!recentTimeoutId) {
-    return setTimeoutAndSendToReducer(setTimeoutId, recentTimeoutId, state);
+    return setTimeoutAndSendToReducer(setTimeoutId, state);
   }
   clearTimeout(recentTimeoutId);
-  setTimeoutAndSendToReducer(setTimeoutId, recentTimeoutId, state);
+  setTimeoutAndSendToReducer(setTimeoutId, state);
   return;
 }
 const SideNavContainer = ({
@@ -188,6 +188,7 @@ const SideNavContainer = ({
                 Toggle File Tree
               </button>
               <FileTree
+                currentComponent={currentComponent}
                 currentSubTreeDisplayToUser={currentSubTreeDisplayToUser}
                 setCurrentComponent={setCurrentComponent}
                 toggleFileTree={toggleFileTree}

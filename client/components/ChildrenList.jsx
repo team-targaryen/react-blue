@@ -21,9 +21,9 @@ const ChildrenList = ({
     <React.Fragment>
       <h3>Add Child</h3>
       <form id='children-list-form' onSubmit={(e) => {
-        checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state)
-        addChild(e)
-        showSubTree(currentlyDisplayedSubTreeId)
+        addChild(e);
+        showSubTree(currentlyDisplayedSubTreeId);
+        checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state);
       }}>
 
         <input
@@ -77,7 +77,6 @@ const ChildrenList = ({
     </React.Fragment>
   );
 };
-
 
 const childMaker = (
   child,

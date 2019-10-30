@@ -37,21 +37,23 @@ export const updateTree = (state, currentComponent) => {
     children = currentComponent
     children.name = currentComponent.name;
   }
-  function findComponentAndUpdate(tree, currentComponent) {
-    if (tree.componentId === currentComponent.componentId) {
-      tree.name = currentComponent.name;
-      tree.isContainer = currentComponent.isContainer;
-      tree.children = currentComponent.children
+  function findComponentAndUpdate(data, currentComponent) {
+    if (!data) return;
+    if (data.componentId === currentComponent.componentId) {
+      data.name = currentComponent.name;
+      data.isContainer = currentComponent.isContainer;
+      data.children = currentComponent.children
       return;
     }
-    if (tree.children) {
-      tree.children.forEach(child => {
+    if (data.children) {
+      data.children.forEach(child => {
         return findComponentAndUpdate(child, currentComponent);
       });
     }
   };
   findComponentAndUpdate(data, currentComponent);
   const preHistory = state.history;
+  const displaySubTreeDropDown = Object.assign({}, state.displaySubTreeDropDown);
   const history = new DoublyLinkedList(
     {
       data,
@@ -59,8 +61,7 @@ export const updateTree = (state, currentComponent) => {
       nameAndCodeLinkedToComponentId: state.nameAndCodeLinkedToComponentId,
       lastId: state.lastId,
       defaultNameCount: state.defaultNameCount,
-      currentSubTreeDisplayToUser: clone(state.currentSubTreeDisplayToUser),
-      currentlyDisplayedSubTreeId: state.currentlyDisplayedSubTreeId
+      displaySubTreeDropDown
     }
   );
   preHistory.next = history;
