@@ -32,9 +32,42 @@
       margin: 80px auto;
     }
   }
-
   #action {
     // background: url('../images/bg-dots.jpg');
     // background-attachment: cover;
   }
+  .team {
+    .github-buttons {
+      display: flex;
+      justify-content: center;
+      #github-logo {
+        width: 35px;
+        height: 35px;
+        flex-direction: column;
+        color: $prime-color-1;
+      }
+    }
+    .profile-info {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-evenly;
+    }
+    .individual-profile {
+      display: flex;
+      flex-direction: column;
+    }
+    #profile-picture {
+      flex-direction: center;
+      border-radius: 360px;
+      height: 100px;
+      width: 100px;
+    }
+    #linkedin {
+
+    }
+    #github {
+
+    }
+  }
+  
 }
