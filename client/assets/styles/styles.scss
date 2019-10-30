@@ -1,8 +1,6 @@
-@import 'general';
-
-@import 'general';
-@import 'landing-page';
-@import 'application';
-@import 'topnav-container';
-@import 'panel-container';
-@import 'visual-container';
+@import './partials/general';
+@import './partials/landing-page';
+@import './partials/application';
+@import './partials/topnav-container';
+@import './partials/panel-container';
+@import './partials/visual-container';

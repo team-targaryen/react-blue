@@ -1,9 +1,14 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
 
 const Action = () => {
   return (
     <section id='action'>
-      <h3>Download Now</h3>
+      <div id='action-description'>
+        <h3>Get Started Now</h3>
+        <Button variant='outlined'>Web App</Button>
+        <Button variant='outlined'>Desktop App</Button>
+      </div>
     </section>
   );
 };
