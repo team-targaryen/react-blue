@@ -11,6 +11,7 @@ import Particles from 'react-particles-js';
 
 import Hero from './Hero';
 import Features from './Features';
+import Action from './Action';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -69,6 +70,7 @@ const Index = () => {
       />
       <Hero />
       <Features />
+      <Action />
     </div>
   );
 };
