@@ -6,19 +6,20 @@ const Hero = () => {
     <section id='hero'>
       <div id='hero-description'>
         <h2>React Prototyping Tool</h2>
-        <div class='github-buttons'>
+        <div className='github-buttons'>
           <GitHubButton
             href='https://github.com/team-targaryan/react-blue'
             data-size='large'
-            aria-label='Follow @React Blue on GitHub'
+            aria-label='Follow React Blue on GitHub'
           >
-            Follow @React Blue
+            Follow React Blue
           </GitHubButton>
           <GitHubButton
             href='https://github.com/team-targaryan/react-blue'
+            data-icon='octicon-star'
             data-size='large'
             data-show-count='true'
-            aria-label='Star @React Blue on GitHub'
+            aria-label='Star React Blue on GitHub'
           >
             Star
           </GitHubButton>

@@ -5,9 +5,25 @@ const Action = () => {
   return (
     <section id='action'>
       <div id='action-description'>
-        <h3>Get Started Now</h3>
-        <Button variant='outlined'>Web App</Button>
-        <Button variant='outlined'>Desktop App</Button>
+        <h2>Get Started Now</h2>
+        <div id='tool-group'>
+          <button className='tool-item'>
+            <i className='fas fa-laptop'></i>
+            <p>Web App</p>
+          </button>
+          <button className='tool-item'>
+            <i className='fab fa-apple'></i>
+            <p>Download Mac</p>
+          </button>
+          <button className='tool-item'>
+            <i className='fab fa-linux'></i>
+            <p>Download Linux</p>
+          </button>
+          <button className='tool-item'>
+            <i className='fab fa-windows'></i>
+            <p>Download Windows</p>
+          </button>
+        </div>
       </div>
     </section>
   );

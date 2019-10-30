@@ -8,6 +8,7 @@ import Particles from 'react-particles-js';
 import Hero from './Hero';
 import Features from './Features';
 import Action from './Action';
+import Installation from './Installation';
 import Team from './Team';
 
 const Index = () => {
@@ -40,6 +41,7 @@ const Index = () => {
       <Hero />
       <Features />
       <Action />
+      <Installation />
       <Team />
     </div>
   );

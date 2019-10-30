@@ -1,122 +1,76 @@
 import React, { useState } from 'react';
-import GitHubButton from 'react-github-btn';
+import darren from '../assets/images/darren.jpg';
+import kendall from '../assets/images/kendall.jpg';
+import randy from '../assets/images/randy.jpg';
+import krystal from '../assets/images/krystal.jpg';
 
 const Team = () => {
   const [isCreatorProfiles] = useState([
     {
       name: 'Darren Zhu',
-      githubHandle: 'Joodongri',
       github: 'https://github.com/Joodongri',
-      dataVanity: 'darrenDzhu',
-      linked: 'https://www.linkedin.com/in/darrenDzhu?trk=profile-badge'
+      linkedin: 'https://www.linkedin.com/in/darrenDzhu',
+      src: darren
     },
     {
       name: 'Kendall Lu',
-      githubHandle: 'kendall-lu',
       github: 'https://github.com/kendall-lu',
-      dataVanity: 'kendall-lu',
-      linked: 'https://www.linkedin.com/in/kendall-lu?trk=profile-badge'
+      linkedin: 'https://www.linkedin.com/in/kendall-lu',
+      src: kendall
     },
     {
       name: 'Randy Reyes',
-      githubHandle: 'rqreyes',
       github: 'https://github.com/rqreyes',
-      dataVanity: 'rqreyes',
-      linked: 'https://www.linkedin.com/in/rqreyes?trk=profile-badge'
+      linkedin: 'https://www.linkedin.com/in/rqreyes',
+      src: randy
     },
     {
       name: 'Krystal Chen',
-      githubHandle: 'kcrystalchen',
       github: 'https://github.com/kcrystalchen',
-      dataVanity: 'kcrystalchen',
-      linked: 'https://www.linkedin.com/in/kcrystalchen?trk=profile-badge'
+      linkedin: 'https://www.linkedin.com/in/kcrystalchen',
+      src: krystal
     }
   ]);
   const creatorProfileArray = isCreatorProfiles.map(profile => {
     return (
       <Profiles
         key={`profile${profile.name}`}
-        githubHandle={profile.githubHandle}
+        src={profile.src}
         name={profile.name}
+        linkedin={profile.linkedin}
         github={profile.github}
-        dataVanity={profile.dataVanity}
-        linked={profile.linked}
       />
     );
   });
   return (
-    <React.Fragment>
-      <h1>React-Blue</h1>
-      <GitHubButtons />
-      <Gifs />
-      {creatorProfileArray}
-    </React.Fragment>
-  );
-};
-const GitHubButtons = () => {
-  return (
-    <div className='github-buttons'>
-      <GitHubButton
-        href='https://github.com/team-targaryan/react-blue'
-        data-size='large'
-        aria-label='Follow @React Blue on GitHub'
-      >
-        Follow @React Blue
-      </GitHubButton>
-      <GitHubButton
-        href='https://github.com/team-targaryan/react-blue'
-        data-size='large'
-        data-show-count='true'
-        aria-label='Star @React Blue on GitHub'
-      >
-        Star
-      </GitHubButton>
-      <button href='#'>Go To Our Web Application</button>
-    </div>
+    <section id='team'>
+      <h2>Meet the Team</h2>
+      <div id='profile-group'>{creatorProfileArray}</div>
+    </section>
   );
 };
 
-const Gifs = () => {
+const Profiles = ({ src, name, linkedin, github }) => {
   return (
-    <div className='iFrames'>
-      <iframe
-        width='560'
-        height='315'
-        src='https://media.giphy.com/media/JpXEK9GC6Z9vk8lfDi/giphy.gif'
-        frameborder='0'
-        allowfullscreen
-      ></iframe>
-      <iframe
-        width='560'
-        height='315'
-        src='https://media.giphy.com/media/Y3vwiphEodr52wcMrB/giphy.gif'
-        frameborder='0'
-        allowfullscreen
-      ></iframe>
-      <p>Insert Text Here</p>
-    </div>
-  );
-};
-const Profiles = ({ name, github, linked, dataVanity, githubHandle }) => {
-  return (
-    <div className='profile-info'>
-      <div
-        className='LI-profile-badge'
-        data-version='v1'
-        data-size='medium'
-        data-locale='en_US'
-        data-type='vertical'
-        data-theme='light'
-        data-vanity={dataVanity}
-      >
-        <a className='LI-simple-link' href={linked}>
-          {name}
-        </a>
+    <React.Fragment>
+      <div className='profile'>
+        <figure>
+          <div className='profile-frame'>
+            <img className='profile-photo' src={src} />
+          </div>
+          <figcaption>{name}</figcaption>
+        </figure>
+        <div className='profile-links'>
+          <a href={linkedin} target='_blank'>
+            <i className='fab fa-linkedin'></i>
+          </a>
+          <a href={github} target='_blank'>
+            <i className='fab fa-github'></i>
+          </a>
+        </div>
       </div>
-      <GitHubButton href={github} data-size='large'>
-        Follow @{githubHandle}
-      </GitHubButton>
-    </div>
+      <i class='fas fa-exchange-alt'></i>
+    </React.Fragment>
   );
 };
 

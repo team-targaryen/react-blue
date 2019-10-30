@@ -37,7 +37,7 @@
   .landing-bg {
     width: 100%;
     height: 100%;
-    background: linear-gradient(to right, $prime-color-1, teal);
+    background: linear-gradient(45deg, $prime-color-1, teal);
     position: fixed;
     z-index: -1;
   }
@@ -74,18 +74,125 @@
       max-width: 1200px;
       margin: 80px auto;
     }
+
+    iframe {
+      flex: 1 0 auto;
+    }
   }
 
   #action {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 300px;
     color: #fff;
+    padding: 160px 0;
+
+    h2 {
+      margin-bottom: 40px;
+    }
+
+    #tool-group {
+      display: flex;
+      justify-content: center;
+    }
+
+    i {
+      font-size: 100px;
+      color: #fff;
+      margin: 0 10px 10px;
+    }
+
+    p {
+      font-size: 24px;
+      color: #fff;
+    }
 
     button {
+      background: none;
+      border: 0;
+      padding: 0;
+      margin: 0 10px;
+    }
+  }
+
+  #installation {
+    padding: 160px 0;
+    background: $prime-color-5;
+  }
+
+  #team {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1000px;
+    padding: 160px 0;
+    margin: auto;
+
+    h2 {
       color: #fff;
-      border: 1px solid #fff;
+      margin-bottom: 40px;
+    }
+
+    #profile-group {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+      > i {
+        font-size: 80px;
+        padding-top: 40px;
+
+        &:last-child {
+          display: none;
+        }
+      }
+    }
+
+    .profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .profile-frame {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 160px;
+      height: 160px;
+      background: $prime-color-5;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    .profile-photo {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+    }
+
+    figcaption {
+      font-size: 24px;
+      text-align: center;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .profile-links {
+      display: flex;
+      justify-content: center;
+
+      a {
+        margin: 0 10px;
+      }
+    }
+
+    i {
+      font-size: 40px;
+      color: #fff;
     }
   }
 }
