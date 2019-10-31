@@ -9,17 +9,17 @@ const Hero = () => {
         <div className='logo-frame'>
           <img className='logo' src={logo} alt='react blue logo' />
         </div>
-        <h2>React Blue[printing] Application</h2>
+        <h2>React Blue[print]</h2>
         <div className='github-buttons'>
           <GitHubButton
-            href='https://github.com/team-targaryan/react-blue'
+            href='https://github.com/team-targaryen/react-blue'
             data-size='large'
             aria-label='Follow React Blue on GitHub'
           >
             Follow React Blue
           </GitHubButton>
           <GitHubButton
-            href='https://github.com/team-targaryan/react-blue'
+            href='https://github.com/team-targaryen/react-blue'
             data-icon='octicon-star'
             data-size='large'
             data-show-count='true'

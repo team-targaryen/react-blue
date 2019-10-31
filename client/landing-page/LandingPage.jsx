@@ -31,7 +31,7 @@ const LandingPage = () => {
       <AppBar>
         <Toolbar id='top-nav'>
           <div className='top-nav-left'>
-            <div class='logo-frame'>
+            <div className='logo-frame'>
               <img className='logo' src={logo} alt='react blue logo' />
             </div>
             <h1>React Blue</h1>
