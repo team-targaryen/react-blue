@@ -1,9 +1,9 @@
 # React Blue
 
-React Blue is in beta. The founding team is actively working on new features to improve the tool. All feedback is welcome. Please post issues directly to this GitHub.
-
 React Blue is a prototyping and visualization tool that helps engineers build component trees with custom templates. We envisioned the ability for developers to quickly create their component file structure coupled with a friendly UI/UX.
 We’re excited to present to you, an application that provides export functionality and a pre-configured development environment for front-end and full-stack React-applications.
+
+React Blue is in beta. The founding team is actively working on new features to improve the tool. All feedback is welcome. Please post issues directly to this GitHub.
 
 ## Getting Started
 
