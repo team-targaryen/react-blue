@@ -153,7 +153,7 @@ const SideNavContainer = ({
         <PanelNavIcons />
         <div className='divider-panel'></div>
         <Switch>
-          <Route path='/application'>
+          <Route path='/app'>
             <div id='component-detail'>
               <ComponentDetail
                 renameComponent={renameComponent}

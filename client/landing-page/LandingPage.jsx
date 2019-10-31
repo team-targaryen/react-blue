@@ -12,7 +12,7 @@ import logo from '../assets/images/logo.png';
 import Hero from './Hero';
 import Features from './Features';
 import Action from './Action';
-import Usage from './Usage';
+import Details from './Details';
 import Team from './Team';
 
 const LandingPage = () => {
@@ -60,7 +60,7 @@ const LandingPage = () => {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <Link to='/application'>
+              <Link to='/app'>
                 <MenuItem onClick={handleClose}>Web App</MenuItem>
               </Link>
               <MenuItem onClick={handleClose}>Download Mac</MenuItem>
@@ -94,7 +94,7 @@ const LandingPage = () => {
       <Hero />
       <Features />
       <Action />
-      <Usage />
+      <Details />
       <Team />
     </div>
   );

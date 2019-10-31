@@ -1,7 +1,6 @@
 # React Blue
 
-React Blue is a prototyping and visualization tool that helps engineers build component trees with custom templates. We envisioned the ability for developers to quickly create their component file structure coupled with a friendly UI/UX.
-We’re excited to present to you, an application that provides export functionality and a pre-configured development environment for front-end and full-stack React-applications.
+React Blue is a prototyping and visualization tool that helps engineers build component trees with custom templates. We envision the ability for engineers to quickly create their component file structure coupled with a friendly UI/UX. This tool provides an export feature that sets up a pre-configured development environment for front-end and full-stack React applications.
 
 React Blue is in beta. The founding team is actively working on new features to improve the tool. All feedback is welcome. Please post issues directly to this GitHub.
 
@@ -20,8 +19,7 @@ Download (Mac, Windows, Linux)
    How to Use
    When starting, an ‘App’ component will always pre-populate in order to serve as your prototype’s root node.
 
-Main Display visually renders the hierarchical component tree. Clicking a node on the tree makes it the ‘Current Component’ and subject for edits.
-Left Panel functions as the control center. It contains three separate tabs: Current Component & Current File-Structure, Templates and SubTrees.
+Main Display visually renders the hierarchical component tree. Clicking a node on the tree makes it the ‘Current Component’ and subject for edits. Left Panel functions as the control center. It contains three separate tabs: Current Component & Current File-Structure, Templates and SubTrees.
 
 ## Usage
 
@@ -56,9 +54,9 @@ When you are finished creating your file structure generate a zip package of you
 
 ## Shorcuts and View
 
-Top Navbar features dropdown links for undoing(ctrl+z) and redoing(ctrl+shift+z) actions (hotkey features also enabled) and for toggling view format of the component tree.
+Keyboard shortcuts right at your fingertips to perform undo (ctrl+z) and redo (ctrl+shift+z) actions and toggle between horizontal and vertical views of the component tree.
 
-Please feel free to play around with our UI!
+Our tool is your playground.
 
 ---
 

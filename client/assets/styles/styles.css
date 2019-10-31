@@ -234,10 +234,24 @@ a:hover {
   margin: 80px auto;
 }
 
-#landing-page #features iframe {
-  -webkit-box-flex: 1;
-      -ms-flex: 1 0 auto;
-          flex: 1 0 auto;
+#landing-page #features .feature-item > div {
+  width: 50%;
+}
+
+#landing-page #features .image-frame {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#landing-page #features figcaption {
+  padding: 0 40px;
 }
 
 #landing-page #action {
@@ -297,10 +311,21 @@ a:hover {
   color: #71b8c2;
 }
 
-#landing-page #usage {
+#landing-page #details {
+  text-align: center;
   padding: 160px 0;
   background: #f8f8ff;
   position: relative;
+}
+
+#landing-page #details a:hover i {
+  color: #71b8c2;
+}
+
+#landing-page #details i {
+  font-size: 100px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 
 #landing-page #team {
@@ -942,8 +967,8 @@ form#children-list-form > *:not(:last-child) {
   left: 0%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 9, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 9, 0, 0.8));
-  -webkit-animation-delay: -2.72222s;
-          animation-delay: -2.72222s;
+  -webkit-animation-delay: -1.94444s;
+          animation-delay: -1.94444s;
 }
 
 .easter-egg .c:nth-child(1):after {
@@ -954,8 +979,8 @@ form#children-list-form > *:not(:last-child) {
   left: 0.69444%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 18, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 18, 0, 0.8));
-  -webkit-animation-delay: -1.27778s;
-          animation-delay: -1.27778s;
+  -webkit-animation-delay: -3.58333s;
+          animation-delay: -3.58333s;
 }
 
 .easter-egg .c:nth-child(2):after {
@@ -966,8 +991,8 @@ form#children-list-form > *:not(:last-child) {
   left: 1.38888%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 27, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 27, 0, 0.8));
-  -webkit-animation-delay: -3.91667s;
-          animation-delay: -3.91667s;
+  -webkit-animation-delay: -0.5s;
+          animation-delay: -0.5s;
 }
 
 .easter-egg .c:nth-child(3):after {
@@ -978,8 +1003,8 @@ form#children-list-form > *:not(:last-child) {
   left: 2.08332%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 35, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 35, 0, 0.8));
-  -webkit-animation-delay: -1.5s;
-          animation-delay: -1.5s;
+  -webkit-animation-delay: -2.52778s;
+          animation-delay: -2.52778s;
 }
 
 .easter-egg .c:nth-child(4):after {
@@ -990,8 +1015,8 @@ form#children-list-form > *:not(:last-child) {
   left: 2.77776%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 44, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 44, 0, 0.8));
-  -webkit-animation-delay: -0.58333s;
-          animation-delay: -0.58333s;
+  -webkit-animation-delay: -2.25s;
+          animation-delay: -2.25s;
 }
 
 .easter-egg .c:nth-child(5):after {
@@ -1002,8 +1027,8 @@ form#children-list-form > *:not(:last-child) {
   left: 3.4722%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 53, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 53, 0, 0.8));
-  -webkit-animation-delay: -3.58333s;
-          animation-delay: -3.58333s;
+  -webkit-animation-delay: -2.41667s;
+          animation-delay: -2.41667s;
 }
 
 .easter-egg .c:nth-child(6):after {
@@ -1014,8 +1039,8 @@ form#children-list-form > *:not(:last-child) {
   left: 4.16664%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 62, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 62, 0, 0.8));
-  -webkit-animation-delay: -0.08333s;
-          animation-delay: -0.08333s;
+  -webkit-animation-delay: -3.38889s;
+          animation-delay: -3.38889s;
 }
 
 .easter-egg .c:nth-child(7):after {
@@ -1026,8 +1051,8 @@ form#children-list-form > *:not(:last-child) {
   left: 4.86108%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 71, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 71, 0, 0.8));
-  -webkit-animation-delay: -0.83333s;
-          animation-delay: -0.83333s;
+  -webkit-animation-delay: -0.36111s;
+          animation-delay: -0.36111s;
 }
 
 .easter-egg .c:nth-child(8):after {
@@ -1038,8 +1063,8 @@ form#children-list-form > *:not(:last-child) {
   left: 5.55552%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 80, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 80, 0, 0.8));
-  -webkit-animation-delay: -3.75s;
-          animation-delay: -3.75s;
+  -webkit-animation-delay: -2.63889s;
+          animation-delay: -2.63889s;
 }
 
 .easter-egg .c:nth-child(9):after {
@@ -1050,8 +1075,8 @@ form#children-list-form > *:not(:last-child) {
   left: 6.24996%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 89, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 89, 0, 0.8));
-  -webkit-animation-delay: -2.25s;
-          animation-delay: -2.25s;
+  -webkit-animation-delay: -1.05556s;
+          animation-delay: -1.05556s;
 }
 
 .easter-egg .c:nth-child(10):after {
@@ -1062,8 +1087,8 @@ form#children-list-form > *:not(:last-child) {
   left: 6.9444%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 97, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 97, 0, 0.8));
-  -webkit-animation-delay: -2.16667s;
-          animation-delay: -2.16667s;
+  -webkit-animation-delay: -3.63889s;
+          animation-delay: -3.63889s;
 }
 
 .easter-egg .c:nth-child(11):after {
@@ -1074,8 +1099,8 @@ form#children-list-form > *:not(:last-child) {
   left: 7.63884%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 106, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 106, 0, 0.8));
-  -webkit-animation-delay: -0.25s;
-          animation-delay: -0.25s;
+  -webkit-animation-delay: -1.25s;
+          animation-delay: -1.25s;
 }
 
 .easter-egg .c:nth-child(12):after {
@@ -1086,8 +1111,8 @@ form#children-list-form > *:not(:last-child) {
   left: 8.33328%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 115, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 115, 0, 0.8));
-  -webkit-animation-delay: -0.66667s;
-          animation-delay: -0.66667s;
+  -webkit-animation-delay: -1.13889s;
+          animation-delay: -1.13889s;
 }
 
 .easter-egg .c:nth-child(13):after {
@@ -1098,8 +1123,8 @@ form#children-list-form > *:not(:last-child) {
   left: 9.02772%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 124, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 124, 0, 0.8));
-  -webkit-animation-delay: -2.44444s;
-          animation-delay: -2.44444s;
+  -webkit-animation-delay: -3.36111s;
+          animation-delay: -3.36111s;
 }
 
 .easter-egg .c:nth-child(14):after {
@@ -1110,8 +1135,8 @@ form#children-list-form > *:not(:last-child) {
   left: 9.72216%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 133, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 133, 0, 0.8));
-  -webkit-animation-delay: -3.61111s;
-          animation-delay: -3.61111s;
+  -webkit-animation-delay: -1.83333s;
+          animation-delay: -1.83333s;
 }
 
 .easter-egg .c:nth-child(15):after {
@@ -1122,8 +1147,8 @@ form#children-list-form > *:not(:last-child) {
   left: 10.4166%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 142, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 142, 0, 0.8));
-  -webkit-animation-delay: -0.58333s;
-          animation-delay: -0.58333s;
+  -webkit-animation-delay: -3.91667s;
+          animation-delay: -3.91667s;
 }
 
 .easter-egg .c:nth-child(16):after {
@@ -1134,8 +1159,8 @@ form#children-list-form > *:not(:last-child) {
   left: 11.11104%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 151, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 151, 0, 0.8));
-  -webkit-animation-delay: -0.77778s;
-          animation-delay: -0.77778s;
+  -webkit-animation-delay: -3s;
+          animation-delay: -3s;
 }
 
 .easter-egg .c:nth-child(17):after {
@@ -1146,8 +1171,8 @@ form#children-list-form > *:not(:last-child) {
   left: 11.80548%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 159, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 159, 0, 0.8));
-  -webkit-animation-delay: -0.94444s;
-          animation-delay: -0.94444s;
+  -webkit-animation-delay: -2.94444s;
+          animation-delay: -2.94444s;
 }
 
 .easter-egg .c:nth-child(18):after {
@@ -1158,8 +1183,8 @@ form#children-list-form > *:not(:last-child) {
   left: 12.49992%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 168, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 168, 0, 0.8));
-  -webkit-animation-delay: -2.13889s;
-          animation-delay: -2.13889s;
+  -webkit-animation-delay: -0.80556s;
+          animation-delay: -0.80556s;
 }
 
 .easter-egg .c:nth-child(19):after {
@@ -1170,8 +1195,8 @@ form#children-list-form > *:not(:last-child) {
   left: 13.19436%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 177, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 177, 0, 0.8));
-  -webkit-animation-delay: -3.33333s;
-          animation-delay: -3.33333s;
+  -webkit-animation-delay: -1.75s;
+          animation-delay: -1.75s;
 }
 
 .easter-egg .c:nth-child(20):after {
@@ -1182,8 +1207,8 @@ form#children-list-form > *:not(:last-child) {
   left: 13.8888%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 186, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 186, 0, 0.8));
-  -webkit-animation-delay: -2.13889s;
-          animation-delay: -2.13889s;
+  -webkit-animation-delay: -0.75s;
+          animation-delay: -0.75s;
 }
 
 .easter-egg .c:nth-child(21):after {
@@ -1194,8 +1219,8 @@ form#children-list-form > *:not(:last-child) {
   left: 14.58324%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 195, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 195, 0, 0.8));
-  -webkit-animation-delay: -0.41667s;
-          animation-delay: -0.41667s;
+  -webkit-animation-delay: -0.91667s;
+          animation-delay: -0.91667s;
 }
 
 .easter-egg .c:nth-child(22):after {
@@ -1206,8 +1231,8 @@ form#children-list-form > *:not(:last-child) {
   left: 15.27768%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 204, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 204, 0, 0.8));
-  -webkit-animation-delay: -2.11111s;
-          animation-delay: -2.11111s;
+  -webkit-animation-delay: -3.05556s;
+          animation-delay: -3.05556s;
 }
 
 .easter-egg .c:nth-child(23):after {
@@ -1218,8 +1243,8 @@ form#children-list-form > *:not(:last-child) {
   left: 15.97212%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 213, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 213, 0, 0.8));
-  -webkit-animation-delay: -3.72222s;
-          animation-delay: -3.72222s;
+  -webkit-animation-delay: -3.36111s;
+          animation-delay: -3.36111s;
 }
 
 .easter-egg .c:nth-child(24):after {
@@ -1230,8 +1255,8 @@ form#children-list-form > *:not(:last-child) {
   left: 16.66656%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 221, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 221, 0, 0.8));
-  -webkit-animation-delay: -0.11111s;
-          animation-delay: -0.11111s;
+  -webkit-animation-delay: -1.08333s;
+          animation-delay: -1.08333s;
 }
 
 .easter-egg .c:nth-child(25):after {
@@ -1242,8 +1267,8 @@ form#children-list-form > *:not(:last-child) {
   left: 17.361%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 230, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 230, 0, 0.8));
-  -webkit-animation-delay: -1.61111s;
-          animation-delay: -1.61111s;
+  -webkit-animation-delay: -1.80556s;
+          animation-delay: -1.80556s;
 }
 
 .easter-egg .c:nth-child(26):after {
@@ -1254,8 +1279,8 @@ form#children-list-form > *:not(:last-child) {
   left: 18.05544%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 239, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 239, 0, 0.8));
-  -webkit-animation-delay: -0.19444s;
-          animation-delay: -0.19444s;
+  -webkit-animation-delay: -0.08333s;
+          animation-delay: -0.08333s;
 }
 
 .easter-egg .c:nth-child(27):after {
@@ -1266,8 +1291,8 @@ form#children-list-form > *:not(:last-child) {
   left: 18.74988%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 248, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 248, 0, 0.8));
-  -webkit-animation-delay: -0.30556s;
-          animation-delay: -0.30556s;
+  -webkit-animation-delay: -2.58333s;
+          animation-delay: -2.58333s;
 }
 
 .easter-egg .c:nth-child(28):after {
@@ -1278,8 +1303,8 @@ form#children-list-form > *:not(:last-child) {
   left: 19.44432%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(253, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(253, 255, 0, 0.8));
-  -webkit-animation-delay: -0.5s;
-          animation-delay: -0.5s;
+  -webkit-animation-delay: -3.36111s;
+          animation-delay: -3.36111s;
 }
 
 .easter-egg .c:nth-child(29):after {
@@ -1290,8 +1315,8 @@ form#children-list-form > *:not(:last-child) {
   left: 20.13876%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(244, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(244, 255, 0, 0.8));
-  -webkit-animation-delay: -1.25s;
-          animation-delay: -1.25s;
+  -webkit-animation-delay: -2.94444s;
+          animation-delay: -2.94444s;
 }
 
 .easter-egg .c:nth-child(30):after {
@@ -1302,8 +1327,8 @@ form#children-list-form > *:not(:last-child) {
   left: 20.8332%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(236, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(236, 255, 0, 0.8));
-  -webkit-animation-delay: -3.66667s;
-          animation-delay: -3.66667s;
+  -webkit-animation-delay: -3.16667s;
+          animation-delay: -3.16667s;
 }
 
 .easter-egg .c:nth-child(31):after {
@@ -1314,8 +1339,8 @@ form#children-list-form > *:not(:last-child) {
   left: 21.52764%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(227, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(227, 255, 0, 0.8));
-  -webkit-animation-delay: -3.63889s;
-          animation-delay: -3.63889s;
+  -webkit-animation-delay: -2.97222s;
+          animation-delay: -2.97222s;
 }
 
 .easter-egg .c:nth-child(32):after {
@@ -1326,8 +1351,8 @@ form#children-list-form > *:not(:last-child) {
   left: 22.22208%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(218, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(218, 255, 0, 0.8));
-  -webkit-animation-delay: -2.19444s;
-          animation-delay: -2.19444s;
+  -webkit-animation-delay: -2.11111s;
+          animation-delay: -2.11111s;
 }
 
 .easter-egg .c:nth-child(33):after {
@@ -1338,8 +1363,8 @@ form#children-list-form > *:not(:last-child) {
   left: 22.91652%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(209, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(209, 255, 0, 0.8));
-  -webkit-animation-delay: -1.5s;
-          animation-delay: -1.5s;
+  -webkit-animation-delay: -3.08333s;
+          animation-delay: -3.08333s;
 }
 
 .easter-egg .c:nth-child(34):after {
@@ -1350,8 +1375,8 @@ form#children-list-form > *:not(:last-child) {
   left: 23.61096%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(200, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(200, 255, 0, 0.8));
-  -webkit-animation-delay: -1.13889s;
-          animation-delay: -1.13889s;
+  -webkit-animation-delay: -1.69444s;
+          animation-delay: -1.69444s;
 }
 
 .easter-egg .c:nth-child(35):after {
@@ -1362,8 +1387,8 @@ form#children-list-form > *:not(:last-child) {
   left: 24.3054%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(191, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(191, 255, 0, 0.8));
-  -webkit-animation-delay: -3.91667s;
-          animation-delay: -3.91667s;
+  -webkit-animation-delay: -1.58333s;
+          animation-delay: -1.58333s;
 }
 
 .easter-egg .c:nth-child(36):after {
@@ -1374,8 +1399,8 @@ form#children-list-form > *:not(:last-child) {
   left: 24.99984%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(182, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(182, 255, 0, 0.8));
-  -webkit-animation-delay: -1.36111s;
-          animation-delay: -1.36111s;
+  -webkit-animation-delay: -3.69444s;
+          animation-delay: -3.69444s;
 }
 
 .easter-egg .c:nth-child(37):after {
@@ -1386,8 +1411,8 @@ form#children-list-form > *:not(:last-child) {
   left: 25.69428%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(174, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(174, 255, 0, 0.8));
-  -webkit-animation-delay: -2.36111s;
-          animation-delay: -2.36111s;
+  -webkit-animation-delay: -1.44444s;
+          animation-delay: -1.44444s;
 }
 
 .easter-egg .c:nth-child(38):after {
@@ -1398,8 +1423,8 @@ form#children-list-form > *:not(:last-child) {
   left: 26.38872%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(165, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(165, 255, 0, 0.8));
-  -webkit-animation-delay: -1.33333s;
-          animation-delay: -1.33333s;
+  -webkit-animation-delay: -1.05556s;
+          animation-delay: -1.05556s;
 }
 
 .easter-egg .c:nth-child(39):after {
@@ -1410,8 +1435,8 @@ form#children-list-form > *:not(:last-child) {
   left: 27.08316%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(156, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(156, 255, 0, 0.8));
-  -webkit-animation-delay: -3.13889s;
-          animation-delay: -3.13889s;
+  -webkit-animation-delay: -1.25s;
+          animation-delay: -1.25s;
 }
 
 .easter-egg .c:nth-child(40):after {
@@ -1422,8 +1447,8 @@ form#children-list-form > *:not(:last-child) {
   left: 27.7776%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(147, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(147, 255, 0, 0.8));
-  -webkit-animation-delay: -0.22222s;
-          animation-delay: -0.22222s;
+  -webkit-animation-delay: -0.97222s;
+          animation-delay: -0.97222s;
 }
 
 .easter-egg .c:nth-child(41):after {
@@ -1434,8 +1459,8 @@ form#children-list-form > *:not(:last-child) {
   left: 28.47204%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(138, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(138, 255, 0, 0.8));
-  -webkit-animation-delay: -1.11111s;
-          animation-delay: -1.11111s;
+  -webkit-animation-delay: -3.77778s;
+          animation-delay: -3.77778s;
 }
 
 .easter-egg .c:nth-child(42):after {
@@ -1446,8 +1471,8 @@ form#children-list-form > *:not(:last-child) {
   left: 29.16648%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(129, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(129, 255, 0, 0.8));
-  -webkit-animation-delay: -3.08333s;
-          animation-delay: -3.08333s;
+  -webkit-animation-delay: -0.58333s;
+          animation-delay: -0.58333s;
 }
 
 .easter-egg .c:nth-child(43):after {
@@ -1458,8 +1483,8 @@ form#children-list-form > *:not(:last-child) {
   left: 29.86092%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(120, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(120, 255, 0, 0.8));
-  -webkit-animation-delay: -0.63889s;
-          animation-delay: -0.63889s;
+  -webkit-animation-delay: -3.69444s;
+          animation-delay: -3.69444s;
 }
 
 .easter-egg .c:nth-child(44):after {
@@ -1470,8 +1495,8 @@ form#children-list-form > *:not(:last-child) {
   left: 30.55536%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(112, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(112, 255, 0, 0.8));
-  -webkit-animation-delay: -1.30556s;
-          animation-delay: -1.30556s;
+  -webkit-animation-delay: -1.69444s;
+          animation-delay: -1.69444s;
 }
 
 .easter-egg .c:nth-child(45):after {
@@ -1482,8 +1507,8 @@ form#children-list-form > *:not(:last-child) {
   left: 31.2498%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(103, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(103, 255, 0, 0.8));
-  -webkit-animation-delay: -0.63889s;
-          animation-delay: -0.63889s;
+  -webkit-animation-delay: -3.13889s;
+          animation-delay: -3.13889s;
 }
 
 .easter-egg .c:nth-child(46):after {
@@ -1494,8 +1519,8 @@ form#children-list-form > *:not(:last-child) {
   left: 31.94424%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(94, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(94, 255, 0, 0.8));
-  -webkit-animation-delay: -2.13889s;
-          animation-delay: -2.13889s;
+  -webkit-animation-delay: -3.27778s;
+          animation-delay: -3.27778s;
 }
 
 .easter-egg .c:nth-child(47):after {
@@ -1506,8 +1531,8 @@ form#children-list-form > *:not(:last-child) {
   left: 32.63868%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(85, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(85, 255, 0, 0.8));
-  -webkit-animation-delay: -0.69444s;
-          animation-delay: -0.69444s;
+  -webkit-animation-delay: -3.33333s;
+          animation-delay: -3.33333s;
 }
 
 .easter-egg .c:nth-child(48):after {
@@ -1518,8 +1543,8 @@ form#children-list-form > *:not(:last-child) {
   left: 33.33312%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(76, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(76, 255, 0, 0.8));
-  -webkit-animation-delay: -3.05556s;
-          animation-delay: -3.05556s;
+  -webkit-animation-delay: -2.22222s;
+          animation-delay: -2.22222s;
 }
 
 .easter-egg .c:nth-child(49):after {
@@ -1530,8 +1555,8 @@ form#children-list-form > *:not(:last-child) {
   left: 34.02756%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(67, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(67, 255, 0, 0.8));
-  -webkit-animation-delay: -2.77778s;
-          animation-delay: -2.77778s;
+  -webkit-animation-delay: -1.11111s;
+          animation-delay: -1.11111s;
 }
 
 .easter-egg .c:nth-child(50):after {
@@ -1542,8 +1567,8 @@ form#children-list-form > *:not(:last-child) {
   left: 34.722%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(58, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(58, 255, 0, 0.8));
-  -webkit-animation-delay: -1.83333s;
-          animation-delay: -1.83333s;
+  -webkit-animation-delay: -3.41667s;
+          animation-delay: -3.41667s;
 }
 
 .easter-egg .c:nth-child(51):after {
@@ -1554,8 +1579,8 @@ form#children-list-form > *:not(:last-child) {
   left: 35.41644%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(50, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(50, 255, 0, 0.8));
-  -webkit-animation-delay: -1.58333s;
-          animation-delay: -1.58333s;
+  -webkit-animation-delay: -1.16667s;
+          animation-delay: -1.16667s;
 }
 
 .easter-egg .c:nth-child(52):after {
@@ -1566,8 +1591,8 @@ form#children-list-form > *:not(:last-child) {
   left: 36.11088%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(41, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(41, 255, 0, 0.8));
-  -webkit-animation-delay: -2s;
-          animation-delay: -2s;
+  -webkit-animation-delay: -3.63889s;
+          animation-delay: -3.63889s;
 }
 
 .easter-egg .c:nth-child(53):after {
@@ -1578,8 +1603,8 @@ form#children-list-form > *:not(:last-child) {
   left: 36.80532%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(32, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(32, 255, 0, 0.8));
-  -webkit-animation-delay: -3.16667s;
-          animation-delay: -3.16667s;
+  -webkit-animation-delay: -3.33333s;
+          animation-delay: -3.33333s;
 }
 
 .easter-egg .c:nth-child(54):after {
@@ -1590,8 +1615,8 @@ form#children-list-form > *:not(:last-child) {
   left: 37.49976%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(23, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(23, 255, 0, 0.8));
-  -webkit-animation-delay: -3.58333s;
-          animation-delay: -3.58333s;
+  -webkit-animation-delay: -1.91667s;
+          animation-delay: -1.91667s;
 }
 
 .easter-egg .c:nth-child(55):after {
@@ -1602,8 +1627,8 @@ form#children-list-form > *:not(:last-child) {
   left: 38.1942%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(14, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(14, 255, 0, 0.8));
-  -webkit-animation-delay: -0.41667s;
-          animation-delay: -0.41667s;
+  -webkit-animation-delay: -3.41667s;
+          animation-delay: -3.41667s;
 }
 
 .easter-egg .c:nth-child(56):after {
@@ -1614,8 +1639,8 @@ form#children-list-form > *:not(:last-child) {
   left: 38.88864%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(5, 255, 0, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(5, 255, 0, 0.8));
-  -webkit-animation-delay: -3.58333s;
-          animation-delay: -3.58333s;
+  -webkit-animation-delay: -0.58333s;
+          animation-delay: -0.58333s;
 }
 
 .easter-egg .c:nth-child(57):after {
@@ -1626,8 +1651,8 @@ form#children-list-form > *:not(:last-child) {
   left: 39.58308%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 4, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 4, 0.8));
-  -webkit-animation-delay: -0.52778s;
-          animation-delay: -0.52778s;
+  -webkit-animation-delay: -3.52778s;
+          animation-delay: -3.52778s;
 }
 
 .easter-egg .c:nth-child(58):after {
@@ -1638,8 +1663,8 @@ form#children-list-form > *:not(:last-child) {
   left: 40.27752%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 12, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 12, 0.8));
-  -webkit-animation-delay: -1.25s;
-          animation-delay: -1.25s;
+  -webkit-animation-delay: -3.72222s;
+          animation-delay: -3.72222s;
 }
 
 .easter-egg .c:nth-child(59):after {
@@ -1650,8 +1675,8 @@ form#children-list-form > *:not(:last-child) {
   left: 40.97196%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 21, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 21, 0.8));
-  -webkit-animation-delay: -3.83333s;
-          animation-delay: -3.83333s;
+  -webkit-animation-delay: -1.02778s;
+          animation-delay: -1.02778s;
 }
 
 .easter-egg .c:nth-child(60):after {
@@ -1662,8 +1687,8 @@ form#children-list-form > *:not(:last-child) {
   left: 41.6664%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 30, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 30, 0.8));
-  -webkit-animation-delay: -1.41667s;
-          animation-delay: -1.41667s;
+  -webkit-animation-delay: -1.13889s;
+          animation-delay: -1.13889s;
 }
 
 .easter-egg .c:nth-child(61):after {
@@ -1674,8 +1699,8 @@ form#children-list-form > *:not(:last-child) {
   left: 42.36084%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 39, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 39, 0.8));
-  -webkit-animation-delay: -1.16667s;
-          animation-delay: -1.16667s;
+  -webkit-animation-delay: -3.61111s;
+          animation-delay: -3.61111s;
 }
 
 .easter-egg .c:nth-child(62):after {
@@ -1686,8 +1711,8 @@ form#children-list-form > *:not(:last-child) {
   left: 43.05528%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 48, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 48, 0.8));
-  -webkit-animation-delay: -2.86111s;
-          animation-delay: -2.86111s;
+  -webkit-animation-delay: -1.63889s;
+          animation-delay: -1.63889s;
 }
 
 .easter-egg .c:nth-child(63):after {
@@ -1698,8 +1723,8 @@ form#children-list-form > *:not(:last-child) {
   left: 43.74972%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 57, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 57, 0.8));
-  -webkit-animation-delay: -1.44444s;
-          animation-delay: -1.44444s;
+  -webkit-animation-delay: -2.5s;
+          animation-delay: -2.5s;
 }
 
 .easter-egg .c:nth-child(64):after {
@@ -1710,8 +1735,8 @@ form#children-list-form > *:not(:last-child) {
   left: 44.44416%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 66, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 66, 0.8));
-  -webkit-animation-delay: -3.97222s;
-          animation-delay: -3.97222s;
+  -webkit-animation-delay: -1.86111s;
+          animation-delay: -1.86111s;
 }
 
 .easter-egg .c:nth-child(65):after {
@@ -1722,8 +1747,8 @@ form#children-list-form > *:not(:last-child) {
   left: 45.1386%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 74, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 74, 0.8));
-  -webkit-animation-delay: -3.88889s;
-          animation-delay: -3.88889s;
+  -webkit-animation-delay: -2.63889s;
+          animation-delay: -2.63889s;
 }
 
 .easter-egg .c:nth-child(66):after {
@@ -1734,8 +1759,8 @@ form#children-list-form > *:not(:last-child) {
   left: 45.83304%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 83, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 83, 0.8));
-  -webkit-animation-delay: -3.58333s;
-          animation-delay: -3.58333s;
+  -webkit-animation-delay: -3.91667s;
+          animation-delay: -3.91667s;
 }
 
 .easter-egg .c:nth-child(67):after {
@@ -1746,8 +1771,8 @@ form#children-list-form > *:not(:last-child) {
   left: 46.52748%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 92, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 92, 0.8));
-  -webkit-animation-delay: -2.44444s;
-          animation-delay: -2.44444s;
+  -webkit-animation-delay: -3.66667s;
+          animation-delay: -3.66667s;
 }
 
 .easter-egg .c:nth-child(68):after {
@@ -1758,8 +1783,8 @@ form#children-list-form > *:not(:last-child) {
   left: 47.22192%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 101, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 101, 0.8));
-  -webkit-animation-delay: -3s;
-          animation-delay: -3s;
+  -webkit-animation-delay: -3.86111s;
+          animation-delay: -3.86111s;
 }
 
 .easter-egg .c:nth-child(69):after {
@@ -1770,8 +1795,8 @@ form#children-list-form > *:not(:last-child) {
   left: 47.91636%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 110, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 110, 0.8));
-  -webkit-animation-delay: -2.05556s;
-          animation-delay: -2.05556s;
+  -webkit-animation-delay: -2.11111s;
+          animation-delay: -2.11111s;
 }
 
 .easter-egg .c:nth-child(70):after {
@@ -1782,8 +1807,8 @@ form#children-list-form > *:not(:last-child) {
   left: 48.6108%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 119, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 119, 0.8));
-  -webkit-animation-delay: -1.13889s;
-          animation-delay: -1.13889s;
+  -webkit-animation-delay: -0.66667s;
+          animation-delay: -0.66667s;
 }
 
 .easter-egg .c:nth-child(71):after {
@@ -1794,8 +1819,8 @@ form#children-list-form > *:not(:last-child) {
   left: 49.30524%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 128, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 128, 0.8));
-  -webkit-animation-delay: -1.86111s;
-          animation-delay: -1.86111s;
+  -webkit-animation-delay: -2s;
+          animation-delay: -2s;
 }
 
 .easter-egg .c:nth-child(72):after {
@@ -1806,8 +1831,8 @@ form#children-list-form > *:not(:last-child) {
   left: 49.99968%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 136, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 136, 0.8));
-  -webkit-animation-delay: -0.61111s;
-          animation-delay: -0.61111s;
+  -webkit-animation-delay: -3.19444s;
+          animation-delay: -3.19444s;
 }
 
 .easter-egg .c:nth-child(73):after {
@@ -1818,8 +1843,8 @@ form#children-list-form > *:not(:last-child) {
   left: 50.69412%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 145, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 145, 0.8));
-  -webkit-animation-delay: -2.47222s;
-          animation-delay: -2.47222s;
+  -webkit-animation-delay: -3.75s;
+          animation-delay: -3.75s;
 }
 
 .easter-egg .c:nth-child(74):after {
@@ -1830,8 +1855,8 @@ form#children-list-form > *:not(:last-child) {
   left: 51.38856%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 154, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 154, 0.8));
-  -webkit-animation-delay: -3.38889s;
-          animation-delay: -3.38889s;
+  -webkit-animation-delay: -0.41667s;
+          animation-delay: -0.41667s;
 }
 
 .easter-egg .c:nth-child(75):after {
@@ -1842,8 +1867,8 @@ form#children-list-form > *:not(:last-child) {
   left: 52.083%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 163, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 163, 0.8));
-  -webkit-animation-delay: -1.66667s;
-          animation-delay: -1.66667s;
+  -webkit-animation-delay: -1.22222s;
+          animation-delay: -1.22222s;
 }
 
 .easter-egg .c:nth-child(76):after {
@@ -1854,8 +1879,8 @@ form#children-list-form > *:not(:last-child) {
   left: 52.77744%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 172, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 172, 0.8));
-  -webkit-animation-delay: -0.77778s;
-          animation-delay: -0.77778s;
+  -webkit-animation-delay: -0.44444s;
+          animation-delay: -0.44444s;
 }
 
 .easter-egg .c:nth-child(77):after {
@@ -1866,8 +1891,8 @@ form#children-list-form > *:not(:last-child) {
   left: 53.47188%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 181, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 181, 0.8));
-  -webkit-animation-delay: -0.66667s;
-          animation-delay: -0.66667s;
+  -webkit-animation-delay: -0.05556s;
+          animation-delay: -0.05556s;
 }
 
 .easter-egg .c:nth-child(78):after {
@@ -1878,8 +1903,8 @@ form#children-list-form > *:not(:last-child) {
   left: 54.16632%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 189, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 189, 0.8));
-  -webkit-animation-delay: -2.41667s;
-          animation-delay: -2.41667s;
+  -webkit-animation-delay: -1.19444s;
+          animation-delay: -1.19444s;
 }
 
 .easter-egg .c:nth-child(79):after {
@@ -1902,8 +1927,8 @@ form#children-list-form > *:not(:last-child) {
   left: 55.5552%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 207, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 207, 0.8));
-  -webkit-animation-delay: -3.44444s;
-          animation-delay: -3.44444s;
+  -webkit-animation-delay: -0.36111s;
+          animation-delay: -0.36111s;
 }
 
 .easter-egg .c:nth-child(81):after {
@@ -1914,8 +1939,8 @@ form#children-list-form > *:not(:last-child) {
   left: 56.24964%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 216, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 216, 0.8));
-  -webkit-animation-delay: -2.38889s;
-          animation-delay: -2.38889s;
+  -webkit-animation-delay: -2.41667s;
+          animation-delay: -2.41667s;
 }
 
 .easter-egg .c:nth-child(82):after {
@@ -1926,8 +1951,8 @@ form#children-list-form > *:not(:last-child) {
   left: 56.94408%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 225, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 225, 0.8));
-  -webkit-animation-delay: -2.27778s;
-          animation-delay: -2.27778s;
+  -webkit-animation-delay: -1.77778s;
+          animation-delay: -1.77778s;
 }
 
 .easter-egg .c:nth-child(83):after {
@@ -1938,8 +1963,8 @@ form#children-list-form > *:not(:last-child) {
   left: 57.63852%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 234, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 234, 0.8));
-  -webkit-animation-delay: -0.86111s;
-          animation-delay: -0.86111s;
+  -webkit-animation-delay: -2.25s;
+          animation-delay: -2.25s;
 }
 
 .easter-egg .c:nth-child(84):after {
@@ -1950,8 +1975,8 @@ form#children-list-form > *:not(:last-child) {
   left: 58.33296%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 243, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 243, 0.8));
-  -webkit-animation-delay: -3.66667s;
-          animation-delay: -3.66667s;
+  -webkit-animation-delay: -2.55556s;
+          animation-delay: -2.55556s;
 }
 
 .easter-egg .c:nth-child(85):after {
@@ -1962,8 +1987,8 @@ form#children-list-form > *:not(:last-child) {
   left: 59.0274%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 255, 251, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 255, 251, 0.8));
-  -webkit-animation-delay: -3.08333s;
-          animation-delay: -3.08333s;
+  -webkit-animation-delay: -0.27778s;
+          animation-delay: -0.27778s;
 }
 
 .easter-egg .c:nth-child(86):after {
@@ -1974,8 +1999,8 @@ form#children-list-form > *:not(:last-child) {
   left: 59.72184%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 250, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 250, 255, 0.8));
-  -webkit-animation-delay: -2.25s;
-          animation-delay: -2.25s;
+  -webkit-animation-delay: -2.66667s;
+          animation-delay: -2.66667s;
 }
 
 .easter-egg .c:nth-child(87):after {
@@ -1986,8 +2011,8 @@ form#children-list-form > *:not(:last-child) {
   left: 60.41628%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 241, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 241, 255, 0.8));
-  -webkit-animation-delay: -3.91667s;
-          animation-delay: -3.91667s;
+  -webkit-animation-delay: -2.36111s;
+          animation-delay: -2.36111s;
 }
 
 .easter-egg .c:nth-child(88):after {
@@ -1998,8 +2023,8 @@ form#children-list-form > *:not(:last-child) {
   left: 61.11072%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 232, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 232, 255, 0.8));
-  -webkit-animation-delay: -3.05556s;
-          animation-delay: -3.05556s;
+  -webkit-animation-delay: -2.72222s;
+          animation-delay: -2.72222s;
 }
 
 .easter-egg .c:nth-child(89):after {
@@ -2010,8 +2035,8 @@ form#children-list-form > *:not(:last-child) {
   left: 61.80516%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 223, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 223, 255, 0.8));
-  -webkit-animation-delay: -1.61111s;
-          animation-delay: -1.61111s;
+  -webkit-animation-delay: -3.52778s;
+          animation-delay: -3.52778s;
 }
 
 .easter-egg .c:nth-child(90):after {
@@ -2022,8 +2047,8 @@ form#children-list-form > *:not(:last-child) {
   left: 62.4996%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 214, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 214, 255, 0.8));
-  -webkit-animation-delay: -3.27778s;
-          animation-delay: -3.27778s;
+  -webkit-animation-delay: -3.77778s;
+          animation-delay: -3.77778s;
 }
 
 .easter-egg .c:nth-child(91):after {
@@ -2034,8 +2059,8 @@ form#children-list-form > *:not(:last-child) {
   left: 63.19404%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 205, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 205, 255, 0.8));
-  -webkit-animation-delay: -0.52778s;
-          animation-delay: -0.52778s;
+  -webkit-animation-delay: -1.02778s;
+          animation-delay: -1.02778s;
 }
 
 .easter-egg .c:nth-child(92):after {
@@ -2046,8 +2071,8 @@ form#children-list-form > *:not(:last-child) {
   left: 63.88848%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 197, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 197, 255, 0.8));
-  -webkit-animation-delay: -0.66667s;
-          animation-delay: -0.66667s;
+  -webkit-animation-delay: -0.88889s;
+          animation-delay: -0.88889s;
 }
 
 .easter-egg .c:nth-child(93):after {
@@ -2058,8 +2083,8 @@ form#children-list-form > *:not(:last-child) {
   left: 64.58292%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 188, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 188, 255, 0.8));
-  -webkit-animation-delay: -3.44444s;
-          animation-delay: -3.44444s;
+  -webkit-animation-delay: -2.69444s;
+          animation-delay: -2.69444s;
 }
 
 .easter-egg .c:nth-child(94):after {
@@ -2070,8 +2095,8 @@ form#children-list-form > *:not(:last-child) {
   left: 65.27736%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 179, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 179, 255, 0.8));
-  -webkit-animation-delay: -2.30556s;
-          animation-delay: -2.30556s;
+  -webkit-animation-delay: -0.11111s;
+          animation-delay: -0.11111s;
 }
 
 .easter-egg .c:nth-child(95):after {
@@ -2082,8 +2107,8 @@ form#children-list-form > *:not(:last-child) {
   left: 65.9718%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 170, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 170, 255, 0.8));
-  -webkit-animation-delay: -3.08333s;
-          animation-delay: -3.08333s;
+  -webkit-animation-delay: -2.72222s;
+          animation-delay: -2.72222s;
 }
 
 .easter-egg .c:nth-child(96):after {
@@ -2094,8 +2119,8 @@ form#children-list-form > *:not(:last-child) {
   left: 66.66624%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 161, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 161, 255, 0.8));
-  -webkit-animation-delay: -1.16667s;
-          animation-delay: -1.16667s;
+  -webkit-animation-delay: -3.02778s;
+          animation-delay: -3.02778s;
 }
 
 .easter-egg .c:nth-child(97):after {
@@ -2106,8 +2131,8 @@ form#children-list-form > *:not(:last-child) {
   left: 67.36068%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 152, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 152, 255, 0.8));
-  -webkit-animation-delay: -2.27778s;
-          animation-delay: -2.27778s;
+  -webkit-animation-delay: -3.41667s;
+          animation-delay: -3.41667s;
 }
 
 .easter-egg .c:nth-child(98):after {
@@ -2118,8 +2143,8 @@ form#children-list-form > *:not(:last-child) {
   left: 68.05512%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 143, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 143, 255, 0.8));
-  -webkit-animation-delay: -1.58333s;
-          animation-delay: -1.58333s;
+  -webkit-animation-delay: -2.77778s;
+          animation-delay: -2.77778s;
 }
 
 .easter-egg .c:nth-child(99):after {
@@ -2130,8 +2155,8 @@ form#children-list-form > *:not(:last-child) {
   left: 68.74956%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 135, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 135, 255, 0.8));
-  -webkit-animation-delay: -0.55556s;
-          animation-delay: -0.55556s;
+  -webkit-animation-delay: -1.36111s;
+          animation-delay: -1.36111s;
 }
 
 .easter-egg .c:nth-child(100):after {
@@ -2142,8 +2167,8 @@ form#children-list-form > *:not(:last-child) {
   left: 69.444%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 126, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 126, 255, 0.8));
-  -webkit-animation-delay: -2.55556s;
-          animation-delay: -2.55556s;
+  -webkit-animation-delay: -1.13889s;
+          animation-delay: -1.13889s;
 }
 
 .easter-egg .c:nth-child(101):after {
@@ -2154,8 +2179,8 @@ form#children-list-form > *:not(:last-child) {
   left: 70.13844%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 117, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 117, 255, 0.8));
-  -webkit-animation-delay: -3.22222s;
-          animation-delay: -3.22222s;
+  -webkit-animation-delay: -2.61111s;
+          animation-delay: -2.61111s;
 }
 
 .easter-egg .c:nth-child(102):after {
@@ -2166,8 +2191,8 @@ form#children-list-form > *:not(:last-child) {
   left: 70.83288%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 108, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 108, 255, 0.8));
-  -webkit-animation-delay: -3.22222s;
-          animation-delay: -3.22222s;
+  -webkit-animation-delay: -1.91667s;
+          animation-delay: -1.91667s;
 }
 
 .easter-egg .c:nth-child(103):after {
@@ -2178,8 +2203,8 @@ form#children-list-form > *:not(:last-child) {
   left: 71.52732%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 99, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 99, 255, 0.8));
-  -webkit-animation-delay: -2.63889s;
-          animation-delay: -2.63889s;
+  -webkit-animation-delay: -0.41667s;
+          animation-delay: -0.41667s;
 }
 
 .easter-egg .c:nth-child(104):after {
@@ -2190,8 +2215,8 @@ form#children-list-form > *:not(:last-child) {
   left: 72.22176%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 90, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 90, 255, 0.8));
-  -webkit-animation-delay: -2.16667s;
-          animation-delay: -2.16667s;
+  -webkit-animation-delay: -2.41667s;
+          animation-delay: -2.41667s;
 }
 
 .easter-egg .c:nth-child(105):after {
@@ -2202,8 +2227,8 @@ form#children-list-form > *:not(:last-child) {
   left: 72.9162%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 81, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 81, 255, 0.8));
-  -webkit-animation-delay: -0.63889s;
-          animation-delay: -0.63889s;
+  -webkit-animation-delay: -1.75s;
+          animation-delay: -1.75s;
 }
 
 .easter-egg .c:nth-child(106):after {
@@ -2214,8 +2239,8 @@ form#children-list-form > *:not(:last-child) {
   left: 73.61064%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 73, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 73, 255, 0.8));
-  -webkit-animation-delay: -1.69444s;
-          animation-delay: -1.69444s;
+  -webkit-animation-delay: -2.72222s;
+          animation-delay: -2.72222s;
 }
 
 .easter-egg .c:nth-child(107):after {
@@ -2226,8 +2251,8 @@ form#children-list-form > *:not(:last-child) {
   left: 74.30508%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 64, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 64, 255, 0.8));
-  -webkit-animation-delay: -1.11111s;
-          animation-delay: -1.11111s;
+  -webkit-animation-delay: -3.80556s;
+          animation-delay: -3.80556s;
 }
 
 .easter-egg .c:nth-child(108):after {
@@ -2238,8 +2263,8 @@ form#children-list-form > *:not(:last-child) {
   left: 74.99952%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 55, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 55, 255, 0.8));
-  -webkit-animation-delay: -3.22222s;
-          animation-delay: -3.22222s;
+  -webkit-animation-delay: -0.19444s;
+          animation-delay: -0.19444s;
 }
 
 .easter-egg .c:nth-child(109):after {
@@ -2250,8 +2275,8 @@ form#children-list-form > *:not(:last-child) {
   left: 75.69396%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 46, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 46, 255, 0.8));
-  -webkit-animation-delay: -0.33333s;
-          animation-delay: -0.33333s;
+  -webkit-animation-delay: -3.11111s;
+          animation-delay: -3.11111s;
 }
 
 .easter-egg .c:nth-child(110):after {
@@ -2262,8 +2287,8 @@ form#children-list-form > *:not(:last-child) {
   left: 76.3884%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 37, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 37, 255, 0.8));
-  -webkit-animation-delay: -0.55556s;
-          animation-delay: -0.55556s;
+  -webkit-animation-delay: -2.16667s;
+          animation-delay: -2.16667s;
 }
 
 .easter-egg .c:nth-child(111):after {
@@ -2274,8 +2299,8 @@ form#children-list-form > *:not(:last-child) {
   left: 77.08284%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 28, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 28, 255, 0.8));
-  -webkit-animation-delay: -2.38889s;
-          animation-delay: -2.38889s;
+  -webkit-animation-delay: -2.66667s;
+          animation-delay: -2.66667s;
 }
 
 .easter-egg .c:nth-child(112):after {
@@ -2286,8 +2311,8 @@ form#children-list-form > *:not(:last-child) {
   left: 77.77728%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 19, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 19, 255, 0.8));
-  -webkit-animation-delay: -1.11111s;
-          animation-delay: -1.11111s;
+  -webkit-animation-delay: -1.38889s;
+          animation-delay: -1.38889s;
 }
 
 .easter-egg .c:nth-child(113):after {
@@ -2298,8 +2323,8 @@ form#children-list-form > *:not(:last-child) {
   left: 78.47172%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 11, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 11, 255, 0.8));
-  -webkit-animation-delay: -1.22222s;
-          animation-delay: -1.22222s;
+  -webkit-animation-delay: -0.52778s;
+          animation-delay: -0.52778s;
 }
 
 .easter-egg .c:nth-child(114):after {
@@ -2310,8 +2335,8 @@ form#children-list-form > *:not(:last-child) {
   left: 79.16616%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 2, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 2, 255, 0.8));
-  -webkit-animation-delay: -0.69444s;
-          animation-delay: -0.69444s;
+  -webkit-animation-delay: -3.86111s;
+          animation-delay: -3.86111s;
 }
 
 .easter-egg .c:nth-child(115):after {
@@ -2322,8 +2347,8 @@ form#children-list-form > *:not(:last-child) {
   left: 79.8606%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(7, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(7, 0, 255, 0.8));
-  -webkit-animation-delay: -3.5s;
-          animation-delay: -3.5s;
+  -webkit-animation-delay: -1.05556s;
+          animation-delay: -1.05556s;
 }
 
 .easter-egg .c:nth-child(116):after {
@@ -2334,8 +2359,8 @@ form#children-list-form > *:not(:last-child) {
   left: 80.55504%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(16, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(16, 0, 255, 0.8));
-  -webkit-animation-delay: -2.44444s;
-          animation-delay: -2.44444s;
+  -webkit-animation-delay: -0.30556s;
+          animation-delay: -0.30556s;
 }
 
 .easter-egg .c:nth-child(117):after {
@@ -2346,8 +2371,8 @@ form#children-list-form > *:not(:last-child) {
   left: 81.24948%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(25, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(25, 0, 255, 0.8));
-  -webkit-animation-delay: -3.22222s;
-          animation-delay: -3.22222s;
+  -webkit-animation-delay: -0.91667s;
+          animation-delay: -0.91667s;
 }
 
 .easter-egg .c:nth-child(118):after {
@@ -2358,8 +2383,8 @@ form#children-list-form > *:not(:last-child) {
   left: 81.94392%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(34, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(34, 0, 255, 0.8));
-  -webkit-animation-delay: -2.05556s;
-          animation-delay: -2.05556s;
+  -webkit-animation-delay: -2.02778s;
+          animation-delay: -2.02778s;
 }
 
 .easter-egg .c:nth-child(119):after {
@@ -2370,8 +2395,8 @@ form#children-list-form > *:not(:last-child) {
   left: 82.63836%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(43, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(43, 0, 255, 0.8));
-  -webkit-animation-delay: -3.83333s;
-          animation-delay: -3.83333s;
+  -webkit-animation-delay: -2.88889s;
+          animation-delay: -2.88889s;
 }
 
 .easter-egg .c:nth-child(120):after {
@@ -2382,8 +2407,8 @@ form#children-list-form > *:not(:last-child) {
   left: 83.3328%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(51, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(51, 0, 255, 0.8));
-  -webkit-animation-delay: -4s;
-          animation-delay: -4s;
+  -webkit-animation-delay: -3.05556s;
+          animation-delay: -3.05556s;
 }
 
 .easter-egg .c:nth-child(121):after {
@@ -2394,8 +2419,8 @@ form#children-list-form > *:not(:last-child) {
   left: 84.02724%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(60, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(60, 0, 255, 0.8));
-  -webkit-animation-delay: -3.22222s;
-          animation-delay: -3.22222s;
+  -webkit-animation-delay: -2.22222s;
+          animation-delay: -2.22222s;
 }
 
 .easter-egg .c:nth-child(122):after {
@@ -2406,8 +2431,8 @@ form#children-list-form > *:not(:last-child) {
   left: 84.72168%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(69, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(69, 0, 255, 0.8));
-  -webkit-animation-delay: -1.05556s;
-          animation-delay: -1.05556s;
+  -webkit-animation-delay: -2.63889s;
+          animation-delay: -2.63889s;
 }
 
 .easter-egg .c:nth-child(123):after {
@@ -2418,8 +2443,8 @@ form#children-list-form > *:not(:last-child) {
   left: 85.41612%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(78, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(78, 0, 255, 0.8));
-  -webkit-animation-delay: -3.75s;
-          animation-delay: -3.75s;
+  -webkit-animation-delay: -1.77778s;
+          animation-delay: -1.77778s;
 }
 
 .easter-egg .c:nth-child(124):after {
@@ -2430,8 +2455,8 @@ form#children-list-form > *:not(:last-child) {
   left: 86.11056%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(87, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(87, 0, 255, 0.8));
-  -webkit-animation-delay: -1.25s;
-          animation-delay: -1.25s;
+  -webkit-animation-delay: -1.44444s;
+          animation-delay: -1.44444s;
 }
 
 .easter-egg .c:nth-child(125):after {
@@ -2442,8 +2467,8 @@ form#children-list-form > *:not(:last-child) {
   left: 86.805%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(96, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(96, 0, 255, 0.8));
-  -webkit-animation-delay: -2.30556s;
-          animation-delay: -2.30556s;
+  -webkit-animation-delay: -0.52778s;
+          animation-delay: -0.52778s;
 }
 
 .easter-egg .c:nth-child(126):after {
@@ -2454,8 +2479,8 @@ form#children-list-form > *:not(:last-child) {
   left: 87.49944%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(104, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(104, 0, 255, 0.8));
-  -webkit-animation-delay: -0.27778s;
-          animation-delay: -0.27778s;
+  -webkit-animation-delay: -1.16667s;
+          animation-delay: -1.16667s;
 }
 
 .easter-egg .c:nth-child(127):after {
@@ -2466,8 +2491,8 @@ form#children-list-form > *:not(:last-child) {
   left: 88.19388%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(113, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(113, 0, 255, 0.8));
-  -webkit-animation-delay: -2.69444s;
-          animation-delay: -2.69444s;
+  -webkit-animation-delay: -0.25s;
+          animation-delay: -0.25s;
 }
 
 .easter-egg .c:nth-child(128):after {
@@ -2478,8 +2503,8 @@ form#children-list-form > *:not(:last-child) {
   left: 88.88832%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(122, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(122, 0, 255, 0.8));
-  -webkit-animation-delay: -3.38889s;
-          animation-delay: -3.38889s;
+  -webkit-animation-delay: -1.02778s;
+          animation-delay: -1.02778s;
 }
 
 .easter-egg .c:nth-child(129):after {
@@ -2490,8 +2515,8 @@ form#children-list-form > *:not(:last-child) {
   left: 89.58276%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(131, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(131, 0, 255, 0.8));
-  -webkit-animation-delay: -2.88889s;
-          animation-delay: -2.88889s;
+  -webkit-animation-delay: -2.94444s;
+          animation-delay: -2.94444s;
 }
 
 .easter-egg .c:nth-child(130):after {
@@ -2502,8 +2527,8 @@ form#children-list-form > *:not(:last-child) {
   left: 90.2772%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(140, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(140, 0, 255, 0.8));
-  -webkit-animation-delay: -1.86111s;
-          animation-delay: -1.86111s;
+  -webkit-animation-delay: -1.41667s;
+          animation-delay: -1.41667s;
 }
 
 .easter-egg .c:nth-child(131):after {
@@ -2514,8 +2539,8 @@ form#children-list-form > *:not(:last-child) {
   left: 90.97164%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(149, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(149, 0, 255, 0.8));
-  -webkit-animation-delay: -1.63889s;
-          animation-delay: -1.63889s;
+  -webkit-animation-delay: -1.08333s;
+          animation-delay: -1.08333s;
 }
 
 .easter-egg .c:nth-child(132):after {
@@ -2526,8 +2551,8 @@ form#children-list-form > *:not(:last-child) {
   left: 91.66608%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(158, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(158, 0, 255, 0.8));
-  -webkit-animation-delay: -0.47222s;
-          animation-delay: -0.47222s;
+  -webkit-animation-delay: -3.13889s;
+          animation-delay: -3.13889s;
 }
 
 .easter-egg .c:nth-child(133):after {
@@ -2538,8 +2563,8 @@ form#children-list-form > *:not(:last-child) {
   left: 92.36052%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(166, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(166, 0, 255, 0.8));
-  -webkit-animation-delay: -0.27778s;
-          animation-delay: -0.27778s;
+  -webkit-animation-delay: -4s;
+          animation-delay: -4s;
 }
 
 .easter-egg .c:nth-child(134):after {
@@ -2550,8 +2575,8 @@ form#children-list-form > *:not(:last-child) {
   left: 93.05496%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(175, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(175, 0, 255, 0.8));
-  -webkit-animation-delay: -3.55556s;
-          animation-delay: -3.55556s;
+  -webkit-animation-delay: -0.41667s;
+          animation-delay: -0.41667s;
 }
 
 .easter-egg .c:nth-child(135):after {
@@ -2562,8 +2587,8 @@ form#children-list-form > *:not(:last-child) {
   left: 93.7494%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(184, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(184, 0, 255, 0.8));
-  -webkit-animation-delay: -1.30556s;
-          animation-delay: -1.30556s;
+  -webkit-animation-delay: -3.88889s;
+          animation-delay: -3.88889s;
 }
 
 .easter-egg .c:nth-child(136):after {
@@ -2574,8 +2599,8 @@ form#children-list-form > *:not(:last-child) {
   left: 94.44384%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(193, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(193, 0, 255, 0.8));
-  -webkit-animation-delay: -1.19444s;
-          animation-delay: -1.19444s;
+  -webkit-animation-delay: -3.22222s;
+          animation-delay: -3.22222s;
 }
 
 .easter-egg .c:nth-child(137):after {
@@ -2586,8 +2611,8 @@ form#children-list-form > *:not(:last-child) {
   left: 95.13828%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(202, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(202, 0, 255, 0.8));
-  -webkit-animation-delay: -3.69444s;
-          animation-delay: -3.69444s;
+  -webkit-animation-delay: -2.80556s;
+          animation-delay: -2.80556s;
 }
 
 .easter-egg .c:nth-child(138):after {
@@ -2598,8 +2623,8 @@ form#children-list-form > *:not(:last-child) {
   left: 95.83272%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(211, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(211, 0, 255, 0.8));
-  -webkit-animation-delay: -3.47222s;
-          animation-delay: -3.47222s;
+  -webkit-animation-delay: -1s;
+          animation-delay: -1s;
 }
 
 .easter-egg .c:nth-child(139):after {
@@ -2610,8 +2635,8 @@ form#children-list-form > *:not(:last-child) {
   left: 96.52716%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(220, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(220, 0, 255, 0.8));
-  -webkit-animation-delay: -0.83333s;
-          animation-delay: -0.83333s;
+  -webkit-animation-delay: -3.30556s;
+          animation-delay: -3.30556s;
 }
 
 .easter-egg .c:nth-child(140):after {
@@ -2622,8 +2647,8 @@ form#children-list-form > *:not(:last-child) {
   left: 97.2216%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(228, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(228, 0, 255, 0.8));
-  -webkit-animation-delay: -0.08333s;
-          animation-delay: -0.08333s;
+  -webkit-animation-delay: -1.36111s;
+          animation-delay: -1.36111s;
 }
 
 .easter-egg .c:nth-child(141):after {
@@ -2634,8 +2659,8 @@ form#children-list-form > *:not(:last-child) {
   left: 97.91604%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(237, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(237, 0, 255, 0.8));
-  -webkit-animation-delay: -0.61111s;
-          animation-delay: -0.61111s;
+  -webkit-animation-delay: -3.86111s;
+          animation-delay: -3.86111s;
 }
 
 .easter-egg .c:nth-child(142):after {
@@ -2646,8 +2671,8 @@ form#children-list-form > *:not(:last-child) {
   left: 98.61048%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(246, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(246, 0, 255, 0.8));
-  -webkit-animation-delay: -2.47222s;
-          animation-delay: -2.47222s;
+  -webkit-animation-delay: -3.58333s;
+          animation-delay: -3.58333s;
 }
 
 .easter-egg .c:nth-child(143):after {
@@ -2658,8 +2683,8 @@ form#children-list-form > *:not(:last-child) {
   left: 99.30492%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 0, 255, 0.8)));
   background-image: linear-gradient(to bottom, transparent, rgba(255, 0, 255, 0.8));
-  -webkit-animation-delay: -2.25s;
-          animation-delay: -2.25s;
+  -webkit-animation-delay: -2.69444s;
+          animation-delay: -2.69444s;
 }
 
 .easter-egg .c:nth-child(144):after {

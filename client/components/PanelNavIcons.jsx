@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const PanelNavIcons = () => {
   return (
     <nav id='panel-nav-icons'>
-      <Link to='/application'>
+      <Link to='/app'>
         <i className='fas fa-sitemap'></i>
       </Link>
       <Link to='/templates'>
