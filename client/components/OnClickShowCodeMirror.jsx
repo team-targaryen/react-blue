@@ -7,9 +7,11 @@ require('codemirror/mode/markdown/markdown');
 require('codemirror/mode/css/css');
 require('codemirror/mode/htmlembedded/htmlembedded');
 require('codemirror/mode/htmlmixed/htmlmixed');
-
+/**
+ *  Template display: 
+ *  changes are immediately updated to local state and updated to redux state as well
+ */
 const OnClickShowCodeMirror = ({ code, updateCode, index, deleteTemplate }) => {
-  // console.log('Inside of OnClickShowCodeMirror.jsx')
   const [isClicked, setIsClicked] = useState(false);
   const [isSave, setIsSave] = useState(false);
   return isClicked ? (

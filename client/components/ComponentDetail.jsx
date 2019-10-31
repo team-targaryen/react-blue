@@ -1,9 +1,10 @@
-// Render:
-//   Component info:
-//          name of component
-//          component or container(toggle button to change its attribute)
-//          delete current component (if this component is a parent component, show warning message)
-//
+/**
+ * Current component display: 
+ *  name of component
+ *  component or container(toggle button to change its attribute)
+ *  delete current component (if this component is a parent component, show warning message)
+ */
+
 import React from 'react';
 import TemplateDropdown from './TemplateDropdown.jsx';
 const ComponentDetail = ({

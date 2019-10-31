@@ -51,7 +51,6 @@ const mainReducer = (state = initialState, action) => {
     currentlyDisplayedSubTreeId,
     displaySubTreeDropDown,
     defaultNameCount;
-  console.log('state.current componenet inside of reducer', state.currentComponent)
   switch (action.type) {
     /******************************* actions for side bar ************************************/
     case types.RENAME_COMPONENT:
@@ -92,7 +91,6 @@ const mainReducer = (state = initialState, action) => {
       data = clone(state.data);
       currentComponent = clone(state.currentComponent);
       nameAndCodeLinkedToComponentId = clone(state.nameAndCodeLinkedToComponentId);
-      console.log('inside of delete component', currentComponent)
       nameAndCodeLinkedToComponentId = deleteChildrenInNameAndCodeLinkedToComponentId(currentComponent, nameAndCodeLinkedToComponentId)
       findAndDeleteInCurrentComponent(data, currentComponent, parent);
       //deleting all of the properties in subtree dropdown that are related to the current component and its children

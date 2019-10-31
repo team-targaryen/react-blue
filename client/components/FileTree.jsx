@@ -1,6 +1,12 @@
 import React, {useMemo, useCallback} from 'react';
 import File from './File.jsx';
-
+/**
+ * File display: 
+ *  Container || Component 
+ *  click a specific container || component to show the current the clicked as current component (is bolded and made blue for (+)UX xD)
+ * _____________________________________________________________________________________________________________________
+ * filterFiles fn() : recursively loops through the current subtree to create the displays between container and component
+ */
 const FileTree = ({ currentComponent, currentSubTreeDisplayToUser, setCurrentComponent, toggleFileTree }) => {
   const containerFiles = [];
   const componentFiles = [];
