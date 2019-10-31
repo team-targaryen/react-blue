@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-
+/**
+ *  Each Child Display: 
+ *  Creates a child for Each child of the parent node
+ *  component or container(toggle button to change its attribute)
+ *  template dropdown feature, choose a template
+ *  delete current component 
+ */
 const EachChild = ({
   initiailName,
   name,
@@ -16,7 +22,6 @@ const EachChild = ({
   currentlyDisplayedSubTreeId
 }) => (
     <div className='each-child'>
-      {/*console.log('Inside of EachChild.jsx')*/}
       <input
         className='child-name'
         type='text'
@@ -27,7 +32,7 @@ const EachChild = ({
           showSubTree(currentlyDisplayedSubTreeId);
           checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state);
         }}
-          
+
       ></input>
       <div>
         <input

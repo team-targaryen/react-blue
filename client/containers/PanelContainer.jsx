@@ -59,6 +59,10 @@ const mapDispatchToProps = dispatch =>
     },
     dispatch
   );
+/**
+ * getting rid of circular references inside of nodes (parent has a child and child has the same parent)
+ */
+
 const getCircularReplacer = () => {
   const seen = new WeakSet();
   return (key, value) => {
@@ -71,12 +75,21 @@ const getCircularReplacer = () => {
     return value;
   };
 };
-Storage.prototype.setObj = function(key, obj) {
+/**
+ * .setObj : JSON.stringify && getting rid of circular references
+ * .getObj : JSON.parse
+ */
+
+Storage.prototype.setObj = function (key, obj) {
   return this.setItem(key, JSON.stringify(obj, getCircularReplacer()));
 };
-Storage.prototype.getObj = function(key) {
+Storage.prototype.getObj = function (key) {
   return JSON.parse(this.getItem(key));
 };
+/**
+ * Delayed sending to local storage
+ * any triggers of major updates(triggered event listeners) to state will reset the timer from state, and create a new timer (defaults to 10 seconds)
+ */
 
 function checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state) {
   function setTimeoutAndSendToReducer(setTimeoutId, state) {
@@ -95,7 +108,6 @@ function checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state) {
       state.history.prev = null;
       localStorage.setObj('history', state.history);
       localStorage.setObj('lastId', state.lastId);
-      console.log('SUCCESS!!!!');
     }, 10000);
     setTimeoutId(newSetTimeoutID);
   }
@@ -107,7 +119,6 @@ function checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state) {
   return;
 }
 const SideNavContainer = ({
-  data,
   currentComponent,
   templates,
   renameChild,

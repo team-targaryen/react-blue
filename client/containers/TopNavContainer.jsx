@@ -20,10 +20,14 @@ const mapStateToProps = store => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    { undo, redo, changeDisplayHorizontalToVertical, resetEntireTree },
-    dispatch
-  );
+  bindActionCreators({ 
+    undo, 
+    redo, 
+    changeDisplayHorizontalToVertical, 
+    resetEntireTree 
+  },
+  dispatch
+);
 
 const TopNavContainer = ({
   data,
@@ -36,7 +40,7 @@ const TopNavContainer = ({
 }) => {
   let undoDisabled = () => false;
   let redoDisabled = () => false;
-  if(history) {
+  if (history) {
     undoDisabled = () => {
       return history.prev ? false : true;
     }
@@ -44,7 +48,6 @@ const TopNavContainer = ({
       return history.next ? false : true;
     }
   }
-  // console.log('inside TopNavContainer')
   return (
     <Navbar collapseOnSelect expand='lg' variant='dark'>
       <Navbar.Brand href='#home'>React Blue</Navbar.Brand>
@@ -109,10 +112,9 @@ const TopNavContainer = ({
               Export FrontEnd
             </NavDropdown.Item>
             <NavDropdown.Item
-            onClick={() =>{
-            console.log(data, nameAndCodeLinkedToComponentId)
-            exportZipFull(data, nameAndCodeLinkedToComponentId)
-          }}
+              onClick={() => {
+                exportZipFull(data, nameAndCodeLinkedToComponentId)
+              }}
             >
               Export FullStack
             </NavDropdown.Item>
