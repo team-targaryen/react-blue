@@ -1,18 +1,13 @@
 import React from 'react';
-import Fade from 'react-reveal/Fade';
+import ScrollAnimation from 'react-animate-on-scroll';
 
 const Features = () => {
   return (
     <section id='features'>
+      <h2>Streamline Your Development Process</h2>
       <figure className='feature-item'>
-        <iframe
-          width='600'
-          height='315'
-          src='https://media.giphy.com/media/JpXEK9GC6Z9vk8lfDi/giphy.gif'
-          frameBorder='0'
-          allowFullScreen
-        ></iframe>
-        <Fade right>
+        <img src='../images/feature-1.gif' alt='feature 1' />
+        <ScrollAnimation animateIn='fadeInRight'>
           <figcaption className='feature-description'>
             <h3>Feature</h3>
             <p>
@@ -22,10 +17,10 @@ const Features = () => {
               nisi ut aliquip ex ea commodo consequat.
             </p>
           </figcaption>
-        </Fade>
+        </ScrollAnimation>
       </figure>
       <figure className='feature-item'>
-        <Fade left>
+        <ScrollAnimation animateIn='fadeInLeft'>
           <figcaption className='feature-description'>
             <h3>Feature</h3>
             <p>
@@ -35,18 +30,12 @@ const Features = () => {
               nisi ut aliquip ex ea commodo consequat.
             </p>
           </figcaption>
-        </Fade>
-        <iframe
-          width='600'
-          height='315'
-          src='https://media.giphy.com/media/Y3vwiphEodr52wcMrB/giphy.gif'
-          frameBorder='0'
-          allowFullScreen
-        ></iframe>
+        </ScrollAnimation>
+        <img src='../images/feature-2.gif' alt='feature 2' />
       </figure>
       <figure className='feature-item'>
         <img src='https://picsum.photos/600' />
-        <Fade right>
+        <ScrollAnimation animateIn='fadeInRight'>
           <figcaption className='feature-description'>
             <h3>Feature</h3>
             <p>
@@ -56,7 +45,7 @@ const Features = () => {
               nisi ut aliquip ex ea commodo consequat.
             </p>
           </figcaption>
-        </Fade>
+        </ScrollAnimation>
       </figure>
     </section>
   );
