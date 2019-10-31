@@ -1,17 +1,14 @@
 import React from "react";
 import { configure, shallow, mount } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import toJson from "enzyme-to-json";
-
 import EachChild from "../client/components/EachChild.jsx";
 import ComponentDetail from "../client/components/ComponentDetail.jsx";
-import TemplatingArea from "../client/components/TemplatingArea.jsx";
-import App from "../client/App.jsx";
-// import TemplateDropdown from "../client/components/TemplateDropdown.jsx";
 import ChildrenList from "../client/components/ChildrenList.jsx";
+import {
+  initialStateMock
+} from '../__mock__/stateMocks';
+import { cleanup } from "@testing-library/react"; // testing helpers
 
-import { render, cleanup, waitForElement } from "@testing-library/react"; // testing helpers
-import userEvent from "@testing-library/user-event";
 configure({ adapter: new Adapter() });
 
 describe("React Blue unit tests", () => {
@@ -50,6 +47,9 @@ describe("React Blue unit tests", () => {
     const changeMock = jest.fn();
     const deleteMock = jest.fn();
     const setTemplatesMock = jest.fn();
+    const checkID_ClearAndSetTimeout = jest.fn();
+    const showSubTree = jest.fn();
+    const addOrDeleteNewSubTree = jest.fn();
     const mockComponent = {
       name: "test",
       isContainer: true,
@@ -62,7 +62,15 @@ describe("React Blue unit tests", () => {
       currentComponent: mockComponent,
       templates: "templateMock1",
       setTemplatesForComponent: setTemplatesMock,
-      nameAndCodeLinkedToComponentId: { "0": "templateMock1" }
+      nameAndCodeLinkedToComponentId: { "0": "templateMock1" },
+      recentTimeoutId: 0,
+      setTimeoutId: 1,
+      checkID_ClearAndSetTimeout: checkID_ClearAndSetTimeout,
+      showSubTree: showSubTree,
+      currentlyDisplayedSubTreeId: 0,
+      addOrDeleteNewSubTree: addOrDeleteNewSubTree,
+      state: initialStateMock,
+      displaySubTreeDropDown: { "0": "App" }
     };
     beforeAll(() => {
       wrapper = shallow(<ComponentDetail {...props} />);
@@ -72,6 +80,7 @@ describe("React Blue unit tests", () => {
       expect(
         wrapper.containsMatchingElement(<h2>Current Component</h2>)
       ).toBeTruthy();
+
     });
     it("Should have input ONE be type of text and defaultValue to test", () => {
       expect(input.at(0).props().type).toBe("text");
@@ -92,44 +101,54 @@ describe("React Blue unit tests", () => {
     });
   });
 
-  describe("mainReducer.js", () => {
-    it('should return the initial state')
-  });
 });
-describe("Integration testing", () => {
-  let childrenList;
-  const addMock = function() {
-    return "added";
-  };
-  const renameMock = jest.fn();
-  const changeMock = jest.fn();
-  const deleteMock = jest.fn();
-  const setTemplatesMock = jest.fn();
-  const mockComponent = {
-    name: "test",
-    isContainer: true,
-    depth: 0
-  };
-  let childrenListProps = {
-    addChild: addMock,
-    renameChild: renameMock,
-    changeChildType: changeMock,
-    deleteChild: deleteMock,
-    currentComponent: mockComponent,
-    templates: "templateMock1",
-    setTemplatesForComponent: setTemplatesMock,
-    nameAndCodeLinkedToComponentId: { "0": "templateMock1" }
-  };
+// describe("Integration testing", () => {
+//   let childrenList, input;
+//   const addMock = function () {
+//     return "added";
+//   };
+//   const renameMock = jest.fn();
+//   const changeMock = jest.fn();
+//   const deleteMock = jest.fn();
+//   const setTemplatesMock = jest.fn();
+//   const checkID_ClearAndSetTimeoutMock = jest.fn();
+//   const showSubTreeMock = jest.fn();
+//   const currentComponentMock = {
+//     name: "App",
+//     depth: 0,
+//     id: 0,
+//     componentId: 0,
+//     isContainer: true,
+//     children: [{ name: 'children', componentId: '1', isContainer: false }]
+//   }
 
-  beforeAll(() => {
-    childrenList = mount(<ChildrenList {...childrenListProps} />);
-    console.log(childrenList);
-  });
-  afterAll(() => cleanup);
-  describe("Adding nodes display correct length of childrenList", () => {
-    expect(childrenList.find('.each-child-container"')).to.equal(undefined);
-    childrenList.find("button").simulate("click");
-    expect(childrenList.find('.each-child-container"')).toHaveLength(1);
-  });
-  describe("Showing correct number of children on d3 tree", () => {});
-});
+//   let childrenListProps = {
+//     addChild: addMock,
+//     renameChild: renameMock,
+//     changeChildType: changeMock,
+//     deleteChild: deleteMock,
+//     currentComponent: currentComponentMock,
+//     templates: [{ name: "templateMock1", code: 'test code' }],
+//     setTemplatesForComponent: setTemplatesMock,
+//     nameAndCodeLinkedToComponentId: { "0": "templateMock1" },
+//     state: initialStateMock,
+//     recentTimeoutId: 0,
+//     setTimeoutId: 1,
+//     checkID_ClearAndSetTimeout: checkID_ClearAndSetTimeoutMock,
+//     showSubTree: showSubTreeMock,
+//     currentlyDisplayedSubTreeId: 0,
+//   };
+
+//   beforeAll(() => {
+//     childrenList = mount(<ChildrenList {...childrenListProps} />);
+//     input = childrenList.find('input');
+//   });
+//   afterAll(() => cleanup);
+//   describe("Adding nodes display correct length of childrenList", () => {
+//     expect(childrenList.exists()).to.be(true);
+//     //   .to.be.equal('each-child-container');
+//     // childrenList.find("button").simulate("click");
+//     // expect(childrenList.find('.each-child-container')).toHaveLength(1);
+//   });
+//   describe("Showing correct number of children on d3 tree", () => { });
+// });

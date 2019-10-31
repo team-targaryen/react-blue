@@ -34,7 +34,7 @@ render(){
 
 defaultSyntax.InitialHookSyntax = function (inputName = "Template_Hooks") {
   (this.name = "React Hooks Syntax"),
-    (this.code = `import React, {useState} from 'react';
+    (this.code = `import React, { useState } from 'react';
 
 const ${inputName} = ({/* INSERT PROPS HERE */}) =>{
   /* ADD your modular shit */
@@ -43,7 +43,7 @@ const ${inputName} = ({/* INSERT PROPS HERE */}) =>{
 
     <React.Fragment>
 
-    DONOTDELETETHISSTRING
+    DONOTDELETETHISSTRING 
     
     </React.Fragment>
 

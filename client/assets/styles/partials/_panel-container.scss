@@ -151,7 +151,10 @@ form#children-list-form {
     display: flex;
     justify-content: space-around;
   }
-
+  #current-component-file-tree {
+    color: $prime-color-1;
+    font-weight: bold;
+  }
   #container-files,
   #component-files {
     > ul {
@@ -193,7 +196,7 @@ form#children-list-form {
   }
 
   .change-name {
-    flex: 1;
+    flex: 1 0 auto;
     margin-bottom: 10px;
   }
 

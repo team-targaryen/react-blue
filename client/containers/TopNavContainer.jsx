@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import JSZip from 'jszip';
-import FileSave from 'file-saver';
 import { bindActionCreators } from 'redux';
 import {
   undo,
@@ -12,40 +10,69 @@ import {
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import logo from '../assets/images/logo.png';
 import exportZipFront from '../templates-exports/frontEndFiles.js';
 import exportZipFull from '../templates-exports/fullStackFiles.js';
 
 const mapStateToProps = store => ({
   data: store.main.data,
+  history: store.main.history,
   nameAndCodeLinkedToComponentId: store.main.nameAndCodeLinkedToComponentId
 });
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
-    { undo, redo, changeDisplayHorizontalToVertical, resetEntireTree },
+    {
+      undo,
+      redo,
+      changeDisplayHorizontalToVertical,
+      resetEntireTree
+    },
     dispatch
   );
 
 const TopNavContainer = ({
   data,
   nameAndCodeLinkedToComponentId,
+  history,
   undo,
   redo,
   changeDisplayHorizontalToVertical,
   resetEntireTree
 }) => {
+  let undoDisabled = () => false;
+  let redoDisabled = () => false;
+  if (history) {
+    undoDisabled = () => {
+      return history.prev ? false : true;
+    };
+    redoDisabled = () => {
+      return history.next ? false : true;
+    };
+  }
   return (
     <Navbar collapseOnSelect expand='lg' variant='dark'>
-      <Navbar.Brand href='#home'>React Blue</Navbar.Brand>
+      <div className='logo-frame'>
+        <img className='logo' src={logo} alt='react blue logo' />
+      </div>
+      <Navbar.Brand href='/'>React Blue</Navbar.Brand>
       <Navbar.Toggle aria-controls='responsive-navbar-nav' />
       <Navbar.Collapse id='responsive-navbar-nav'>
         <Nav className='mr-auto'>
           <NavDropdown title='Edit' id='collasible-nav-dropdown'>
-            <NavDropdown.Item className='keyboard-shortcut' onClick={undo}>
+            <NavDropdown.Item
+              className='keyboard-shortcut'
+              onClick={undo}
+              disabled={undoDisabled()}
+            >
               <span>Undo</span>
               <span>Ctrl+Z</span>
             </NavDropdown.Item>
-            <NavDropdown.Item className='keyboard-shortcut' onClick={redo}>
+            <NavDropdown.Item
+              className='keyboard-shortcut'
+              onClick={redo}
+              disabled={redoDisabled()}
+            >
               <span>Redo</span>
               <span>Ctrl+Shift+Z</span>
             </NavDropdown.Item>
@@ -67,7 +94,7 @@ const TopNavContainer = ({
             </NavDropdown.Item>
             <NavDropdown.Item
               onClick={() => {
-                props.changeDisplayHorizontalToVertical('vertical');
+                changeDisplayHorizontalToVertical('vertical');
               }}
             >
               Vertical
@@ -85,17 +112,26 @@ const TopNavContainer = ({
           </NavDropdown>
         </Nav>
         <Nav>
-          <NavDropdown title='Export' id='collasible-nav-dropdown'>
-            <NavDropdown.Item onClick={() => exportZipFront(data, nameAndCodeLinkedToComponentId)}>
+          <NavDropdown
+            title='Export'
+            id='collasible-nav-dropdown'
+            className='export'
+          >
+            <NavDropdown.Item
+              onClick={() =>
+                exportZipFront(data, nameAndCodeLinkedToComponentId)
+              }
+            >
               Export FrontEnd
             </NavDropdown.Item>
-            <NavDropdown.Item onClick={() => exportZipFull(data, nameAndCodeLinkedToComponentId)}>
+            <NavDropdown.Item
+              onClick={() => {
+                exportZipFull(data, nameAndCodeLinkedToComponentId);
+              }}
+            >
               Export FullStack
             </NavDropdown.Item>
           </NavDropdown>
-          <Nav.Link eventKey={2} href='#memes'>
-            ExSomthing
-          </Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
