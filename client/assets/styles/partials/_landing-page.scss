@@ -34,7 +34,10 @@
     }
 
     a {
+      transition: 0.2s;
+
       &:hover {
+        color: $prime-color-4;
         cursor: pointer;
       }
     }
@@ -57,6 +60,15 @@
     }
 
     // material ui overrides
+    button {
+      transition: 0.2s;
+
+      &:hover {
+        color: $prime-color-4;
+        background-color: transparent;
+      }
+    }
+
     span.MuiButton-label {
       font-family: inherit;
       font-size: 16px;

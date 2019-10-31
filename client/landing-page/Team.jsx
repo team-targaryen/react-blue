@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ScrollAnimation from 'react-animate-on-scroll';
 
 const Team = () => {
   const [isCreatorProfiles] = useState([
@@ -46,12 +47,14 @@ const Profiles = ({ src, name, linkedin, github }) => {
   return (
     <React.Fragment>
       <div className='profile'>
-        <figure>
-          <div className='profile-frame'>
-            <div className='profile-photo'></div>
-          </div>
-          <figcaption>{name}</figcaption>
-        </figure>
+        <ScrollAnimation animateIn='flipInY'>
+          <figure>
+            <div className='profile-frame'>
+              <div className='profile-photo'></div>
+            </div>
+            <figcaption>{name}</figcaption>
+          </figure>
+        </ScrollAnimation>
         <div className='profile-links'>
           <a href={linkedin} target='_blank'>
             <i className='fab fa-linkedin'></i>
