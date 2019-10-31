@@ -12,8 +12,8 @@ const PanelNavIcons = () => {
       <Link to='/templates'>
         <i className='fa fa-file-code'></i>
       </Link>
-      <Link to='/subTree'>
-        <i className='fas fa-search-plus'></i>
+      <Link to='/subtree'>
+        <i className='fab fa-sourcetree'></i>
       </Link>
     </nav>
   );

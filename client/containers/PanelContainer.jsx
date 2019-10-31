@@ -210,7 +210,7 @@ const SideNavContainer = ({
           <Route path='/templates'>
             <TemplatingArea useTemplates={useTemplates} />
           </Route>
-          <Route path='/subTree'>
+          <Route path='/subtree'>
             <SubTree
               displaySubTreeDropDown={displaySubTreeDropDown}
               setTimeoutId={setTimeoutId}

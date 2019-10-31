@@ -17,7 +17,7 @@
   margin: 20px auto;
 }
 
-// panel containing top and bottom halves
+// panel container
 #panel-container {
   display: flex;
   flex-direction: column;
@@ -27,6 +27,14 @@
   box-shadow: 0 0 15px;
   padding: 20px;
   margin: 20px;
+
+  button {
+    background: transparent;
+
+    &#toggle-file-tree {
+      background: $prime-color-1;
+    }
+  }
 }
 
 // current component
@@ -132,7 +140,6 @@ form#children-list-form {
   width: 120px;
   height: 38px;
   color: #fff;
-  background: $prime-color-1;
   border-radius: 0.25rem;
   margin: auto;
 }
@@ -226,5 +233,21 @@ form#children-list-form {
     &:hover {
       background: #007bff;
     }
+  }
+}
+
+// subtrees
+#subtree-container {
+  ul {
+    list-style-type: square;
+    padding-left: 15px;
+  }
+
+  li {
+    width: 200px;
+  }
+
+  .delete-subtree {
+    float: right;
   }
 }
