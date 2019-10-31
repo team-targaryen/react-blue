@@ -1,7 +1,9 @@
 import React from 'react';
 import OnClickShowSubTree from './OnClickShowSubTree.jsx';
+/**
+ * Renders the dropdown for each of the displaySubTreeDropDown properties
+ */
 
-// renders the dropdown forEach of the displaySubTreeDropDown properties
 const SubTree = ({
 displaySubTreeDropDown,
 setTimeoutId, 

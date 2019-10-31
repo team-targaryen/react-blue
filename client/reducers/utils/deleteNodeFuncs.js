@@ -14,7 +14,6 @@ export const deleteChildrenInNameAndCodeLinkedToComponentId = (node, obj) => {
   return obj;
 }
 export const findAndDeleteInCurrentComponent = (tree, currentComponent, parent) => {
-  console.log('inside of recursive', tree, currentComponent, parent)
   if (tree.componentId === parent.componentId) {
     for (let i = 0; i < tree.children.length; i++) {
       if(tree.children[i] === null){

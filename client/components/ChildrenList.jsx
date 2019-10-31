@@ -96,7 +96,6 @@ const childMaker = (
 ) => {
   return (
     <div key={`EachChild${index}`} className='each-child-container'>
-      {/*console.log('Inside of childMaker function inside of ChildrenList.jsx')*/}
       <EachChild
         key={index}
         name={child.name}

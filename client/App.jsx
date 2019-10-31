@@ -13,6 +13,11 @@ import clone from 'clone';
 import TopNavContainer from './containers/TopNavContainer.jsx';
 import PanelContainer from './containers/PanelContainer.jsx';
 import VisualContainer from './containers/VisualContainer.jsx';
+/**
+ * Doubly Linked List constructor function for undo & redo feature 
+ * 
+ * Inserting nodes at head position so no traversal of the LL is necessary 
+**/
 function DoublyLinkedList(value) {
   this.value = value;
   this.prev = null;
@@ -40,6 +45,13 @@ const mapDispatchToProps = dispatch =>
     },
     dispatch
   );
+
+/**
+ * First render 
+ * 1) check local storage to see if there is a data object, if so send it off (lines 67- 75) to update redux initial state
+ * 2) create an initial node(DLL) with this.value set to the initial state
+ * 3) setting center point of node by grabbing the visual container's dimensions
+**/
 const App = ({
   state,
   updateStateWithLocalStorage,

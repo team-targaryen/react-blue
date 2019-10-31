@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+/**
+ * Routes for React Router
+ */
 const PanelNavIcons = () => {
   return (
     <nav id='panel-nav-icons'>
