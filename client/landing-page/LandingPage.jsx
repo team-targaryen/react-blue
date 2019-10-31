@@ -38,8 +38,8 @@ const LandingPage = () => {
             <LinkScroll to='features' smooth={true} offset={-64}>
               Features
             </LinkScroll>
-            <LinkScroll to='usage' smooth={true} offset={-64}>
-              Usage
+            <LinkScroll to='details' smooth={true} offset={-64}>
+              Contribute
             </LinkScroll>
             <LinkScroll to='team' smooth={true} offset={-64}>
               Team
