@@ -1,0 +1,117 @@
+#application {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  font-size: $application-font-size;
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
+
+  h4 {
+    font-size: 0.8rem;
+  }
+
+  i {
+    font-size: 20px;
+    color: $prime-color-1;
+    transition: color 0.15s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      color: #007bff;
+    }
+  }
+
+  .dropdown-item {
+    font-size: $application-font-size;
+  }
+
+  // buttons
+  button {
+    border: 0;
+  }
+
+  .btn {
+    font-size: 12px;
+  }
+
+  .btn-primary {
+    background: $prime-color-1;
+    border-color: $prime-color-1;
+  }
+
+  // content
+  #app {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #panel-main-container {
+    display: flex;
+    height: 100%;
+  }
+
+  .is-container {
+    display: flex;
+  }
+
+  input {
+    background: $prime-color-5;
+  }
+
+  input[type='text'] {
+    border: 0;
+    border-radius: 0.25rem;
+    padding: 9px 12px;
+    border: 1px solid $prime-color-1;
+  }
+
+  input[type='checkbox'] {
+    margin-right: 5px;
+  }
+
+  // easter egg
+  .secret {
+    .particle {
+      height: 50px;
+      position: absolute;
+      width: 4px;
+    }
+
+    $particle: 1000;
+
+    @for $i from 1 through $particle {
+      $top: (random(50) + 50) * 1%;
+      $left: random(100) * 1%;
+      $delay: random(20) - 1s;
+      $background: rgb(random(255), random(255), random(255));
+
+      .particle:nth-of-type(#{$i}) {
+        animation-name: particle-#{$i};
+        animation-delay: $delay;
+        animation-duration: random(6) + 4s;
+        animation-iteration-count: infinite;
+        left: $left;
+        top: -$top;
+        background: $background;
+      }
+
+      @keyframes particle-#{$i} {
+        0% {
+          left: $left;
+          opacity: 1;
+          top: -$top;
+        }
+        100% {
+          opacity: 0;
+          top: $top + 40%;
+        }
+      }
+    }
+  }
+}

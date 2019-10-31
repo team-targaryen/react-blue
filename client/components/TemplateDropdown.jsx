@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
+
+/** 
+ * changes in code templates for a component/container will cached in local state as well as redux state
+ */
 const TemplateDropdown = ({
   templates,
   setTemplatesForComponent,
@@ -12,7 +16,6 @@ const TemplateDropdown = ({
 }) => {
   const [isDefault, setIsDefault] = useState("");
   const [isCurrentId] = useState(currentComponent.componentId);
-  // console.log('Inside TemplateDropdown.jsx')
   if (
     nameAndCodeLinkedToComponentId &&
     nameAndCodeLinkedToComponentId[currentComponent.componentId] &&
