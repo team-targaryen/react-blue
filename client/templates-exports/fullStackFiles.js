@@ -72,7 +72,7 @@ export default (data, nameAndCodeLinkedToComponentId) => {
     zip.file(`containers/${container}.jsx`, containerObject[container]);
   }
   for (let component in componentObject) {
-    zip.file(`component/${component}.jsx`, componentObject[component]);
+    zip.file(`components/${component}.jsx`, componentObject[component]);
   }
   zip.file('assets/index.html', indexHTML);
   zip.file('assets/styles/styles.css', '');
