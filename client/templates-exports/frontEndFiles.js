@@ -58,7 +58,7 @@ export default (data, nameAndCodeLinkedToComponentId) => {
     recursivelyCreateTemplates(data, nameAndCodeLinkedToComponentId, fileCounter);
 
 
-    // creating zip file/ folder
+    // creating zip file/folder
     const containerObject = fileCounter.container;
     const componentObject = fileCounter.component;
     for (let container in containerObject) {

@@ -42,6 +42,7 @@ function connectFiles(currentComponent, code, fileObject) {
   }
   return fileObject;
 }
+
 export default (data, nameAndCodeLinkedToComponentId) => {
   const zip = new JSZip();
   let fileCounter = {
