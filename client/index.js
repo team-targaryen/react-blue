@@ -21,7 +21,7 @@ render(
         <Route path='/' exact>
           <LandingPage />
         </Route>
-        <Route path='/application'>
+        <Route path='/app'>
           <App />
         </Route>
       </Switch>

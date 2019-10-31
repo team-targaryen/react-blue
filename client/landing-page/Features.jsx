@@ -6,15 +6,18 @@ const Features = () => {
     <section id='features'>
       <h2>Streamline Your Development Process</h2>
       <figure className='feature-item'>
-        <img src='../images/feature-1.gif' alt='feature 1' />
+        <div className='image-frame'>
+          <img src='../images/feature-1.gif' alt='feature 1' />
+        </div>
         <ScrollAnimation animateIn='fadeInRight'>
           <figcaption className='feature-description'>
-            <h3>Feature</h3>
+            <h3>Engineer-first Approach</h3>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+              We envision the ability for engineers to quickly create their
+              component file structure coupled with a friendly UI/UX. This tool
+              provides an export feature that sets up a pre-configured
+              development environment for front-end and full-stack React
+              applications.
             </p>
           </figcaption>
         </ScrollAnimation>
@@ -22,30 +25,17 @@ const Features = () => {
       <figure className='feature-item'>
         <ScrollAnimation animateIn='fadeInLeft'>
           <figcaption className='feature-description'>
-            <h3>Feature</h3>
+            <h3>Shortcuts and Views</h3>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+              Keyboard shortcuts right at your fingertips to perform undo
+              (ctrl+z) and redo (ctrl+shift+z) actions and toggle between
+              horizontal and vertical views of the component tree.
             </p>
           </figcaption>
         </ScrollAnimation>
-        <img src='../images/feature-2.gif' alt='feature 2' />
-      </figure>
-      <figure className='feature-item'>
-        <img src='https://picsum.photos/600' />
-        <ScrollAnimation animateIn='fadeInRight'>
-          <figcaption className='feature-description'>
-            <h3>Feature</h3>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </p>
-          </figcaption>
-        </ScrollAnimation>
+        <div className='image-frame'>
+          <img src='../images/feature-2.gif' alt='feature 2' />
+        </div>
       </figure>
     </section>
   );

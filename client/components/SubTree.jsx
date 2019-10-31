@@ -5,33 +5,35 @@ import OnClickShowSubTree from './OnClickShowSubTree.jsx';
  */
 
 const SubTree = ({
-displaySubTreeDropDown,
-setTimeoutId, 
-recentTimeoutId,
-state,
-checkID_ClearAndSetTimeout,
-showSubTree,
-deleteSubTreeDropdownItem
-})=>{
+  displaySubTreeDropDown,
+  setTimeoutId,
+  recentTimeoutId,
+  state,
+  checkID_ClearAndSetTimeout,
+  showSubTree,
+  deleteSubTreeDropdownItem
+}) => {
   const displaySubTreeArray = [];
-  for (let [key, value] of Object.entries(displaySubTreeDropDown)){
+  for (let [key, value] of Object.entries(displaySubTreeDropDown)) {
     displaySubTreeArray.push(
-    <OnClickShowSubTree 
-      setTimeoutId={setTimeoutId} 
-      recentTimeoutId={recentTimeoutId} 
-      state={state} 
-      checkID_ClearAndSetTimeout={checkID_ClearAndSetTimeout} 
-      key={`SubTreeDropdown${key}`} 
-      id={key}
-      name={value} 
-      showSubTree={showSubTree}
-      deleteSubTreeDropdownItem={deleteSubTreeDropdownItem}
-    />);
+      <OnClickShowSubTree
+        setTimeoutId={setTimeoutId}
+        recentTimeoutId={recentTimeoutId}
+        state={state}
+        checkID_ClearAndSetTimeout={checkID_ClearAndSetTimeout}
+        key={`SubTreeDropdown${key}`}
+        id={key}
+        name={value}
+        showSubTree={showSubTree}
+        deleteSubTreeDropdownItem={deleteSubTreeDropdownItem}
+      />
+    );
   }
   return (
-    <React.Fragment>
-      {displaySubTreeArray}
-    </React.Fragment>
-  )
-}
+    <div id='subtree-container'>
+      <h2>SubTrees</h2>
+      <ul>{displaySubTreeArray}</ul>
+    </div>
+  );
+};
 export default SubTree;

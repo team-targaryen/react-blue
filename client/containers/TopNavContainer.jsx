@@ -101,10 +101,15 @@ const TopNavContainer = ({
             </NavDropdown.Item>
           </NavDropdown>
           <NavDropdown title='Help' id='collasible-nav-dropdown'>
-            <NavDropdown.Item href='##'>About</NavDropdown.Item>
+            <NavDropdown.Item
+              href='https://github.com/team-targaryen/react-blue#readme'
+              target='_blank'
+            >
+              About
+            </NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item
-              href='https://github.com/team-targaryan/react-blue'
+              href='https://github.com/team-targaryen/react-blue'
               target='_blank'
             >
               GitHub

@@ -154,10 +154,20 @@
       align-items: center;
       max-width: 1200px;
       margin: 80px auto;
+
+      > div {
+        width: 50%;
+      }
     }
 
-    iframe {
-      flex: 1 0 auto;
+    .image-frame {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    figcaption {
+      padding: 0 40px;
     }
   }
 
@@ -206,10 +216,24 @@
     }
   }
 
-  #usage {
+  #details {
+    text-align: center;
     padding: 160px 0;
     background: $prime-color-5;
     position: relative;
+
+    a {
+      &:hover {
+        i {
+          color: $prime-color-4;
+        }
+      }
+    }
+
+    i {
+      font-size: 100px;
+      transition: 0.2s;
+    }
   }
 
   #team {
