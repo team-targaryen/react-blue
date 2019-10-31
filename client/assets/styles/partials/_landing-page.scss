@@ -14,23 +14,65 @@
     box-shadow: none;
     position: fixed;
 
+    .logo-frame {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50px;
+      height: 50px;
+      background: #fff;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .logo {
+      width: 38px;
+    }
+
     h1 {
-      margin: 0;
+      margin: 0 10px 0 0;
     }
 
     a {
       &:hover {
-        text-decoration: none;
+        cursor: pointer;
       }
     }
 
     button {
       color: #fff;
-      border: 1px solid #fff;
     }
 
     #top-nav {
       justify-content: space-between;
+    }
+
+    .top-nav-left {
+      display: flex;
+      align-items: center;
+
+      a {
+        padding: 0 10px;
+      }
+    }
+
+    // material ui overrides
+    span.MuiButton-label {
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 400;
+      text-transform: none;
+
+      &::after {
+        display: inline-block;
+        margin-left: 0.255em;
+        vertical-align: 0.255em;
+        content: '';
+        border-top: 0.3em solid;
+        border-right: 0.3em solid transparent;
+        border-bottom: 0;
+        border-left: 0.3em solid transparent;
+      }
     }
   }
 
@@ -152,7 +194,7 @@
     }
   }
 
-  #installation {
+  #usage {
     padding: 160px 0;
     background: $prime-color-5;
     position: relative;

@@ -6,13 +6,7 @@ const Features = () => {
     <section id='features'>
       <h2>Streamline Your Development Process</h2>
       <figure className='feature-item'>
-        <iframe
-          width='600'
-          height='315'
-          src='https://media.giphy.com/media/JpXEK9GC6Z9vk8lfDi/giphy.gif'
-          frameBorder='0'
-          allowFullScreen
-        ></iframe>
+        <img src='../images/feature-1.gif' alt='feature 1' />
         <Fade right>
           <figcaption className='feature-description'>
             <h3>Feature</h3>
@@ -37,13 +31,7 @@ const Features = () => {
             </p>
           </figcaption>
         </Fade>
-        <iframe
-          width='600'
-          height='315'
-          src='https://media.giphy.com/media/Y3vwiphEodr52wcMrB/giphy.gif'
-          frameBorder='0'
-          allowFullScreen
-        ></iframe>
+        <img src='../images/feature-2.gif' alt='feature 2' />
       </figure>
       <figure className='feature-item'>
         <img src='https://picsum.photos/600' />
