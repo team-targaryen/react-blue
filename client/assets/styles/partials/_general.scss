@@ -1,3 +1,13 @@
+// material ui overrides
+html {
+  overflow: auto !important;
+}
+
+body,
+header {
+  padding: 0 !important;
+}
+
 // variables
 $landing-page-font-size: 16px;
 $application-font-size: 12px;
@@ -32,4 +42,14 @@ ul {
 
 figure {
   margin: 0;
+}
+
+// material ui overrides
+a {
+  color: inherit;
+
+  &:hover {
+    color: inherit;
+    text-decoration: none;
+  }
 }

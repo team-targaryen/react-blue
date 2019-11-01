@@ -1,4 +1,4 @@
-let readmeMD = `sup, its Drew ^_________________^ I love Coffee 🤓😎👍👍
+let readmeMD = `Hey sup ^_________________^ I love Code and Coffee 🤓😎👍👍
 `;
 
 export default readmeMD;

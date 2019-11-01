@@ -10,6 +10,7 @@ import {
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import logo from '../assets/images/logo.png';
 import exportZipFront from '../templates-exports/frontEndFiles.js';
 import exportZipFull from '../templates-exports/fullStackFiles.js';
 
@@ -20,14 +21,15 @@ const mapStateToProps = store => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ 
-    undo, 
-    redo, 
-    changeDisplayHorizontalToVertical, 
-    resetEntireTree 
-  },
-  dispatch
-);
+  bindActionCreators(
+    {
+      undo,
+      redo,
+      changeDisplayHorizontalToVertical,
+      resetEntireTree
+    },
+    dispatch
+  );
 
 const TopNavContainer = ({
   data,
@@ -43,23 +45,34 @@ const TopNavContainer = ({
   if (history) {
     undoDisabled = () => {
       return history.prev ? false : true;
-    }
+    };
     redoDisabled = () => {
       return history.next ? false : true;
-    }
+    };
   }
   return (
     <Navbar collapseOnSelect expand='lg' variant='dark'>
-      <Navbar.Brand href='#home'>React Blue</Navbar.Brand>
+      <div className='logo-frame'>
+        <img className='logo' src={logo} alt='react blue logo' />
+      </div>
+      <Navbar.Brand href='/'>React Blue</Navbar.Brand>
       <Navbar.Toggle aria-controls='responsive-navbar-nav' />
       <Navbar.Collapse id='responsive-navbar-nav'>
         <Nav className='mr-auto'>
           <NavDropdown title='Edit' id='collasible-nav-dropdown'>
-            <NavDropdown.Item className='keyboard-shortcut' onClick={undo} disabled={undoDisabled()}>
+            <NavDropdown.Item
+              className='keyboard-shortcut'
+              onClick={undo}
+              disabled={undoDisabled()}
+            >
               <span>Undo</span>
               <span>Ctrl+Z</span>
             </NavDropdown.Item>
-            <NavDropdown.Item className='keyboard-shortcut' onClick={redo} disabled={redoDisabled()}>
+            <NavDropdown.Item
+              className='keyboard-shortcut'
+              onClick={redo}
+              disabled={redoDisabled()}
+            >
               <span>Redo</span>
               <span>Ctrl+Shift+Z</span>
             </NavDropdown.Item>
@@ -88,10 +101,15 @@ const TopNavContainer = ({
             </NavDropdown.Item>
           </NavDropdown>
           <NavDropdown title='Help' id='collasible-nav-dropdown'>
-            <NavDropdown.Item href='##'>About</NavDropdown.Item>
+            <NavDropdown.Item
+              href='https://github.com/team-targaryen/react-blue#readme'
+              target='_blank'
+            >
+              About
+            </NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item
-              href='https://github.com/team-targaryan/react-blue'
+              href='https://github.com/team-targaryen/react-blue'
               target='_blank'
             >
               GitHub
@@ -113,7 +131,7 @@ const TopNavContainer = ({
             </NavDropdown.Item>
             <NavDropdown.Item
               onClick={() => {
-                exportZipFull(data, nameAndCodeLinkedToComponentId)
+                exportZipFull(data, nameAndCodeLinkedToComponentId);
               }}
             >
               Export FullStack

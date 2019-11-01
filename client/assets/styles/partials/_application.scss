@@ -74,44 +74,4 @@
   input[type='checkbox'] {
     margin-right: 5px;
   }
-
-  // easter egg
-  .secret {
-    .particle {
-      height: 50px;
-      position: absolute;
-      width: 4px;
-    }
-
-    $particle: 1000;
-
-    @for $i from 1 through $particle {
-      $top: (random(50) + 50) * 1%;
-      $left: random(100) * 1%;
-      $delay: random(20) - 1s;
-      $background: rgb(random(255), random(255), random(255));
-
-      .particle:nth-of-type(#{$i}) {
-        animation-name: particle-#{$i};
-        animation-delay: $delay;
-        animation-duration: random(6) + 4s;
-        animation-iteration-count: infinite;
-        left: $left;
-        top: -$top;
-        background: $background;
-      }
-
-      @keyframes particle-#{$i} {
-        0% {
-          left: $left;
-          opacity: 1;
-          top: -$top;
-        }
-        100% {
-          opacity: 0;
-          top: $top + 40%;
-        }
-      }
-    }
-  }
 }

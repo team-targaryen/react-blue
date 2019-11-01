@@ -1,0 +1,52 @@
+.easter-egg {
+  $total: 144;
+  $time: 4;
+  $height: 500;
+  $percent: 0.69444%;
+  $dotSize: 0.9;
+
+  .c {
+    height: $height + px;
+    width: $percent;
+    margin-top: -$height + px;
+    animation: drop $time + s infinite ease-in;
+    position: absolute;
+    top: 0;
+    &:after {
+      content: '';
+      position: absolute;
+      width: $dotSize + vw;
+      height: $dotSize + vw;
+      border-radius: 50%;
+      left: 50%;
+      bottom: -($dotSize/2) + vw;
+      margin-left: -($dotSize/2) + vw;
+    }
+  }
+
+  @for $i from 1 through $total {
+    $hue: (300 / $total) * $i;
+    .c:nth-child(#{$i}) {
+      left: ($i - 1) * $percent;
+      background-image: linear-gradient(
+        to bottom,
+        transparent,
+        hsla($hue, 100%, 50%, 0.8)
+      );
+      animation-delay: random($total) * ($time/$total) * -1s;
+      &:after {
+        background: hsla($hue, 100%, 50%, 1);
+      }
+    }
+  }
+
+  @keyframes drop {
+    80% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate3d(0, 150vh, 0);
+      opacity: 0;
+    }
+  }
+}

@@ -1,34 +1,27 @@
 import React, { useState } from 'react';
-import darren from '../assets/images/darren.jpg';
-import kendall from '../assets/images/kendall.jpg';
-import randy from '../assets/images/randy.jpg';
-import krystal from '../assets/images/krystal.jpg';
+import ScrollAnimation from 'react-animate-on-scroll';
 
 const Team = () => {
   const [isCreatorProfiles] = useState([
     {
       name: 'Darren Zhu',
       github: 'https://github.com/Joodongri',
-      linkedin: 'https://www.linkedin.com/in/darrenDzhu',
-      src: darren
+      linkedin: 'https://www.linkedin.com/in/darrenDzhu'
     },
     {
       name: 'Kendall Lu',
       github: 'https://github.com/kendall-lu',
-      linkedin: 'https://www.linkedin.com/in/kendall-lu',
-      src: kendall
+      linkedin: 'https://www.linkedin.com/in/kendall-lu'
     },
     {
       name: 'Randy Reyes',
       github: 'https://github.com/rqreyes',
-      linkedin: 'https://www.linkedin.com/in/rqreyes',
-      src: randy
+      linkedin: 'https://www.linkedin.com/in/rqreyes'
     },
     {
       name: 'Krystal Chen',
       github: 'https://github.com/kcrystalchen',
-      linkedin: 'https://www.linkedin.com/in/kcrystalchen',
-      src: krystal
+      linkedin: 'https://www.linkedin.com/in/kcrystalchen'
     }
   ]);
   const creatorProfileArray = isCreatorProfiles.map(profile => {
@@ -54,12 +47,14 @@ const Profiles = ({ src, name, linkedin, github }) => {
   return (
     <React.Fragment>
       <div className='profile'>
-        <figure>
-          <div className='profile-frame'>
-            <img className='profile-photo' src={src} />
-          </div>
-          <figcaption>{name}</figcaption>
-        </figure>
+        <ScrollAnimation animateIn='flipInY'>
+          <figure>
+            <div className='profile-frame'>
+              <div className='profile-photo'></div>
+            </div>
+            <figcaption>{name}</figcaption>
+          </figure>
+        </ScrollAnimation>
         <div className='profile-links'>
           <a href={linkedin} target='_blank'>
             <i className='fab fa-linkedin'></i>
@@ -69,7 +64,7 @@ const Profiles = ({ src, name, linkedin, github }) => {
           </a>
         </div>
       </div>
-      <i class='fas fa-exchange-alt'></i>
+      <i className='fas fa-exchange-alt'></i>
     </React.Fragment>
   );
 };

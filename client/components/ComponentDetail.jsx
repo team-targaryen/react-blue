@@ -1,5 +1,5 @@
 /**
- * Current component display: 
+ * Current component display:
  *  name of component
  *  component or container(toggle button to change its attribute)
  *  delete current component (if this component is a parent component, show warning message)
@@ -38,44 +38,65 @@ const ComponentDetail = ({
             type='text'
             key={`initialName${initialName || currentComponent.name}`}
             defaultValue={initialName || currentComponent.name}
-            onBlur={(event)=>{
+            onBlur={event => {
               renameComponent(event);
               showSubTree(currentlyDisplayedSubTreeId);
               checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state);
             }}
             disabled={disabled()}
           />
-          <div className='is-container'>
-            <input
-              id='is-container-curr'
-              type='checkbox'
-              checked={currentComponent.isContainer}
-              onChange={(event)=>{
-                changeType(event)
-                showSubTree(currentlyDisplayedSubTreeId);
-              }}
-            />
-            <label id='container-label' htmlFor='is-container-curr'>
-              Container
-            </label>
+          <div className='component-options'>
+            <div className='is-container'>
+              <input
+                id='is-container-curr'
+                type='checkbox'
+                checked={currentComponent.isContainer}
+                onChange={event => {
+                  changeType(event);
+                  showSubTree(currentlyDisplayedSubTreeId);
+                }}
+              />
+              <label id='container-label' htmlFor='is-container-curr'>
+                Container
+              </label>
+            </div>
+            <div className='is-subtree'>
+              <input
+                id='add-subtree'
+                type='checkbox'
+                checked={
+                  displaySubTreeDropDown[currentComponent.componentId]
+                    ? true
+                    : false
+                }
+                onChange={event => {
+                  addOrDeleteNewSubTree(
+                    event,
+                    currentComponent.componentId,
+                    currentComponent.name
+                  );
+                  checkID_ClearAndSetTimeout(
+                    setTimeoutId,
+                    recentTimeoutId,
+                    state
+                  );
+                }}
+                disabled={disabled()}
+              />
+              <label id='subtree-label' htmlFor='add-subtree'>
+                Subtree
+              </label>
+            </div>
           </div>
-          <button onClick={(event) => {
-            deleteComponent(event);
-            showSubTree(currentlyDisplayedSubTreeId);
-            checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state)
-          }}>
+          <button
+            onClick={event => {
+              deleteComponent(event);
+              showSubTree(currentlyDisplayedSubTreeId);
+              checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state);
+            }}
+          >
             <i className='far fa-minus-square'></i>
           </button>
-          <input 
-          id='add-sub-tree' 
-          type='checkbox' 
-          checked={displaySubTreeDropDown[currentComponent.componentId] ? true : false} 
-          onChange={(event) => {
-              addOrDeleteNewSubTree(event, currentComponent.componentId, currentComponent.name);
-              checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state);
-          }}
-          disabled={disabled()} />
-          <label>Subtree</label>
         </div>
         <div id='component-form-bottom'>
           <TemplateDropdown

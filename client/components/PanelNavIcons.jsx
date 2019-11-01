@@ -6,14 +6,14 @@ import { Link } from 'react-router-dom';
 const PanelNavIcons = () => {
   return (
     <nav id='panel-nav-icons'>
-      <Link to='/'>
+      <Link to='/app'>
         <i className='fas fa-sitemap'></i>
       </Link>
       <Link to='/templates'>
         <i className='fa fa-file-code'></i>
       </Link>
-      <Link to='/subTree'>
-        <i className='fas fa-search-plus'></i>
+      <Link to='/subtree'>
+        <i className='fab fa-sourcetree'></i>
       </Link>
     </nav>
   );

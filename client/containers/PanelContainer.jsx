@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { MemoryRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import {
   renameChild,
   changeChildType,
@@ -80,10 +80,10 @@ const getCircularReplacer = () => {
  * .getObj : JSON.parse
  */
 
-Storage.prototype.setObj = function (key, obj) {
+Storage.prototype.setObj = function(key, obj) {
   return this.setItem(key, JSON.stringify(obj, getCircularReplacer()));
 };
-Storage.prototype.getObj = function (key) {
+Storage.prototype.getObj = function(key) {
   return JSON.parse(this.getItem(key));
 };
 /**
@@ -149,11 +149,11 @@ const SideNavContainer = ({
       key={`templateDropdown${currentComponent.componentId}`}
       id='panel-container'
     >
-      <MemoryRouter>
+      <BrowserRouter>
         <PanelNavIcons />
         <div className='divider-panel'></div>
         <Switch>
-          <Route path='/' exact>
+          <Route path='/app'>
             <div id='component-detail'>
               <ComponentDetail
                 renameComponent={renameComponent}
@@ -210,7 +210,7 @@ const SideNavContainer = ({
           <Route path='/templates'>
             <TemplatingArea useTemplates={useTemplates} />
           </Route>
-          <Route path='/subTree'>
+          <Route path='/subtree'>
             <SubTree
               displaySubTreeDropDown={displaySubTreeDropDown}
               setTimeoutId={setTimeoutId}
@@ -222,7 +222,7 @@ const SideNavContainer = ({
             />
           </Route>
         </Switch>
-      </MemoryRouter>
+      </BrowserRouter>
     </div>
   );
 };
