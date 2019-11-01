@@ -63,9 +63,15 @@ const LandingPage = () => {
               <Link to='/app'>
                 <MenuItem onClick={handleClose}>Web App</MenuItem>
               </Link>
-              <MenuItem onClick={handleClose}>Download Mac</MenuItem>
-              <MenuItem onClick={handleClose}>Download Linux</MenuItem>
-              <MenuItem onClick={handleClose}>Download Windows</MenuItem>
+              <a href='https://drive.google.com/uc?export=download&id=1hvBhJnynQt1tSKbOnAQ8Ppns0Tsq4QhN'>
+                <MenuItem onClick={handleClose}>Download Mac</MenuItem>
+              </a>
+              <a href='https://drive.google.com/uc?export=download&id=1rLpqbDcdQqxRse04cjwbQBwTtlKNmZ9t'>
+                <MenuItem onClick={handleClose}>Download Linux</MenuItem>
+              </a>
+              <a href='https://drive.google.com/uc?export=download&id=1_IILfbUwRvX1127z9tPL-BfDltLgJemg'>
+                <MenuItem onClick={handleClose}>Download Windows</MenuItem>
+              </a>
             </Menu>
           </div>
         </Toolbar>

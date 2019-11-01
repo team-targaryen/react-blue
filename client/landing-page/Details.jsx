@@ -7,10 +7,7 @@ const Details = () => {
       <h2>React Blue is an Open-Source Project</h2>
       <p>Feel free to contribute</p>
       <ScrollAnimation animateIn='fadeInUp'>
-        <a
-          href='https://github.com/team-targaryen/react-blue/tree/master'
-          target='_blank'
-        >
+        <a href='https://github.com/team-targaryen/react-blue' target='_blank'>
           <i className='fab fa-github'></i>
         </a>
       </ScrollAnimation>
