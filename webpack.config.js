@@ -10,7 +10,8 @@ module.exports = {
   mode: process.env.NODE_ENV,
   devServer: {
     contentBase: path.join(__dirname, "./client/assets"),
-    publicPath: "/build/"
+    publicPath: "/build/",
+    historyApiFallback: true
   },
   module: {
     rules: [
