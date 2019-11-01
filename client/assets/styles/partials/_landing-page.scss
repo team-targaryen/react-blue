@@ -145,15 +145,19 @@
     position: relative;
 
     h2 {
-      margin: 0;
+      margin-bottom: 40px;
     }
 
-    .feature-item {
+    figure.feature-item {
       display: flex;
       justify-content: center;
       align-items: center;
       max-width: 1200px;
-      margin: 80px auto;
+      margin: 0 auto 80px;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
 
       > div {
         width: 50%;
@@ -169,6 +173,16 @@
     figcaption {
       padding: 0 40px;
     }
+
+    ul {
+      list-style-type: disc;
+    }
+
+    i {
+      font-size: 100px;
+      color: $prime-color-1;
+      margin: 0 20px;
+    }
   }
 
   #action {
@@ -181,13 +195,15 @@
     margin: 160px auto;
     position: relative;
 
-    h2 {
+    h2,
+    h3 {
       margin-bottom: 40px;
     }
 
     #tool-group {
       display: flex;
       justify-content: center;
+      margin-bottom: 40px;
     }
 
     i {
@@ -232,6 +248,7 @@
 
     i {
       font-size: 100px;
+      color: $prime-color-1;
       transition: 0.2s;
     }
   }

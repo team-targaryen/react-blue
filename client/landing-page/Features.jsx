@@ -25,6 +25,37 @@ const Features = () => {
       <figure className='feature-item'>
         <ScrollAnimation animateIn='fadeInLeft'>
           <figcaption className='feature-description'>
+            <h3>Why Use Us?</h3>
+            <ul>
+              <li>
+                Create your React file structure, without a single line of code
+              </li>
+              <li>
+                Need to create an application at scale? Perfect, our
+                visualization tool is optimized for it
+              </li>
+              <li>
+                Choose between React Hooks or React Class component templates,
+                or make your own
+              </li>
+              <li>
+                We get it, coffee is important - come back later, we’ve cached
+                your work
+              </li>
+            </ul>
+          </figcaption>
+        </ScrollAnimation>
+        <div className='image-frame'>
+          <img src='../images/feature-2.gif' alt='feature 2' />
+        </div>
+      </figure>
+      <figure className='feature-item'>
+        <div className='image-frame'>
+          <i class='fas fa-keyboard'></i>
+          <i class='fas fa-sitemap'></i>
+        </div>
+        <ScrollAnimation animateIn='fadeInRight'>
+          <figcaption className='feature-description'>
             <h3>Shortcuts and Views</h3>
             <p>
               Keyboard shortcuts right at your fingertips to perform undo
@@ -33,9 +64,6 @@ const Features = () => {
             </p>
           </figcaption>
         </ScrollAnimation>
-        <div className='image-frame'>
-          <img src='../images/feature-2.gif' alt='feature 2' />
-        </div>
       </figure>
     </section>
   );
