@@ -6,25 +6,23 @@ import {
   InitialClassSyntax
 } from '../templates-code/templates';
 import CreateCodeEditor from './CreateCodeEditor.jsx';
-
-Storage.prototype.setObj = function(key, obj) {
-  return this.setItem(key, JSON.stringify(obj));
-};
-Storage.prototype.getObj = function(key) {
-  return JSON.parse(this.getItem(key));
-};
-
+/**
+ * Constructor fn which instantiates a new instance of either a hook/class syntax (imported from templates-code/templates) 
+ */
 function CustomTemplate(name, isHook) {
   (this.name = name
     ? name
     : isHook
-    ? 'DEFAULT_HOOK_TEMPLATE'
-    : 'DEFAULT_CLASS_TEMPLATE'),
+      ? 'DEFAULT_HOOK_TEMPLATE'
+      : 'DEFAULT_CLASS_TEMPLATE'),
     (this.code = isHook
       ? new InitialHookSyntax(name).code
       : new InitialClassSyntax(name).code);
 }
 
+/**
+ * base templates for the component to utilize as initial Local state
+ */
 const initialHookSyntax = new InitialHookSyntax();
 const initialClassSyntax = new InitialClassSyntax();
 
@@ -33,14 +31,13 @@ const TemplatingArea = ({ useTemplates }) => {
     initialClassSyntax,
     initialHookSyntax
   ]);
-
-  // const [showTemplates, setShowTemplates] = useState(false);
-
   useEffect(() => {
     let data = getItemFromLocalStorage();
     setItemForLocalStorage(data);
   }, []);
-
+  /**
+   * Sets 'storage' prop for local storage, sends all templates to redux store to allow components to use them
+   */
   const setItemForLocalStorage = data => {
     data =
       data !== null && data.length > 0
@@ -49,7 +46,9 @@ const TemplatingArea = ({ useTemplates }) => {
     localStorage.setObj('storage', data);
     useTemplates(data);
   };
-
+  /**
+   * grabbing items from local storage and setting local state as well as sending to redux store
+   */
   const getItemFromLocalStorage = reset => {
     const resetData = [initialClassSyntax, initialHookSyntax];
     if (reset !== 'reset') {
@@ -68,7 +67,9 @@ const TemplatingArea = ({ useTemplates }) => {
       useTemplates(resetData);
     }
   };
-
+  /**
+   * deleting object from local state array, and updating local storage by invoking setIsInitialSyntax fn(), setting local state, and sending to redux store
+   */
   const deleteTemplate = index => {
     let cloneOfIsInitialSyntax = clone(isInitialSyntax);
     cloneOfIsInitialSyntax.splice(index, 1);
@@ -76,7 +77,9 @@ const TemplatingArea = ({ useTemplates }) => {
     setItemForLocalStorage(cloneOfIsInitialSyntax);
     useTemplates(cloneOfIsInitialSyntax);
   };
-
+  /**
+   * Any changes to template code will update local state
+   */
   const updateCode = (newCode, index, name) => {
     const cloneOfInitialSyntax = clone(isInitialSyntax);
     for (let i = 0; i < cloneOfInitialSyntax.length; i += 1) {
@@ -141,7 +144,7 @@ const TemplatingArea = ({ useTemplates }) => {
         {isInitialSyntax.map((syntaxObject, index) => {
           return (
             <CreateCodeEditor
-              key={`createCodeEditor-${index}`}
+              key={`createCodeEditor${index}`}
               syntaxObject={syntaxObject}
               index={index}
               deleteTemplate={deleteTemplate}

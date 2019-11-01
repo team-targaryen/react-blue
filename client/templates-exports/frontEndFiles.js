@@ -1,6 +1,7 @@
 import JSZip from 'jszip';
 import indexHTML from './frontEndTemplates/indexHTML.js';
 import indexJS from './frontEndTemplates/indexJS.js';
+import { saveAs } from 'file-saver';
 
 function connectFiles(currentComponent, code, fileObject) {
     let childComponents, imports;
@@ -57,14 +58,14 @@ export default (data, nameAndCodeLinkedToComponentId) => {
     recursivelyCreateTemplates(data, nameAndCodeLinkedToComponentId, fileCounter);
 
 
-    // creating zip file/ folder
+    // creating zip file/folder
     const containerObject = fileCounter.container;
     const componentObject = fileCounter.component;
     for (let container in containerObject) {
         zip.file(`containers/${container}.jsx`, containerObject[container]);
     }
     for (let component in componentObject) {
-        zip.file(`component/${component}.jsx`, componentObject[component]);
+        zip.file(`components/${component}.jsx`, componentObject[component]);
     }
     zip.file('assets/index.html', indexHTML);
     zip.file('assets/styles/styles.css', '');

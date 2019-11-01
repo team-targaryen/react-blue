@@ -1,0 +1,55 @@
+// material ui overrides
+html {
+  overflow: auto !important;
+}
+
+body,
+header {
+  padding: 0 !important;
+}
+
+// variables
+$landing-page-font-size: 16px;
+$application-font-size: 12px;
+
+$prime-color-1: #045590;
+$prime-color-2: #137ac1;
+$prime-color-3: #36a2c2;
+$prime-color-4: #71b8c2;
+$prime-color-5: #f8f8ff;
+
+// general
+html,
+body,
+#app {
+  height: 100%;
+}
+
+body {
+  font-size: $landing-page-font-size;
+  background: $prime-color-5;
+}
+
+label {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+figure {
+  margin: 0;
+}
+
+// material ui overrides
+a {
+  color: inherit;
+
+  &:hover {
+    color: inherit;
+    text-decoration: none;
+  }
+}

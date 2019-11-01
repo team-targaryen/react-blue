@@ -33,6 +33,14 @@ export const ZOOM_BY_CHANGING_X_AND_Y = 'ZOOM_BY_CHANGING_X_AND_Y';
 //checking if the entire tree exists inside of local storage and updating it to the state
 export const UPDATE_STATE_WITH_LOCAL_STORAGE =
   'UPDATE_STATE_WITH_LOCAL_STORAGE';
-//deleting entire tree
 
+//deleting entire tree
 export const RESET_ENTIRE_TREE = 'RESET_ENTIRE_TREE';
+
+// setTimeout functionality of Local Storage
+export const SET_TIMEOUT_ID = 'SET_TIMEOUT_ID';
+
+//display sub tree
+export const SHOW_SUBTREE = 'SHOW_SUBTREE';
+export const ADD_OR_DELETE_NEW_SUB_TREE = 'ADD_OR_DELETE_NEW_SUB_TREE';
+export const DELETE_SUBTREE_DROPDOWN_ITEM = 'DELETE_SUBTREE_DROPDOWN_ITEM'

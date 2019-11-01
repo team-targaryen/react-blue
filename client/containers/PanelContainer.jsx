@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { MemoryRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import {
   renameChild,
   changeChildType,
@@ -13,21 +13,29 @@ import {
   setCurrentComponent,
   showFileTree,
   setTemplatesForComponent,
-  useTemplates
+  useTemplates,
+  setTimeoutId,
+  showSubTree,
+  addOrDeleteNewSubTree,
+  deleteSubTreeDropdownItem
 } from '../actions/actions';
 import ComponentDetail from '../components/ComponentDetail.jsx';
 import TemplatingArea from '../components/TemplatingArea.jsx';
 import FileTree from '../components/FileTree.jsx';
 import PanelNavIcons from '../components/PanelNavIcons.jsx';
 import ChildrenList from '../components/ChildrenList.jsx';
-
+import SubTree from '../components/SubTree.jsx';
 const mapStateToProps = store => ({
   state: store.main,
   data: store.main.data,
   currentComponent: store.main.currentComponent,
   toggleFileTree: store.main.toggleFileTree,
   templates: store.main.templates,
-  nameAndCodeLinkedToComponentId: store.main.nameAndCodeLinkedToComponentId
+  nameAndCodeLinkedToComponentId: store.main.nameAndCodeLinkedToComponentId,
+  recentTimeoutId: store.main.recentTimeoutId,
+  displaySubTreeDropDown: store.main.displaySubTreeDropDown,
+  currentlyDisplayedSubTreeId: store.main.currentlyDisplayedSubTreeId,
+  currentSubTreeDisplayToUser: store.main.currentSubTreeDisplayToUser
 });
 
 const mapDispatchToProps = dispatch =>
@@ -43,13 +51,74 @@ const mapDispatchToProps = dispatch =>
       setCurrentComponent,
       showFileTree,
       setTemplatesForComponent,
-      useTemplates
+      useTemplates,
+      setTimeoutId,
+      showSubTree,
+      addOrDeleteNewSubTree,
+      deleteSubTreeDropdownItem
     },
     dispatch
   );
+/**
+ * getting rid of circular references inside of nodes (parent has a child and child has the same parent)
+ */
 
+const getCircularReplacer = () => {
+  const seen = new WeakSet();
+  return (key, value) => {
+    if (value instanceof Object && value !== null) {
+      if (seen.has(value)) {
+        return;
+      }
+      seen.add(value);
+    }
+    return value;
+  };
+};
+/**
+ * .setObj : JSON.stringify && getting rid of circular references
+ * .getObj : JSON.parse
+ */
+
+Storage.prototype.setObj = function(key, obj) {
+  return this.setItem(key, JSON.stringify(obj, getCircularReplacer()));
+};
+Storage.prototype.getObj = function(key) {
+  return JSON.parse(this.getItem(key));
+};
+/**
+ * Delayed sending to local storage
+ * any triggers of major updates(triggered event listeners) to state will reset the timer from state, and create a new timer (defaults to 10 seconds)
+ */
+
+function checkID_ClearAndSetTimeout(setTimeoutId, recentTimeoutId, state) {
+  function setTimeoutAndSendToReducer(setTimeoutId, state) {
+    const newSetTimeoutID = setTimeout(() => {
+      localStorage.setObj(
+        'nameAndCodeLinkedToComponentId',
+        state.nameAndCodeLinkedToComponentId
+      );
+      localStorage.setObj('data', state.data);
+      localStorage.setObj('currentComponent', state.currentComponent);
+      localStorage.setObj(
+        'displaySubTreeDropDown',
+        state.displaySubTreeDropDown
+      );
+      state.history.next = null;
+      state.history.prev = null;
+      localStorage.setObj('history', state.history);
+      localStorage.setObj('lastId', state.lastId);
+    }, 10000);
+    setTimeoutId(newSetTimeoutID);
+  }
+  if (!recentTimeoutId) {
+    return setTimeoutAndSendToReducer(setTimeoutId, state);
+  }
+  clearTimeout(recentTimeoutId);
+  setTimeoutAndSendToReducer(setTimeoutId, state);
+  return;
+}
 const SideNavContainer = ({
-  data,
   currentComponent,
   templates,
   renameChild,
@@ -64,18 +133,27 @@ const SideNavContainer = ({
   setCurrentComponent,
   setTemplatesForComponent,
   useTemplates,
-  nameAndCodeLinkedToComponentId
+  nameAndCodeLinkedToComponentId,
+  recentTimeoutId,
+  setTimeoutId,
+  state,
+  displaySubTreeDropDown,
+  showSubTree,
+  currentlyDisplayedSubTreeId,
+  currentSubTreeDisplayToUser,
+  addOrDeleteNewSubTree,
+  deleteSubTreeDropdownItem
 }) => {
   return (
     <div
-      key={`templateDropdown-${currentComponent.componentId}`}
+      key={`templateDropdown${currentComponent.componentId}`}
       id='panel-container'
     >
-      <MemoryRouter>
+      <BrowserRouter>
         <PanelNavIcons />
         <div className='divider-panel'></div>
         <Switch>
-          <Route path='/' exact>
+          <Route path='/app'>
             <div id='component-detail'>
               <ComponentDetail
                 renameComponent={renameComponent}
@@ -85,6 +163,14 @@ const SideNavContainer = ({
                 templates={templates}
                 setTemplatesForComponent={setTemplatesForComponent}
                 nameAndCodeLinkedToComponentId={nameAndCodeLinkedToComponentId}
+                state={state}
+                recentTimeoutId={recentTimeoutId}
+                setTimeoutId={setTimeoutId}
+                checkID_ClearAndSetTimeout={checkID_ClearAndSetTimeout}
+                displaySubTreeDropDown={displaySubTreeDropDown}
+                showSubTree={showSubTree}
+                currentlyDisplayedSubTreeId={currentlyDisplayedSubTreeId}
+                addOrDeleteNewSubTree={addOrDeleteNewSubTree}
               />
               <ChildrenList
                 addChild={addChild}
@@ -94,7 +180,14 @@ const SideNavContainer = ({
                 deleteChild={deleteChild}
                 templates={templates}
                 setTemplatesForComponent={setTemplatesForComponent}
+                state={state}
                 nameAndCodeLinkedToComponentId={nameAndCodeLinkedToComponentId}
+                recentTimeoutId={recentTimeoutId}
+                setTimeoutId={setTimeoutId}
+                checkID_ClearAndSetTimeout={checkID_ClearAndSetTimeout}
+                displaySubTreeDropDown={displaySubTreeDropDown}
+                showSubTree={showSubTree}
+                currentlyDisplayedSubTreeId={currentlyDisplayedSubTreeId}
               />
               <div className='divider-panel'></div>
               <button
@@ -106,7 +199,8 @@ const SideNavContainer = ({
                 Toggle File Tree
               </button>
               <FileTree
-                data={data}
+                currentComponent={currentComponent}
+                currentSubTreeDisplayToUser={currentSubTreeDisplayToUser}
                 setCurrentComponent={setCurrentComponent}
                 toggleFileTree={toggleFileTree}
               />
@@ -116,13 +210,26 @@ const SideNavContainer = ({
           <Route path='/templates'>
             <TemplatingArea useTemplates={useTemplates} />
           </Route>
+          <Route path='/subtree'>
+            <SubTree
+              displaySubTreeDropDown={displaySubTreeDropDown}
+              setTimeoutId={setTimeoutId}
+              recentTimeoutId={recentTimeoutId}
+              state={state}
+              checkID_ClearAndSetTimeout={checkID_ClearAndSetTimeout}
+              showSubTree={showSubTree}
+              deleteSubTreeDropdownItem={deleteSubTreeDropdownItem}
+            />
+          </Route>
         </Switch>
-      </MemoryRouter>
+      </BrowserRouter>
     </div>
   );
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SideNavContainer);
+export default React.memo(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(SideNavContainer)
+);
