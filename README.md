@@ -52,7 +52,7 @@ Templates _inside of left panel click, 2nd Icon_
 
 When you are finished creating your file structure generate a zip package of your pre-configured codebase by clicking the right ‘Export’ button.
 
-## Shorcuts and View
+## Shortcuts and Views
 
 Keyboard shortcuts right at your fingertips to perform undo (ctrl+z) and redo (ctrl+shift+z) actions and toggle between horizontal and vertical views of the component tree.
 
