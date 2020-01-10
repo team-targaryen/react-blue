@@ -9,7 +9,7 @@ React Blue is in beta. The founding team is actively working on new features to 
 React Blue is a client-side application available via the browser and a downloadable GUI.
 
 **Browser**<br />
-https://reactblue.io/app
+http://reactblue.io/app
 
 **Desktop GUI (alpha)**<br />
 Download (Mac, Windows, Linux)
